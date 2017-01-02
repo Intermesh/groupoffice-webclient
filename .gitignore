@@ -8,3 +8,4 @@ build/*
 /app/build/
 /app/config.js
 /app/resources/custom/*
+app/modules/*

@@ -37,7 +37,7 @@ GO.module('GO.Modules.GroupOffice.Modules').
 
 
 
-						$scope.permissionStore = new Store('modules/groupoffice/' + encodeURIComponent($stateParams.moduleName) + '/permissions');
+						$scope.permissionStore = new Store('modules/' + encodeURIComponent($stateParams.moduleName) + '/permissions');
 						
 
 						var groupStore = new Group().getStore({returnProperties: "id,name", limit: 10});

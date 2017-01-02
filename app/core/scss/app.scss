@@ -5,7 +5,7 @@ $font-size: 7.5px;
 $baseline-grid:            6px;
 $toolbar-tools-height: 48px;
 
-@import "../../../bower_components/angular-material/modules/groupoffice/scss/angular-material.scss"; // remove font-size in rem function
+@import "../../../bower_components/angular-material/modules/scss/angular-material.scss"; // remove font-size in rem function
 
 @import "colors";
 @import "config";
@@ -30,7 +30,6 @@ $toolbar-tools-height: 48px;
 @import "../directives/**/*.scss";
 @import "../components/**/*.scss";
 @import "../../scss/*.scss";
-@import "../../modules/groupoffice/**/*.scss";
-@import "../../ux/**/*.scss";
+@import "../../modules/**/*.scss";
 
 

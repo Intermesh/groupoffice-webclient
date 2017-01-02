@@ -1,0 +1,184 @@
+
+	
+
+
+<div class="imap-composer" layout="column" class="messages.message" flow-init="flowInit"
+     flow-files-submitted="$flow.upload()"
+     flow-file-success="uploadSuccess($file, $message)"
+		 flow-drop>
+	
+
+	<form go-submit="send()" style="height:100%" layout="column" go-server-errors="model.validationErrors" novalidate>
+
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button accesskey="c" type="button" class="md-icon-button" ng-click="cancel()">
+					<md-tooltip>{{::"Close"| goT}} (alt+c)</md-tooltip>
+					<md-icon>close</md-icon>
+				</md-button>
+
+				<span flex>
+					
+				
+				<md-select ng-model="accountId" placeholder="Select an account">
+					<md-option ng-value="a.id" ng-repeat="a in accountStore.items">{{a.name}}</md-option>
+				</md-select>
+					
+				</span>
+
+				<md-button accesskey="s" type="button" class="md-icon-button" flow-btn>
+					<md-tooltip>{{::"Attach file"| goT}} (Alt+a)</md-tooltip>
+					<md-icon>attachment</md-icon>
+				</md-button>
+
+				<md-button accesskey="s" type="submit" class="md-icon-button">
+					<md-tooltip>{{::"Send"| goT}} (Alt+s)</md-tooltip>
+					<md-icon>send</md-icon>
+				</md-button>
+
+
+				<md-menu md-position-mode="target-right target">
+					<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon md-menu-origin>more_vert</md-icon>
+					</md-button>
+					<md-menu-content>
+						<md-menu-item>
+							<!-- md-checkbox in menu doesn;t work in firefox. So we do this ngClick action -->
+							<md-button ng-click="settings.showCc = !settings.showCc;$event.stopPropagation();">
+								<md-checkbox ng-model="settings.showCc">Cc</md-checkbox>													 
+							</md-button>
+						</md-menu-item>
+
+						<md-menu-item>
+							<!-- md-checkbox in menu doesn;t work in firefox. So we do this ngClick action -->
+							<md-button ng-click="settings.showBcc = !settings.showBcc;$event.stopPropagation();">
+								<md-checkbox ng-model="settings.showBcc">Bcc</md-checkbox>													 
+							</md-button>
+						</md-menu-item>
+
+						<md-divider></md-divider>
+
+						<md-radio-group ng-model="settings.signatureIndex">
+							
+							<md-menu-item>
+								<md-button ng-click="settings.signatureIndex=null;$event.stopPropagation();">
+									<md-radio-button ng-value="null"> {{"None" | goT}}</md-radio-button>													 
+								</md-button>
+							</md-menu-item>
+							
+							<md-menu-item ng-repeat="signature in account.signatures">
+								<md-button ng-click="settings.signatureIndex=$index;$event.stopPropagation();">
+									<md-radio-button value="{{$index}}">{{::signature.name}}</md-radio-button>													 
+								</md-button>
+							</md-menu-item>
+						</md-radio-group>
+						<!--						<md-menu-item>
+													<md-button ng-click="archiveIncoming()">{{::"Archive all incoming"| goT}}</md-button>
+												</md-menu-item>-->
+
+					</md-menu-content>
+				</md-menu>
+			</div>
+		</md-toolbar>
+
+		
+		<md-content flex  class="md-padding" layout="column">
+			
+			
+			
+		
+
+			<md-chips go-autofocus="GO.isEmpty(model.inReplyToId)" ng-model="model.to" md-autocomplete-snap md-require-match="false" md-on-add='addRecipient("to", $chip, $index)'>
+				<md-autocomplete
+					md-delay="500"
+					md-selected-item="selectedItem"
+					md-search-text="searchText"	
+					md-items="item in getRecipients(searchText)"
+					md-item-text="item.full"
+					placeholder="To">
+					
+					<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.full}}</span>
+					
+				</md-autocomplete>
+				<md-chip-template>
+					<md-tooltip>
+						{{$chip.address}}
+					</md-tooltip>
+					{{$chip.personal}}
+				</md-chip-template>
+			</md-chips>
+
+
+			<md-chips ng-if="settings.showCc" ng-model="cc" md-autocomplete-snap md-require-match="false" md-on-add='addRecipient("cc", $chip, $index)'>
+				<md-autocomplete					
+					md-delay="500"
+					md-selected-item="selectedItem"
+					md-search-text="searchText"
+					md-items="item in getRecipients(searchText)"
+					md-item-text="item.full"
+					placeholder="Cc">
+					<md-item-template>
+						<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.full}}</span>
+					</md-item-template>
+				</md-autocomplete>
+				<md-chip-template>
+					<md-tooltip>
+						{{$chip.address}}
+					</md-tooltip>
+					{{$chip.personal}}
+				</md-chip-template>
+			</md-chips>
+
+			<md-chips ng-if="settings.showBcc" ng-model="bcc" md-autocomplete-snap md-require-match="false" md-on-add='addRecipient("bcc", $chip, $index)'>
+				<md-autocomplete
+					md-delay="500"
+					md-selected-item="selectedItem"
+					md-search-text="searchText"
+					md-items="item in getRecipients(searchText)"
+					md-item-text="item.full"
+					placeholder="Bcc">
+					<md-item-template>
+						<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.full}}</span>
+					</md-item-template>
+				</md-autocomplete>
+				<md-chip-template>
+					<md-tooltip>
+						{{$chip.address}}
+					</md-tooltip>
+					{{$chip.personal}}
+				</md-chip-template>
+			</md-chips>
+
+
+			<md-input-container class="subject">
+				<label for="subject">{{::"Subject" | goT}}</label>
+				<input id="subject" name="subject" ng-model="model.subject" required  />
+			</md-input-container>
+
+			<div class="attachments">
+				<div ng-repeat="attachment in model.attachments" class="attachment" ng-if="!attachment.src && !attachment.contentId" layout="row"> 										
+					<md-icon>attachment</md-icon>
+					<strong flex>{{attachment.name}}</strong> 
+					<md-icon ng-click="removeAttachment($index)" style="cursor:pointer">delete</md-icon>
+				</div>
+
+				<div ng-repeat="file in $flow.files" class="attachment" ng-if="file.isUploading()"> 					
+					<md-icon>attachment</md-icon>
+					<strong>{{file.name}}</strong>
+					<md-icon ng-click="file.cancel()" style="cursor:pointer">delete</md-icon>
+					<md-progress-linear md-mode="determinate" ng-value="file.progress()*100"></md-progress-linear>			
+				</div>
+			</div>
+			
+			<div flex go-wysiwyg ng-model="model.body" on-image-paste="onImagePaste(blob, editor)" go-autofocus="!GO.isEmpty(model.inReplyToId)"></div>
+			
+		
+		</md-content>
+	</form>
+
+
+</div>
+
+
+
+

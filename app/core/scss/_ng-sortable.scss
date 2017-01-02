@@ -1,0 +1,50 @@
+/*.sortable-item, .sortable-placeholder {*/
+
+.as-sortable-item, .as-sortable-placeholder {
+	position: relative;
+}
+
+.as-sortable-placeholder {
+	display: block;
+	min-height: 20px;
+	margin: 0;//1px 2px 5px 1px;
+	border-radius: 10px;
+	border: 1px dashed darkgrey;
+	box-sizing: border-box;
+	background-color: #dbdbdb;
+}
+/*.sortable-item {
+	border: solid 1px darkgrey;
+	background-color: #ffffff;
+}*/
+/*.as-sortable-item-handle {
+	cursor: move;
+	border-left: 3px dotted grey;
+	border-right:3px dotted grey; 
+	width:8px;
+	display:block;
+	position:absolute; 
+	left:4px; 
+	top:7px;
+	height:31px; //was 30 on ubuntu but 31 needed on mac + firefox
+}*/
+
+
+.as-sortable-drag {
+	position: absolute;
+	pointer-events: none;
+	opacity: .8;
+	z-index: 9999;
+}
+.as-sortable-hidden {
+	display: none !important;
+}
+
+.as-sortable-un-selectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;		
+    user-select: none;
+}

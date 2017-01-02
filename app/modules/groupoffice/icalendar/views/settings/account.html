@@ -1,0 +1,42 @@
+<div class="col u-1">
+	<form name="accountForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+
+
+		<menu type="toolbar">
+			<li>
+				<a class="btn" ng-click="close()">
+					<i class="back"></i>
+				</a>
+			</li>
+			<li>
+				<button type="submit"><i class="check"></i></button>
+			</li>
+		</menu>		
+
+
+		<div class="panel pad">
+
+
+			<div class="row">
+				<label for="name">{{"Name"| goT}}</label>
+
+				<input type="text" id="name" name="name" ng-model="account.name" required go-autofocus />
+				<go-show-error for="hostname" go-data-model="account"></go-show-error>
+
+			</div>
+
+			<div class="row">
+				<label for="url">{{"URL"| goT}}</label>
+
+				<input type="text" id="url" name="hostname" ng-model="account.url" required />
+				<go-show-error for="url" go-data-model="account"></go-show-error>
+
+			</div>
+
+
+
+		</div>
+
+	</form> 
+
+</div>

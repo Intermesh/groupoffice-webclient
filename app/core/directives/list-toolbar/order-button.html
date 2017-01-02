@@ -1,0 +1,29 @@
+<md-menu md-position-mode="target-right target">
+	<md-button aria-label="{{::'Sort'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+		<md-icon md-menu-origin>sort</md-icon>
+		<md-tooltip>
+			{{"Sort" | goT}}
+		</md-tooltip>
+	</md-button>
+	<md-menu-content>
+		<md-menu-item ng-repeat='(colId,colName) in columns'>
+			<md-button ng-click="store.$loadParams.orderColumn=colId;store.load()">
+				<md-icon ng-style="{opacity : (store.$loadParams.orderColumn==colId)?'1':'0'}">check</md-icon>
+				{{::colName| goT}}
+			</md-button>
+		</md-menu-item>
+		<md-divider></md-divider>
+		<md-menu-item>
+			<md-button ng-click="store.$loadParams.orderDirection='ASC';store.load()">
+				<md-icon ng-style="{opacity : (store.$loadParams.orderDirection!='ASC')?'0':'1'}">check</md-icon>
+				{{"Ascending"| goT}}
+			</md-button>
+		</md-menu-item>
+		<md-menu-item>
+			<md-button ng-click="store.$loadParams.orderDirection='DESC';store.load()">
+				<md-icon ng-style="{opacity : (store.$loadParams.orderDirection!='DESC')?'0':'1'}">check</md-icon>
+				{{"Descending"| goT}}
+			</md-button>
+		</md-menu-item>
+	</md-menu-content>
+</md-menu>

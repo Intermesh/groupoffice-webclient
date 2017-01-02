@@ -1,0 +1,66 @@
+aside{
+	
+	
+	
+	
+	@media(max-width: $screen-md-max) {
+		&.active {
+
+			.backdrop {
+				display:block;
+				position:absolute;				
+				top:0;
+				bottom:0;
+				right:0;
+				left:0;
+				z-index:100000;
+				background-color:lightgray;
+				opacity: .7;
+			}
+
+			.content {
+				transform: translateX(0);
+			}
+			
+			display:block;
+			
+		}		
+		position:absolute;
+		top:0;
+		bottom:0;
+		left:0;
+		right:0;
+		width: auto;
+		
+		.content {			
+			z-index: 100001;			
+			transform: translateX(-100%);
+			width:80%;	
+			max-width: 300px;			
+		}		
+	}
+	
+	@extend .col;
+	width: 300px;
+	
+	
+	.content{
+		@extend md-sidenav;
+		overflow-y: auto;			
+		transition: transform .2s ease-out;
+		position: absolute !important;
+		top:0px;
+		left:0px;
+		bottom:0px;
+		width:100%;
+		border-right: 1px solid $border-color;		
+		
+/*		md-icon {
+			color: #E0E0E0;
+		}
+		
+		.selected {
+			background-color: rgb(56,142,60);
+		}*/
+	}
+}

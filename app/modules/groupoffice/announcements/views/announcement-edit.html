@@ -1,0 +1,42 @@
+<form name="announcementForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+	
+	<menu type="toolbar">
+			<li>
+				<a class="btn" ng-click="close();">
+					<i class="back"></i>
+				</a>
+			</li>
+			<li>
+				<button type="submit"><i class="check"></i></button>
+			</li>
+		</menu>
+
+	
+
+
+
+	<div class="panel">
+		
+		<fieldset>
+			<div class="row">	
+				<label>{{::"Image" | goT}}</label>
+				<div class="go-image-upload" go-image-upload ng-model="announcement.photo" thumb-width="80" thumb-height="80"></div>
+			</div>
+			
+	
+			<div class="row">
+				<label for="title">{{::"Title"| goT}}</label>
+				<input type="text" id="title" name="companyName" ng-model="announcement.title" required go-autofocus />
+				<go-show-error for="title" go-data-model="announcement"></go-show-error>
+			</div>
+			
+			
+			<div class="body">
+				<go-wysiwyg id="html" ng-model="announcement.text"></go-wysiwyg>
+			</div>
+		</fieldset>
+
+
+
+	</div>
+</form>

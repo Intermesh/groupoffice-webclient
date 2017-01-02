@@ -1,0 +1,90 @@
+<div layout="column" style="height:500px; width: 340px;" ng-cloak>
+  <section style="overflow: hidden;">
+	  <md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{"Close" | goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+			<h1>Calendars</h1>
+		</div>
+	</md-toolbar>
+
+    <md-content flex>
+        <md-list>
+			<md-list-item class="md-3-line" ng-repeat="item in account.calendars">
+				<md-icon style="color: #{{item.color}}">event</md-icon>
+			  <div class="md-list-item-text">
+				<h3>{{item.name}}</h3>
+				<h4>{{item.type}} -Local calendar</h4>
+				<p></p>
+			  </div>
+			  <md-button class="md-secondary md-icon-button" ng-click="edit(item)">
+				  <md-icon>edit</md-icon>
+			  </md-button>
+			  <md-divider></md-divider>
+			</md-list-item>
+			<md-button ng-click="edit()">+ Calendar toevoegen</md-button>
+		  </md-list>
+    </md-content>
+
+    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="calendar">
+		<form ng-submit="submit()">
+			
+		<md-toolbar class="md-theme-light">
+		  <div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="escape()">
+				<md-icon>arrow_back</md-icon>
+			</md-button>
+			 
+        <h1>{{ current.isNew()?'New':'Edit'}} Calendar</h1>
+		<span flex></span>
+			<md-button type="submit">{{"Save" | goT}}</md-button>
+		   </div>
+		</md-toolbar>
+		<md-content>
+        <md-list class="form-dialog">
+			<div layout="row">
+				<md-input-container>
+				  <label for="testInput">Name</label>
+				  <input type="text" id="testInput" ng-model="current.name" md-autofocus>
+				</md-input-container>
+				  <md-input-container>
+				  <label for="testInput">color</label>
+				  <md-select id="testInput" ng-model="current.color">
+					  <md-option ng-repeat="(k,v) in current.colors()" value="{{k}}">{{v}}</md-option>
+				  </md-select>
+				</md-input-container>
+			</div>
+
+			<md-divider></md-divider>
+			<div layout="row" layout-align="start start">
+				<div style="margin-top:16px;"><md-icon>notifications</md-icon></div>
+				<div flex>
+					<md-select id="alarm" aria-expanded="$last" ng-model="alarm.trigger" ng-change="selectAlarm(alarm, $index)" ng-repeat="alarm in current.defaultAlarms">
+						<md-option value="0">Geen alarm</md-option>
+						<md-option value="PT10M">10 minuten van te voren</md-option>
+						<md-option value="PT30M">30 minuten van te voren</md-option>
+						<md-option value="PT1H">1 uur van te voren</md-option>
+						<md-option value="x">Aangepast....</md-option>
+					</md-select>
+					<md-button ng-click="addDefaultAlarm()">Add a default alarm</md-button>
+				</div>
+			</div>
+			<md-divider></md-divider>
+
+			<md-button ng-if="!current.isNew()" ng-click="current.delete()" class="md-warn">Delete calendar</md-button>
+		</md-list>
+	</md-content>
+	</form>
+
+<!--		<input type="file" id="input" onchange="handleFiles(this.files)">
+		  <md-button ng-if="!current.isNew()" ng-click="current.delete()">
+			Import
+		  </md-button>-->
+
+		
+    </md-sidenav>
+
+  </section>
+</div>

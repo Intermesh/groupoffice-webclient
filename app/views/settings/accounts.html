@@ -1,0 +1,44 @@
+<md-card>
+	<md-card-contents>
+		<go-list-toolbar store="store">
+			<go-tools class="md-toolbar-tools">
+				<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
+					<md-icon>chevron_left</md-icon>
+				</md-button>
+
+				<h3 flex>{{::"Accounts" | goT}}</h3>
+
+				<!--		<go-search-button></go-search-button>-->
+
+				<md-menu md-position-mode="target-right target">
+					<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon md-menu-origin>more_vert</md-icon>
+					</md-button>
+					<md-menu-content>
+						<md-menu-item>
+							<md-button ng-click="store.reload()">{{::"Refresh"| goT}}</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</go-tools>			
+		</go-list-toolbar>
+
+
+		<go-list store="store" virtual="false">
+
+			<item ng-click="editAccount(model)">
+				<md-icon>{{accountTypes[model.modelName].iconCls}}</md-icon>
+				<p>{{model.name}}</p>
+			</item>
+
+			<empty-state>
+				<md-icon class="mdi-account"></md-icon>
+				<p>{{::"You don't have any accounts configured yet"| goT}}</p>
+			</empty-state>
+
+		</go-list>
+
+		<md-button class="md-fab md-fab-bottom-right" ng-click='createAccount()'><md-icon>add</md-icon></md-button>
+
+	</md-card-contents>
+</md-card>

@@ -1,0 +1,62 @@
+
+
+	<md-toolbar class="md-hue-1" >
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
+				<md-icon>chevron_left</md-icon>
+			</md-button>
+
+			<span flex>
+				{{fieldsetRec.name}}
+			</span>
+
+			<md-button class="md-icon-button" ng-click="editFieldSet(fieldsetRec)">
+				<md-tooltip>
+					{{"Edit"| goT}}					
+				</md-tooltip>
+				<md-icon>edit</md-icon>
+			</md-button>
+
+		</div>
+
+
+
+	</md-toolbar>
+
+	<go-list store="fieldsStore" virtual="false">
+
+		<item  class="md-2-line" ng-click="editField(model)">
+			<md-icon aria-label="{{model.name}}" class="{{model.getIcon()}}" ></md-icon>
+			<div class="md-list-item-text">
+				<h3>{{model.name}}</h3>
+				<p>{{model.type}}</p>
+			</div>
+		</item>
+
+		<empty-state>
+			<md-icon class="mdi-textbox"></md-icon>
+			<p>{{"No fields found"| goT}}</p>
+		</empty-state>
+
+	</go-list>
+
+
+	<md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" ng-cloak>
+		<md-fab-trigger>
+			<md-button aria-label="menu" class="md-fab">
+				<md-icon>add</md-icon>
+				<md-tooltip md-direction="left">{{"Add"| goT}}</md-tooltip>
+			</md-button>
+		</md-fab-trigger>
+		<md-fab-actions>
+			<div ng-repeat="fieldType in ::customFieldTypes" ng-cloak>
+
+				<md-button  class="md-fab md-mini" ng-click="editField(false, {type: fieldType.value})">
+					<md-icon class="{{::fieldType.icon}}"></md-icon>
+					<md-tooltip md-direction="left">{{::fieldType.label| goT}}</md-tooltip>
+				</md-button>
+
+			</div>
+		</md-fab-actions>
+	</md-fab-speed-dial>
+

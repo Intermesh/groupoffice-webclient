@@ -1,0 +1,136 @@
+<go-hook flow-init="flowInit" name="files" flex layout="row">
+	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+		
+		<md-list>
+			<md-list-item ng-class="{'selected' : browser.isAt('mine')}" ng-click="browser.goTo('mine')">
+				<md-icon>folder</md-icon>
+				<p>My Files</p>
+			</md-list-item>
+			<md-list-item ng-class="{'selected' : browser.isAt('starred')}" ng-click="browser.goTo('starred')">
+				<md-icon>star_rate</md-icon>
+				<p>Starred</p>
+			</md-list-item>
+			<md-list-item ng-class="{'selected' : browser.isAt('recent')}" ng-click="browser.goTo('recent')">
+				<md-icon>access_time</md-icon>
+				<p>Recent</p>
+			</md-list-item>
+			<md-list-item ng-class="{'selected' : browser.isAt('shared')}" ng-click="browser.theirs().goTo('/')">
+				<md-icon>folder_shared</md-icon>
+				<p>Shared with me</p>
+			</md-list-item>
+			<md-list-item ng-class="{'selected' : browser.isAt('trash')}" ng-click="browser.goTo('trash')">
+				<md-icon>delete</md-icon>
+				<p>Trash</p>
+			</md-list-item>
+
+			<md-divider></md-divider>
+			
+			<md-list-item ng-click="browser.filter({type: 1})">
+				<md-icon>insert_drive_file</md-icon>
+				<p>Documents</p>
+			</md-list-item>
+			<md-list-item ng-click="browser.filter({type: 2})">
+				<md-icon>collections</md-icon>
+				<p>Images</p>
+			</md-list-item>
+			<md-list-item ng-click="browser.filter({type: 3})">
+				<md-icon>videocam</md-icon>
+				<p>Media</p>
+			</md-list-item>
+
+			<md-divider></md-divider>
+
+			<md-list-item>
+				<md-icon>folder_special</md-icon>
+				<p>Mijn map</p>
+			</md-list-item>
+		</md-list>
+	</md-sidenav>
+
+	<md-content flex layout="column">
+
+		<md-toolbar store="nodesStore">
+
+			<div class="md-toolbar-tools">
+
+				<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
+					<md-icon>menu</md-icon>
+				</md-button>
+
+				<span flex >
+					<md-button ng-disabled="!browser.depth()" class="md-icon-button" ng-click="browser.up()">
+						<md-icon>arrow_upward</md-icon>
+					</md-button>
+					<span ng-repeat="dir in browser.dirStack">
+						<md-icon ng-if="!$first">keyboard_arrow_right</md-icon> <span ng-style="$last?{'font-weight':'bold'}:{}">{{dir.name}}</span>
+					</span>
+				</span>
+
+				<md-button class="md-icon-button">
+					<md-icon>search</md-icon>
+				</md-button>
+				<md-button ng-if="browser.isGrid()" ng-click="browser.setDisplay('list')" class="md-icon-button">
+					<md-icon>view_list</md-icon>
+				</md-button>
+				<md-button ng-if="browser.isList()" ng-click="browser.setDisplay('grid')" class="md-icon-button">
+					<md-icon>view_module</md-icon>
+				</md-button>
+				<md-button class="md-icon-button" ng-click="toggleInfo()" >
+					<md-icon ng-style="showInfo ? {color:'white'}:{}">info</md-icon>
+				</md-button>
+
+				<md-menu md-position-mode="target-right target">
+					<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon md-menu-origin>more_vert</md-icon>
+					</md-button>
+					<md-menu-content>
+						<md-menu-item>
+							<md-button ng-click="addFolder()"><md-icon>create_new_folder</md-icon> {{"New folder"| goT}}</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ng-click="nodeStore.reload()"><md-icon>refresh</md-icon> {{"Refresh"| goT}}</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+
+			</div>
+
+		</md-toolbar>
+
+		<div flex layout="row" flow-files-submitted="$flow.upload()"
+			flow-file-success="uploadSuccess($file, $message)"
+			flow-complete="uploadCommit()"
+			flow-drop>
+
+			
+
+			<div id="file-list-view" ng-if="browser.isList()" ng-include="'modules/groupoffice/files/views/list-view.html'"></div>
+			<div id="file-grid-view" flex  ng-if="browser.isGrid()" ng-include="'modules/groupoffice/files/views/grid-view.html'"></div>
+
+			
+		</div>
+		<md-fab-speed-dial md-direction="up" style="position:absolute; bottom: 10px; right:10px;">
+			<md-fab-trigger>
+				<md-button aria-label="menu" class="md-fab">
+					<md-icon>file_upload</md-icon>
+					<md-tooltip md-direction="left">{{::"Upload"| goT}}</md-tooltip>
+				</md-button>
+			</md-fab-trigger>
+			<md-fab-actions>
+				<md-button flow-btn aria-label="Files" class="md-fab md-mini">
+					<md-icon>insert_drive_file</md-icon>
+					<md-tooltip md-direction="left">{{::"Files"| goT}}</md-tooltip>
+				</md-button>
+				<md-button flow-btn flow-directory aria-label="Directory" class="md-fab md-mini" >
+					<md-icon>folder</md-icon>
+					<md-tooltip md-direction="left">{{::"Folder"| goT}}</md-tooltip>
+				</md-button>
+			</md-fab-actions>
+		</md-fab-speed-dial>
+	</md-content>
+	<div>
+	<md-content ng-show="showInfo" ui-view md-component-id="fileinfo" flex layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
+		
+	</md-content>
+	</div>
+</go-hook>

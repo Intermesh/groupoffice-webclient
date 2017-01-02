@@ -1,0 +1,41 @@
+<md-toolbar class="{{::cls}} go-search" ng-if="mode=='search'" ng-transclude ng-transclude-slot="goSearch">
+	<go-search class="md-toolbar-tools">
+		<md-button ng-click="$parent.close()" class="md-icon-button">
+			<md-icon>chevron_left</md-icon>
+		</md-button>
+
+		<input ng-model="$parent.store.searchQuery" ng-model-options="{ debounce: 500 }" type="text" go-autofocus flex placeholder="{{'Search'| goT}}"/>
+
+		<md-button ng-click="$parent.reset()" ng-disabled="$parent.store.searchQuery == '';" class="md-icon-button">
+			<md-icon>close</md-icon>
+		</md-button>
+	</go-search>
+</md-toolbar>
+
+<md-toolbar class="{{::cls}}" ng-if="mode=='select'" ng-transclude ng-transclude-slot="goSelect">
+	<go-select class="md-toolbar-tools">
+		<go-list-selection-clear></go-list-selection-clear>
+		<go-list-selection-count flex></go-list-selection-count>
+		<go-list-selection-delete></go-list-selection-delete>
+	</go-select>
+</md-toolbar>
+
+<md-toolbar class="{{::cls}}" ng-if="mode=='default'" ng-transclude ng-transclude-slot="goTools">
+	<go-tools class="md-toolbar-tools">
+				
+		<span flex></span>
+
+		<go-search-button></go-search-button>
+
+		<md-menu md-position-mode="target-right target">
+			<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+				<md-icon md-menu-origin>more_vert</md-icon>
+			</md-button>
+			<md-menu-content>
+				<md-menu-item>
+					<md-button ng-click="contactStore.reload()">{{::"Refresh"| goT}}</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
+	</go-tools>		
+</md-toolbar>

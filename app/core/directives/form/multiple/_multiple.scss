@@ -1,0 +1,78 @@
+go-multiple {
+	padding-top:16px;
+	display: block;
+	
+	md-datepicker {
+		margin-top: 10px;
+	}
+	
+	.md-icon-button + .md-datepicker-input-container {
+		margin-left: 2px;
+	}
+	
+	.md-datepicker-button {
+		display: none;
+	}
+	
+	margin-bottom: 18px;
+	
+	@media (min-width:$screen-desktop) {
+		margin-bottom: 16px;
+	}
+	
+	md-input-container {
+		padding-bottom: 4px;
+		margin: 0 0 8px 0;
+	}
+	
+	md-input-container + button {
+			/*margin-top: 16px !important;*/
+	}
+	
+/*	>div {
+		>button {
+			margin-top: 16px !important;
+		}
+	}*/
+	
+/*	.go-header {
+		.md-button.md-icon-button {
+			margin:0;
+			margin-left: -12px;
+			margin-top: -8px;
+			text-transform: none;
+		}
+	}*/
+
+	h3 {
+		
+		margin: 4px 0;
+		line-height: 40px; //match button height
+		@media (min-width:$screen-desktop) {
+			line-height: 36px;
+		}
+	}
+	
+	.go-header {
+		> md-icon {
+			margin: 12px 14px 12px 2px;
+			
+		}
+	}
+	
+	.icon-placeholder {
+		width:34px;
+	}
+
+	md-icon {
+		color: rgba(0,0,0,0.87);
+	}
+	
+	md-autocomplete-wrap {
+		label {
+			display: none;
+		}
+	}
+	
+	
+}

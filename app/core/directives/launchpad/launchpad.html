@@ -1,0 +1,16 @@
+<go-mask tabindex="-1" id="launchpad" ng-if="show" ng-click="toggle();" ng-keydown="keypress($event)">
+	<div class="padder">
+		
+		<div layout-align="center center" layout="row">
+			<small>{{::"Hold the Ctrl key to launch in a new browser tab" | goT}}</small>
+		</div>
+		
+		<div class="go-launcher mod-{{::launcher.id}}" ng-repeat="launcher in launchers">
+			
+			<md-button aria-label="{{::launcher.title| goT}}" class="md-fab" ng-click="openLauncher(launcher, $event)">
+				<md-icon ng-if="launcher.icon" class="md-48">{{launcher.icon}}</md-icon>
+			</md-button>
+			<div class="title">{{::launcher.title| goT}}</div>
+		</div>		
+	</div>
+</go-mask>

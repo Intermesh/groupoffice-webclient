@@ -1,0 +1,6 @@
+.mod-tasks .md-fab {
+	background-color: orange;
+	&:before{
+		content: mdi('clipboard-text');
+	}
+}

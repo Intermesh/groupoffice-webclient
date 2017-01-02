@@ -1,0 +1,132 @@
+<form layout="column" name="fieldSetForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<span flex></span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>	
+
+
+	<md-content class="md-padding" flex>
+
+		<md-input-container  class="md-block">
+			<label>{{"Name"| goT}}</label>
+			<input ng-model="model.name" name="name" required go-autofocus>
+			<div ng-messages="modelForm.name.$error" role="alert">
+				<div ng-message="required">
+					{{"This field is required"| goT}}
+				</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container  class="md-block">
+			<label>{{"Database name"| goT}}</label>
+			<input ng-model="model.databaseName" name="databaseName" required >
+			<div ng-messages="modelForm.databaseName.$error" role="alert">
+				<div ng-message="required">
+					{{"This field is required"| goT}}
+				</div>
+			</div>
+		</md-input-container>
+
+				
+		
+
+		<md-input-container ng-disabled="true">
+			<label>{{"Type"| goT}}</label>
+			<md-select ng-model="model.type">
+				<md-option ng-repeat="option in customFieldTypes" value="{{option.value}}">
+					{{option.label}}
+				</md-option>
+			</md-select>
+		</md-input-container>
+
+
+		<!--|| model.type === 'textarea'-->
+		<md-checkbox ng-if="model.type === 'text'" ng-model="model.data.multiline" >
+			{{"Text multiline"| goT}}
+		</md-checkbox>
+		
+		
+		<md-input-container  class="md-block" ng-if="model.type === 'text' && model.data.multiline === true">
+			<label>{{"Max length text or textarea"| goT}}</label>
+			<input ng-model="model.data.maxLength" name="maxLength"  type="number" >
+			<div ng-messages="modelForm.defaultValue.$error" role="alert">
+
+			</div>
+		</md-input-container>
+		
+		<md-checkbox ng-if="model.type === 'date'" ng-model="model.data.withTime" >
+			{{"date with time"| goT}}
+		</md-checkbox>
+		
+		
+		
+		
+		
+
+
+
+		<div class="go-input-multiple" ng-if="model.type === 'select'">
+			<div layout ng-init="option.$formName = 'option_' + $index" ng-repeat="option in options">
+				<md-input-container flex>                            
+					<label>{{"Option"| goT}}</label>
+					<input type="text" name="{{option.$formName}}" ng-model="option.value" required go-autofocus="!album.id">
+					<div ng-messages="bandForm[album.$formName].$error" role="alert">
+						<div ng-message="required">
+							{{"This field is required"| goT}}
+						</div>
+					</div>
+				</md-input-container>
+			</div>
+			<md-button type="button" ng-click="options.push({value: ''});"><md-icon>add</md-icon> {{"Add selection"| goT}}</md-button>
+		</div>
+				
+				
+
+				
+		<md-input-container  class="md-block">
+			<label>{{"Default value"| goT}}</label>
+			<input ng-model="model.defaultValue" name="defaultValue"  >
+			<div ng-messages="modelForm.defaultValue.$error" role="alert">
+
+			</div>
+		</md-input-container>
+		
+		<md-input-container  class="md-block">
+			<label>{{"Placeholder"| goT}}</label>
+			<input ng-model="model.placeholder" name="placeholder"  >
+			<div ng-messages="modelForm.defaultValue.$error" role="alert">
+
+			</div>
+		</md-input-container>
+
+
+
+
+		<md-checkbox ng-model="model.required" >
+			{{"Field is required"| goT}}
+		</md-checkbox>
+		<md-checkbox ng-model="model.filterable" >
+			{{"Field can be filtered on"| goT}}
+		</md-checkbox>
+
+
+
+
+
+	</md-content>
+
+
+
+</form> 

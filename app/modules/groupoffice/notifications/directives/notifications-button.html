@@ -1,0 +1,7 @@
+<div flex layout="row" layout-align="center center">
+	<md-button class="md-icon-button" id="notify" ng-click="showPanel($event)">
+		<md-icon>notifications</md-icon>
+		<md-tooltip>{{"Notifications" | goT}}</md-tooltip>
+	</md-button>
+	<span ng-if="notificationsData.unseenCount" class="go-counter">{{notificationsData.unseenCount}}</span>
+</div>

@@ -1,0 +1,126 @@
+<form layout="column" name="pdfTemplateForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<span flex>{{"PDF template"| goT}}</span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-content>
+
+		<fieldset layout="column">
+
+
+			<div layout="row">
+				<md-input-container flex>
+					<md-icon>description</md-icon>
+					<label>{{"Name"| goT}}</label>
+					<input ng-model="model.name" name="name" required>
+					<div ng-messages="pdfTemplateForm.name.$error" role="alert">
+						<div ng-message="required">{{"This field is required"| goT}}</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container flex>
+					<md-icon>language</md-icon>
+					<label>{{"Language"| goT}}</label>
+					<md-select name="language" ng-model="model.language" required>
+						<md-option ng-repeat="language in languages track by language.code" value="{{language.code}}">					
+							{{language.name}}
+						</md-option>
+					</md-select>					
+				</md-input-container>
+
+			</div>
+
+			<h3>{{"Margins"| goT}}</h3>
+			<div layout="row">
+				<md-input-container flex>
+					<md-icon>description</md-icon>
+					<label>{{"Top"| goT}}</label>
+					<input ng-model="model.marginTop" name="marginTop" required go-number>					
+				</md-input-container>
+
+				<md-input-container flex>					
+					<label>{{"Right"| goT}}</label>
+					<input ng-model="model.marginRight" name="marginRight" required go-number>					
+				</md-input-container>
+
+
+				<md-input-container flex>					
+					<label>{{"Bottom"| goT}}</label>
+					<input ng-model="model.marginBottom" name="marginBottom" required go-number>					
+				</md-input-container>
+
+				<md-input-container flex>					
+					<label>{{"Left"| goT}}</label>
+					<input ng-model="model.marginLeft" name="marginLeft" required go-number>					
+				</md-input-container>
+
+			</div>
+
+			<h3>{{"Layout"| goT}}</h3>
+			<div layout="row">
+				<md-input-container flex>
+					<md-icon>description</md-icon>
+					<label>{{"Page size"| goT}}</label>
+					<md-select ng-model="model.pageSize" name="pageSize" required>
+						<md-option value="A4">A4</md-option>
+						<md-option value="letter">US Letter</md-option>
+					</md-select>
+				</md-input-container>
+
+				<md-input-container flex>					
+					<label>{{"Measure unit"| goT}}</label>
+					<md-select ng-model="model.measureUnit" name="measureUnit" required>
+						<md-option value="mm">mm</md-option>
+						<md-option value="inch">Inch</md-option>
+					</md-select>
+				</md-input-container>
+
+				<md-switch ng-model="model.langscape">
+					{{::"Landscape"| goT}}
+				</md-switch>
+			</div>
+			
+			
+			<go-single-upload icon-cls="description" file-added="!!{pdf:1}[$file.getExtension()]" form="pdfTemplateForm" label="Stationary PDF" go-model="model.stationaryPdfBlob" flex></go-single-upload>
+
+		</fieldset>
+
+		<fieldset>
+			
+			<h3>{{::"Blocks" | goT}}</h3>
+
+			<go-multiple go-models="model.blocks" sortable-on="sortOrder" go-add-model="{type: 'text'}">
+
+				<md-input-container flex>					
+					<label>{{"Type"| goT}}</label>
+					<md-select ng-model="model.type" name="type" required>
+						<md-option value="text">Plain text</md-option>
+						<md-option value="html">HTML</md-option>
+						<md-option value="items">Invoice items</md-option>
+					</md-select>
+				</md-input-container>
+				<md-input-container flex>					
+					<label>{{"Data"| goT}}</label>
+					<textarea ng-model="model.data" max-rows="10" ng-trim="false">
+
+					</textarea>
+				</md-input-container>
+
+			</go-multiple>
+
+		</fieldset>
+	</md-content>
+
+</form>

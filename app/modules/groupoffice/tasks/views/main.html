@@ -1,0 +1,98 @@
+<go-hook name="tasks">
+	<aside>
+		<!--<div go-filter-collection="tasks/filters" go-store="store" flex></div>-->
+
+		<go-filter name="status" type="single" go-value="filters.status" on-change="updateFilter('status', value)">
+
+			<go-option value="all">
+				<md-icon>star</md-icon>
+				<p>{{"All"| goT}}</p>
+			</go-option>
+
+			<go-option value="complete">
+				<md-icon>check_box</md-icon>
+				<p>{{"Complete"| goT}}</p>
+			</go-option>
+
+			<go-option value="incomplete">
+				<md-icon>check_box_outline_blank</md-icon>
+				<p>{{"Incomplete"| goT}}</p>
+			</go-option>			
+
+			<go-option value="late">
+				<md-icon>warning</md-icon>
+				<p>{{"Late"| goT}}</p>
+			</go-option>
+
+		</go-filter>
+
+		<md-divider></md-divider>
+		
+		<go-filter name="assigned" type="single" go-value="filters.assigned" on-change="updateFilter('assigned', value)">
+			<go-option value="mine">
+				<md-icon>person</md-icon>
+				<p>{{"My tasks"| goT}}</p>
+			</go-option>
+			
+			<go-option value="createdforothers">
+				<md-icon>people</md-icon>
+				<p>{{"Created for others"| goT}}</p>
+			</go-option>
+		</go-filter>
+		
+		<md-divider></md-divider>
+		
+		<go-tag-filter on-change="updateFilter('tags', value)" record-class-name='GO\Modules\GroupOffice\Tasks\Model\Task'></go-tag-filter>
+		
+
+	</aside>
+
+	<div class="go-cards-sm" flex layout="row">
+
+		<div class="go-card go-list" layout="column" ng-class="{'go-active' : $state.is('tasks')}">
+
+			<go-list-toolbar store="store" class='md-hue-1'>
+				<go-tools class="md-toolbar-tools">
+					<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleAside()" hide-gt-md class="md-icon-button">
+						<md-icon>menu</md-icon>
+					</md-button>
+					<span flex></span>
+					<go-search-button></go-search-button>				
+					<!--<go-order-button columns="{ 't.firstName': 'First name', 't.lastName': 'Last name', 't.modifiedAt': 'Modified at'}"></go-order-button>-->
+				</go-tools>					
+
+			</go-list-toolbar>
+
+
+			<go-list store="store" group="dueAt | date: 'longDate'"  flex>
+
+				<item class="md-2-line" ui-sref="tasks.task({taskId: model.id})">
+
+					<md-icon class="md-secondary" ng-if="!model.completedAt" ng-click="model.setCompleted(true)">check_box_outline_blank</md-icon>
+					<md-icon class="md-secondary" ng-if="model.completedAt" ng-click="model.setCompleted(false)">check_box</md-icon>
+					<!--<md-checkbox ng-model="model.isComplete" class="md-secondary"></md-checkbox>-->
+
+					<div class="md-list-item-text">
+						<h3>{{model.description}}</h3>
+						<p ng-if="!model.dueAt">{{model.dueAt|| "No dueTime" | goT}}</p>
+						<p ng-if="model.dueAt">{{model.dueAt| date:"longDate"}}</p>
+					</div>
+				</item>
+
+				<empty-state>
+					<md-icon>assignment</md-icon>
+					<p>{{::"No tasks found"| goT}}</p>
+				</empty-state>
+
+			</go-list>
+
+			<md-button accesskey="a" class="md-fab md-fab-bottom-right" ng-click="edit()">
+				<md-icon>add</md-icon>
+				<md-tooltip md-direction="left">{{::"Add"| goT}}</md-tooltip>
+			</md-button>
+
+		</div>
+
+		<div flex ui-view layout="row" class="go-info-panel" ng-class="{'go-active' : !$state.is('tasks')}"></div>
+	</div>
+</go-hook>

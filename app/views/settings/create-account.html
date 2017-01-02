@@ -1,0 +1,20 @@
+
+<md-toolbar>
+	<div class="md-toolbar-tools">
+		<md-button ng-click="close();" class="md-icon-button">
+			<md-icon>close</md-icon>
+			<md-tooltip>
+			{{::"Close" | goT}}
+			</md-tooltip>
+		</md-button>
+		<div>{{::"Select account type" | goT}}</div>
+	</div>
+</md-toolbar>
+
+<md-list>
+	<md-list-item ng-repeat="(className, accountType) in accountTypes" ng-click="createAccount(accountType)">
+		<md-icon>{{accountType.iconCls}}</md-icon>
+		<p>{{className | goT}}</p>
+	</md-list-item>
+</md-list>
+	

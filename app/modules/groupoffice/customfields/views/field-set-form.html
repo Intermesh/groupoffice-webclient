@@ -1,0 +1,58 @@
+<!--<form name="fieldSetForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+	<menu type="toolbar">
+		<li>
+			<a class="btn" ng-click="close();">
+				<i class="back"></i>
+			</a>
+		</li>
+		<li>
+			<button type="submit"><i class="check"></i></button>
+		</li>
+	</menu>		
+
+
+	<div class="panel pad">
+
+		<div class="row">
+			<label for="name">{{"Name"| goT}}</label>
+
+			<input type="text" id="name" name="name" class="form-control" ng-model="fieldset.name" required go-autofocus />
+			<go-show-error for="name" go-data-model="fieldset"></go-show-error>
+
+		</div>
+	</div>
+</form>-->
+
+
+<form layout="column" name="fieldSetForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+	
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<span flex></span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>	
+	
+	<md-content class="md-padding" flex>
+		<md-input-container  class="md-block">
+			<label>{{"Name"| goT}}</label>
+			<input ng-model="model.name" name="name" required go-autofocus>
+			<div ng-messages="modelForm.name.$error" role="alert">
+				<div ng-message="required">
+					{{"This field is required"| goT}}
+				</div>
+			</div>
+		</md-input-container>
+		
+	</md-content>
+	
+	
+</form>

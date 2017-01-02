@@ -1,0 +1,28 @@
+
+<div
+	data-flow-name="uploader.flow" 
+	data-flow-init="flowInit" 
+	data-flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" 
+	data-flow-files-submitted="$flow.upload()" 
+	data-flow-file-success="uploadSuccess($file, $message)">
+
+	<md-menu md-position-mode="target">
+		<md-button aria-label="{{::'More options'| goT}}" ng-click="$mdOpenMenu($event)">
+			<div md-menu-origin class="img-container" data-flow-drop style="width:{{thumbWidth}}px;height:{{thumbHeight}}px">			
+				<img ng-if="url" ng-src="{{url}}&amp;w={{thumbWidth}}&amp;h={{thumbHeight}}&amp;zoomCrop=1&amp;XSRFToken={{XSRFToken}}" style="width:{{thumbWidth}}px;height:{{thumbHeight}}px" />
+			</div>
+
+			<md-progress-linear md-mode="determinate" ng-if="$flow.files[0]" value="$flow.files[0].progress()*100"></md-progress-linear>		
+		</md-button>
+		<md-menu-content>
+			<md-menu-item>
+				<md-button data-flow-btn>{{::"Set new image"| goT}}</md-button>
+			</md-menu-item>
+			<md-divider></md-divider>
+			<md-menu-item>
+				<md-button ng-click="remove()">{{::"Remove"| goT}}</md-button>
+			</md-menu-item>
+
+		</md-menu-content>
+	</md-menu>
+</div>

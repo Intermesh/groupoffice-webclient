@@ -1,0 +1,186 @@
+<form layout="column" name="eventForm" go-submit="save()" go-server-errors="model.event.validationErrors" novalidate>
+	<md-toolbar  ng-style="color(calendars[model.calendarId].color)">
+		<div ng-if="hasCalendars()" class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-icon>close</md-icon>
+			</md-button>
+			<input ng-readonly="!model.isOrganizer" flex ng-model="model.event.title" placeholder="Geef een titel" md-autofocus required>
+			
+			<md-button type="submit">{{"Save" | goT}}</md-button>
+			<md-menu md-position-mode="target-right target">
+				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon md-menu-origin>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="model.delete();cancel()">{{::"Delete"| goT}}</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="model.download()">{{"Download" | goT}}</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</div>
+	</md-toolbar>
+
+	<md-content ng-if="!hasCalendars()" class="md-padding">
+		<p>There are no calendars, create one first</p>
+
+		<md-button class="md-raised md-primary" ng-click="cancel(); $parent.addCalendar();">Calendars</md-button>
+	</md-content>
+
+	<md-content ng-if="hasCalendars()" style="min-width: 390px;" flex>
+		<md-list class="form-dialog">
+			<div layout="row" layout-align="start center">
+				<md-icon>event</md-icon>
+				<md-select ng-model="model.calendarId" style="min-width:130px">
+					<md-option ng-repeat="calendar in $parent.userCalendars[model.userId]" ng-value="calendar.id">{{calendar.name}}</md-option>
+				</md-select>
+				<span flex></span>
+				<md-select ng-model="model.event.visibility">
+					<md-option ng-value="1"><md-icon>lock_outline</md-icon>Confidential</md-option>
+					<md-option ng-value="2"><md-icon>lock_open</md-icon> Public</md-option>
+					<md-option ng-value="3"><md-icon>lock</md-icon> Private</md-option>
+				</md-select>
+			</div>
+
+			<md-divider></md-divider>
+			
+			<div layout="row" layout-align="start start">
+				<div style="margin-top:16px;"><md-icon>schedule</md-icon></div>
+				<div flex>
+					<div layout="row" layout-align="start center" style="margin: 9px 0;">
+						<label style="width:158px">&nbsp;{{"All-day"| goT}}</label>
+						<md-switch ng-model="model.event.allDay"></md-switch>
+					</div>
+					<div layout="row" layout-align="start center">
+						<md-datepicker ng-change="changeStartTime();" md-open-on-focus md-hide-icons="all" ng-model="model.event.startAt"></md-datepicker>
+						<span style="width: 32px;"></span>
+						<md-input-container>
+							<input type="time" ng-model="model.event.startAt" ng-show="!model.event.allDay"/>
+						</md-input-container>
+					</div>
+					
+					<div layout="row" layout-align="start center">
+						<md-datepicker md-open-on-focus md-hide-icons="calendar" ng-model="model.event.endAt"></md-datepicker>
+						<span style="width: 32px;"></span>
+						<md-input-container>
+							<input type="time" ng-model="model.event.endAt" ng-show="!model.event.allDay"/>
+						</md-input-container>
+					</div>
+				</div>
+			</div>
+
+		<md-divider></md-divider>
+
+		<div ng-if="model.isOrganizer || !!model.event.recurrenceRule.freq" ng-include="'modules/groupoffice/calendar/views/recurrence-form.html'" ng-controller="GO.Modules.GroupOffice.Calendar.RecurrenceForm"></div>
+
+		<md-divider ng-if="model.isOrganizer || !!model.event.recurrenceRule.freq" ></md-divider>
+
+		<div layout="row" layout-align="start center" ng-if="model.isOrganizer || !!model.event.location">
+			<md-icon>location_on</md-icon>
+			<md-input-container md-no-float flex>
+				<input ng-readonly="!model.isOrganizer" ng-model="model.event.location" placeholder="Locatie toevoegen" >
+			</md-input-container>
+		</div>
+
+		<md-divider ng-if="model.isOrganizer || !!model.event.location"></md-divider>
+
+		<div layout="row" layout-align="start start">
+			<div style="margin-top:16px;"><md-icon>notifications</md-icon></div>
+			<div style="min-height:47px" flex>
+				<md-select id="alarm" aria-expanded="$last" ng-model="alarm.trigger" ng-change="selectAlarm(alarm, $index)" ng-repeat="alarm in model.alarms">
+					<md-option value="0">Geen alarm</md-option>
+					<md-option value="PT10M">10 minuten van te voren</md-option>
+					<md-option value="PT30M">30 minuten van te voren</md-option>
+					<md-option value="PT1H">1 uur van te voren</md-option>
+					<md-option value="x">Aangepast....</md-option>
+				</md-select>
+				<md-button ng-click="addAlarm($event)">Add an alarm</md-button>
+			</div>
+		</div>
+
+		<md-divider></md-divider>
+
+		<div ng-if="model.isOrganizer || model.event.attendees.length > 0" layout="row" layout-align="start start">
+			<div style="margin-top:16px;"><md-icon>people</md-icon></div>
+			<div flex>
+				<div layout="row" layout-align="start center" flex ng-repeat="attendee in model.event.attendees | filter:{ markDeleted: false }" ng-if="attendee.userId != model.userId">
+
+					<md-input-container md-no-float flex>
+						<input ng-readonly="!model.isOrganizer" type="email" ng-model="attendee.email" ng-mode="attendees.email" placeholder="Invite people" />
+					</md-input-container>
+					<md-select ng-disabled="!model.isOrganizer" ng-model="attendee.role" style="width:120px">
+						<md-option ng-value="1"><md-icon>person</md-icon>Required</md-option>
+						<md-option ng-value="2"><md-icon>person_outline</md-icon>Optional</md-option>
+						<md-option ng-value="3"><md-icon>record_voice_over</md-icon>Chairman</md-option>
+					</md-select>
+					<md-button ng-if="model.isOrganizer" type="button" class="md-icon-button" ng-click="removeAttendee(attendee.email)">
+						<md-tooltip>{{"Remove" | goT}}</md-tooltip>
+						<md-icon>close</md-icon>
+					</md-button>
+				</div>
+					<md-autocomplete
+					md-floating-label="Invite people"
+					md-no-float flex
+					ng-if="model.isOrganizer"
+					md-delay="600"
+					md-selected-item="selectedItem"
+					md-search-text="searchText"
+					md-items="item in completeAttendees(searchText)"
+					md-item-text="item.address"
+					md-selected-item-change="addAttendee($event)"
+					ng-keypress="addAttendee($event)"
+					placeholder="Invite more people">
+
+					<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.full}}</span>
+
+				</md-autocomplete>
+			</div>
+		</div>
+
+		<md-divider ng-if="model.isOrganizer || model.event.attendees.length > 1"></md-divider>
+
+		<div ng-if="model.isOrganizer" style="min-height:47px" layout="row" layout-align="start start">
+			<div style="margin-top:16px;"><md-icon>attachment</md-icon></div>
+			<div flex flow-init="flowInit"
+				flow-files-submitted="$flow.upload()"
+				flow-file-success="uploadSuccess($file, $message)"
+				flow-drop>
+
+				<div style="min-height:47px" layout="row" layout-align="start center" ng-repeat="attachment in model.event.attachments | filter:{ markDeleted: false }">
+					<span flex>{{attachment.name}}</span>
+					<md-icon class="cancel" ng-click="removeAttachment($index)">close</md-icon>
+				</div>
+
+				<div style="min-height:47px" layout="row" layout-align="start center" ng-repeat="file in $flow.files" class="attachment" ng-if="file.isUploading()">
+					<span flex>{{file.name}}</span>
+					<md-progress-circular md-mode="indeterminate" md-diameter="18"></md-progress-circular>
+					<md-icon class="cancel" ng-click="file.cancel()">cancel</md-icon>
+					<go-progress value="file.progress()" max="1"></go-progress>
+				</div>
+
+				<md-button flow-btn><md-icon>file_upload</md-icon> Attach a file</md-button>
+			</div>
+		</div>
+
+		<md-divider ng-if="model.isOrganizer"></md-divider>
+		
+		</md-list>
+
+	</md-content>
+	<md-dialog-actions layout="row" ng-if="model.hasMoreAttendees()">
+		<div style="margin-right:16px;"><md-icon>drafts</md-icon></div>
+		Kom je ook?
+      <span flex></span>
+	  <md-button ng-class="model.responseStatus == 3 && 'md-primary'" ng-click="answer(3)">
+       Ja
+      </md-button>
+      <md-button ng-class="model.responseStatus == 4 && 'md-primary'" ng-click="answer(4)">
+       Nee
+      </md-button>
+      <md-button ng-class="model.responseStatus == 2 && 'md-primary'" ng-click="answer(2)">
+        Misschien
+      </md-button>
+    </md-dialog-actions>
+</form>

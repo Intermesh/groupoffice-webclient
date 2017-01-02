@@ -1,0 +1,64 @@
+.go-list {	
+	
+	@extend .col;
+	
+	border-right: 1px solid $border-color;
+	
+	@media(min-width: $screen-md) {
+		width: 400px;
+	}
+	
+	@media(min-width: $screen-xl) {
+		width: 600px;
+	}
+
+	md-toolbar {
+		border-bottom: 1px solid $border-color;
+	}
+	
+	
+	go-list {
+		position: absolute;
+		top:0px;
+		bottom:0px;
+		left:0px;
+		right:0px;
+
+		.md-virtual-repeat-container{
+			position: absolute;
+			top:0px;
+			bottom:0px;
+			left:0px;
+			right:0px;
+		}
+	}
+
+
+}
+
+
+
+
+md-list-item{
+	&.deleted {			
+				background-color: $color-danger-bg !important;
+				.md-list-item-inner {
+					animation: greyOut .3s forwards; //from animate.scss
+					background-color: $color-danger-bg !important;
+				}
+			}
+			
+			
+	small {
+		line-height: 100%;
+		color: rgb(14,156,197);
+	}
+	
+}
+
+
+.go-fab-list {
+	position: absolute;
+	bottom: 6px;
+	right: 6px;
+}

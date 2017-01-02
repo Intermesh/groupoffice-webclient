@@ -1,0 +1,111 @@
+<md-card  id="files" data-flow-init="flowInit"
+					data-flow-files-submitted="$flow.upload()"
+					data-flow-file-success="uploadSuccess($file, $message);"
+					data-flow-complete="filesStore.reload()"
+					data-flow-drop>
+
+	<go-list-toolbar class="md-hue-1" store="filesStore">
+		<div class="md-toolbar-tools">
+			<h2 class="md-title">Files</h2>
+		</div>
+	</go-list-toolbar>
+
+	<md-card-content>
+
+
+		<go-list store="filesStore">
+			<item class="md-2-line" ng-click="selectContact(model)">
+				<md-icon>insert_drive_file</md-icon>
+
+				<a target="_blank" href="{{model.downloadUrl}}?XSRFToken={{XSRFToken}}" class="md-list-item-text">
+					<h3>{{model.name}}</h3>
+					<p>PDF file</p>
+				</a>
+			</item>
+
+
+			<empty-state>
+				<md-icon>folder</md-icon>
+
+				<p>{{::"No files found"| goT}}</p>
+			</empty-state>
+
+		</go-list>
+
+	</md-card-content>
+
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button class="md-primary" data-flow-btn>
+		{{::"Add file"| goT}}
+		</md-button>
+	</md-card-actions>
+
+</md-card>
+
+<!--
+				<div ng-repeat="file in $flow.files" class="list-group-item" ng-if="!file.isComplete()">				
+					<i class="fa fa-file-o"></i> {{file.name}} <br />
+		
+					<div class="progress-bar-container">
+						<div class="progress progress-striped" ng-class="{active: file.isUploading()}">
+							<div class="progress-bar" role="progressbar"
+								 aria-valuenow="{{file.progress() * 100}}"
+								 aria-valuemin="0"
+								 aria-valuemax="100"
+								 ng-style="{width: (file.progress() * 100) + '%'}">
+								<span class="sr-only">{{file.progress()}}% Complete</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		<li ng-class="{'deleted': file.deleted}" ng-repeat="file in filesStore.items">
+
+
+			<a target="_blank" href="{{file.downloadUrl}}?XSRFToken={{XSRFToken}}">
+				<i class="file"></i>
+
+				<span>							
+					{{file.name}}
+				</span>					
+
+				<input ng-if="file.$rename" type="text" ng-model="file.name" ng-blur="saveFile($event, file)" ng-click="$event.stopPropagation();
+						$event.preventDefault();" autoselect required ng-keypress="{13 : '$event.preventDefault();saveFile($event, file);'}" />
+
+				
+			</a>
+			
+			<div ng-if="file.deleted" class="danger">
+				<button ng-click="file.unDelete()" title="Undo delete"><i class="undo"></i></button>
+			</div>
+			<div ng-if="!file.deleted" class="dropdown">
+				<button class="menu"><i class="menu-dot"></i></button>
+				<menu class="popup top-right">
+
+					<li><a ng-click="rename(file);">{{::"Rename" | goT}}</a></li>
+					<li><a ng-click="file.delete()">{{::"Delete" | goT}}</a></li>
+
+				</menu>
+			</div>
+		</li>
+
+		<li ng-if="!filesStore.busy" class="show-if-only-child pad">
+			{{'No items found'| goT}}
+		</li>
+
+		<li ng-if="filesStore.busy" class="loading-more"><i class="reload"></i>{{::"Loading..."| goT}}</li>
+		
+		<li class="empty-state">
+
+			<i class="folder"></i>
+
+			<p>{{::"No files found" | goT}}</p>
+		</li>
+
+
+
+
+
+	</ul>
+	<div class="btn action" data-flow-btn><i class="plus"></i></div>
+</div>-->

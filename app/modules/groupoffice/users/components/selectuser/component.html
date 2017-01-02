@@ -1,0 +1,22 @@
+<div layout="row">
+	<md-input-container class="md-icon-left">							
+		<md-icon>person</md-icon>
+	</md-input-container>
+
+	<md-autocomplete
+		flex							
+		md-delay="500"		
+		md-min-length="0"
+		md-select-on-focus="true"
+		md-selected-item-change='$ctrl.update()'
+		md-selected-item="$ctrl.user"
+		md-search-text="$ctrl.userSearchText"
+		md-items="user in $ctrl.getUsers($ctrl.userSearchText)"
+		md-item-text="user.username"
+		md-floating-label="{{::$ctrl.label | goT}}"							
+		>							
+		<md-item-template>
+			<span md-highlight-text="ctrl.userSearchText" md-highlight-flags="^i">{{user.username}}</span>			
+		</md-item-template>
+	</md-autocomplete>
+</div>

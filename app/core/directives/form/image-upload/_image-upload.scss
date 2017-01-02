@@ -1,0 +1,19 @@
+
+.go-image-upload{
+	
+	
+	.dropdown{		
+		display: block; //inline block override to prevent line-height from interfering
+	}
+	
+	.img-container{
+		background-color: $color-avatar-bg;
+		border-radius: 50%;
+		width: 100%;
+		height: 100%;
+		display: block;
+		overflow:hidden;
+		img {
+		}	
+	}
+}

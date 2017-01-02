@@ -1,0 +1,68 @@
+<form layout="column" name="bandForm" ng-submit="save()" go-server-errors="model.validationErrors" novalidate>
+	
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{"Close"| goT}}</md-tooltip>
+				<md-icon>chevron_left</md-icon>
+			</md-button>
+
+			<span flex></span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-content class="md-padding" flex>
+
+		<md-input-container  class="md-block">
+			<label>{{"Name"| goT}}</label>
+			<input ng-model="model.name" name="name" required go-autofocus>
+			<div ng-messages="modelForm.name.$error" role="alert">
+				<div ng-message="required">
+					{{"This field is required"| goT}}
+				</div>
+			</div>
+		</md-input-container>
+		
+		
+		<div class="go-input-multiple">
+			<div layout ng-init="album.$formName = 'album_' + $index" ng-repeat="album in model.albums">
+				<md-input-container flex>							
+					<label>{{"Album name"| goT}}</label>
+					<input type="text" name="{{album.$formName}}" ng-model="album.name" required go-autofocus="!album.id">
+					<div ng-messages="bandForm[album.$formName].$error" role="alert">
+						<div ng-message="required">
+							{{"This field is required" | goT}}
+						</div>
+					</div>
+				</md-input-container>
+				
+				<md-input-container flex>							
+					<label>{{"Genre"| goT}}</label>
+					<input type="text" name="{{album.$formName}}" ng-model="album.genre" required>
+					<div ng-messages="bandForm[album.$formName].$error" role="alert">
+						<div ng-message="required">
+							{{"This field is required" | goT}}
+						</div>
+					</div>
+				</md-input-container>
+
+				<md-button aria-label="{{::'Delete' | goT}}" class="md-icon-button" type="button"  ng-click="model.albums.splice($index, 1);">
+					<md-icon class="mdi-delete"></md-icon>				
+				</md-button>
+			</div>
+			
+			<md-button type="button" ng-click="model.albums.push({})"><md-icon>add</md-icon>	 {{"Add album"| goT}}</md-button>
+		</div>
+		
+		<go-custom-fields-edit form-controller="bandForm" ng-model="model.customfields" server-model="UX\Modules\Bands\Model\BandCustomFields"></go-custom-fields-edit>			
+
+	</md-content>
+	
+	
+
+</form>
+

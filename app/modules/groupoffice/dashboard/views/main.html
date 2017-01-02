@@ -1,0 +1,15 @@
+<!--<md-card>
+	
+	<md-card-content>
+		
+		<span class="go-launcher" ng-repeat="launcher in launchers">
+			<md-button aria-label="{{::launcher.title| goT}}" class="md-icon-button" ng-click="openLauncher(launcher, $event)"></md-button>
+			<div class="title">{{::launcher.title| goT}}</div>
+		</span>
+		
+	</md-card-content>
+</md-card>-->
+
+<div id="dashboard">
+	<div ng-repeat="w in ::dashboardWidgets" ng-include="w.view"></div>
+</div>

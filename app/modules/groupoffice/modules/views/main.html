@@ -1,0 +1,62 @@
+<go-hook name="modules">
+	<aside>
+		<div go-filter-collection="modules/filters" go-store="store" flex></div>
+	</aside>
+
+	<div class="go-cards-sm" flex layout="row">
+
+		<div class="go-card go-list" ng-class="{'go-active' : $state.is('modules')}" layout='column'>
+
+			<go-list-toolbar store="store" class="md-hue-1">
+				<go-tools class="md-toolbar-tools">
+					<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleAside()" hide-gt-md class="md-icon-button">
+						<md-icon>menu</md-icon>
+					</md-button>
+
+					<span flex></span>
+
+					<go-search-button></go-search-button>
+
+					<md-menu md-position-mode="target-right target">
+						<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+							<md-icon md-menu-origin>more_vert</md-icon>
+						</md-button>
+						<md-menu-content>
+							<md-menu-item>
+								<md-button ng-click="store.reload()">{{::"Refresh"| goT}}</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+				</go-tools>			
+			</go-list-toolbar>
+
+			<md-content flex>
+
+				<go-list virtual='false' store="store" track-by='name'>
+
+					<item index="model.moduleInformation.languages.en.name" class="md-2-line" ng-click="selectModule(model)">
+						<!--<img alt="{{model.moduleInformation.languages.en.name}}" ng-src="{{model.icon}}&amp;w=50&amp;h=50&amp;zoomCrop=1" class="md-avatar" />-->
+
+						<div class="md-avatar">
+							<md-icon md-svg-src="{{model.icon}}" ng-class="{'md-primary' : model.installed}"></md-icon>
+						</div>
+
+						<div class="md-list-item-text">
+							<div layout="row"><h3 flex>{{model.moduleInformation.languages.en.name}} </h3><small>{{model.moduleInformation.version}}</small></div>
+							<p>{{::'Created By'| goT}} {{model.moduleInformation.author}}</p>
+						</div>
+					</item>
+
+					<empty-state>
+						<md-icon class="mdi-blocks"></md-icon>
+						<p>{{::"No modules found"| goT}}</p>
+					</empty-state>
+
+				</go-list>
+
+			</md-content>
+		</div>
+
+		<div flex ui-view layout="row" class="go-card go-info-panel module-panel ng-animate-disabled" ng-class="{'go-active' : !$state.is('modules')}"></div>
+	</div>
+</go-hook>

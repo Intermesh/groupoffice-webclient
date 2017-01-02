@@ -1,0 +1,16 @@
+.go-settings-navigation {
+	
+	@media(min-width: $screen-md-min) {
+		width: 300px;
+	}
+	
+	position: relative;
+	border-right: 1px solid $border-color;
+}
+
+
+/*.go-settings {
+	md-card {
+		max-width: 800px;
+	}
+}*/

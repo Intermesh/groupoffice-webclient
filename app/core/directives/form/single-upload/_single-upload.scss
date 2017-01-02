@@ -1,0 +1,16 @@
+go-single-upload {
+
+	.md-button.md-icon-button {
+		margin-left: -40px;
+		margin-top: 12px;
+		margin-right: 0px;
+	}
+}
+
+go-multiple {	
+	go-single-upload {	
+		.md-button.md-icon-button {
+			margin-top: 0px;
+		}
+	}
+}	

@@ -1,0 +1,63 @@
+/*
+@import "../../../bower_components/mdi/scss/_variables.scss";
+
+ relative to app/css/app.css 
+$mdi-font-path:        "../core/resources/mdi/fonts";
+@import "../../../bower_components/mdi/scss/_functions.scss";
+@import "../../../bower_components/mdi/scss/_path.scss";
+@import "../../../bower_components/mdi/scss/_core.scss";
+@import "../../../bower_components/mdi/scss/_icons.scss";
+@import "../../../bower_components/mdi/scss/_extras.scss";
+
+
+.custom:before {
+    font: normal normal normal 24px/1 "Material Design Icons";
+    content: mdi('account');
+}
+
+.mdi-missing:before {
+	color: red;
+	content: mdi('ghost');
+}
+
+
+md-icon.mdi:before {
+	font-size: 24px;
+}*/
+.material-icons {
+	color:inherit;
+	font-size: rem(2.4);
+}
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 {
+	font-size: 48px;
+	min-height: 48px;
+	min-width: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+.md-fab {
+	.mdi:before{
+		display:block;
+	}
+}
+
+@mixin go-svg-icon ($url) {	
+	content: " ";
+	background: url($url);
+	background-size: rem(2.4);
+	background-size: contain;
+	width: rem(2.4);
+	height: rem(2.4);
+	display: inline-block;
+}

@@ -1,0 +1,59 @@
+<go-hook name="bands" layout="row" flex>
+	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+		<div go-filter-collection="bands/filters" go-store="store" flex></div>
+	</md-sidenav>
+
+	<div class="go-cards-sm" flex layout="row">
+
+		<div class=" go-card go-list" layout="column" ng-class="{'go-active' : $state.is('bands')}">
+			<go-list-toolbar store="store">
+				<div class="md-toolbar-tools">
+					<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
+						<md-icon>more_vert</md-icon>
+					</md-button>
+
+					<span flex></span>
+
+					<go-search-button></go-search-button>
+
+					<md-menu md-position-mode="target-right target">
+						<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+							<md-icon md-menu-origin>more_vert</md-icon>
+						</md-button>
+						<md-menu-content>
+							<md-menu-item>
+								<md-button ng-click="store.reload()">{{"Refresh"| goT}}</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+				</div>			
+			</go-list-toolbar>
+
+
+			<go-list store="store" flex>
+
+				<item index="model.name" ui-sref="bands.band({bandId: model.id})">
+					<p>{{model.name}}</p>
+				</item>
+
+				<empty-state>
+					<md-icon class="mdi-account"></md-icon>
+					<p>{{"No bands found"| goT}}</p>
+				</empty-state>
+
+			</go-list>
+
+			<div class="go-fab-list">
+				<md-button class="md-fab"  ng-click='edit()'>
+					<md-icon>add</md-icon>
+					<md-tooltip md-direction="left">{{"Add"| goT}}</md-tooltip>
+				</md-button>
+			</div>
+		</div>
+
+
+		<!-- Change the following lines -->
+		<div flex ui-view layout="row" class="go-card go-info-panel" ng-class="{'go-active' : !$state.is('bands')}"></div>
+	</div>
+</go-hook>
+

@@ -1,0 +1,91 @@
+<go-hook name="calendar" flex layout="row">
+	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+		<md-list ng-repeat="account in accountStore.items" ng-if="account.calendars.length">
+			<md-list-item>
+				<md-icon>account_circle</md-icon>
+				<p>{{account.name}}</p>
+				<md-button class="md-secondary md-icon-button" ng-click="editAccount(account)"><md-icon>edit</md-icon></md-button>
+			</md-list-item>
+			<md-list-item ng-repeat="cal in account.calendars">
+				<md-icon style="color: #{{cal.color}}">event</md-icon>
+				<p>{{cal.name}}</p>
+				<md-checkbox ng-model="selectedCalendars[cal.id]" style="margin:0;"></md-checkbox>
+			</md-list-item>
+			<md-divider></md-divider>
+		</md-list>
+	</md-sidenav>
+
+	<div layout="column" layout-fill ng-cloak>
+
+	
+		<md-nav-bar nav-bar-aria-label="navigation links" id="calendar-nav">
+				<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="$mdSidenav('left').toggle();" hide-gt-md class="md-icon-button">
+					<md-icon>menu</md-icon>
+				</md-button>
+			<md-nav-item md-nav-sref="calendar.year" name="year">
+				<md-icon>view_comfy</md-icon>
+				<span>{{nav.date.getFullYear()}}</span>
+			</md-nav-item>
+			<md-menu md-position-mode="target-right target">
+					<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon>arrow_drop_down</md-icon>
+					</md-button>
+					<md-menu-content>
+						<md-menu-item><md-button ng-click="nav.setYear(2015)">2015</md-button></md-menu-item>
+						<md-menu-item><md-button ng-click="nav.setYear(2016)">2016</md-button></md-menu-item>
+						<md-menu-item><md-button ng-click="nav.setYear(2017)">2017</md-button></md-menu-item>
+						<md-menu-item><md-button ng-click="nav.setYear(2018)">2018</md-button></md-menu-item>
+					</md-menu-content>
+				</md-menu>
+
+			<md-nav-item md-nav-sref="calendar.month" name="month">
+				<md-icon ng-click="nav.prevMonth()">chevron_left</md-icon>
+				<md-icon>event</md-icon>
+				<span style="display:inline-block;width:70px;">{{nav.date.getMonthName()}}</span>
+				<md-icon ng-click="nav.nextMonth()">chevron_right</md-icon>
+			</md-nav-item>
+
+			<md-nav-item md-nav-sref="calendar.week" name="week">
+				<md-icon ng-click="nav.prevWeek()">chevron_left</md-icon>
+				<md-icon>view_week</md-icon>
+				<span>Week {{nav.date.getWeek()}}</span>
+				<md-icon  ng-click="nav.nextWeek()">chevron_right</md-icon>
+			</md-nav-item>
+
+			<md-nav-item md-nav-sref="calendar.list" name="list">
+				<md-icon>view_agenda</md-icon>
+				<span>Maandag</span>
+			</md-nav-item>
+
+
+			<span flex></span>
+
+			<md-nav-item md-nav-sref="calendar.search" name="search">
+				<md-icon>pageview</md-icon>
+			</md-nav-item>
+			
+			<md-button aria-label="{{::'Print'| goT}}" ng-click="nav.today()" class="md-icon-button">
+				<md-icon>today</md-icon>
+			</md-button>
+
+			<md-button aria-label="{{::'Print'| goT}}" ng-click="alert('afdrukken')" class="md-icon-button">
+				<md-icon>print</md-icon>
+			</md-button>
+
+			<md-menu md-position-mode="target-right target">
+				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon md-menu-origin>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="store.reload()">{{"Refresh"| goT}}</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</md-nav-bar>
+			
+		<md-content flex ui-view>
+		</md-content>
+
+	</div>
+</go-hook>

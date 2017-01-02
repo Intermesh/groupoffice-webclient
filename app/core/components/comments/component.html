@@ -1,0 +1,44 @@
+<md-card class="go-comments">
+	
+	
+	<md-card-title>
+		<md-card-title-text>
+			<span class="md-headline">{{"Comments" |goT}}</span>
+			<!--<span class="md-subhead">Extra Large</span>-->
+		</md-card-title-text>
+	</md-card-title>
+
+	<md-card-content>
+
+		<div ng-repeat="model in $ctrl.store.items" md-padding>
+			<div layout="row">
+				
+				<img ng-if="model.creator.photoBlobId" alt="{{model.creator.username}}" ng-src="{{'thumb/'+model.creator.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="go-avatar small" />
+				<img ng-if="!model.creator.photoBlobId" alt="{{model.creator.username}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar small" />
+				
+				<div flex layout-align="center start" layout="column">
+					<h3>{{model.creator.username}}</h3>
+					<small>{{model.createdAt | date}}</small>
+				</div>
+				
+			</div>
+			
+		<div ng-if="::model.attachments.length" class="go-attachments">
+			<a ng-repeat="attachment in ::model.attachments" href="{{'download/'+attachment.blobId | apiUrl}}" target="_blank">
+				<md-icon>attach_file</md-icon>&nbsp;{{attachment.name}}
+			</a>
+		</div>
+			
+		<p ng-bind-html="model.content"></p>
+		<md-divider></md-divider>
+		</div>
+
+		
+	</md-card-content>
+
+	
+<!--	<md-button class="md-raised"  ng-click='$ctrl.edit()'>
+		{{"Add"| goT}}
+	</md-button>-->
+	
+	</md-card>

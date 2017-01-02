@@ -1,0 +1,110 @@
+<go-hook name="calendar.event" layout="column" layout-fill>
+	<go-mask ng-show="model.deleted">
+		<md-button class="md-raised md-warn" ng-click="model.unDelete()">{{::"Undo delete"| goT : "events" }}</md-button>
+	</go-mask>
+
+	<md-toolbar class="event" ng-class="model.event.tag" ng-style="color(selectedCalendars[model.calendarId].color)"  style="height:158px; min-height:158px;">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button">
+				<md-icon>close</md-icon>
+			</md-button>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="model.download()">
+				<md-icon>file_download</md-icon>
+			</md-button>
+			<md-button class="md-icon-button" ng-click="model.delete()">
+				<md-icon>delete</md-icon>
+			</md-button>
+		</div>
+		<div style="height:58px;"></div>
+		<div class="md-toolbar-tools">
+			<md-button class="md-fab md-mini" aria-label="Edit" ng-click="openEventDialog(model.eventId,model.userId)"  style="margin-left:-8px; transform: translateY(28px)">
+				<md-icon>edit</md-icon>
+			</md-button>
+			<strong class="ng-binding">{{model.event.title}}</strong><br>
+			<span flex></span>
+		</div>
+		
+	</md-toolbar>
+	<md-content flex>
+		<br>
+		<div layout="row">
+			<md-list>
+				<md-list-item class="md-2-line">
+					<md-icon>schedule</md-icon>
+					<div class="md-list-item-text">
+						<h3>{{model.event.startAt.getDateString()}}</h3>
+						<p>
+							<span ng-if="!model.event.allDay">{{model.event.startAt.getTimeString()}} &mdash; {{model.event.endAt.getTimeString()}}</span>
+							<span ng-if="model.event.allDay">{{"All day" | goT}}</span>
+						</p>
+					</div>
+				</md-list-item>
+				
+				<md-list-item class="md-2-line" ng-if="model.event.location">
+					<md-icon>location_on</md-icon>
+					<div class="md-list-item-text">
+						<h3>{{model.event.location}}</h3>
+					</div>
+				</md-list-item>
+
+				<md-list-item >
+					<md-icon>notifications</md-icon>
+					<p>10 minuten van te voren</p>
+				</md-list-item>
+			</md-list>
+		</div>
+
+		<md-divider></md-divider>
+
+		<md-list-item layout="row" ng-if="model.event.attachments.length > 0">
+			<md-icon>attachment</md-icon>
+			<div flex layout="row">
+			
+				<div ng-repeat="attachment in model.event.attachments" class="gf" ng-click="attachmentDownload(attachment.blobId);">
+					
+					<div ng-if="attachment.type == 'Image'" class="thumb" style="background-image: url('{{attachmentThumb(attachment.blobId)}}')"></div>
+
+					<div class="head">{{attachment.name}}</div>
+
+					<div class="sub"><md-icon>insert_drive_file</md-icon> {{attachment.type}}</div>
+					
+					
+				</div>
+				
+			
+			</div>
+		</md-list-item>
+
+		<md-divider></md-divider>
+
+		<md-list-item layout="row" ng-if="model.event.attendees.length > 1">
+			<md-icon>group</md-icon>
+			<div flex layout="column">
+				<div layout="row" ng-repeat="attendee in model.event.attendees | orderBy: 'responseStatus'">
+					<h3 ng-if="$first || attendee.responseStatus != model.event.attendees[$index-1].responseStatus">{{attendee.responseStatus}}</h3>
+					<div><md-icon>person</md-icon>{{ attendee.email }}</div>
+				</div>
+			</div>
+		</md-list-item>
+
+		<md-divider></md-divider>
+
+	</md-content>
+
+	<md-bottom-sheet ng-if="model.event.attendees.length > 1" class="md-grid" >
+		<md-icon>drafts</md-icon>  Kom je ook?
+		<span flex></span>
+		<md-button ng-class="model.responseStatus == 3 && 'md-primary'" ng-click="answer(3)">
+       Ja
+      </md-button>
+      <md-button ng-class="model.responseStatus == 4 && 'md-primary'" ng-click="answer(4)">
+       Nee
+      </md-button>
+      <md-button ng-class="model.responseStatus == 2 && 'md-primary'" ng-click="answer(2)">
+        Misschien
+      </md-button>
+	</md-bottom-sheet>
+
+	
+</go-hook>

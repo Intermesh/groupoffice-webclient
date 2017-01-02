@@ -1,0 +1,37 @@
+
+
+<div class="go-notifications" layout="column">
+
+	<md-content flex>
+		<md-list flex>
+
+			<md-list-item class="md-2-line" ng-click="open(model)" ng-repeat="model in store.items">
+
+				<img ng-if="model.iconBlobId" alt="{{model.type}}" ng-src="{{'thumb/' + model.iconBlobId| apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
+				<img ng-if="!model.iconBlobId" alt="{{model.type}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="md-avatar" />
+
+				<div class="md-list-item-text">
+
+					<h4>{{model.createdAt | date:'medium'}} - {{model.creator.username}} </h4>
+					
+					<h3 go-notification-body="model"></h3>
+
+				</div>
+				<md-icon class="md-secondary" ng-click="dismiss(model.id)">delete</md-icon>
+			</md-list-item>
+
+			<div class="empty-state" ng-if="store.items.length === 0">
+				<md-icon>notifications</md-icon>
+				<p>{{::"No notifications found"| goT}}</p>
+			</div>
+
+		</md-list>
+	</md-content>
+	<div class="go-notifications-toolbar" layout="row" ng-if="store.items.length > 0">
+		<span flex></span>
+		<md-button ng-click="dismissAll()">
+			{{::"Dismiss all"| goT}}
+		</md-button>
+
+	</div>
+</div>

@@ -1,0 +1,62 @@
+
+
+md-radio-button {
+	
+	margin-top: 3px;
+	margin-bottom: 26px;
+	&:first-child {
+		margin-left: 3px;
+	}
+	
+}
+
+
+form {
+	h2 {
+		font-weight: normal;
+		font-size: 16px;
+		
+		@media (min-width:$screen-desktop) {
+			font-size: 14px;
+		}
+		/*padding didn't look nice in headings of cards'*/
+		/*padding-bottom: 8px;*/
+	}
+	
+	h3 {
+		font-weight: normal;
+		font-size: 15px;
+		
+		@media (min-width:$screen-desktop) {
+			font-size: 13px;
+		}
+		/*padding-bottom: 8px;*/
+	}
+}
+fieldset {
+    border: 0;
+		border-bottom: 1px solid $border-color;
+    
+    margin: 0;
+		padding:32px 16px;
+		
+		
+		legend {
+			padding: 24px 0 0 0; //margin doesn't work on webkit
+			font-weight: normal;
+			font-size: 16px;
+			@media (min-width:$screen-desktop) {
+				font-size: 14px;
+			}
+		}
+		
+		legend + * {
+			-webkit-margin-top-collapse : separate;
+			margin-top                  : -10px;
+		}
+		
+		&:last-child {
+			border-bottom: 0px;
+		}
+}
+

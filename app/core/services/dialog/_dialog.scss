@@ -1,0 +1,43 @@
+section.modal {
+	
+	.dialog{
+		position: absolute;
+		z-index: $z-modal;
+		margin: 0 auto;
+		top: 5%;
+		left:0;
+		right: 0;
+		height: 90%;
+		width: 65%;		
+		max-width: 800px;
+		border-radius: 2px;
+		box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.6);
+		background-color: #FFF;    
+		
+		form {
+			height: 100%;
+		}
+		
+		@media(max-width: $screen-xs-max) {
+			//width: 100%;
+			top:0;
+			bottom:0;
+			left:0;
+			right:0;
+			width: auto;
+			height: auto;
+			transform: none;
+		}
+	}
+	
+	.backdrop {
+		position: fixed;
+		top:0;
+		bottom:0;
+		right:0;
+		left:0;	
+		z-index: $z-modal-backdrop;
+		background-color: #000;
+		opacity: 0.5;		
+	}
+}

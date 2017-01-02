@@ -1,0 +1,60 @@
+<form layout="column" name="emailTemplateForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<span flex>{{"E-mail template"| goT}}</span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-content>
+
+		<fieldset layout="column">
+
+
+			<div layout="row">
+				<md-input-container flex>
+					<md-icon>description</md-icon>
+					<label>{{"Name"| goT}}</label>
+					<input ng-model="model.name" name="name" required go-autofocus>
+					<div ng-messages="emailTemplateForm.name.$error" role="alert">
+						<div ng-message="required">{{"This field is required"| goT}}</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container flex>
+					<md-icon>language</md-icon>
+					<label>{{"Language"| goT}}</label>
+					<md-select name="language" ng-model="model.language" required>
+						<md-option ng-repeat="language in languages track by language.code" value="{{language.code}}">					
+							{{language.name}}
+						</md-option>
+					</md-select>					
+				</md-input-container>
+
+			</div>
+
+			<md-input-container flex>
+				<md-icon>subject</md-icon>
+				<label>{{"Subject"| goT}}</label>
+				<input ng-model="model.subject" name="subject" required>
+				<div ng-messages="emailTemplateForm.subject.$error" role="alert">
+					<div ng-message="required">{{"This field is required"| goT}}</div>
+				</div>
+			</md-input-container>
+
+
+			<div flex go-wysiwyg ng-model="model.body"></div>
+
+		</fieldset>
+	</md-content>
+
+</form>

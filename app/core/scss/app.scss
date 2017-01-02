@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+
+$font-size: 7.5px;
+$baseline-grid:            6px;
+$toolbar-tools-height: 48px;
+
+@import "../../../bower_components/angular-material/modules/groupoffice/scss/angular-material.scss"; // remove font-size in rem function
+
+@import "colors";
+@import "config";
+@import 'angular';
+@import "defaults";
+@import "utils";
+@import "table";
+@import "_material-design-icons"; 
+@import "mdi"; 
+@import "layout";
+@import "form";
+@import "list";
+@import "settings";
+@import "_ng-sortable.scss";
+@import "_material-overrides.scss";
+
+/*@import "_ng-sortable.scss";*/
+@import "cards";
+
+/* gulp uses gulp-sass-glob to support these include patterns: */ 
+@import "../services/**/*.scss";
+@import "../directives/**/*.scss";
+@import "../components/**/*.scss";
+@import "../../scss/*.scss";
+@import "../../modules/groupoffice/**/*.scss";
+@import "../../ux/**/*.scss";
+
+

@@ -1,0 +1,26 @@
+.mod-modules .md-fab {
+	background-color: orange;
+	&:before{
+		content: mdi('cube-outline');
+	}
+}
+
+
+.module-panel{
+	.image-banner{
+		
+		display:table;
+		table-layout:fixed;
+		width:100%;
+		div{
+			/*background-color:#CCC;*/
+			display:table-cell;
+			vertical-align:middle;
+			text-align:center;
+			img{
+				border:1px solid #000;
+			}
+		}
+		
+	}
+}

@@ -1,0 +1,75 @@
+{
+	"elements": {
+		"go-tab-panel": {},
+		"item": {
+			"attributes": {
+				"index": {},
+				"group": {}
+			}
+		},
+		"busy": {},
+		"go-progress": {
+			"attributes": {
+				"max": {},
+				"value": {}
+			}
+		},
+		"go-custom-fields-edit": {
+			"attributes": {
+				"ng-model": {},
+				"server-model": {},
+				"go-model": {}
+			}
+		},
+		"list": {
+			"attributes": {
+				"store": {},
+				"class": {}
+			}
+		},
+		"go-show-error": {
+			"attributes": {
+				"ng-model": {},
+				"for": {},
+				"attribute-name": {},
+				"go-data-model": {},
+				"go-model": {}
+			}
+		},
+		"search-button": {
+			"attributes": {
+				"store": {}
+			}
+		},
+		"empty-state": {},
+		"go-hook": {
+			"attributes": {
+				"layout": {},
+				"flex": {},
+				"name": {}
+			}
+		}
+	},
+	"attributes": {
+		"go-submit": {
+			"context": "form"
+		},
+		"go-infinite-scroll": {},
+		"go-filter-collection": {
+			"context": "div"
+		},
+		"ui-view": {
+			"context": "div"
+		},
+		"aside-trigger": {
+			"context": "a"
+		},
+		"ng-if": {},
+		"ui-sref": {
+			"context": "a"
+		},
+		"ui-sref-active": {
+			"context": "a"
+		}
+	}
+}

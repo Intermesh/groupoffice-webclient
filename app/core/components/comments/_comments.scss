@@ -1,0 +1,21 @@
+.go-comments {
+	.go-avatar{
+		margin: 0px 32px 0px 16px;
+
+		@media (min-width:$screen-desktop) {
+			margin: 0px 24px 0px 8px;
+		}
+	}
+	
+	h3 {
+		margin: 2px 0;
+	}
+}
+
+.go-attachments {
+	padding: 12px 0;
+	a {
+		display:inline-block;
+		margin-right: 12px;		
+	}
+}

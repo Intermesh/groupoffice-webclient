@@ -1,0 +1,32 @@
+md-list-item .md-list-item-inner > md-icon:first-child:not(.md-avatar-icon) {
+	margin-top: 4px; 
+  margin-bottom: 6px; 
+}
+
+md-tooltip .md-content {
+	font-size: rem(1.4);
+  height: auto;
+}
+
+
+.md-chips .md-chip-input-container {
+    width: 100%;
+}
+
+.md-chips .md-chip-input-container md-autocomplete md-autocomplete-wrap {
+    width: 100%;
+}
+
+
+@media (min-width:$screen-desktop) {
+	md-input-container {
+    /*margin-bottom: 2px; cuases buttons to misalign*/
+		
+		.md-errors-spacer {
+			min-height: 18px;
+		}
+	}
+	
+}
+
+

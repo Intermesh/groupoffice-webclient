@@ -1,0 +1,42 @@
+.go-scroll.scrolled{
+	.go-display-panel-header {
+		opacity: 0;
+		transform: scale(0);
+	}
+}
+
+.go-scroll {
+	transition: all .5s;
+	overflow: hidden;
+	height: 164px;
+	min-height: 164px;
+	max-height: 164px;
+	
+	
+	@media (min-width:$screen-desktop) {
+		height: 136px;
+		min-height: 136px;
+		max-height: 136px;
+	}
+}
+
+.go-scroll-hidden {
+	transition: opacity .5s;
+	opacity: 0;
+}
+ 	
+md-toolbar.scrolled {
+	height: 64px;
+	min-height: 64px;
+	max-height: 64px;
+	
+	@media (min-width:$screen-desktop) {
+		height: 56px;
+		min-height: 56px;
+		max-height: 56px;
+	}
+	
+	.go-scroll-hidden {
+		opacity: 1;
+	}
+}

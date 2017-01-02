@@ -1,0 +1,154 @@
+<form layout="column" name="accountForm" go-submit="save()" go-server-errors="model.validationErrors">
+
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{::"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<h1 flex>{{::"GO\\Modules\\GroupOffice\\Imap\\Model\\Account"| goT}}</h1>
+
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{::"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+
+			<md-menu md-position-mode="target-right target">
+				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon md-menu-origin>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="deleteAccount()">{{::"Delete"| goT}}</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</div>
+	</md-toolbar>
+
+	<md-content flex>
+		<fieldset>
+
+			<legend>{{::"Incoming server"| goT}} (IMAP)</legend>
+
+			<div layout="row">
+				<md-input-container flex>
+					<md-icon>computer</md-icon>
+					<label>{{::"Hostname"| goT}}</label>
+					<input type="text" name="hostname" ng-model="model.hostname" required go-autofocus />
+					<div ng-messages="accountForm.name.$error" role="alert">
+						<div ng-message="required">
+							{{::"This field is required"| goT}}
+						</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container style="width:100px">
+					<label>{{::"Encryption"| goT}}</label>
+
+					<md-select ng-model="model.encryption">
+						<md-option value="tls" >TLS</md-option>
+						<md-option value="ssl" >SSL</md-option>
+						<md-option ng-value="null" >{{::"None"| goT}}</md-option>
+					</md-select>
+				</md-input-container>
+
+				<md-input-container style="width:100px">
+					<label>{{::"Port"| goT}}</label>
+					<input name="port" ng-model="model.port" required go-number />					
+				</md-input-container>
+			</div>
+
+
+			<div layout="row">
+				<md-input-container flex>
+					<md-icon>person</md-icon>
+					<label>{{::"Username"| goT}}</label>
+					<input type="text" name="username" ng-model="model.username" required autocomplete="off" />					
+				</md-input-container>
+
+				<md-input-container flex>
+					<label>{{::"Password"| goT}}</label>
+					<input type="password" name="password" ng-model="model.password" ng-required="model.isNew()" autocomplete="off"/>
+				</md-input-container>
+			</div>
+
+
+		</fieldset>
+
+		<fieldset>
+
+			<legend>{{::"Outgoing server"| goT}} (SMTP)</legend>
+
+			<md-input-container class='md-block'>
+				<md-icon>email</md-icon>
+				<label>{{::"E-mail address"| goT}}</label>
+
+				<input type="email" name="fromEmail" ng-model="model.smtpAccount.fromEmail" required />
+
+			</md-input-container>
+
+			<md-input-container class='md-block'>
+				<md-icon>person</md-icon>
+				<label>{{::"Sender name"| goT}}</label>
+				<input type="input"  name="fromName" ng-model="model.smtpAccount.fromName" required />
+
+			</md-input-container>
+
+			<div layout="row">
+				<md-input-container flex>
+					<md-icon>computer</md-icon>
+					<label>{{::"Hostname"| goT}}</label>
+					<input type="text" name="smtphostname" ng-model="model.smtpAccount.hostname" required />
+
+				</md-input-container>
+
+				<md-input-container style="width:100px">
+					<label>{{::"Encryption"| goT}}</label>
+					<md-select ng-model="model.smtpAccount.encryption">
+						<md-option value="tls" >TLS</md-option>
+						<md-option value="ssl" >SSL</md-option>
+						<md-option ng-value="null" >{{::"None"| goT}}</md-option>
+					</md-select>
+				</md-input-container>
+
+				<md-input-container style="width:100px">
+					<label>{{::"Port"| goT}}</label>
+					<input name="smtpport" ng-model="model.smtpAccount.port" required go-number />					
+				</md-input-container>
+			</div>
+
+			<div layout="row">
+				<md-input-container flex>
+					<md-icon>person</md-icon>
+					<label>{{::"Username"| goT}}</label>
+					<input type="text" name="smtpusername" ng-model="model.smtpAccount.username" required autocomplete="off" />
+				</md-input-container>
+
+				<md-input-container flex>
+					<label>{{::"Password"| goT}}</label>
+					<input type="password" name="smtppassword" ng-model="model.smtpAccount.password" ng-required="model.isNew()" autocomplete="off"/>
+				</md-input-container>
+			</div>
+		</fieldset>
+
+
+		<fieldset>
+			<go-multiple title="Signatures" go-models="model.signatures" go-add-model="{}">
+				<div layout="column" flex style="margin-bottom:32px">
+					<md-input-container>						
+						<label>{{::"Name"| goT}}</label>
+						<input type="text"  ng-model="model.name" go-autofocus="$index > 0 && !model.id">
+					</md-input-container>					
+					<go-wysiwyg ng-model="model.signature" on-image-paste="viewScope.onImagePaste(dataURL, editor)"></go-wysiwyg>			
+
+					<md-divider></md-divider>
+				</div>
+
+			</go-multiple>
+		</fieldset>
+	</md-content>
+
+</form> 

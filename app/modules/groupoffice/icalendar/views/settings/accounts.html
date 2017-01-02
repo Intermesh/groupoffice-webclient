@@ -1,0 +1,24 @@
+
+
+<div ng-controller="GO.Modules.GroupOffice.ICalendar.AccountsController">
+	<ul class="items">
+		<li ng-repeat="account in accountStore.items" ng-class="{'deleted': account.deleted}">
+			<a ng-click='editAccount(account.id)'>
+				<i class="calendar"></i> {{account.name}}
+			</a>
+			<div ng-if="account.deleted" class="danger">
+				<button ng-click="account.unDelete()" title="{{'Undo delete' | goT}}"><i class="undo"></i></button>
+			</div>
+			<div class="dropdown" ng-if="!account.deleted">
+				<button class="menu"><i class="menu-dot"></i></button>
+				<menu class="popup top-right">
+					<li><a ng-click="account.delete();">{{"Delete" | goT}}</a></li>
+				</menu>
+			</div>
+		</li>
+	</ul>
+
+	<!--<button class="text" ng-click='editAccount(0)'><i class="plus"></i></a>-->
+</div>
+
+<!--<ui-view></ui-view>-->

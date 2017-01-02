@@ -1,0 +1,54 @@
+.go-info-panel {
+	position:relative;
+	display:block;
+	overflow: hidden;
+	height: 100%;
+	background-color: #f1f1f1;
+	md-tabs {
+		border-bottom: 1px solid $border-color;
+		background-color: white;
+	}
+	a {
+		color: $font-color;
+	}
+	
+	//hide dividers on empty lists and offset it for the icon
+	/*	md-divider {
+			margin-left: 72px;
+
+			@media (min-width:$screen-desktop) {
+				margin-left: 56px;
+			}
+
+			&:only-child {
+				display: none;
+			}
+		}*/
+	
+	md-card {
+		 md-card-content {
+			padding-top: 0;
+			
+		}
+	}
+	
+/*	
+doesn't work to fix scroll problem
+md-content {
+		>*{
+			&:last-child {
+				margin-bottom: 200px;
+			}
+		}
+	}*/
+}
+
+
+.go-logo {
+	height: 128px;
+	padding: 20px;
+	
+	img {
+
+	}
+}

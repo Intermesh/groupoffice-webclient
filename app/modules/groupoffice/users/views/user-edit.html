@@ -1,0 +1,125 @@
+<form layout="column" name="userForm" go-submit="save()" go-server-errors="model.validationErrors" >
+	<!--
+		<div style="height:100%" layout="column">-->
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{::"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<span flex></span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{::"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-content class="md-padding" flex>
+
+		<md-input-container class="md-block">
+			<md-icon>person</md-icon>
+			<label>{{::"Username"| goT}}</label>
+			<input ng-model="model.username" name="username" required go-autofocus>
+			<div ng-messages="userForm.username.$error" role="alert">
+				<div ng-message="required">
+					{{::"This field is required"| goT}}
+				</div>
+				<div ng-message="unique">
+					{{::"Sorry, this username is already taken." | goT}}
+				</div>
+			</div>
+			
+<!--			<div ng-messages="model.validationErrors.username" role="alert">
+				<div ng-message="unique">
+					Sorry, this username is already taken.
+				</div>
+			</div>-->
+		</md-input-container>
+
+
+
+		
+		<md-input-container class="md-block">
+			<md-icon>lock</md-icon>
+			<label>{{::"Password"| goT}}</label>
+			<input type="password" ng-model="model.password" name="password">
+			<div ng-messages="userForm.password.$error" role="alert">
+				<div ng-message="weakPassword">
+					Weak password {{model.validationErrors.password.info | json}}
+				</div>
+			</div>
+		</md-input-container>
+
+
+		<md-input-container  class="md-block">
+			<md-icon class=""></md-icon>
+			<label>{{::"Confirm password"| goT}}</label>
+			<input type="password" go-match="model.password" ng-model="passwordConfirm" name="passwordConfirm">
+			<div ng-messages="userForm.passwordConfirm.$error" role="alert">
+		
+				<div ng-message="goMatch">
+					{{::"The passwords don't match" | goT}}
+				</div>
+			</div>
+		</md-input-container>
+		
+		
+		<md-input-container class="md-block">					
+			<md-icon>email</md-icon>
+			<label>{{::"E-mail" | goT}}</label>
+			<input type="email" name="email" ng-model="model.email" required>
+			<div ng-messages="userForm.email.$error" role="alert">
+				<div ng-message="required">
+				{{::"This field is required"| goT}}
+				</div>
+
+				<div ng-message="email">
+				{{::"Invalid e-mail address"| goT}}
+				</div>
+
+			</div>
+		</md-input-container>
+		
+		<md-input-container class="md-block">				
+			<md-icon class=""></md-icon>
+			<label>{{::"Secondary e-mail" | goT}}</label>
+			<input type="email" name="emailSecondary" ng-model="model.emailSecondary">
+			<div ng-messages="userFormemailSecondary.$error" role="alert">
+				<div ng-message="required">
+				{{::"This field is required"| goT}}
+				</div>
+
+				<div ng-message="email">
+				{{::"Invalid e-mail address"| goT}}
+				</div>
+
+			</div>
+		</md-input-container>
+
+		<h2>{{::"Groups" | goT}}</h2>
+		
+		<md-chips ng-model="model.groups" md-require-match="false" md-transform-chip="transformChip($chip)">
+			
+			<md-autocomplete			
+				md-delay="500"
+				md-selected-item="selectedItem"
+				md-search-text="searchText"
+				md-items="item in getGroups(searchText)"
+				md-item-text="item.name"
+				md-autoselect="true"
+				placeholder="Enter a group..">
+				<md-item-template>
+					<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+				</md-item-template>
+			</md-autocomplete>
+			<md-chip-template>
+				{{$chip.name}}
+			</md-chip-template>
+		</md-chips>
+	</md-content>
+</form>
+
+
+

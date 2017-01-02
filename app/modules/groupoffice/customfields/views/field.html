@@ -1,0 +1,126 @@
+	<form name="fieldSetForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+
+
+		<menu type="toolbar">
+			<li>
+				<a class="btn" ng-click="close();">
+					<i class="back"></i>
+				</a>
+			</li>
+			<li>
+				<button type="submit"><i class="check"></i></button>
+			</li>
+		</menu>		
+
+
+		<div class="panel pad">
+
+		<div class="row">
+			<label for="type">{{"Type"| goT}}</label>
+			
+			<select class="form-control" ng-model="field.type" ng-options="option.value as option.label for option in customFieldTypes"></select>
+
+<!--			<ui-select ng-model="field.type">
+				<ui-select-match name="type" placeholder="Please select...">{{$select.selected.label}}</ui-select-match>
+				<ui-select-choices repeat="item.value as item in customFieldTypes | filter: $select.search">
+					<div ng-bind-html="item.label | highlight: $select.search"></div>
+				</ui-select-choices>
+			</ui-select>-->
+
+		</div>
+
+		<div class="row">
+			<label for="name">{{"Name"| goT}}</label>
+
+			<input type="text" id="name" name="name" ng-model="field.name" required go-autofocus />
+			<go-show-error for="name" go-data-model="field"></go-show-error>
+
+		</div>
+
+		<div class="row">
+			<label for="databaseName">{{"Database name"| goT}}</label>
+
+			<input type="text" id="databaseName" name="databaseName" ng-model="field.databaseName" required />
+			<go-show-error for="databaseName" go-data-model="field"></go-show-error>
+
+		</div>
+
+		<div class="row">
+			<label for="defaultValue">{{"Default value"| goT}}</label>
+
+			<input type="text" id="defaultValue" name="defaultValue" ng-model="field.defaultValue" />
+			<go-show-error for="defaultValue" go-data-model="field"></go-show-error>
+
+		</div>
+
+		<div class="row">
+			<label for="placeholder">{{"Placeholder"| goT}}</label>
+
+			<input type="text" id="placeholder" name="placeholder" ng-model="field.placeholder" />
+			<go-show-error for="placeholder" go-data-model="field"></go-show-error>
+
+		</div>
+
+		<div class="row">
+
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="field.required"> {{"Field is required"| goT}}
+				</label>
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="field.filterable"> {{"Field can be filtered on"| goT}}
+				</label>
+			</div>
+
+		</div>
+
+
+		<div class="row" ng-if="field.type === 'text' || field.type === 'textarea'">
+			<label for="maxLength">{{"Max length"| goT}}</label>
+
+			<input type="text" id="maxLength" name="maxLength" ng-model="field.data.maxLength" go-numeric />
+			<go-show-error for="maxLength" go-data-model="field"></go-show-error>
+
+		</div>
+
+		<!--		<div class="row" ng-if="field.type === 'textarea'">
+					<label for="maxLength">{{"Height"| goT}}</label>
+					<div class="col-sm-9">
+						<input type="text" id="maxLength" ng-model="field.data.height" go-numeric required />
+					</div>
+				</div>-->
+
+
+		<div class="row" ng-if="field.type === 'select'">
+			<label>{{"Select options"| goT}}</label>		
+
+			<span>
+				<div class="group" ng-repeat="option in options">
+
+					<input type="text" name="option_{{$index}}"  ng-model="option.value" required go-autofocus="option.value === ''" />
+					<go-show-error for="option_{{$index}}"></go-show-error>
+	
+					<button type="button" ng-click="options.splice($index, 1)"><i class="remove"></i></button>
+		
+				</div>
+				
+				<button type="button" ng-click="options.push({value: ''});">Add select option</button>
+
+			</span>
+
+			
+
+		</div>
+
+
+
+	</div>
+
+</form> 

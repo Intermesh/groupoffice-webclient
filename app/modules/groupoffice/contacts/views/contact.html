@@ -1,0 +1,281 @@
+<go-hook name="contacts.contact" flex layout="column">
+	<go-mask ng-show="contact.deleted">
+		<md-button class="md-raised md-warn" ng-click="contact.unDelete()">{{::"Undo delete"| goT : "contacts" }}</md-button>		
+	</go-mask>
+
+
+	<md-toolbar class="md-hue-1" go-scroll-class>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="{{::'Back'| goT}}" class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
+				<md-icon>chevron_left</md-icon>
+			</md-button>
+
+			<span flex>
+
+				<span class="go-scroll-hidden">
+					{{contact.name}}
+				</span>
+
+			</span>
+
+			<go-Watch-button record-class-name="GO\Modules\GroupOffice\Contacts\Model\Contact" record-id="contact.id"></go-watch-button>
+
+			<md-menu md-position-mode="target-right target">
+				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon md-menu-origin>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="contact.download()">{{::"Download"| goT}}</md-button>
+					</md-menu-item>
+					<md-menu-item
+						flow-init="flowInit"
+						flow-files-submitted="$flow.upload()"
+						flow-file-success="import($file, $message)">
+						<md-button flow-btn>{{::"Import"| goT}}</md-button>
+					</md-menu-item>
+					<md-menu-item>						
+						<md-button ng-disabled="!contact.permissions.changePermissions" ng-click="share(contact)">{{::"Share"| goT}}</md-button>
+					</md-menu-item>
+					<md-divider></md-divider>
+					<md-menu-item>
+						<md-button ng-disabled="!contact.permissions.delete" ng-click="contact.delete()">{{::"Delete"| goT}}</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</div>
+
+		<div class="go-display-panel-header" layout="row" layout-align="start center">
+			<img ng-if="contact.photoBlobId" alt="{{contact.name}}" ng-src="{{ 'thumb/' + contact.photoBlobId | apiUrl : {w:70, h: 70, zoomCrop: 1} }}" class="go-avatar" />
+			<img ng-if="!contact.photoBlobId" alt="{{contact.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar" />
+
+			<span>
+				<strong>{{contact.name}}</strong><br />
+				<small class="go-comma-list"><a ng-repeat="organization in contact.organizations" ui-sref="contacts.contact({contactId: organization.id})">{{organization.name}}</a></small>
+			</span>
+
+		</div>
+
+
+	</md-toolbar>
+
+	<md-tabs md-selected="tabs.selectedIndex">
+		<md-tab ng-click="goto('info')">Info</md-tab>
+		<!--			<md-tab ng-click="goto('files')">Files</md-tab>
+					<md-tab ng-click="goto('files')">Activities</md-tab>-->
+	</md-tabs>
+
+
+
+	<md-content class="go-grey flex">
+
+		<md-card id="info">
+			<md-toolbar class="md-hue-1">
+				<div class="md-toolbar-tools">
+					<h2 flex>Info</h2>
+					<md-button class="md-icon-button" ng-disabled="!contact.permissions.update" ng-click="edit({contact: contact})">
+						<md-tooltip>
+							{{::"Edit"| goT}}					
+						</md-tooltip>
+						<md-icon>edit</md-icon>
+					</md-button>
+				</div>
+			</md-toolbar>
+
+			<md-card-content >
+
+				<div layout="column" layout-gt-sm="row">
+					<div flex>
+
+
+						<md-list flex ng-if="contact.emailAddresses.length">
+							<md-list-item class="md-2-line" ng-repeat="emailAddress in contact.emailAddresses">
+								<md-icon ng-if="$index === 0">email</md-icon>
+								<div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
+									<h3><a href="mailto:{{emailAddress.email}}">{{ emailAddress.email}}</a></h3>
+									<p>{{contactLabels.emailAddressOptions[emailAddress.type]|| emailAddress.type}}</p>
+								</div>
+							</md-list-item>
+							<md-divider></md-divider>
+						</md-list>
+
+
+						
+
+						<md-list flex ng-if="contact.addresses.length">
+							<md-list-item class="md-3-line md-line-padding" ng-repeat="address in contact.addresses">
+								<md-icon ng-if="$index === 0">location_on</md-icon>
+								<div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
+									<h3>
+										<a target="_blank" href="http://maps.google.com/?q={{address.street + ', ' + address.zipCode + ', ' + address.state + ', ' + address.country| encodeURIComponent}}" ng-bind-html="address.formatted | nl2br"></a>
+									</h3>
+									<p>{{contactLabels.emailAddressOptions[address.type]|| address.type}}</p>
+								</div>
+							</md-list-item>
+							<md-divider></md-divider>
+						</md-list>
+
+
+					</div>
+
+					<div flex>
+
+
+						<md-list flex ng-if="contact.phoneNumbers.length">
+							<md-list-item class="md-2-line" ng-repeat="phoneNumber in contact.phoneNumbers">
+								<md-icon ng-if="$index === 0">phone</md-icon>
+								<div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
+									<h3><a href="tel:{{phoneNumber.number}}">{{phoneNumber.number}}</a></h3>
+									<p>{{contactLabels.phoneNumberOptions[phoneNumber.type]|| phoneNumber.type}}</p>
+								</div>
+							</md-list-item>
+							
+							<md-divider></md-divider>
+							
+						</md-list>
+
+
+						<md-list ng-if="contact.dates.length">
+							<md-list-item class="md-2-line" ng-repeat="date in contact.dates track by date.id">
+								<md-icon ng-if="$index === 0">event</md-icon>
+								<div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
+									<h3>{{date.date|date:"longDate"}} ({{date.date|age}}{{'yr'| goT}})</h3>
+									<p>{{contactLabels.dateOptions[date.type]|| date.type}}</p>
+								</div>
+							</md-list-item>
+							<md-divider></md-divider>
+						</md-list>
+
+
+						<md-list ng-if="contact.isOrganization">
+							<md-list-item class="md-2-line" ng-if="contact.debtorNumber">
+								<md-icon>domain</md-icon>
+								<div class="md-list-item-text">
+									<h3>{{contact.debtorNumber}}</h3>
+									<p>{{::"Debtor number"| goT}}</p>
+								</div>
+							</md-list-item>
+
+							<md-list-item class="md-2-line" ng-if="contact.registrationNumber">
+								<md-icon>domain</md-icon>
+								<div class="md-list-item-text">
+									<h3>{{contact.registrationNumber}}</h3>
+									<p>{{::"Chamber of Commerce"| goT}}</p>
+								</div>
+							</md-list-item>
+
+							<md-list-item class="md-2-line" ng-if="contact.IBAN">
+								<md-icon>domain</md-icon>
+								<div class="md-list-item-text">
+									<h3>{{contact.IBAN}}</h3>
+									<p>{{::"IBAN"| goT}}</p>
+								</div>
+							</md-list-item>
+							
+							<md-divider></md-divider>
+						</md-list>	
+
+						
+
+
+
+
+
+					</div>
+				</div>
+				<md-list ng-if="contact.tags.length">
+					<md-list-item class="md-2-line">
+						<md-icon>label</md-icon>
+						<div class="md-list-item-text">
+							<h3>
+								<ul class="go-comma-list">
+									<li  ng-repeat="tag in contact.tags track by tag.id">
+										{{tag.name}}
+									</li>
+
+								</ul>
+
+							</h3>
+							<p>{{::"Tags"| goT}}</p>
+						</div>
+					</md-list-item>
+					<md-divider></md-divider>
+				</md-list>
+
+
+
+				<div layout ng-if="contact.notes">
+					<md-icon style="margin-left:16px;margin-right: 32px;">note</md-icon>
+					<p flex class="md-offset" ng-bind-html="contact.notes | nl2br"></p>				
+				</div>
+
+
+			</md-card-content>
+
+		</md-card>
+
+
+		<md-card ng-if="contact.employees.length">
+			<md-toolbar class="md-hue-1">
+				<div class="md-toolbar-tools">
+					<h2>{{::"Employees"| goT}}</h2>
+				</div>
+			</md-toolbar>
+
+			<md-card-content>
+				<a ui-sref="contacts.contact({contactId: contact.id})" style="float:left;width:100px;text-align:center;margin:20px;" ng-repeat="contact in contact.employees">
+					<img ng-if="contact.photoBlobId" alt="{{contact.name}}" ng-src="{{ 'thumb/' + contact.photoBlobId | apiUrl : {w:70, h: 70, zoomCrop: 1} }}" class="go-avatar" />
+					<img ng-if="!contact.photoBlobId" alt="{{contact.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar" />
+					<p>{{contact.name}}</p>
+				</a>
+			</md-card-content>
+		</md-card>
+
+
+		<go-custom-fields-detail ng-model="contact.customfields" server-model="GO\Modules\GroupOffice\Contacts\Model\CustomFields"></go-custom-fields-detail>
+
+
+		<!--		<go-files go-controller-route="'contacts/'+contact.id+'/files'"></go-files>-->
+
+
+		<!--	<md-card id="activities" layout="column" style="height: 400px" ng-controller="GO.Modules.GroupOffice.Contacts.ContactActivitiesController">
+				<go-list-toolbar class="md-hue-1" store="activityStore">
+					<div class="md-toolbar-tools">
+						<h2 class="md-title">{{::"Activities"| goT}}</h2>
+					</div>
+				</go-list-toolbar>
+		
+				<md-card-content flex layout="column">
+		
+		
+					<go-list store="activityStore">
+						<item class="md-2-line" ng-click="selectActivity(model)">
+							<md-icon>{{model.$iconCls}}</md-icon>
+		
+							<a href="{{model.$href}}" class="md-list-item-text">
+								<h3>{{model.description}}</h3>
+								<p>{{model.notes}}</p>
+							</a>
+						</item>
+		
+		
+						<empty-state>
+							<md-icon>folder</md-icon>
+		
+							<p>{{::"No activities found"| goT}}</p>
+						</empty-state>
+		
+					</go-list>
+		
+				</md-card-content>
+		
+				<md-card-actions layout="row" layout-align="end center">
+					<md-button class="md-primary">
+					{{::"Add"| goT}}
+					</md-button>
+				</md-card-actions>
+		
+			</md-card>-->
+
+	</md-content>
+</go-hook>

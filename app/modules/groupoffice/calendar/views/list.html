@@ -1,0 +1,32 @@
+<div class="go-cards-sm" flex layout="row" style="top:0;bottom:0;left:0;right:0;position:absolute;">
+
+	<div class="go-card go-list" layout="column" ng-class="{'go-active' : $state.is('events')}">
+
+		<go-listview calendars="calendars" date="nav" store="eventStore"></go-listview>
+
+
+
+		<div class="go-fab-list" ng-cloak>
+			<md-fab-speed-dial md-direction="up" class="md-fling">
+				<md-fab-trigger>
+					<md-button aria-label="menu" class="md-fab">
+						<md-icon>add</md-icon>
+						<md-tooltip md-direction="left">{{"Add"| goT}}</md-tooltip>
+					</md-button>
+				</md-fab-trigger>
+				<md-fab-actions>
+					<md-button aria-label="Event" class="md-fab md-mini" ng-click="openEventDialog()">
+						<md-icon aria-label="Event">event</md-icon>
+						<md-tooltip md-direction="left">{{"Event"| goT}}</md-tooltip>
+					</md-button>
+					<md-button aria-label="Task" class="md-fab md-mini" ng-click="">
+						<md-icon aria-label="Task">list</md-icon>
+						<md-tooltip md-direction="left">{{"Reminder"| goT}}</md-tooltip>
+					</md-button>
+				</md-fab-actions>
+			</md-fab-speed-dial>
+		</div>
+	</div>
+
+	<div flex ui-view layout="row" class="go-card go-info-panel" ng-class="{'go-active' : !$state.is('events')}"></div>
+</div>

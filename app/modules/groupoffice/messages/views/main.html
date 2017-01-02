@@ -1,0 +1,73 @@
+<go-hook name="messages.main" layout="row">
+	<aside>	
+			<div go-on-load="onFilterLoad(filterCollection)" go-filter-collection="messages/filters" go-store="store"></div>		
+	</aside>	
+
+	<div class="go-cards-sm" flex>
+
+		<div class="go-card go-list" ng-class="{'go-active' : $state.is('messages')}">
+			<go-list-toolbar store="store" class="md-hue-1">
+				<go-tools class="md-toolbar-tools">
+					<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleAside()" hide-gt-md class="md-icon-button">
+						<md-icon>menu</md-icon>
+					</md-button>
+
+					<span flex></span>
+
+					<go-search-button></go-search-button>
+
+					<md-menu md-position-mode="target-right target">
+						<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+							<md-icon md-menu-origin>more_vert</md-icon>
+						</md-button>
+						<md-menu-content>
+							<md-menu-item>
+								<md-button ng-click="store.reload()">{{::"Refresh"| goT}}</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+				</go-tools>			
+			</go-list-toolbar>
+
+
+			<go-list store="store" group="lastMessageSentAt | date: 'fullDate'">
+
+				<item ng-click="selectThread(model)" class="md-3-line" ng-class="{'unseen': !model.seen}">
+					<img ng-if="model.photoBlobId" alt="{{model.name}}" ng-src="{{'thumb/'+model.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
+					<img ng-if="!model.photoBlobId" alt="{{model.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="md-avatar" />
+					<div class="md-list-item-text" layout="column">						
+						<div layout="row">							
+							<h3 flex>{{model.getRandom()}} {{model.getFrom()}}</h3>
+							<small><span ng-if="model.messageCount > 1" class="count">{{model.messageCount}}» </span><md-icon ng-if="model.answered">reply</md-icon><md-icon ng-if="model.hasAttachments">attach_file</md-icon>{{model.lastMessageSentAt | date : "shortTime"}}</small>
+						</div>
+						<h4>{{model.subject}}</h4>
+						<p class="go-ellipsis">{{model.excerpt}}</p>						
+					</div>
+				</item>
+
+				<empty-state>
+					<md-icon>person</md-icon>
+					<p>{{::"No threads found"| goT}}</p>
+				</empty-state>
+
+			</go-list>
+
+<!--			<div class="go-fab-list">
+				
+				-->
+			
+				<md-button accesskey="a" class="md-fab md-fab-bottom-right" ng-click="compose()">
+					<md-icon>add</md-icon>
+					<md-tooltip md-direction="top">{{::"Compose"| goT}} (Alt+a)</md-tooltip>
+				</md-button>
+
+			</div>
+		<!--</div>-->
+
+
+		<!-- Change the following lines -->
+		<div ui-view class="go-card go-info-panel messages-thread ng-animate-disabled" ng-class="{'go-active' : !$state.is('messages')}"></div>
+	</div>
+</go-hook>
+
+

@@ -1,0 +1,55 @@
+<go-hook name="users">
+	<aside>		
+		<div go-filter-collection="auth/users/filters" go-store="store"></div>			
+	</aside>
+
+	<div class="go-cards-sm">
+
+		<div class="go-card go-list" ng-class="{'go-active' : $state.is('users')}">
+
+			<go-list-toolbar store="store" class="md-hue-1">
+				<go-tools class="md-toolbar-tools">
+					<md-button ng-click="toggleAside()" hide-gt-md class="md-icon-button">
+						<md-icon>menu</md-icon>
+					</md-button>
+
+					<span flex></span>
+
+					<go-search-button></go-search-button>
+
+					<go-order-button columns="{'t.username':'Username','t.lastLogin':'Last login', 't.loginCount': 'Login count'}"></go-order-button>
+
+				</go-tools>
+			</go-list-toolbar>
+
+
+			<go-list store="store">
+
+				<item index="model.username" class="md-2-line" ng-click="selectUser(model)">					
+					<img ng-if="model.photoBlobId" alt="{{model.name}}" ng-src="{{'thumb/'+model.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
+					<img ng-if="!model.photoBlobId" alt="{{model.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="md-avatar" />
+					<div class="md-list-item-text">
+						<h3>{{model.username}}</h3>
+						<p>{{"Last login" | goT}} {{model.lastLogin | date}}</p>
+					</div>
+				</item>
+
+				<empty-state>
+					<md-icon>account</md-icon>
+					<p>{{::"No users found"| goT}}</p>
+				</empty-state>
+
+			</go-list>
+
+			<md-button class="md-fab md-fab-bottom-right" ng-click='edit()' ng-if="::usersModule.permissions.manage">
+				<md-icon>add</md-icon>
+				<md-tooltip md-direction="left">{{::"Add"| goT}}</md-tooltip>
+			</md-button>
+
+
+
+		</div>
+
+		<div ui-view class="go-card go-info-panel" ng-class="{'go-active' : !$state.is('users')}"></div>
+	</div>
+</go-hook>

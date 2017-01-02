@@ -1,0 +1,168 @@
+.selected{
+	background-color: $color-bg-selected;
+}
+
+.text-center, .center {
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+}
+
+.disabled
+{
+  pointer-events: none;
+
+  /* for "disabled" effect */
+  opacity: 0.5;
+}
+
+.empty-state{
+	 
+	/*display:none !important;*/
+	/*background-color: $color-background-grey;*/
+
+/*	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;*/
+
+	&:only-child, &.active{
+		display: block !important;
+	}
+
+	md-icon{
+		padding: 0;
+		color: #ccc;
+		font-size: 62px;
+		width: 62px;
+		height: 62px;
+		display: block;
+		margin: 20px auto;
+	}
+
+	p {
+		padding:0;
+		color: $color-small;
+		text-align: center;
+		display: block;
+		width: 100%;
+	}
+
+}
+
+
+
+
+//material
+
+.go-avatar {
+	border-radius: 99%;
+	width: 70px;
+	height: 70px;
+	background-color: #C3E6F0;
+/*	@media (min-width:$screen-desktop) {
+		width: 40px;
+		height: 40px;
+	}*/
+	
+	md-icon {
+		width: 100%;
+		height: 100%;
+	}
+	
+	&.small {
+		width: 50px;
+		height: 50px;
+	}
+}
+
+.go-display-panel-header {
+	
+	margin-top: -12px;
+	
+	transition: all .5s;
+	opacity: 1;
+	
+	padding: 16px;
+	
+	.go-avatar, > md-icon{
+		margin: 0px 32px 0px 16px;
+		
+		@media (min-width:$screen-desktop) {
+			margin: 0px 24px 0px 8px;
+		}
+	}
+	
+	> md-icon {
+		font-size:2em; 
+		width: 2em;
+		height:2em;;
+		line-height: 2em;
+		text-align:center;
+	}
+}
+
+md-sidenav {
+	background-color: $cGrey05;
+}
+
+
+.go-badge {
+	display: inline-block;
+	min-width: 10px;
+	padding: 3px 7px;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1;
+	color: #FFF;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: #777;
+	border-radius: 10px;
+	float: right;
+}
+
+.go-counter {
+	line-height: 14px;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	display: inline-block;
+	color: white;
+	background-color: red;
+	border-radius: 50%;
+	min-width: 14px;
+	height: 14px;
+	margin-left: -18px;
+	margin-bottom: 12px;
+	z-index: 1000;
+	font-size: 11px;
+}
+
+
+
+.go-ellipsis {
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow: ellipsis;
+}
+
+.go-no-padding {
+	padding: 0;
+}
+
+.go-grey {
+	background-color: $color-background-grey;
+}
+
+.go-line-breaks {
+	white-space: pre !important; 
+}
+
+.go-offset-icon {
+	margin-left: 36px;
+}

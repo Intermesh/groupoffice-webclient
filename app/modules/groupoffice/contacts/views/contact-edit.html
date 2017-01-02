@@ -1,0 +1,287 @@
+<go-hook name="contacts.contact.edit">
+	<form layout="column" name="contactForm" class="contactForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+		<!--
+			<div style="height:100%" layout="column">-->
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button type="button" class="md-icon-button" ng-click="cancel()">
+					<md-tooltip>{{::"Close"| goT}}</md-tooltip>
+					<md-icon>close</md-icon>
+				</md-button>
+
+				<span flex></span>
+				<md-button type="submit" class="md-icon-button">
+					<md-tooltip>{{::"Save"| goT}}</md-tooltip>
+					<md-icon>check</md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-content flex>
+
+			<fieldset> <!-- Can't put layout="rpw" on fieldset. Doesn't work in chrome -->
+				<div layout="row">
+					<div class="go-image-upload" go-image-upload ng-model="model.photoBlobId" go-default-url="modules/groupoffice/contacts/resources/default-photo.png" thumb-width="80" thumb-height="80"></div>
+
+					<div flex>
+
+						<div layout flex>
+							<md-input-container flex>
+								<label>{{::"Name"| goT}}</label>
+								<input ng-model="model.name" name="name" ng-change="changeFullName()" required go-autofocus>
+								<div ng-messages="contactForm.name.$error" role="alert">
+									<div ng-message="required">
+										{{::"This field is required"| goT}}
+									</div>
+								</div>
+							</md-input-container>
+							<md-button type="button" ng-click="toggleName()" class="md-icon-button" ng-if="!model.isOrganization">
+								<md-icon>{{showNameParts?'arrow_upward':'arrow_downward'}}</md-icon>
+							</md-button>					
+						</div>
+
+						<div layout layout-sm="column" ng-if="!model.isOrganization" class="animate-show-height" style="height:60px;" ng-show="showNameParts">
+							<md-input-container flex>
+								<label>{{::"First name"| goT}}</label>
+								<input ng-model="model.firstName" required>
+							</md-input-container>
+
+							<md-input-container flex>
+								<label>{{::"Middle name"| goT}}</label>
+								<input ng-model="model.middleName">
+							</md-input-container>
+
+							<md-input-container flex>
+								<label>{{::"Last name"| goT}}</label>
+								<input ng-model="model.lastName">
+							</md-input-container>
+						</div>
+
+						<go-multiple title="Organizations" go-models="model.organizations" ng-if="!model.isOrganization">
+							<md-autocomplete
+								flex							
+								md-delay="500"
+								md-selected-item="viewScope.model.organizations[$index]"
+								md-search-text="ctrl.organizationSearchText"
+								md-items="organization in viewScope.getOrganizations(ctrl.organizationSearchText)"
+								md-item-text="organization.name"
+								md-floating-label="{{'Organization'| goT}}"							
+								>							
+								<md-item-template>
+									<span ng-if="organization.id" md-highlight-text="ctrl.organizationSearchText" md-highlight-flags="^i">{{organization.name}}</span>
+									<span ng-if="!organization.id" style="color:blue">Create new '{{organization.name}}'</span>
+								</md-item-template>
+							</md-autocomplete>
+						</go-multiple>
+					</div>			
+				</div>
+			</fieldset>
+
+
+			<fieldset layout="column" layout-gt-sm="row">
+
+				<go-multiple flex icon-cls="email" title="E-mail addresses" go-models="model.emailAddresses" go-add-model="{type:'work'}">
+
+					<md-input-container flex>							
+						<input type="email" name="email" ng-model="model.email" required go-autofocus="!model.id">
+						<div ng-messages="multipleForm.email.$error" role="alert">
+							<div ng-message="required">
+								{{::"This field is required"| goT}}
+							</div>
+
+							<div ng-message="email">
+								{{::"Invalid e-mail address"| goT}}
+							</div>
+
+						</div>
+					</md-input-container>
+
+					<md-input-container style="width:100px">
+						<md-select ng-model="model.type">
+							<md-option ng-value="value" ng-repeat="(value, label) in viewScope.contactLabels.emailAddressOptions">{{label}}</md-option>
+						</md-select>
+					</md-input-container>
+
+				</go-multiple>
+
+
+				<go-multiple flex  icon-cls="phone" title="Phone numbers" go-models="model.phoneNumbers" go-add-model="{type:'work'}">
+
+					<md-input-container flex>							
+						<!--<label>{{::"Phone"| goT}}</label>-->
+						<input type="text" name="number" ng-model="model.number" go-autofocus="!model.id" required>
+						<div ng-messages="multipleForm.number.$error" role="alert">
+							<div ng-message="required">
+								{{::"This field is required"| goT}}
+							</div>
+						</div>
+					</md-input-container>
+					<md-input-container style="width:100px">
+						<!--<label>{{::"Type"| goT}}</label>-->
+						<md-select ng-model="model.type">
+							<md-option ng-value="value" ng-repeat="(value, label) in viewScope.contactLabels.phoneNumberOptions">{{label}}</md-option>
+						</md-select>
+					</md-input-container>
+				</go-multiple>
+
+			</fieldset>
+
+			<fieldset layout="row">
+				<go-multiple icon-cls="location_on" title="Addresses" go-models="model.addresses" go-add-model="{type:'work'}">			
+
+					<div layout="column">
+						<md-input-container>
+							<label>{{::"Type"| goT}}</label>
+							<md-select ng-model="model.type">
+								<md-option ng-value="value" ng-repeat="(value, label) in viewScope.contactLabels.emailAddressOptions">{{label}}</md-option>
+							</md-select>
+						</md-input-container>
+
+						<md-input-container>							
+							<label>{{::"Street"| goT}}</label>
+							<textarea ng-model="model.street" go-autofocus="!model.id"></textarea>
+						</md-input-container>
+
+						<div layout="row">
+							<md-input-container flex>							
+								<label>{{::"ZIP Code"| goT}}</label>
+								<input ng-model="model.zipCode" />
+							</md-input-container>
+
+							<md-input-container flex>							
+								<label>{{::"City"| goT}}</label>
+								<input ng-model="model.city" />
+							</md-input-container>
+						</div>
+
+						<div layout="row">
+
+							<md-input-container flex>							
+								<label>{{::"State"| goT}}</label>
+								<input ng-model="model.state" />
+							</md-input-container>
+
+							<md-input-container flex>							
+								<label>{{::"Country"| goT}}</label>
+								<input ng-model="model.country" />
+							</md-input-container>
+						</div>
+					</div>
+
+
+
+				</go-multiple>
+				
+				
+				
+				
+
+
+			</fieldset>
+			
+			
+			<fieldset>
+				<go-multiple icon-cls="link" title="URL's" go-models="model.urls" go-add-model="{}">
+
+					<md-input-container flex>							
+						<input type="url" name="url" ng-model="model.url" required go-autofocus="!model.id">
+						<div ng-messages="multipleForm.email.$error" role="alert">
+							<div ng-message="required">
+								{{::"This field is required"| goT}}
+							</div>
+
+							<div ng-message="email">
+								{{::"Invalid e-mail address"| goT}}
+							</div>
+						</div>
+					</md-input-container>					
+				</go-multiple>
+			</fieldset>
+
+
+
+			<fieldset>
+
+
+				<go-multiple icon-cls="event"  title="Dates" go-models="model.dates">
+
+					<md-datepicker ng-model="model.date"></md-datepicker>
+					<md-input-container style="width:100px">
+						<md-select ng-model="model.type">
+							<md-option ng-value="value" ng-repeat="(value, label) in viewScope.contactLabels.dateOptions">{{label}}</md-option>
+						</md-select>
+					</md-input-container>
+				</go-multiple>
+
+
+			</fieldset>
+			
+			
+			<fieldset ng-if="model.isOrganization" id="business" layout="column">
+				<h3>{{::"Business details" | goT}}</h3>
+				
+				<md-input-container flex>
+					<md-icon>domain</md-icon>
+					<label>{{::"Debtor number"| goT}}</label>
+					<input ng-model="model.debtorNumber">
+				</md-input-container>
+				
+				<md-input-container flex>
+					<md-icon>domain</md-icon>
+					<label>{{::"Chamber of Commerce"| goT}}</label>
+					<input ng-model="model.registrationNumber">
+				</md-input-container>
+				
+				<md-input-container flex>
+					<md-icon>domain</md-icon>
+					<label>{{::"IBAN"| goT}}</label>
+					<input ng-model="model.IBAN">
+				</md-input-container>
+				
+				
+				
+			</fieldset>
+			
+
+			<fieldset>
+			<md-input-container class="md-block" ng-if="!model.isOrganization">
+					<md-radio-group ng-model="model.gender" layout="row" layout-align="start center">
+						<md-radio-button ng-value="null" class="md-primary">{{::"Gender unknown"| goT}}</md-radio-button>
+						<md-radio-button value="M">{{::"Male"| goT}} </md-radio-button>
+						<md-radio-button value="F">{{::"Female"| goT}}</md-radio-button>
+					</md-radio-group>
+				</md-input-container>
+
+			<md-chips class="md-block" ng-model="model.tags" md-require-match="false" md-on-add="createTag($chip, $index)">
+					<md-autocomplete
+						md-delay="500"
+						md-select-on-match="true"
+						md-match-case-insensitive="true"
+						md-selected-item="selectedItem"
+						md-search-text="searchText"
+						md-items="item in getTags(searchText)"
+						md-item-text="item.name"
+						placeholder="Enter a tag..">
+						<md-item-template>
+							<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+						</md-item-template>
+					</md-autocomplete>
+					<md-chip-template>
+						<span style="display:inline-block;margin-right:4px;vertical-align:middle;border-radius:50%;height:12px;width:12px; background-color: black;" ng-style="{'background-color': $chip.color ? '#' + $chip.color : 'black' }"></span>{{$chip.name}}
+					</md-chip-template>
+				</md-chips>
+
+
+			<md-input-container class="md-block">
+					<label>{{::"Notes"| goT}}</label>
+					<textarea ng-model="model.notes"></textarea>
+				</md-input-container>
+
+			</fieldset>
+
+			<go-custom-fields-edit form-controller="contactForm" ng-model="model.customfields" server-model="GO\Modules\GroupOffice\Contacts\Model\CustomFields"></go-custom-fields-edit>			
+
+		</md-content>
+
+	</form>
+</go-hook>

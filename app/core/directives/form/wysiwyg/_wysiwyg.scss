@@ -1,0 +1,96 @@
+/*.ng-invalid.ng-dirty .scroller, form.ng-submitted .ng-invalid .scroller {
+	border-color: $color-danger-text !important;
+}
+
+.ng-valid.ng-dirty .scroller, form.ng-submitted .ng-valid .scroller{
+	border-color: $color-success-text !important;
+}*/
+
+
+.go-wysiwyg{
+	/*height: 100%;*/
+	width: 100%;	
+	height: 100%;
+	
+	.editor {
+/*		position:absolute;
+		top:0;
+		bottom:0;
+		left:0;
+		right: 0;*/
+		display: block;
+		/*display: table-row;*/
+		outline: none;		
+		min-height: 100px;		
+		/*overflow:auto;*/
+	}
+	
+
+
+	menu[type="toolbar"] {		
+		background-color: white;
+		height: auto;
+		display: table-row;
+		padding: 4px 0;
+		border: 0;
+		width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		
+		a {
+			 color: $font-color;
+			 	&.wysihtml5-command-active{
+					background-color: $color-bg-selected;
+				}
+		}
+		
+		
+		
+		md-icon, md-icon.mdi {
+			font-size: 16px;
+			width: auto;
+			height: auto;
+			min-height: auto;
+		}
+
+		>li {
+			padding-left: 10px;
+			&:first-child{
+				padding-left: 0;
+			}
+			
+			display: inline-table;
+			> * {
+				display: table-cell;
+				min-width: 30px;
+				
+				margin: 0px;				
+				text-align: center;
+				vertical-align: middle;
+				border: 1px solid $border-color;
+				border-left:0px;		
+				padding: 0px;
+				line-height: 30px;
+				height: 30px;
+				color: $font-color;
+
+
+
+				&:first-child{
+					border-left: 1px solid $border-color;
+					border-top-left-radius: 2px;
+					border-bottom-left-radius: 2px;
+				}
+
+				&:last-child {
+					border-top-right-radius: 2px;
+					border-bottom-right-radius: 2px;
+				}
+
+			
+
+			}
+		}
+
+	}
+}

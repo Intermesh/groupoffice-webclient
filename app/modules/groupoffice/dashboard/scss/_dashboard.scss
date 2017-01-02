@@ -1,0 +1,14 @@
+.mod-dashboard .md-fab {
+	background-color: orange;
+	&:before{
+		content: mdi('speedometer');
+	}
+}
+
+#dashboard {
+	white-space: nowrap; 
+	>div {
+		width: 50%;
+		display: inline-block;
+	}
+}

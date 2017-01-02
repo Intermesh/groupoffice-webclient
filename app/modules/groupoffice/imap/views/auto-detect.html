@@ -1,0 +1,65 @@
+
+<form name="accountForm" go-submit="save()" go-server-errors="model.validationErrors">
+
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="close()">
+				<md-tooltip>{{::"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<h1 flex>{{::"GO\\Modules\\GroupOffice\\Imap\\Model\\Account" | goT}}</h1>
+			
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{::"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+
+	<md-content class="md-padding" flex>
+		
+		<p>{{::"createImapAccountText" | goT}}</p>
+		
+		<div layout="row">
+		<md-input-container flex>
+			<label>{{::"Sender name"| goT}}</label>
+			<input type="text" name="fromName" ng-model="extra.fromName" required autocomplete="off" go-autofocus />
+			<div ng-messages="accountForm.fromName.$error" role="alert">
+				<div ng-message="required">
+				{{::"This field is required" | goT}}
+				</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container flex>
+			<label>{{::"E-mail"| goT}}</label>
+
+			<input type="text" name="email" ng-model="autodetect.email" required autocomplete="off" />
+			<div ng-messages="accountForm.email.$error" role="alert">
+				<div ng-message="required">
+				{{::"This field is required" | goT}}
+				</div>
+				<div ng-message="email">
+				{{::"Invalid e-mail address" | goT}}
+				</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container flex>
+			<label>{{::"Password"| goT}}</label>
+			<input type="password" name="password" ng-model="autodetect.password" required autocomplete="off"/>
+			<div ng-messages="accountForm.fromName.$error" role="alert">
+				<div ng-message="required">
+				{{::"This field is required" | goT}}
+				</div>
+			</div>
+		</md-input-container>
+		</div>
+
+
+	</md-content>
+
+</form> 

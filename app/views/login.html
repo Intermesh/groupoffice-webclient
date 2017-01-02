@@ -1,0 +1,52 @@
+<div ng-if="!checkingAuth">
+	<md-toolbar class="md-tall">
+		<div class="go-logo" layout="row" layout-align="left center">
+			<img alt="{{title}}"  style='' ng-src="{{::logo}}" />
+		</div>	
+	</md-toolbar>
+
+
+
+	<form name="loginForm" go-submit="login(user)" role="form" novalidate="" layout="row" layout-align="center center" flex go-server-errors="user.validationErrors">
+
+		<md-card style="width:600px;margin-top:-72px;z-index:4">
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline">{{::"Login"| goT}}</span>
+					<span class="md-subhead">{{::"Please enter your username and password"| goT}}</span>			
+				</md-card-title-text>
+			</md-card-title>	
+			<md-card-contents class="md-padding">	
+				<md-input-container class="md-block">
+					<md-icon>person</md-icon>
+					<label for="username">{{::"Username"| goT}}</label>
+					<input id="username" name="username" type="text" ng-model="user.username" placeholder="{{'Username'| goT}}" required go-autofocus>
+					<div ng-messages="loginForm.username.$error" role="alert">
+						<div ng-message="required">
+							{{::"This field is required"| goT}}
+						</div>
+					</div>
+				</md-input-container>			
+
+				<md-input-container class="md-block">
+					<md-icon>lock</md-icon>
+					<label for="password">{{::"Password"| goT}}</label>
+					<input id="password" name="password" type="password" ng-model="user.password" placeholder="{{'Password'| goT}}" required>
+					<div ng-messages="loginForm.password.$error" role="alert">
+						<div ng-message="required">
+							{{::"This field is required"| goT}}
+						</div>
+					</div>
+				</md-input-container>
+
+
+			</md-card-contents>
+			<md-card-actions layout="row">
+				<span flex></span>
+				<md-button ng-click='forgotPassword()'>{{::'Forgot password?'| goT}}</md-button>
+				<md-button class="md-accent md-raised" type="submit">{{'Login'| goT}}</md-button>
+			</md-card-actions>
+		</md-card>
+	</form>
+
+</div>

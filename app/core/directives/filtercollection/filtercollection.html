@@ -1,0 +1,57 @@
+<script type="text/ng-template" id="filter-multiselect.html">
+	<div ng-if="filter.label" class="md-toolbar-tools"><h3>{{filter.label | goT}}</h3></div>
+	<md-list-item ng-repeat="option in filter.options track by option.value" ng-class="{selected: option.selected}" ng-click="filterCollection.toggleOption($event, filter, option)">		
+		
+ 		<md-icon ng-style="{color: option.color ? '#'+option.color : null}" class="material-icons {{::filter.name}} {{::filter.name}}-{{::option.value}}"></md-icon> 
+		
+		<p>{{::option.label | goT}}</p>
+		
+		<div  class="md-secondary" ng-if="option.count !== null">
+			<span class="go-badge">
+					{{option.count}}
+			</span>
+		</div>
+	</md-list-item>
+	<md-divider ng-if="::filter.options.length"></md-divider>
+</script>
+
+<script type="text/ng-template" id="filter-singleselect.html">
+	<div ng-if="filter.label" class="md-toolbar-tools"><h3>{{filter.label | goT}}</h3></div>
+	<md-list-item ng-repeat="option in filter.options track by option.value" ng-class="{selected: option.selected}" ng-click="filterCollection.toggleOption($event, filter, option)">		
+
+		<md-icon class="material-icons {{::filter.name}} {{::filter.name}}-{{::option.value}}" ng-style="{color: option.color ? '#'+option.color : null}"></md-icon>
+		
+		<p>{{::option.label | goT}}</p>
+
+		<div  class="md-secondary" ng-if="option.count !== null">
+			<span class="go-badge">
+					{{option.count}}
+			</span>
+		</div>
+	</md-list-item>
+	<md-divider ng-if="::filter.options.length"></md-divider>
+</script>
+
+<script type="text/ng-template" id="filter-numberrange.html">
+	<div ng-if="filter.label" class="md-toolbar-tools"><h3>{{filter.label | goT}}</h3></div>
+	<md-list-item ng-class="{selected: filter.min}" ng-click="filterCollection.promptOption(filter, 'min')">
+		<md-icon class="material-icons {{::filter.name}} {{::filter.name}}-min"></md-icon> 
+		
+		<p>{{filter.min ? filter.min+" +" : filter.name+"-min" | goT}}</p>
+
+		<div class="md-secondary" ng-if="filter.min">
+			<i class="remove" ng-click="filterCollection.setOption(filter, 'min', 0)"></i>			
+		</div>
+	</md-list-item>
+	<md-list-item ng-class="{selected: filter.max}" ng-click="filterCollection.promptOption(filter, 'max')">
+
+		<md-icon class="material-icons {{::filter.name}} {{::filter.name}}-max"></md-icon> 
+		
+		<p>{{filter.max ? filter.max+" -" : filter.name+"-max" | goT}}</p>
+
+	</md-list-item>
+	<md-divider></md-divider>
+</script>
+
+
+<md-list class="filtercollection md-body-1" ng-repeat="filter in filterCollection.filters track by filter.name" ng-include="'filter-'+filter.type+'.html'"></md-list>

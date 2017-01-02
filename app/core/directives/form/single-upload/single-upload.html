@@ -1,0 +1,49 @@
+
+<div
+	data-flow-name="uploader.flow"
+	data-flow-init="flowInit"
+	data-flow-files-submitted="$flow.upload()"
+	data-flow-file-added="{{::fileAdded}}"
+	data-flow-file-success="uploadSuccess($file, $message)"
+	data-flow-drop>
+
+	<div layout="row">
+
+		<!--		Had to duplicate the input block because ng-if on icon doesn't work well-->
+		<md-input-container flex ng-if="::iconCls">
+			<md-icon> {{::iconCls}}</md-icon>
+			<label>{{label| goT}}</label>
+			<input readonly="true" name="{{name}}" ng-model="goModel.name" />
+			<div ng-messages="form[name].$error" role="alert">
+				<div ng-message="required">{{::"This field is required"| goT}}</div>
+				<div ng-repeat="(key, value) in ::errorMessages" ng-message="{{::key}}">{{::value| goT}}</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container flex ng-if="::!iconCls">
+			<label>{{label| goT}}</label>
+			<input readonly="true" name="{{name}}" ng-model="goModel.name" />
+			<div ng-messages="form[name].$error" role="alert">
+				<div ng-message="required">{{::"This field is required"| goT}}</div>
+				<div ng-repeat="(key, value) in ::errorMessages" ng-message="{{::key}}">{{::value| goT}}</div>
+			</div>
+		</md-input-container>
+
+		<md-button ng-if="goModel" class="md-icon-button" ng-click="remove()">
+			<md-icon>delete</md-icon>
+			<md-tooltip>
+				{{::"Remove"| goT}}
+			</md-tooltip>
+		</md-button>
+
+		<md-button ng-if="!goModel" class="md-icon-button" data-flow-btn>
+			<md-icon>file_upload</md-icon>
+			<md-tooltip>
+				{{::"Select file"| goT}}
+			</md-tooltip>
+		</md-button>
+	</div>
+	<md-progress-linear md-mode="determinate" ng-if="$flow.files[0] && $flow.files[0].progress() != 1" value="$flow.files[0].progress()*100"></md-progress-linear>
+
+
+</div>

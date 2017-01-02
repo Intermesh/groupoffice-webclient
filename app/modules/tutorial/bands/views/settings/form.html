@@ -1,0 +1,24 @@
+<form layout="column" name="bandForm" ng-submit="save()" go-server-errors="model.validationErrors" novalidate>
+	
+	<md-toolbar class="md-hue-1">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
+			<md-icon>chevron_left</md-icon>
+		</md-button>
+
+			<span flex></span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-content class="md-padding" flex>
+		<md-input-container  class="md-block">
+				<label>Example field</label>
+				<input name="dummy" required go-autofocus>
+		</md-input-container>
+	</md-content>
+	
+</form>

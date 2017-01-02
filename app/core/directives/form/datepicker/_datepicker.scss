@@ -1,0 +1,44 @@
+
+go-date-picker {
+	min-width: 330px;
+  display: block;
+	
+	margin-bottom: 22px;
+	
+	@media (min-width:$screen-desktop) {
+		margin-bottom: 16px;
+	}
+		
+/*	* {
+		display: inline-block;
+	}*/
+	
+	&.ng-invalid.ng-touched {
+		color: rgb(221,44,0);
+		
+		.md-select-value {
+			border-bottom-color: rgb(221,44,0) !important;
+		}
+	}
+	
+
+/*	md-input-container {
+		margin-bottom: 2px;
+	}*/
+	
+	.year {
+		width: 140px; //for error?
+	}
+	.month {
+		/*width: 100px;*/
+	}
+	.day {
+		
+	}
+
+	.ng-messages {
+		display: block;
+		color: rgb(221,44,0);
+		margin-left: 36px;
+	}
+}

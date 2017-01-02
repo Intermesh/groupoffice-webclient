@@ -1,0 +1,84 @@
+<form layout="column" name="bandForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{::"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<span flex></span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{::"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-content class="md-padding" flex>
+
+		<md-input-container class="md-block">
+			<md-icon>description</md-icon>
+			<label>{{::"Desciption"| goT}}</label>
+			<input ng-model="model.description" name="description" required go-autofocus>
+			<div ng-messages="modelForm.name.$error" role="alert">
+				<div ng-message="required">{{::"This field is required"| goT}}</div>
+			</div>
+		</md-input-container>
+
+		<go-select-user label="Assigned to" user="model.assignee" on-change='setAssignee(user)'></go-select-user>
+		
+
+<!--		<md-input-container class="md-block">							
+			<label>{{::"Due at"| goT}}</label>
+			<input ng-model="model.dueTime" />
+			<input mdc-datetime-picker date="true" time="true" type="text" short-time="false"
+               placeholder="DateTime"
+               min-date="minDate"
+               format="DD-MM-YYYY HH:mm"
+               ng-model="model.dueTime">
+		</md-input-container>
+		-->
+		
+		
+		<div layout="row">
+			<go-date-picker label="Due at" ng-model="model.dueAt"></go-date-picker>
+			
+			<md-input-container flex class="md-block">							
+				<md-icon>schedule</md-icon>
+				<label>{{::"Duration (Minutes)"| goT}}</label>
+				<input ng-model="model.duration" ng-pattern="/^[0-9]*$/" />
+			</md-input-container>
+		</div>
+		
+		<md-input-container class="md-block">
+			<md-icon>note</md-icon>
+			<label>{{::"Notes"| goT}}</label>
+			<textarea ng-model="model.notes" md-maxlength="150" md-select-on-focus></textarea>
+		</md-input-container>
+
+		
+		
+		<md-chips class="md-block" ng-model="model.tags" md-require-match="false" md-on-add="createTag($chip, $index)">
+				<md-autocomplete
+					md-delay="500"
+					md-select-on-match="true"
+					md-match-case-insensitive="true"
+					md-selected-item="selectedItem"
+					md-search-text="searchText"
+					md-items="item in getTags(searchText)"
+					md-item-text="item.name"
+					placeholder="Enter a tag..">
+					<md-item-template>
+						<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+					</md-item-template>
+				</md-autocomplete>
+				<md-chip-template>
+					<span style="display:inline-block;margin-right:4px;vertical-align:middle;border-radius:50%;height:12px;width:12px; background-color: black;" ng-style="{'background-color': $chip.color ? '#'+$chip.color : 'black' }"></span>{{$chip.name}}
+				</md-chip-template>
+			</md-chips>
+		
+
+	</md-content>
+
+</form>

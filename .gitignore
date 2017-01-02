@@ -1,0 +1,10 @@
+bower_components
+node_modules
+nbproject/private
+app/css/*.css
+app/css/*.map
+app/.sass-cache
+build/*
+/app/build/
+/app/config.js
+/app/resources/custom/*

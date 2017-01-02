@@ -1,0 +1,56 @@
+
+
+.go-full-height {
+	height: 100%;
+}
+.go-account-sync-status {
+	width:40px;
+	height:40px;
+}
+
+
+#go-container {
+	position: absolute;
+
+	top:0px;
+	bottom:0;
+	left:0;
+	right:0;
+}
+
+
+.go-header + #go-container {
+	top: $md-toolbar-height;
+	// Handle mobile portrait
+	@media (min-width: 0) and (max-width: $layout-breakpoint-sm - 1) and (orientation: portrait) {
+		top: $md-toolbar-height-mobile-portrait;
+	}
+	// Handle mobile landscape
+	@media (min-width: 0) and (max-width: $layout-breakpoint-sm - 1) and (orientation: landscape) {
+		top: $md-toolbar-height-mobile-landscape;
+	}
+}
+
+go-hook {
+	/*position:relative;*/
+	height:100%;
+}
+
+
+.col {
+	min-height: 1px;
+	border: 0 none;
+	float: left;
+	height: 100%;
+	position: relative;
+	
+/*	&.fill{
+		overflow:hidden;	
+		float: none;
+	}*/
+}
+
+
+.go-progress-container {
+	position:absolute;top:0px;left:0px;right:0px;height:5px;z-index:100000;
+}

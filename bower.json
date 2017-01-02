@@ -1,0 +1,29 @@
+{
+  "name": "groupoffice-webclient",
+  "description": "The Group-Office Webclient based on AngularJS",
+  "version": "0.0.0",
+  "homepage": "http://intermesh.io",
+  "license": "AGPL",
+  "private": false,
+  "dependencies": {
+    "angular": "latest",
+    "angular-ui-router": "latest",
+    "angular-i18n": "latest",
+    "fastclick": "latest",
+    "ng-flow": "latest",
+    "angular-sanitize": "latest",
+    "wysihtml": "*",
+    "ng-sortable": "latest",
+    "angular-messages": "latest",
+    "material-design-icons": "latest",
+    "angular-material-datetimepicker": "latest",
+    "moment": "latest",
+    "angular-chartist": "*",
+    "chartist": "^0.9.8",
+    "angular-material": "master"
+  },
+  "devDependencies": {},
+  "resolutions": {
+    "angular-material": "master"
+  }
+}

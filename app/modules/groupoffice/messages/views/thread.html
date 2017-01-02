@@ -1,0 +1,230 @@
+<go-hook name="messages.thread" layout="column">
+	<md-toolbar class="md-hue-1" ng-disabled="thread.$busy">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
+				<md-icon>chevron_left</md-icon>
+				<md-tooltip>{{::"Back"| goT}}</md-tooltip>
+			</md-button>
+
+			<span flex></span>
+
+			<md-button class="md-icon-button" ng-click="trash(thread);">
+				<md-icon>delete</md-icon>
+				<md-tooltip>{{::"Delete"| goT}}</md-tooltip>
+			</md-button>
+
+			<!--		<md-button class="md-icon-button" ng-click="thread.openTask();">
+						<md-icon>check</md-icon>
+					</md-button>-->
+
+			<md-button class="md-icon-button" ng-disabled="thread.archive" ng-click="archive(thread);">
+				<md-icon>folder</md-icon>
+				<md-tooltip>{{::"Actioned"| goT}}</md-tooltip>
+			</md-button>
+
+			<md-divider></md-divider>
+
+			<md-button class="md-icon-button" ng-click="reply(threadStore.items[0], false)">
+				<md-icon>reply</md-icon>
+				<md-tooltip>{{::"Reply"| goT}}</md-tooltip>
+			</md-button>
+
+			<md-button accesskey="r" class="md-icon-button" ng-click="reply(threadStore.items[0], true)">
+				<md-icon>reply_all</md-icon>
+				<md-tooltip>{{::"Reply all"| goT}} (Alt+r)</md-tooltip>
+			</md-button>
+
+			<md-menu md-position-mode="target-right target">
+				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon md-menu-origin>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="thread.flagged = !thread.flagged; thread.save();">{{(thread.flagged ? 'Unflag' : 'Flag') | goT}}</md-button>
+					</md-menu-item>
+
+					<md-menu-item>
+						<md-button ng-click="thread.seen = !thread.seen; thread.save();">{{(thread.seen ? 'Mark as unread' : 'Mark as read') | goT}}</md-button>
+					</md-menu-item>
+
+					<md-menu-item>
+						<md-button ng-click="threadStore.reload()">{{::"Move"| goT}}</md-button>
+					</md-menu-item>
+
+					<!--				<md-divider></md-divider>
+					
+									<md-menu-item class="show-gt-lg">
+										<md-button ng-click="toggleMessageFullScreen();">{{::"Toggle fullscreen"| goT}}</md-button>
+									</md-menu-item>-->
+				</md-menu-content>
+			</md-menu>
+
+		</div>
+	</md-toolbar>
+
+
+
+	<md-content class="go-grey flex" go-infinite-scroll="threadStore.nextPage()" go-infinite-scroll-disabled="!threadStore.shouldLoad()">
+
+		<md-card>
+			<md-card-content>
+				<md-chips class="md-block" ng-model="tags" md-autocomplete-snap md-require-match="false" md-on-add="createTag($chip, $index);" md-on-remove="removeTag($chip, $index);">
+					<md-autocomplete			
+						md-delay="500"
+						md-select-on-match="true"
+						md-match-case-insensitive="true"
+						md-selected-item="selectedItem"
+						md-search-text="searchText"
+						md-items="item in getTags(searchText)"
+						md-item-text="item.name"
+						placeholder="Add tags..">
+						<md-item-template>
+							<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+						</md-item-template>
+					</md-autocomplete>
+					<md-chip-template>
+						{{$chip.name}}
+					</md-chip-template>
+				</md-chips>
+			</md-card-content>
+		</md-card>
+
+		<md-card class="messages-message" ng-repeat="message in threadStore.items track by message.id">
+
+			<md-card-content>
+				<div class="date">{{::message.sentAt| date:"longDate"}} {{::message.sentAt| date:"shortTime"}}</div>
+
+				<div layout="row">
+					<div class="md-padding">												
+						<img ng-if="message.photoBlobId" alt="{{message.from.personal}}" ng-src="{{'thumb/'+message.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="go-avatar" style="width:50px;height:50px;" />
+						<img ng-if="!message.photoBlobId" alt="{{message.from.personal}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar" style="width:50px;height:50px;" />
+					</div>
+					<div class="md-padding" layout layout-align="start center" flex>
+						<a ng-click="message.openContact()">
+							<strong>
+								<span ng-if="::message.isSentByCurrentUser">{{::"You"| goT}}</span> 
+								<span ng-if="::!message.isSentByCurrentUser">{{::message.from.personal|| message.from.address}}</span>
+
+
+							</strong><br>
+
+							<div class="to">
+								{{::"To"| goT}}:&nbsp;
+								<ul class="go-comma-list">
+									<li ng-repeat="address in ::message.to">{{::address.personal|| address.address}}</li>
+								</ul>
+							</div>
+
+
+						</a>
+					</div>
+
+					<md-menu md-position-mode="target-right target">
+						<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+							<md-icon md-menu-origin>more_vert</md-icon>
+						</md-button>
+						<md-menu-content>
+
+							<md-menu-item>
+								<md-button ng-click="forward(message)">{{::"Forward"| goT}}</md-button>
+							</md-menu-item>
+
+
+							<md-menu-item>
+								<md-button ng-click="message.compose()">{{::"Open in composer"| goT}}</md-button>
+							</md-menu-item>
+
+							<!--						<md-menu-item>
+														<md-button ng-click="message.viewSource();">{{::"View source"| goT}}</md-button>
+													</md-menu-item>
+							
+													<md-menu-item>
+														<md-button ng-click="message.syncImap();">{{::"Sync IMAP"| goT}}</md-button>
+													</md-menu-item>-->
+
+						</md-menu-content>
+					</md-menu>
+
+				</div>		
+
+				<div class="md-padding">
+					<md-card ng-repeat="attachment in ::message.attachments" layout="row" ng-if="attachment.event">
+						<div class="md-card-image" style="background-image: url('modules/groupoffice/calendar/resources/event-invite.jpg'); background-size: cover; background-position: center center;width: 30%; max-height: 100%"></div>
+					<div flex layout="column">
+					<md-card-title class="md-hue-1">
+						<md-card-title-text>
+						  <span class="md-headline">{{attachment.event.SUMMARY}}</span>
+						</md-card-title-text>
+					</md-card-title>
+						
+					<md-card-content>
+							<div flex="" layout="column" layout-gt-sm="row" class="layout-gt-sm-row layout-column flex">
+								<md-list flex>
+									<md-list-item class="md-2-line">
+									<md-icon>access_time</md-icon>
+										<div class="md-list-item-text">
+											<h3>Wanneer</h3>
+											<p>{{attachment.event.DTSTART}}</p>
+										</div>
+									</md-list-item>
+
+									<md-list-item class="md-2-line">
+									<md-icon>person</md-icon>
+										<div class="md-list-item-text">
+											<h3>Organizator</h3>
+											<a ng-repeat="org in attachment.event.ORGANIZER" href="mailto:{{org[0]}}">{{org[1] || org[0]}}</a>
+										</div>
+									</md-list-item>
+								</md-list>
+
+								<md-list flex>
+									<md-list-item class="md-2-line">
+									<md-icon>group</md-icon>
+										<div class="md-list-item-text">
+											<h3>Genodigde</h3>
+											<p ng-repeat="attendee in attachment.event.ATTENDEE"><a href="mailto:{{attendee[0]}}">{{attendee[1] || attendee[0]}}</a><p>
+										</div>
+									</md-list-item>
+
+									<md-list-item ng-if="attachment.event.LOCATION" class="md-2-line">
+										<md-icon>place</md-icon>
+										<div class="md-list-item-text">
+											<h3>Waar</h3>
+											<p>{{attachment.event.LOCATION}}</p>
+										</div>
+									</md-list-item>
+
+								</md-list>
+
+							</div>
+
+						</md-card-content>
+
+<!--	TODO: IF CALENDAR	<md-card-actions layout="row" layout-align="begin center">
+							<md-button ng-click="rsvp(attachment, 'ACCEPTED')">Ja</md-button>
+							<md-button ng-click="rsvp(attachment, 'DECLINED')">Nee</md-button>
+							<md-button ng-click="rsvp(attachment, 'TENTIATIVE')">Misschien</md-button>
+						</md-card-actions>-->
+					</div>
+					</md-card>
+				</div>
+
+				<div ng-if="::message.attachments.length" class="md-padding em-attachments">
+					<a ng-if="::!attachment.contentId" ng-repeat="attachment in ::message.attachments" href="{{::attachment.url}}?XSRFToken={{XSRFToken}}" target="_blank">
+						<md-icon>attach_file</md-icon>&nbsp;{{attachment.name}}
+					</a>
+
+				</div>
+				<div class="md-padding body" ng-bind-html='::message.body'></div>
+
+				<div class="md-padding quote" ng-if="::message.quote">
+
+					<div ng-if="message.showQuote" ng-bind-html='::message.quote'></div>
+					<a class="em-show-quote" ng-click="message.showQuote = !message.showQuote">{{::"..."| goT}}</a>
+				</div>
+			</md-card-content>
+		</md-card>
+
+	</md-content>
+
+</go-hook>

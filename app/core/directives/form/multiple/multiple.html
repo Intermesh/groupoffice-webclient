@@ -1,0 +1,41 @@
+<div class="go-header" layout="row" layout-align="space-between start">
+	
+	<md-icon ng-if="iconCls">{{iconCls}}</md-icon>
+	<h3 flex>{{title | goT}}</h3>
+	<div>
+		<md-button class="md-icon-button" aria-label="{{'Add'| goT}}" ng-click="add()">
+			<md-icon class="md-primary">add</md-icon>
+		</md-button>
+	</div>
+</div>
+
+
+<div as-sortable="dragControlListeners" class="go-input-multiple" ng-model="goModels">
+	<!-- ng-model is required for issue with as-sortable: https://github.com/a5hik/ng-sortable/issues/221 -->
+	<ng-form name="multipleForm" layout ng-repeat="model in goModels track by $index" ng-model="model" ng-if="!model.markDeleted" as-sortable-item go-server-errors="model.validationErrors">
+		
+		<md-button ng-if="sortableOn" class="md-icon-button"  as-sortable-item-handle>
+			<md-icon>
+				drag_handle
+			</md-icon>
+			<md-tooltip>
+				{{"Drag to reorder" | goT}}
+			</md-tooltip>
+		</md-button>
+		
+		<div ng-if="!sortableOn && iconCls" class="icon-placeholder">
+			
+		</div>
+		
+		<div inject flex layout="row">
+			
+			
+		</div>
+
+		<md-button class="md-icon-button" type="button"  ng-click="delete($index)">
+			<md-icon aria-label="{{::'Delete'| goT}}">delete</md-icon>				
+		</md-button>	
+
+	</ng-form>
+</div>
+

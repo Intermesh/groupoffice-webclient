@@ -1,0 +1,26 @@
+.filtercollection {
+	
+	md-icon {
+		&:before {
+			content: 'star';
+		}
+	}
+
+
+	.TagFilter:before {
+		//https://github.com/google/material-design-icons/blob/master/iconfont/codepoints
+
+		content: 'label';
+	}
+
+	
+	padding-top: 0;
+	
+	i.remove {
+		cursor: pointer;
+	}
+	
+	.count {
+		padding-right:10px;padding-left: 0px;
+	}
+}

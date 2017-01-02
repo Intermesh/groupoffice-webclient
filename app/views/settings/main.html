@@ -1,0 +1,34 @@
+<go-hook layout="column" name="settings">
+<div class="go-cards-sm" layout="row" flex>
+	<div class="go-settings-navigation go-card go-grey" ng-class="{'go-active': $state.is('settings')}">
+		<md-list class="md-2-line">
+			<md-list-item ui-sref-active="selected" ui-sref="settings.accounts">
+				<md-icon>star</md-icon>
+				<p>{{::"Accounts" | goT}}</p>
+			</md-list-item>
+
+			<md-list-item ng-repeat="settingsOption in settingsOptions" ui-sref-active="selected" ui-sref="{{settingsOption.state}}">
+				<md-icon>{{settingsOption.iconCls}}</md-icon>
+				<p>{{::settingsOption.title | goT}}</p>
+			</md-list-item>
+
+			<md-divider></md-divider>
+			<md-list-item ng-if="::currentUser.isAdmin" ui-sref-active="selected" ui-sref="settings.core">
+				<md-icon>settings</md-icon>
+				<p>{{::"System" | goT}}</p>
+			</md-list-item>
+		</md-list>
+	</div>
+
+
+	<div class="go-card go-settings" ng-class="{'go-active': !$state.is('settings')}" layout="column" flex>
+		
+		<md-content ui-view flex>
+			
+		</md-content>
+		
+	</div>
+
+</div>	
+	</go-hook>
+	

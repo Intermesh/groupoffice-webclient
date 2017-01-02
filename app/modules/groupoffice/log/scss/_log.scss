@@ -1,0 +1,44 @@
+.go-log {
+	/*display:none;*/
+	
+	max-height: 400px;
+	width: 400px;
+	border: 1px solid $border-color;
+	background-color: white;
+	
+	.go-log-toolbar {
+		padding: 4px 8px;
+		height:72px;
+	}
+}
+
+go-log-button {
+	height: 100%;	
+	div {
+		height: 100%;	
+	}
+}
+
+
+.unseen h3 {
+	font-weight: bold !important;
+}
+
+
+.mod-log .md-fab {
+	background-color: orange;
+	&:before{
+		content: mdi('bell-outline');
+	}
+}
+
+.go-month-select {
+	md-select {
+		margin:0px;		
+	}
+	
+	.md-select-value  {
+		border-bottom:0;
+	}
+	padding:0 16px;	
+}

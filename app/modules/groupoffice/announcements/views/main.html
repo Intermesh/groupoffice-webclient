@@ -1,0 +1,53 @@
+<div class="col u-1 announcements">
+	<menu type="toolbar" class="pad-list-index">
+		<li></li>
+		<li>
+			<search-button store='store'></search-button>
+
+			<div class="dropdown">
+				<button class="menu"><i class="menu-dot"></i></button>
+				<menu class="popup top-right">
+					<li><a ng-click="store.reload()">Refresh</a></li>
+				</menu>
+			</div>
+		</li>
+	</menu>
+	
+	<div class="panel pad grey" go-infinite-scroll="store.nextPage()" go-infinite-scroll-disabled="!store.shouldLoad()">
+
+		<div class="card" ng-repeat="announcement in store.items track by announcement.id">
+
+			<menu type="toolbar" class="pad-list-index">
+				<li>
+					<h1>{{announcement.title}}</h1> 
+					<small>&nbsp;{{::"by"| goT }} {{announcement.owner.username}} at {{announcement.createdAt| date}}</small>
+				</li>
+				<li>
+					<button ng-click="edit(announcement)">
+						<i class="pencil"></i>
+					</button>						 
+				</li>
+			</menu>
+			
+			<div class="pad">
+				<a ng-if="announcement.photo" target="_blank" href="{{announcement.photo}}">
+					<img ng-src="{{announcement.photo}}&amp;w=274" />				
+				</a>
+				<p ng-bind-html="announcement.text | nl2br">
+				</p>
+
+				<div style="clear:both"></div>			
+			</div>
+			
+		</div>
+		<div ng-if="store.busy" class="loading-more animate"><i class="reload animate-spin"></i>{{::"Loading..."| goT}}</div>
+		
+		<div class="empty-state">
+			<i class="message"></i>
+			<p>{{::"No messages for you right now." | goT}}</p>
+		</div>		
+		
+	</div>
+	
+	<a class="btn action" ng-click='edit()' ng-if="announcementsModule.permissions.create"><i class="plus"></i></a>
+</div>

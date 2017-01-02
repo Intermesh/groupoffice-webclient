@@ -1,0 +1,143 @@
+<go-hook name="users.user" flex layout="column">
+
+	<go-mask ng-if="user.deleted">
+		<md-button class="md-raised md-warn" ng-click="user.unDelete()">{{::"Undo delete"| goT }}</md-button>		
+	</go-mask>
+
+	<md-toolbar class="md-hue-1" go-scroll-class>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
+				<md-icon>chevron_left</md-icon>
+			</md-button>
+
+			<span flex>
+
+				<span class="go-scroll-hidden">
+					{{user.username}}
+				</span>
+
+			</span>
+
+			<md-menu md-position-mode="target-right target">
+				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon md-menu-origin>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-disabled="!currentUser.isAdmin" ng-click="switchTo(user)">{{::"Switch to"| goT}}</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="editContact(user)">{{::"Edit contact"| goT}}</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="user.delete()" ng-disabled="!user.permissions.delete">{{::"Delete"| goT}}</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</div>
+		
+
+		<div class="go-display-panel-header" layout="row" layout-align="start center">
+			<!--<img alt="{{user.username}}" ng-src="{{user.photo.url}}?w=70&amp;h=70&amp;zoomCrop=1" class="go-avatar" />-->
+			<img ng-if="user.photoBlobId" alt="{{user.name}}" ng-src="{{'thumb/'+user.photoBlobId | apiUrl : {w:70, h: 70, zoomCrop: 1} }}" class="go-avatar" />
+			<img ng-if="!user.photoBlobId" alt="{{user.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar" />
+			
+			<span>
+				<strong>{{user.username}}</strong><br />
+				<small>{{user.loginCount}} {{::"logins"| goT}}</small>
+			</span>
+
+		</div>
+
+
+	</md-toolbar>
+
+
+	<md-tabs md-selected="0">
+		<md-tab ng-click="goto('info')">{{::"Info"| goT}}</md-tab>
+	</md-tabs>
+
+
+	<md-content flex class="go-grey">
+
+		<md-card id="info">
+			<md-toolbar class="md-hue-1">
+				<div class="md-toolbar-tools">
+					<h2 flex>Info</h2>
+					<md-button class="md-icon-button" ng-disabled="!user.permissions.update" ng-click="edit(user)">
+						<md-tooltip>
+							{{::"Edit"| goT}}					
+						</md-tooltip>
+						<md-icon>edit</md-icon>
+					</md-button>
+				</div>
+			</md-toolbar>
+
+			<md-card-content>
+
+				<md-list>
+					<md-list-item class="md-2-line">
+						<md-icon>event</md-icon>
+						<div class="md-list-item-text">
+							<h3>{{::user.createdAt| date:"longDate"}} {{::"at"| goT}} {{::user.createdAt| date:"shortTime"}}</h3>
+							<p>{{::"Created at"| goT}}</p>
+						</div>
+					</md-list-item>	
+
+					<md-list-item class="md-2-line" ng-if="user.lastLogin">
+						<div class="md-list-item-text md-offset">
+							<h3>{{::user.lastLogin| date:"longDate"}} {{::"at"| goT}} {{::user.lastLogin| date:"shortTime"}}</h3>
+							<p>{{::"Last login"| goT}}</p>
+						</div>
+					</md-list-item>
+
+					<!--				<md-list-item class="md-2-line" ng-if="user.lastLogin">
+										<div class="md-list-item-text md-offset">
+											<h3>{{::user.loginCount}}</h3>
+											<p>{{::"Login count"| goT}}</p>
+										</div>
+									</md-list-item>-->
+
+
+					<md-list-item class="md-2-line">
+						<md-icon>email</md-icon>
+						<div class="md-list-item-text ">						
+							<h3>{{::user.email}}</h3>
+							<p>{{::"E-mail"| goT}}</p>
+						</div>
+					</md-list-item>
+
+					<md-list-item class="md-2-line" ng-if="::user.emailSecondary">
+						<div class="md-list-item-text md-offset">						
+							<h3>{{::user.emailSecondary}}</h3>
+							<p>{{::"Secondary e-mail"| goT}}</p>
+						</div>
+					</md-list-item>
+
+					<md-list-item class="md-2-line">
+						<md-icon>group</md-icon>
+						<div class="md-list-item-text">
+							<h3>
+								<ul class="go-comma-list">
+									<li  ng-repeat="group in user.groups">
+										{{group.name}}
+									</li>
+								</ul>							
+							</h3>
+							<p>{{::"Groups"| goT}}</p>
+						</div>
+					</md-list-item>			
+
+				</md-list>
+
+
+			</md-card-content>
+
+		</md-card>
+
+
+
+	</md-content>
+
+
+</go-hook>

@@ -1,0 +1,47 @@
+<div class="go-cards-sm" flex layout="row" style="top:0;bottom:0;left:0;right:0;position:absolute;">
+
+	<div class="go-card go-list" layout="column" ng-class="{'go-active' : $state.is('events')}">
+		<go-list-toolbar class="md-hue-1" store="searchStore">
+			<go-tools class="md-toolbar-tools">
+			<span flex></span>
+			<go-search-button></go-search-button>
+			</go-tools>
+
+		</go-list-toolbar>
+
+		<go-list store="searchStore">
+
+			<item  ng-class="model.tag" ng-click="selectEvent(model,true)" ng-style="color($parent.selectedCalendars[model.organizer.calendarId])" index="title">
+					{{model.title}}<br>
+				<span ng-if="!model.allDay">{{model.startAt.getTimeString()}} &mdash; {{model.endAt.getTimeString()}}</span>
+				<span ng-if="model.location">at {{model.location}}</span>
+			</item>
+
+			<empty-state>
+				<md-icon class="mdi-calendar-multiple"></md-icon>
+				<p>{{::"No events found"| goT}}</p>
+			</empty-state>
+		</go-list>
+
+
+
+		<div class="go-fab-list" ng-cloak>
+			<md-fab-speed-dial md-direction="up" class="md-fling">
+				<md-fab-trigger>
+					<md-button aria-label="menu" class="md-fab">
+						<md-icon>add</md-icon>
+						<md-tooltip md-direction="left">{{"Add"| goT}}</md-tooltip>
+					</md-button>
+				</md-fab-trigger>
+				<md-fab-actions>
+					<md-button aria-label="Event" class="md-fab md-mini" ng-click="openEventDialog()">
+						<md-icon aria-label="Event" class="mdi-calendar"></md-icon>
+						<md-tooltip md-direction="left">{{"Event"| goT}}</md-tooltip>
+					</md-button>
+				</md-fab-actions>
+			</md-fab-speed-dial>
+		</div>
+	</div>
+
+	<div flex ui-view layout="row" class="go-card go-info-panel" ng-class="{'go-active' : !$state.is('events')}"></div>
+</div>

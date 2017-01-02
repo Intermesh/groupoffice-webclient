@@ -1,0 +1,79 @@
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+	/*padding:0;*/
+	/*margin:0;*/
+}
+
+a {
+	cursor: pointer;
+	text-decoration: none;
+	
+	&[disabled] {
+		cursor: disabled;
+		pointer-events: none; // Future-proof disabling of clicks
+		opacity: .65;
+		box-shadow: none;
+	}
+}
+body {
+	font-size: 12px;
+}
+
+/*small {
+	color: $color-small;
+	font-size: 0.9em;
+	line-height: 1em;
+}*/
+
+/*strong {
+	color: $cGrey9;
+	font-weight: bold;
+}*/
+
+/*p {
+	margin-bottom: 10px;
+}*/
+
+/*ul, ol {
+	padding-left: 40px;
+}
+blockquote {
+	margin: 1em 40px;	
+}*/
+//h1 is used only in the header
+
+/*h2{
+	font-size: 2.8em;
+	line-height: 1.2em;
+	font-weight: 400;
+	margin-bottom: 15px;
+	color: black;
+	
+	&:last-child{
+		margin-bottom: 0px;
+	}
+}
+
+h3{
+	font-size: 1.6em;
+	line-height: 1.2em;
+	font-weight: 400;
+	margin-bottom: 10px;
+	color: black;
+	
+	&:last-child{
+		margin-bottom: 0px;
+	}
+}*/
+
+/*
+figure {
+	figcaption{
+		font-size: 0.8em;
+		font-style: italic;
+	}
+}
+
+*/

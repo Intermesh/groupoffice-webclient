@@ -1,0 +1,42 @@
+<md-card class="settings-card-panel" flex>
+	
+	<go-list-toolbar store="$ctrl.store">
+		<go-tools class="md-toolbar-tools">
+			<h3>
+				<span>{{"PDF templates"| goT}}</span>
+			</h3>
+
+			<span flex></span>
+
+		</go-tools>		
+	</go-list-toolbar>
+
+	<go-list store="$ctrl.store" virtual="false">
+
+		<item class="md-2-line" ng-click="null">
+			<img class="md-avatar" title="{{model.language}}" alt="{{model.language}}" ng-src="resources/flags/{{model.language}}.svg" width="20" /> 
+			
+			<div class="md-list-item-text">
+				<h3>{{model.name}}</h3>
+				<p>{{model.pageSize}}</p>
+			</div>
+			
+			<go-list-edit-button on-edit="$ctrl.edit(model)"></go-list-edit-button>
+			
+			<go-list-delete-button></go-list-delete-button>
+			
+			
+		</item>
+
+		<empty-state>
+			<md-icon>home</md-icon>
+			<p>{{"No PDF templates set"| goT}}</p>
+		</empty-state>
+
+	</go-list>
+
+	<md-button class="md-fab md-fab-bottom-right"  ng-click='$ctrl.edit()'>
+		<md-icon>add</md-icon>
+		<md-tooltip md-direction="left">{{"Add"| goT}}</md-tooltip>
+	</md-button>
+	</md-card>

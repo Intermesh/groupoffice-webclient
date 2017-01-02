@@ -1,0 +1,8 @@
+<go-filter name="tags" type="multiselect" go-value="$ctrl.selectedTags" on-change="update(value)">
+
+	<go-option go-value="tag.id" ng-repeat="tag in $ctrl.store.items track by tag.id">
+		<md-icon ng-style="{color: tag.color ? '#'+tag.color : null}">label</md-icon>
+		<p>{{tag.name}}</p>
+	</go-option>
+
+</go-filter>

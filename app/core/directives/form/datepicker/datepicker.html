@@ -1,0 +1,37 @@
+<div layout="row">
+	<md-input-container>
+		<md-icon>event</md-icon>
+		<label>{{label| goT}}</label>
+		<md-select ng-model="year" class="year" ng-required="required">
+			<md-option ng-value="null">{{::"Year"|goT}}</md-option>
+			<md-option ng-value="yearoption" ng-repeat="yearoption in years">{{::yearoption}}</md-option>
+		</md-select>
+	</md-input-container>
+
+	<md-input-container class="month">
+		<md-select ng-model="month" ng-required="required">
+			<md-option ng-value="null">{{::"Month"|goT}}</md-option>
+			<md-option ng-value="0">{{::"January"|goT}}</md-option>
+			<md-option ng-value="1">{{::"February"|goT}}</md-option>
+			<md-option ng-value="2">{{::"March"|goT}}</md-option>
+			<md-option ng-value="3">{{::"April"|goT}}</md-option>
+			<md-option ng-value="4">{{::"May"|goT}}</md-option>
+			<md-option ng-value="5">{{::"June"|goT}}</md-option>
+			<md-option ng-value="6">{{::"July"|goT}}</md-option>
+			<md-option ng-value="7">{{::"August"|goT}}</md-option>
+			<md-option ng-value="8">{{::"September"|goT}}</md-option>
+			<md-option ng-value="9">{{::"October"|goT}}</md-option>
+			<md-option ng-value="10">{{::"November"|goT}}</md-option>
+			<md-option ng-value="11">{{::"December"|goT}}</md-option>
+		</md-select>
+	</md-input-container>
+	<md-input-container class="day">
+		<md-select ng-model="day" ng-required="required">
+			<md-option ng-value="null">{{::"Day"|goT}}</md-option>
+			<md-option ng-value="dayoption" ng-repeat="dayoption in days">{{::dayoption}}</md-option>	
+		</md-select>
+	</md-input-container>
+</div>
+<div class="ng-messages" ng-messages="ngModel.$error" role="alert" ng-if="ngModel.$touched">
+	<div ng-message="required">{{"This field is required"| goT}}</div>
+</div>

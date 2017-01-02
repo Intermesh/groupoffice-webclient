@@ -1,0 +1,71 @@
+<go-hook name="contacts">
+<aside>
+	<div go-filter-collection="contacts/filters" go-store="contactStore" flex></div>
+</aside>
+
+<div class="go-cards-sm" flex layout="row">
+
+	<div class="go-card go-list" layout="column" ng-class="{'go-active' : $state.is('contacts')}">
+
+		<go-list-toolbar store="contactStore" class="md-hue-1">
+			
+			<go-tools class="md-toolbar-tools">
+				<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleAside()" hide-gt-md class="md-icon-button">
+					<md-icon>menu</md-icon>
+				</md-button>
+				<span flex></span>
+				<go-search-button></go-search-button>				
+				<go-order-button columns="{ 't.firstName': 'First name', 't.lastName': 'Last name', 't.modifiedAt': 'Modified at'}"></go-order-button>
+			</go-tools>					
+			
+		</go-list-toolbar>
+
+
+		<go-list store="contactStore" flex index="name">
+
+			<item class="md-2-line" ng-click="selectContact(model)">
+				<img ng-if="model.photoBlobId" alt="{{model.name}}" ng-src="{{'thumb/'+model.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
+				<img ng-if="!model.photoBlobId" alt="{{model.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="md-avatar" />
+				<div class="md-list-item-text">
+					<h3>{{model.name}}</h3>
+					<p class="go-comma-list">
+						<span ng-repeat="organization in model.organizations">{{organization.name}}</span>					
+					</p>
+				</div>
+			</item>
+
+			<empty-state>
+				<md-icon>person</md-icon>
+				<p>{{::"No contacts found"| goT}}</p>
+			</empty-state>
+
+		</go-list>
+
+
+
+
+		<div class="go-fab-list" ng-cloak ng-if="::canCreate">
+			<md-fab-speed-dial md-direction="up" class="md-fling">
+				<md-fab-trigger>
+					<md-button aria-label="menu" class="md-fab">
+						<md-icon>add</md-icon>
+						<md-tooltip md-direction="left">{{::"Add"| goT}}</md-tooltip>
+					</md-button>
+				</md-fab-trigger>
+				<md-fab-actions>
+					<md-button aria-label="Contact" class="md-fab md-mini" ng-click="edit()">
+						<md-icon aria-label="Contact">person</md-icon>
+						<md-tooltip md-direction="left">{{::"Contact"| goT}}</md-tooltip>
+					</md-button>
+					<md-button aria-label="Organization" class="md-fab md-mini" ng-click="edit({attributes: {isCompany: true}})">
+						<md-icon aria-label="Organization">group</md-icon>
+						<md-tooltip md-direction="left">{{::"Organization"| goT}}</md-tooltip>
+					</md-button>					
+				</md-fab-actions>
+			</md-fab-speed-dial>
+		</div>
+	</div>
+
+	<div flex ui-view layout="row" class="go-card go-info-panel" ng-class="{'go-active' : !$state.is('contacts')}"></div>
+</div>
+</go-hook>

@@ -1,0 +1,28 @@
+.filtercollection {
+	.GenderFilter-F:before {		
+		@include go-svg-icon("../modules/groupoffice/contacts/resources/female.svg");		
+	}
+	
+	.GenderFilter-M:before {
+		@include go-svg-icon("../modules/groupoffice/contacts/resources/male.svg");		
+	}
+
+	.AgeFilter:before{
+		content: 'date_range'
+	}
+}
+
+.contactForm {	
+	.md-chips .md-chip-input-container {
+		padding: 0px;
+	}
+	
+}
+
+.mod-contacts .md-fab {
+	background-color: orange;
+	&:before{
+		content: mdi('account-multiple');
+	}
+}
+

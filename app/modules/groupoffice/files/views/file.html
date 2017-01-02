@@ -1,0 +1,76 @@
+<go-hook id="file-info-panel" name="files.file" flex>
+
+	<go-mask ng-show="data.deleted">
+		<md-button class="md-raised md-warn" ng-click="data.unDelete()">{{"Undo delete"| goT : "file" }}</md-button>
+	</go-mask>
+	<md-toolbar class="md-hue-1">
+		<div class="md-toolbar-tools">
+<!--			<md-button aria-label="{{::'Back'| goT}}" class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
+				<md-icon>arrow_back</md-icon>
+			</md-button>-->
+
+			<!--<md-button class="md-icon-button  hide-sm" ng-click="close()"><md-icon>clear</md-icon></md-button>-->
+			<span flex>
+			<!--<md-button class="md-icon-button" ng-click="share(model)" title="{{'Share' | goT}}"><md-icon>share</md-icon></md-button>-->
+			|
+			<md-button class="md-icon-button" ng-click="clipboard.cut(model)" title="{{'Cut' | goT}}"><md-icon>content_cut</md-icon></md-button>
+			<md-button class="md-icon-button" ng-click="clipboard.copy(model)" title="{{'Copy' | goT}}"><md-icon>content_copy</md-icon></md-button>
+			<md-button class="md-icon-button" ng-disabled="clipboard.isEmpty()" ng-click="clipboard.paste(model)" title="{{'Paste' | goT}}"><md-icon>content_paste</md-icon></md-button>
+			|
+			<md-button class="md-icon-button" ng-click="deleteNode(model)" title="{{'Delete' | goT}}"><md-icon>delete</md-icon></md-button>
+		</div>
+		<md-button class="md-fab md-primary" title="Download" style="position: absolute; left: 408px; bottom:-24px;">
+			<md-icon>file_download</md-icon>
+		</md-button>
+	</md-toolbar>
+	<div id="file-preview">
+		<div ng-if="model.isImage()" class="image" ng-style="{'background-image': 'url(\'{{model.getBlob()}}\')'}" >
+		</div>
+<!--		<iframe ng-if="model.isDocument()" ng-src="{{model.getBlob()}}">
+		</iframe>-->
+		<div ng-if="model.isPlayable()">
+			<video id="files-video" onclick="getElementById('files-video').pause();" ng-src="{{model.getBlob()}}" controls ></video>
+		</div>
+	</div>
+
+	<md-list flex>
+		<md-list-item>
+			<md-icon>{{model.getIcon()}}</md-icon>
+			<p flex layout="row" >
+				<input flex type="text" name="name" ng-model="model.name" />
+				<span layout-align="end bottom">
+					<md-button class="md-raised" ng-click="model.save()">Rename</md-button>
+				</span>
+			</p>
+        </md-list-item>
+		<md-divider></md-divider>
+		<md-list-item class="md-2-line" ng-click="model.nodeUser.starred = !model.nodeUser.starred">
+			<md-icon>star</md-icon>
+			<p>Met ster</p>
+			<md-switch class="md-secondary" ng-model="model.nodeUser.starred"></md-switch>
+        </md-list-item>
+		<md-divider></md-divider>
+        <h5>Info</h5>
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text">
+            <h3>Location</h3>
+            <p>{{model.path}}</p>
+          </div>
+        </md-list-item>
+		<md-list-item class="md-2-line">
+          <div class="md-list-item-text">
+            <h3>Last Modified</h3>
+            <p>{{model.modifiedAt | date}}</p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+		<h5>Who has access</h5>
+		<md-list-item class="md-2-line">
+          <div class="md-list-item-text">
+            <h3>Private</h3>
+            <p>test</p>
+          </div>
+        </md-list-item>
+	</md-list>
+
+</go-hook>

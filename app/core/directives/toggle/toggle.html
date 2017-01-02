@@ -1,0 +1,12 @@
+<div class="toggle-component">
+	
+	<ng-transclude></ng-transclude>
+	
+	<summary ng-if="cut">{{summaryText}}</summary>
+	
+	<!--<div class="summary">{{summaryText}}</div>-->
+	<a ng-show="hideFull && useReadMore" ng-click="toggleFull()">{{moreText}}</a>
+	
+	<!--<div class="full" ng-show="!hideFull">{{fullText}}</div>-->
+	<a ng-show="!hideFull && useReadMore"ng-click="toggleFull()">{{lessText}}</a>
+</div>

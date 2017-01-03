@@ -34,7 +34,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 	'$injector',
 	'$q',
 	'$parse',
-	function ($http, ServerAPI, $injector, $q, $parse) {
+	'$mdToast',
+	function ($http, ServerAPI, $injector, $q, $parse, $mdToast) {
 
 		var Store = function (storeRoute, loadParams) {
 
@@ -146,14 +147,14 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 
 
 			this.$selected = [];
-			
+
 			this.selectionCount = 0;
 
 			this.$modelProto = null;
 			this.$modelConstructorArgs = [];
-			
+
 			this.$index = null;
-			
+
 			this.$group = null;
 		};
 
@@ -194,7 +195,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 			this.$lastLoadParams = angular.copy(defaultParams);
 
 
-			
+
 
 			this.promise = $http.get(ServerAPI.url(this.$storeRoute, defaultParams))
 							.then(function (response) {
@@ -214,36 +215,36 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 									//When there are less results then the limit we sent then we must have gotten the last results.
 									this._allRecordsLoaded = data.data.length < defaultParams.limit;
 
-									this.loadData(data.data, dontReset);									
+									this.loadData(data.data, dontReset);
 
 									this.busy = false;
-			
+
 									this.init = true;
 
-									this.isEmpty = this.items.length === 0;									
-								} 
-								
+									this.isEmpty = this.items.length === 0;
+								}
+
 //								console.profileEnd('load: '+this.$storeRoute);
-								
+
 								return {store: this, response: response};
 
 							}.bind(this))
-							.catch(function(e) {
+							.catch(function (e) {
 								console.log(e);
 							});
-							
+
 
 
 			return this.promise;
 		};
-		
+
 
 
 		Store.prototype._index = function (items) {
 			if (!this.$index) {
 				return items;
 			}
-			
+
 			var getter = $parse(this.$index);
 
 			for (var i = 0, l = items.length; i < l; i++) {
@@ -260,17 +261,17 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 			}
 			return items;
 		};
-		
-		Store.prototype._group = function(items) {
-			if(!this.$group) {
+
+		Store.prototype._group = function (items) {
+			if (!this.$group) {
 				return items;
 			}
-			
+
 			var getter = $parse(this.$group);
-			
-			for(var i=0,l=items.length;i<l;i++) {
+
+			for (var i = 0, l = items.length; i < l; i++) {
 				var item = items[i];
-				
+
 				var group = getter(item);
 
 				if (group != this._lastGroup) {
@@ -301,20 +302,20 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 		Store.prototype.loadData = function (dataArray, append) {
 
 			var items;
-			
-			if(append) {
+
+			if (append) {
 				items = this.items;
-			}else
+			} else
 			{
 				items = [];
 			}
-		
+
 			for (var i = 0, l = dataArray.length; i < l; i++) {
 
 				var model = this._createModel();
 				model.loadData(dataArray[i]);
-				
-				if(!this._isInItems(items, model)) { //filter out dupes					
+
+				if (!this._isInItems(items, model)) { //filter out dupes					
 
 					items.push(model);
 				}
@@ -322,49 +323,49 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 
 			items = this._index(items);
 			items = this._group(items);
-			
+
 			this.items = items;
-			if(this.onLoad)
+			if (this.onLoad)
 				this.onLoad();
 		};
-		
-		Store.prototype._getPrimaryKeyFromObject = function(model) {
+
+		Store.prototype._getPrimaryKeyFromObject = function (model) {
 			//extract primary key
-			var keys = {};				
-			for(var ki=0,kl=model.$keys.length;ki<kl;ki++) {
+			var keys = {};
+			for (var ki = 0, kl = model.$keys.length; ki < kl; ki++) {
 				keys[model.$keys[ki]] = model[model.$keys[ki]];
 			}
-			
+
 			return keys;
 		};
-		
-		Store.prototype._isInItems = function(items, model) {
-			
+
+		Store.prototype._isInItems = function (items, model) {
+
 			//no model known. Just ignore then.
-			if(!this.$modelProto || this.skipFilterDupes) {
+			if (!this.$modelProto || this.skipFilterDupes) {
 				this.skipFilterDupes = true;
 				return false;
 			}
-			
+
 			var keys = this._getPrimaryKeyFromObject(model);
-			
+
 			for (var i = 0, l = items.length; i < l; i++) {
-				
+
 				var match = true;
-				for(var attributeName in keys) {
+				for (var attributeName in keys) {
 					if (items[i][attributeName] != keys[attributeName]) {
 						match = false;
 						break;
-					}				
+					}
 				}
-				
-				if(match) {					
+
+				if (match) {
 					console.log("Duplicate item in store with: ");
 					console.log(model);
 					return true;
 				}
 			}
-			
+
 
 			return false;
 		};
@@ -415,8 +416,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 		};
 
 		//for md-virtual-repeat
-		Store.prototype.getItemAtIndex = function(index) {
-			if(!this.items[index]) {
+		Store.prototype.getItemAtIndex = function (index) {
+			if (!this.items[index]) {
 				this.nextPage();
 				return null;
 			}
@@ -426,15 +427,15 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 			return this.items[index];
 		};
 
-		Store.prototype.getLength = function() {
-			
-			if(!this.init) {
+		Store.prototype.getLength = function () {
+
+			if (!this.init) {
 				return 0;
 			}
 
-			if(!this._allRecordsLoaded) {
+			if (!this._allRecordsLoaded) {
 				return this.items.length + 5;
-			}else
+			} else
 			{
 				return this.items.length;
 			}
@@ -526,8 +527,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 			this.total--;
 			return this.items.splice(index, 1);
 		};
-		
-		
+
+
 
 
 		/**
@@ -548,7 +549,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 				if (this.items[i][attributeName] == value) {
 					return i;
 				}
-			}			
+			}
 
 			return -1;
 		};
@@ -629,8 +630,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 
 			return models;
 		};
-		
-		
+
+
 		/**
 		 * @ngdoc method
 		 * @name GO.Core.Factories.Data.Store#find
@@ -642,27 +643,27 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 		 *
 		 * @returns {array} The models found or false on failure
 		 */
-		Store.prototype.find = function(attr) {
-			
+		Store.prototype.find = function (attr) {
+
 			var results = [];
 			for (var i = 0, l = this.items.length; i < l; i++) {
-				
+
 				var match = true;
-				for(var attributeName in attr) {
+				for (var attributeName in attr) {
 					if (this.items[i][attributeName] !== attr[attributeName]) {
 						match = false;
 						break;
-					}				
+					}
 				}
-				
-				if(match) {
+
+				if (match) {
 					results.push(this.items[i]);
 				}
 			}
-			
+
 			return results;
 		};
-		
+
 		/**
 		 * @ngdoc method
 		 * @name GO.Core.Factories.Data.Store#find
@@ -674,24 +675,24 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 		 *
 		 * @returns {array} The models found or false on failure
 		 */
-		Store.prototype.findIndexes = function(attr) {
-			
+		Store.prototype.findIndexes = function (attr) {
+
 			var results = [];
 			for (var i = 0, l = this.items.length; i < l; i++) {
-				
+
 				var match = true;
-				for(var attributeName in attr) {
+				for (var attributeName in attr) {
 					if (this.items[i][attributeName] !== attr[attributeName]) {
 						match = false;
 						break;
-					}				
+					}
 				}
-				
-				if(match) {
+
+				if (match) {
 					results.push(i);
 				}
 			}
-			
+
 			return results;
 		};
 
@@ -708,10 +709,10 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 		 *
 		 * @returns {array} The models found or false on failure
 		 */
-		Store.prototype.updateModel = function (updatedModel) {			
+		Store.prototype.updateModel = function (updatedModel) {
 			var index = this.findIndexByAttribute('id', updatedModel.id);
 			if (index > -1) {
-				angular.extend(this.items[index], updatedModel.getAttributes());
+				angular.extend(this.items[index], updatedModel);
 			} else
 			{
 				this.items.push(updatedModel);
@@ -726,41 +727,41 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 
 
 
-		Store.prototype.select = function(indexes) {			
+		Store.prototype.select = function (indexes) {
 
 			var selected = [];
 			var item;
-			
-			
+
+
 			angular.forEach(this.items, function (item) {
 				item.$selected = false;
 			});
 
-			if(indexes) {
-			
-				for(var i=0,l=indexes.length;i<l;i++) {
+			if (indexes) {
+
+				for (var i = 0, l = indexes.length; i < l; i++) {
 
 					item = this.items[indexes[i]];
-					if(!item.$selected) {
+					if (!item.$selected) {
 						selected.push(item);
 						item.$selected = true;
 					}
 				}
 			}
-			
-			this.$selected = selected;			
-			
+
+			this.$selected = selected;
+
 			this.selectionCount = this.$selected.length;
 		};
-		
-		Store.prototype.getSelectedIndexes = function() {
+
+		Store.prototype.getSelectedIndexes = function () {
 			var indexes = [];
-			for(var i=0,l=this.items.length;i<l;i++) {
-				if(this.items[i].$selected) {
+			for (var i = 0, l = this.items.length; i < l; i++) {
+				if (this.items[i].$selected) {
 					indexes.push(i);
 				}
 			}
-			
+
 			return indexes;
 		};
 
@@ -784,31 +785,83 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 
 			if (this.$selected.length) {
 				this.busy = true;
-				
-				var promises = [];
-				
+
+				var deletes = [];
+
 				angular.forEach(this.items, function (model, index) {
-					if(!model.$selected){
-						return;
+					if (model.$selected) {
+						deletes.push({
+							className: model.className,
+							pk: model.pk()
+						});
+					}
+				}.bind(this));
+
+
+				$http.post(ServerAPI.url('selections'), {
+					method: 'delete',
+					data: deletes
+				}).then(function (response) {
+					
+					var soft = false;
+
+					angular.forEach(response.data, function (subresponse) {
+						//no soft delete
+						if (angular.isUndefined(subresponse.data.deleted)) {
+							var index = this.findIndexByAttribute('id', subresponse.data.id);
+							this.items.splice(index, 1);
+						} else
+						{
+							soft = true;
+							this.updateModel(subresponse.data);							
+						}
+					}.bind(this));
+
+
+					if(soft) {
+						this._showUndoDelete(deletes);
 					}
 					
-					promises.push(model.delete().then(function () {
-						model.$selected = false;						
-						//no soft delete
-						if(angular.isUndefined(model.deleted)) {
-							this.items.splice(index, 1);
-						}
+					this.select();
+
+				}.bind(this));
+			}			
+		};
+		
+		
+		Store.prototype._showUndoDelete = function (deletes) {
+				var toast = $mdToast.simple()
+								.textContent(deletes.length + ' items deleted')
+								.action('UNDO')
+								.hideDelay(0)
+								.highlightAction(true)
+								.highlightClass('md-accent')// Accent is used by default, this just demonstrates the usage.
+								.position('bottom left');
+
+				$mdToast.show(toast).then(function (response) {
+					if (response == 'ok') {
+						$http.post(ServerAPI.url('selections'), {
+							method: 'undelete',
+							data: deletes
+						}).then(function (response) {
+
+							angular.forEach(response.data, function (subresponse) {
 						
-					}.bind(this)));
+									this.updateModel(subresponse.data);
+								
+							}.bind(this));
+						}.bind(this));
+					}
 				}.bind(this));
 				
-				return $q.all(promises).then(function(){
-					this.busy = false;
-					this.$selected = [];
-					this.selectionCount = 0;
-				}.bind(this));
-			}
-		};
+				var hide = function() {
+					$mdToast.hide();
+					angular.element(document.body).off('click', hide);
+				};
+				angular.element(document.body).on('click', hide);
+			};
+
+
 
 		Store.prototype.orderChanged = function (event) {
 			var up = event.source.index > event.dest.index;

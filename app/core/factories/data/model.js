@@ -680,6 +680,17 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 
 			return keys;
 		};
+		
+		
+		Model.prototype.pk = function () {
+			var keys = {};
+			
+			for(var i = 0, l = this.$keys.length; i < l; i++) {
+				keys[this.$keys[i]]= this[this.$keys[i]];
+			}
+			
+			return keys;
+		};
 
 
 		/**

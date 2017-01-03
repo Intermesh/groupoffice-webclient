@@ -12,13 +12,56 @@ GO.module('GO.Modules.GroupOffice.Messages').
 					'GO.Modules.GroupOffice.Messages.Services.AccountStore',
 					'$http',
 					'GO.Core.Services.ServerAPI',
-					function ($scope, Thread, Message, Dialog, $state, mappings, $injector, accountStore, $http, ServerAPI) {
+					'GO.Core.Factories.Data.Store',
+					function ($scope, Thread, Message, Dialog, $state, mappings, $injector, accountStore, $http, ServerAPI, Store) {
 
 						$scope.thread = new Thread();
 						
 						$scope.store = $scope.thread.getStore({
 							returnProperties: "id,subject,from[address,personal],excerpt,answered,seen,forwarded,messageCount,lastMessageSentAt,hasAttachments,photoBlobId"
 						});
+						
+						$scope.store.deleteSelected = function () {
+
+							if (!this.$selected.length) {
+								return;
+							}
+							
+							//in trash folder TODO CHECK DOES NOT WORK
+//							if(this.$selected[0].type === 4){
+//								return Store.prototype.deleteSelected();
+//							}
+							
+							var deletes = [];
+
+							angular.forEach(this.items, function (model, index) {
+								if (model.$selected) {
+									deletes.push({
+										className: model.className,
+										pk: model.pk(),
+										data: {
+											type: 4//trash
+										}
+									});
+								}
+							}.bind(this));
+
+
+							$http.post(ServerAPI.url('selections'), {
+								method: 'update',
+								data: deletes
+							}).then(function (response) {
+
+								angular.forEach(response.data, function (subresponse) {
+									var index = this.findIndexByAttribute('id', subresponse.data.id);
+									this.items.splice(index, 1);
+								}.bind(this));
+
+								this.select();
+
+							}.bind(this));
+
+						};
 						
 						
 						//store for child ThreadController

@@ -35,8 +35,9 @@
 
 	</go-list>
 
-	<md-button class="md-fab md-fab-bottom-right"  ng-click='$ctrl.edit()'>
-		<md-icon>add</md-icon>
-		<md-tooltip md-direction="left">{{"Add"| goT}}</md-tooltip>
-	</md-button>
-	</md-card>
+	<md-card-actions  layout="row" layout-align="end center">
+		<md-button class="md-accent"  ng-click='$ctrl.edit()'>	
+			{{"Add"| goT}}
+		</md-button>
+	</md-card-actions>
+</md-card>

@@ -41,7 +41,7 @@ angular.module('GO.Modules.GroupOffice.Messages').factory('GO.Modules.GroupOffic
 
 			var store = contact.getStore({returnProperties: 'id'});
 			store.$loadParams.q = [
-				['andWhere', ['like', {'emailAddresses.email': this.message.from.address}]],
+				['andWhere', ['like', {'emailAddresses.email': this.from.address}]],
 				['limit', 1],
 				['offset', 0]
 			];
@@ -54,7 +54,7 @@ angular.module('GO.Modules.GroupOffice.Messages').factory('GO.Modules.GroupOffic
 					ContactEditor.show({
 						contact: new Contact(),
 						attributes: {
-							name: this.message.from.personal, emailAddresses: [{email: this.message.from.address}]
+							name: this.from.personal, emailAddresses: [{email: this.from.address}]
 						}
 					});
 				}

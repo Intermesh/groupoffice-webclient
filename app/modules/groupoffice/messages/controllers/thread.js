@@ -22,26 +22,24 @@ angular.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOf
 		
 	
 
-		$scope.archive = function (thread) {
+		$scope.changeType = function (thread, type) {
 
-			thread.type = 6;
+			thread.type = type;
 			thread.save().then(function () {
-				$scope.store.load();
-				$state.go('^');
+				//$scope.store.load();
+				//$state.go('^');
+				
+				var index = $scope.store.findIndexByAttribute('id', thread.id);
+				$scope.store.remove(index);
+				var selectedItems = $scope.store.select([index]);
+				
+				if(selectedItems[0]) {
+					$state.go('messages.thread', {threadId: selectedItems[0].id});
+				}
+				
+				
 			});
 		};
-
-		$scope.trash = function (thread) {
-			thread.type = 4;
-			thread.save().then(function () {
-				$scope.store.load();
-				$state.go('^');
-			});
-		};
-
-
-
-
 
 		var tagStore = new Tag().getStore({returnProperties: "id,name,color", limit: 0});
 

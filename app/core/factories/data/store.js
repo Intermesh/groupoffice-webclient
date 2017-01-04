@@ -750,7 +750,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 				for (var i = 0, l = indexes.length; i < l; i++) {
 
 					item = this.items[indexes[i]];
-					if (!item.$selected) {
+					if (item && !item.$selected) {
 						selected.push(item);
 						item.$selected = true;
 					}
@@ -760,6 +760,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 			this.$selected = selected;
 
 			this.selectionCount = this.$selected.length;
+			
+			return this.$selected;
 		};
 
 		Store.prototype.getSelectedIndexes = function () {

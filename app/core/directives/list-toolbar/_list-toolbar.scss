@@ -18,7 +18,21 @@ go-list-toolbar {
 				margin-right: -8px;
 			}
 		}
+		
+		go-search-button {
+			flex: 1;
+			.md-button {
+				width: 100%;
+				text-align: right;
+				md-icon {
+					margin: initial;
+					float: right;
+				}
+			}
+		}
 	}
+	
+	
 }
 
 .go-list {

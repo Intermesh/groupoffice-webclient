@@ -35,51 +35,45 @@ angular.module('GO.Core').factory('GO.Core.Factories.HttpStatusInterceptor', [
 		}
 		;
 		
-//		var busy = 0;
-//		var lastTimeout;
+		var busy = 0;
+		var lastTimeout;
 
 		return {
 			
+			
 			request : function(config) {
+				
 				angular.extend(config.headers, ServerAPI.headers);
+				
+				busy++;
+				
+				if(lastTimeout) {
+					$timeout.cancel(lastTimeout);
+				}
+				lastTimeout = $timeout(function(){
+
+					if(busy) {
+						$rootScope.showMask = true;
+					}
+				}, 1000);
 				
 				return config;
 			},
-			
-//			request : function(config) {
-//				busy++;
-//				
-//				if(lastTimeout) {
-//					$timeout.cancel(lastTimeout);
-//				}
-//				lastTimeout = $timeout(function(){
-//
-//					if(busy) {
-//						$rootScope.showMask = true;
-//					}
-//				}, 500);
-//				
-//				return config;
-//			},
-//			response: function (response) {
-//				
-//				debugLog(response);
-//				
-//				
-//				
-//				busy--;				
-//				if(busy === 0) {
-//					$rootScope.showMask = false;
-//				}
-//
-//				return response;
-//			},
+			response: function (response) {
+								
+				busy--;				
+				if(busy === 0) {
+					$rootScope.showMask = false;
+				}
+
+				return response;
+			},
 			responseError: function (response) {
 				
-//				busy--;				
-//				if(busy === 0) {
-//					$rootScope.showMask = false;
-//				}
+				busy--;				
+				if(busy === 0) {
+					$rootScope.showMask = false;
+				}
 
 				debugLog(response);
 

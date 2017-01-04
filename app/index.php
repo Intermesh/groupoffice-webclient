@@ -72,14 +72,14 @@ ob_start();
 
 
 	<!-- use ngIf because progress widgets consume power when hidden -->
-	<!--	<go-mask ng-cloak ng-if="showMask">
-			<md-card>
-				<md-card-content>				
-					<p>{{maskText|| "Loading"}}</p>
-					<md-progress-linear mode="intermediate"></md-progress-linear>
-				</md-card-content>
-			</md-card>
-		</go-mask>-->
+	<go-mask ng-cloak ng-if="showMask">
+		<md-card>
+			<md-card-content>				
+				<p>{{maskText|| "Loading"}}</p>
+				<md-progress-linear mode="intermediate"></md-progress-linear>
+			</md-card-content>
+		</md-card>
+	</go-mask>
 
 	<!-- build:js js/app.js -->
 	<script src="../bower_components/wysihtml/dist/wysihtml-toolbar.js" type="text/javascript"></script>

@@ -22,6 +22,24 @@ go-list-toolbar {
 }
 
 .go-list {
+	
+	.go-list-secondary-toolbar {
+		height: $md-toolbar-height;
+	}
+	
+	.go-list-secondary-toolbar + go-list{
+		top: $md-toolbar-height*2;
+		
+		// Handle mobile portrait
+		@media (min-width: 0) and (max-width: $layout-breakpoint-sm - 1) and (orientation: portrait) {
+			top: $md-toolbar-height-mobile-portrait*2;
+		}
+		// Handle mobile landscape
+		@media (min-width: 0) and (max-width: $layout-breakpoint-sm - 1) and (orientation: landscape) {
+			top: $md-toolbar-height-mobile-landscape*2;
+		}
+	}
+	
 	go-list-toolbar + go-list {
 		top: $md-toolbar-height;
 		

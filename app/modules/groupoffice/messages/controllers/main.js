@@ -27,10 +27,10 @@ GO.module('GO.Modules.GroupOffice.Messages').
 								return;
 							}
 
-							//in trash folder TODO CHECK DOES NOT WORK
-//							if(this.$selected[0].type === 4){
-//								return Store.prototype.deleteSelected();
-//							}
+							//in trash folder
+							if($scope.filters.type === 4){
+								return Store.prototype.deleteSelected();
+							}
 
 							var deletes = [];
 
@@ -70,37 +70,6 @@ GO.module('GO.Modules.GroupOffice.Messages').
 							limit: 5,
 							returnProperties: '*,from[address,personal],to[address,personal],cc[address,personal],attachments,thread[accountId]'});//new Store('email/accounts/'+$stateParams.accountId+'/threads/'+$stateParams.threadId, {limit: 5});				
 
-//						var  firstAccount;
-
-//						$scope.onFilterLoad = function (filterCollection) {
-//			
-//							
-////							$scope.firstAccount = null;
-//							
-//							var accountOptions = filterCollection.findFilter('AccountFilter').options;
-//							for (var i = 0, l = accountOptions.length; i < l; i++) {
-//								
-//								//AccountSync.sync(accountOptions[i].accountModel.id, accountOptions[i].accountModel.username, accountOptions[i]);
-//								
-//								if(accountOptions[i].selected) {									
-//									var clientModelClass = $injector.get(mappings[accountOptions[i].accountModel.className]);
-//									var account = new clientModelClass;									
-//									account.loadData(accountOptions[i].accountModel);
-//									
-//									if(!firstAccount) {
-//										firstAccount = account;	
-//									}
-//									
-//									accounts[account.id] = account;
-//								}
-//							}
-////							$scope.accounts = accounts;
-//						};
-
-
-
-
-						
 
 						$scope.updateFilter = function (name, value) {
 							$scope.filters[name] = value;
@@ -108,28 +77,18 @@ GO.module('GO.Modules.GroupOffice.Messages').
 						};
 
 						function load() {
-
 							$scope.store.$loadParams.q = [];
-
-							$scope.store.$loadParams.type = $scope.filters.type;
-							
-							$scope.store.$loadParams.q.push(['andWhere', {'accountId': $scope.filters.accountId}]);
+							$scope.store.$loadParams.type = $scope.filters.type;							
+							$scope.store.$loadParams.q.push(['andWhere', {'accountId': $scope.filters.accounts}]);
 							
 							if ($scope.filters.tags.length) {
 								$scope.store.$loadParams.q.push(['andWhere', {'tags.id': $scope.filters.tags}]);
 							}
 
-
 							$scope.store.load();
-						}
-						;
-
-					
+						}					
 
 						$scope.accountStore = accountStore;
-
-
-
 
 						var afterCompose = function (openResult) {
 
@@ -171,6 +130,13 @@ GO.module('GO.Modules.GroupOffice.Messages').
 						
 						
 						
+						$scope.emptyTrash = function() {
+							$http.delete(ServerAPI.url("messages/trash",{
+								accountId: $scope.filters.accounts
+							})).then(function() {
+								$scope.store.items = [];
+							});
+						};			
 						
 						
 						
@@ -184,7 +150,7 @@ GO.module('GO.Modules.GroupOffice.Messages').
 							
 							$scope.filters = {
 								type: 'incoming',
-								accountId: accountStore.items[0].id,
+								accounts: [accountStore.items[0].id],
 								tags: []
 							};
 							

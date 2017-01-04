@@ -55,7 +55,7 @@
 
 		<md-divider></md-divider>
 		
-		<go-filter name="account" type="single" go-value="filters.accountId" on-change="updateFilter('accountId', value)">
+		<go-filter name="account" type="multiselect" go-value="filters.accounts" on-change="updateFilter('accounts', value)">
 
 			<go-option go-value="account.id" ng-repeat="account in accountStore.items track by account.id" class="{{account.name}}">
 				<md-icon>account_box</md-icon>
@@ -92,6 +92,11 @@
 				</go-tools>			
 			</go-list-toolbar>
 
+			<div class="go-list-secondary-toolbar" ng-if="filters.type=='trash'" layout="row" layout-align="center center">
+					<md-button class="md-warn md-raised" flex="50" ng-click="emptyTrash()">							
+							{{"Empty trash" | goT}}
+					</md-button>				
+			</div>
 
 			<go-list store="store" group="lastMessageSentAt | date: 'fullDate'">
 

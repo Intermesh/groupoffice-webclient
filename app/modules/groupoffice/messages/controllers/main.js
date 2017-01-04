@@ -16,22 +16,22 @@ GO.module('GO.Modules.GroupOffice.Messages').
 					function ($scope, Thread, Message, Dialog, $state, mappings, $injector, accountStore, $http, ServerAPI, Store) {
 
 						$scope.thread = new Thread();
-						
+
 						$scope.store = $scope.thread.getStore({
 							returnProperties: "id,subject,from[address,personal],excerpt,answered,seen,forwarded,messageCount,lastMessageSentAt,hasAttachments,photoBlobId"
 						});
-						
+
 						$scope.store.deleteSelected = function () {
 
 							if (!this.$selected.length) {
 								return;
 							}
-							
+
 							//in trash folder TODO CHECK DOES NOT WORK
 //							if(this.$selected[0].type === 4){
 //								return Store.prototype.deleteSelected();
 //							}
-							
+
 							var deletes = [];
 
 							angular.forEach(this.items, function (model, index) {
@@ -62,16 +62,16 @@ GO.module('GO.Modules.GroupOffice.Messages').
 							}.bind(this));
 
 						};
-						
-						
+
+
 						//store for child ThreadController
 						//define stuff in the parent controller if you can to prevent screen flicker because models are reinitialized on each page load.
 						$scope.threadStore = (new Message()).getStore({
-							limit: 5, 
+							limit: 5,
 							returnProperties: '*,from[address,personal],to[address,personal],cc[address,personal],attachments,thread[accountId]'});//new Store('email/accounts/'+$stateParams.accountId+'/threads/'+$stateParams.threadId, {limit: 5});				
 
 //						var  firstAccount;
-						
+
 //						$scope.onFilterLoad = function (filterCollection) {
 //			
 //							
@@ -98,49 +98,98 @@ GO.module('GO.Modules.GroupOffice.Messages').
 //						};
 
 
+
+
 						
-						
-						
-						
-						
-						
-						
+
+						$scope.updateFilter = function (name, value) {
+							$scope.filters[name] = value;
+							load();
+						};
+
+						function load() {
+
+							$scope.store.$loadParams.q = [];
+
+							$scope.store.$loadParams.type = $scope.filters.type;
+							
+							$scope.store.$loadParams.q.push(['andWhere', {'accountId': $scope.filters.accountId}]);
+							
+							if ($scope.filters.tags.length) {
+								$scope.store.$loadParams.q.push(['andWhere', {'tags.id': $scope.filters.tags}]);
+							}
+
+
+							$scope.store.load();
+						}
+						;
+
+					
+
+						$scope.accountStore = accountStore;
+
+
+
+
 						var afterCompose = function (openResult) {
 
-							openResult.close.then(function (closeResult) {								
+							openResult.close.then(function (closeResult) {
 								if (closeResult) {
-									if(!$state.is('messages.thread', {accountId: closeResult.thread.accountId, threadId: closeResult.threadId})) {
-									
+									if (!$state.is('messages.thread', {accountId: closeResult.thread.accountId, threadId: closeResult.threadId})) {
+
 										$state.go('messages.thread', {accountId: closeResult.thread.accountId, threadId: closeResult.threadId});
-									}else
+									} else
 									{
 										$scope.store.reload();
 										$scope.threadStore.reload();
 									}
-									
+
 									//force a sync
 									$http.get(ServerAPI.url('accounts/' + closeResult.thread.accountId + '/sync'));
 								}
 							});
 						};
-						
-						$scope.reply = function(message, all) {
+
+						$scope.reply = function (message, all) {
 //							accountStore.findModelByAttribute('id', thread.accountId).getAccountModel().reply($scope.threadStore.items[0],all).then(afterCompose);
 							message.reply(all).then(afterCompose);
 						};
-						
-						$scope.forward = function(message) {
+
+						$scope.forward = function (message) {
 //							accountStore.findModelByAttribute('id', thread.accountId).getAccountModel().forward(threadMessage).then(afterCompose);
 							message.forward().then(afterCompose);
 						};
-						
-						$scope.compose = function(attributes, message) {
+
+						$scope.compose = function (attributes, message) {
 							accountStore.items[0].getAccountModel().compose(attributes, message).then(afterCompose);
 						};
-						
-						$scope.selectThread = function(model) {
+
+						$scope.selectThread = function (model) {
 //							console.profile('thread');
-							$state.go('messages.thread',{threadId: model.id});
+							$state.go('messages.thread', {threadId: model.id});
 						};
+						
+						
+						
+						
+						
+						
+						
+						accountStore.loadIf().then(function(){
+							
+							if(!accountStore.items[0]) {
+								$state.go('settings');
+								return;
+							}
+							
+							$scope.filters = {
+								type: 'incoming',
+								accountId: accountStore.items[0].id,
+								tags: []
+							};
+							
+							load();
+
+						});
 
 					}]);

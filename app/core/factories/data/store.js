@@ -237,6 +237,14 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 
 			return this.promise;
 		};
+		
+		Store.prototype.loadIf = function() {
+			if(this.promise){
+				return this.promise;
+			}
+			
+			return this.load();
+		};
 
 
 

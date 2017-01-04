@@ -1,6 +1,69 @@
 <go-hook name="messages.main" layout="row">
 	<aside>	
-			<div go-on-load="onFilterLoad(filterCollection)" go-filter-collection="messages/filters" go-store="store"></div>		
+		<!--<div go-on-load="onFilterLoad(filterCollection)" go-filter-collection="messages/filters" go-store="store"></div>-->		
+		<go-filter name="type" type="single" go-value="filters.type" on-change="updateFilter('type', value)">
+
+			<go-option value="incoming">
+				<md-icon>inbox</md-icon>
+				<p>{{"Incoming"| goT}}</p>
+			</go-option>
+
+			<go-option value="unread">
+				<md-icon>email</md-icon>
+				<p>{{"Unread"| goT}}</p>
+			</go-option>
+
+			<go-option value="flagged">
+				<md-icon>flag</md-icon>
+				<p>{{"Flagged"| goT}}</p>
+			</go-option>
+			<go-option value="actioned">
+				<md-icon>folder</md-icon>
+				<p>{{"Actioned"| goT}}</p>
+			</go-option>
+
+			<go-option value="draft">
+				<md-icon>star</md-icon>
+				<p>{{"Drafts"| goT}}</p>
+			</go-option>			
+
+			<go-option value="sent">
+				<md-icon>send</md-icon>
+				<p>{{"Sent"| goT}}</p>
+			</go-option>
+
+			<go-option value="trash">
+				<md-icon>delete</md-icon>
+				<p>{{"Trash"| goT}}</p>
+			</go-option>
+
+			<go-option value="junk">
+				<md-icon>report</md-icon>
+				<p>{{"Junk"| goT}}</p>
+			</go-option>
+
+			<go-option value="outbox">
+				<md-icon>sync</md-icon>
+				<p>{{"Outbox"| goT}}</p>
+			</go-option>
+
+		</go-filter>
+
+		<md-divider></md-divider>
+
+		<go-tag-filter on-change="updateFilter('tags', value)" record-class-name='GO\Modules\GroupOffice\Messages\Model\Thread'></go-tag-filter>
+
+		<md-divider></md-divider>
+		
+		<go-filter name="account" type="single" go-value="filters.accountId" on-change="updateFilter('accountId', value)">
+
+			<go-option go-value="account.id" ng-repeat="account in accountStore.items track by account.id" class="{{account.name}}">
+				<md-icon>account_box</md-icon>
+				<p>{{account.name}}</p>
+			</go-option>
+
+		</go-filter>
+
 	</aside>	
 
 	<div class="go-cards-sm" flex>
@@ -33,12 +96,12 @@
 			<go-list store="store" group="lastMessageSentAt | date: 'fullDate'">
 
 				<item ng-click="selectThread(model)" class="md-3-line" ng-class="{'unseen': !model.seen}">
-					<img ng-if="model.photoBlobId" alt="{{model.name}}" ng-src="{{'thumb/'+model.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
+					<img ng-if="model.photoBlobId" alt="{{model.name}}" ng-src="{{'thumb/' + model.photoBlobId| apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
 					<img ng-if="!model.photoBlobId" alt="{{model.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="md-avatar" />
 					<div class="md-list-item-text" layout="column">						
 						<div layout="row">							
 							<h3 flex>{{model.getRandom()}} {{model.getFrom()}}</h3>
-							<small><span ng-if="model.messageCount > 1" class="count">{{model.messageCount}}» </span><md-icon ng-if="model.answered">reply</md-icon><md-icon ng-if="model.hasAttachments">attach_file</md-icon>{{model.lastMessageSentAt | date : "shortTime"}}</small>
+							<small><span ng-if="model.messageCount > 1" class="count">{{model.messageCount}}» </span><md-icon ng-if="model.answered">reply</md-icon><md-icon ng-if="model.hasAttachments">attach_file</md-icon>{{model.lastMessageSentAt| date : "shortTime"}}</small>
 						</div>
 						<h4>{{model.subject}}</h4>
 						<p class="go-ellipsis">{{model.excerpt}}</p>						
@@ -52,16 +115,16 @@
 
 			</go-list>
 
-<!--			<div class="go-fab-list">
-				
-				-->
-			
-				<md-button accesskey="a" class="md-fab md-fab-bottom-right" ng-click="compose()">
-					<md-icon>add</md-icon>
-					<md-tooltip md-direction="top">{{::"Compose"| goT}} (Alt+a)</md-tooltip>
-				</md-button>
+			<!--			<div class="go-fab-list">
+							
+			-->
 
-			</div>
+			<md-button accesskey="a" class="md-fab md-fab-bottom-right" ng-click="compose()">
+				<md-icon>add</md-icon>
+				<md-tooltip md-direction="top">{{::"Compose"| goT}} (Alt+a)</md-tooltip>
+			</md-button>
+
+		</div>
 		<!--</div>-->
 
 

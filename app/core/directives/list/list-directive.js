@@ -181,7 +181,7 @@ angular.module('GO.Core').directive('goList', [
 
 					var curIndex = itemScope.$index;
 
-					if (event.ctrlKey) {
+					if (event.ctrlKey || event.metaKey) {
 						toggleSelection(curIndex);
 						event.preventDefault();
 					} else if (event.shiftKey) {

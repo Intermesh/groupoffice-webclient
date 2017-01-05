@@ -1,14 +1,22 @@
 <md-card class="go-comments">
 	
 	
-	<md-card-title>
+<!--	<md-card-title>
 		<md-card-title-text>
 			<span class="md-headline">{{"Comments" |goT}}</span>
-			<!--<span class="md-subhead">Extra Large</span>-->
+			<span class="md-subhead">Extra Large</span>
 		</md-card-title-text>
-	</md-card-title>
+	</md-card-title>-->
+
+	<md-toolbar class="md-hue-2">
+		<div class="md-toolbar-tools">
+			{{"Comments" |goT}}
+		</div>	
+	</md-toolbar>
 
 	<md-card-content>
+		
+		<br />
 
 		<div ng-repeat="model in $ctrl.store.items" md-padding>
 			<div layout="row">
@@ -32,6 +40,17 @@
 		<p ng-bind-html="model.content"></p>
 		<md-divider></md-divider>
 		</div>
+		
+		
+		<form go-submit="$ctrl.addComment()" layout="column" go-server-errors="$ctrl.newComment.validationErrors" novalidate>
+			
+			<div flex go-wysiwyg ng-model="$ctrl.newComment.content" on-image-paste="$ctrl.onImagePaste(blob, editor)"></div>
+			
+			<div>				
+				<md-button class='md-accent' type='submit'>{{"Add comment" | goT}}</md-button>
+			</div>
+			
+		</form>
 
 		
 	</md-card-content>

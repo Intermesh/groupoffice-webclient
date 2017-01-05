@@ -139,6 +139,15 @@ GO.module('GO.Modules.GroupOffice.Messages').
 						};			
 						
 						
+						$scope.emptyJunk = function() {
+							$http.delete(ServerAPI.url("messages/junk",{
+								accountId: $scope.filters.accounts
+							})).then(function() {
+								$scope.store.items = [];
+							});
+						};			
+						
+						
 						
 						
 						accountStore.loadIf().then(function(){

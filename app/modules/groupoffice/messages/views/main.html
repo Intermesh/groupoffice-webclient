@@ -95,6 +95,13 @@
 							{{"Empty trash" | goT}}
 					</md-button>				
 			</div>
+			
+			
+			<div class="go-list-secondary-toolbar" ng-if="filters.type=='junk'" layout="row" layout-align="center center">
+					<md-button class="md-warn md-raised" flex="50" ng-click="emptyJunk()">							
+							{{"Empty junk" | goT}}
+					</md-button>				
+			</div>
 
 			<go-list store="store" group="lastMessageSentAt | date: 'fullDate'">
 

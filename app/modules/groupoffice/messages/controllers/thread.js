@@ -81,7 +81,8 @@ angular.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOf
 //		$timeout(function(){
 		$scope.threadStore.load().then(function (data) {
 				
-//				$scope.thread = new Thread();
+				//reset write only prop type because it might have been set in the changeType funciton
+				$scope.thread.type = null;
 				$scope.thread.loadData(data.response.data.thread);
 				$scope.tags = angular.copy(data.response.data.thread.tags);
 

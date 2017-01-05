@@ -57,10 +57,13 @@
 							</md-input-container>
 						</div>
 
-						<go-multiple title="Organizations" go-models="model.organizations" ng-if="!model.isOrganization">
+						<go-multiple title="Organizations" go-models="model.organizations" ng-if="!model.isOrganization" go-add-model="{name:' '}">
 							<md-autocomplete
 								flex							
 								md-delay="500"
+								md-require-match="true"
+								md-select-on-focus="true"
+								md-autoselect="true"
 								md-selected-item="viewScope.model.organizations[$index]"
 								md-search-text="ctrl.organizationSearchText"
 								md-items="organization in viewScope.getOrganizations(ctrl.organizationSearchText)"

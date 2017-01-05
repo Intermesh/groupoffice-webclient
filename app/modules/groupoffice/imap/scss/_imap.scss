@@ -4,33 +4,4 @@ md-input-container.subject {
 
 .imap-composer {
 	height:100%;
-	.attachment{
-		height: 24px;
-		md-icon {
-			margin:0;
-			padding:0;
-			width:16px;			
-			vertical-align: middle;
-			line-height: 24px;
-			height: 24px;
-		}
-		margin-right: 20px;
-		display: inline-block;	
-		white-space: nowrap;
-		strong{
-			height: 24px;			
-			line-height: 24px;
-			vertical-align: middle;
-			display: inline-block;
-			font-weight: normal;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			margin-right: 6px;
-		}
-		
-		.cancel {
-			cursor: pointer;
-		}
-	}
 }

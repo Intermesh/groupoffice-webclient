@@ -1,65 +1,92 @@
-<md-card class="go-comments">
-	
-	
-<!--	<md-card-title>
-		<md-card-title-text>
-			<span class="md-headline">{{"Comments" |goT}}</span>
-			<span class="md-subhead">Extra Large</span>
-		</md-card-title-text>
-	</md-card-title>-->
+<md-card class="go-comments" id="go-comments">
+
+
+	<!--	<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">{{"Comments" |goT}}</span>
+				<span class="md-subhead">Extra Large</span>
+			</md-card-title-text>
+		</md-card-title>-->
 
 	<md-toolbar class="md-hue-2">
 		<div class="md-toolbar-tools">
-			{{"Comments" |goT}}
+			{{"Comments"|goT}}
 		</div>	
 	</md-toolbar>
 
 	<md-card-content>
-		
+
 		<br />
 
-		<div ng-repeat="model in $ctrl.store.items" md-padding>
+		<div ng-repeat="model in $ctrl.store.items" class="go-comment">
 			<div layout="row">
-				
-				<img ng-if="model.creator.photoBlobId" alt="{{model.creator.username}}" ng-src="{{'thumb/'+model.creator.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="go-avatar small" />
-				<img ng-if="!model.creator.photoBlobId" alt="{{model.creator.username}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar small" />
-				
-				<div flex layout-align="center start" layout="column">
-					<h3>{{model.creator.username}}</h3>
-					<small>{{model.createdAt | date}}</small>
-				</div>
-				
-			</div>
-			
-		<div ng-if="::model.attachments.length" class="go-attachments">
-			<a ng-repeat="attachment in ::model.attachments" href="{{'download/'+attachment.blobId | apiUrl}}" target="_blank">
-				<md-icon>attach_file</md-icon>&nbsp;{{attachment.name}}
-			</a>
-		</div>
-			
-		<p ng-bind-html="model.content"></p>
-		<md-divider></md-divider>
-		</div>
-		
-		
-		<form go-submit="$ctrl.addComment()" layout="column" go-server-errors="$ctrl.newComment.validationErrors" novalidate>
-			
-			<div flex go-wysiwyg ng-model="$ctrl.newComment.content" on-image-paste="$ctrl.onImagePaste(blob, editor)"></div>
-			
-			<md-divider></md-divider>
-				
-			<div>				
-				<md-button class='md-accent' type='submit'>{{"Add comment" | goT}}</md-button>
-			</div>
-			
-		</form>
 
-		
+				<img ng-if="model.creator.photoBlobId" alt="{{model.creator.username}}" ng-src="{{'thumb/' + model.creator.photoBlobId| apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="go-avatar small" />
+				<img ng-if="!model.creator.photoBlobId" alt="{{model.creator.username}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar small" />
+
+				<div flex layout-align="center start" layout="column">
+					<h4>{{model.creator.username}}</h4>
+					<small>{{model.createdAt| date}}</small>
+				</div>
+
+			</div>
+
+			<div ng-if="::model.attachments.length" class="go-attachments">
+				<a ng-repeat="attachment in ::model.attachments" href="{{'download/' + attachment.blobId| apiUrl}}" target="_blank">
+					<md-icon>attach_file</md-icon>&nbsp;{{attachment.name}}
+				</a>
+			</div>
+
+			<p ng-bind-html="model.content"></p>
+			<md-divider></md-divider>
+		</div>
+
+
+		<div flow-init="$ctrl.flowInit"
+				 flow-files-submitted="$flow.upload()"
+				 flow-file-success="$ctrl.uploadSuccess($file, $message)"
+				 flow-drop>
+			
+			<form go-submit="$ctrl.addComment()" layout="column" go-server-errors="$ctrl.newComment.validationErrors" novalidate>
+
+				<div flex go-wysiwyg ng-model="$ctrl.newComment.content" on-image-paste="$ctrl.onImagePaste(blob, editor)"></div>
+
+				<md-divider></md-divider>
+
+				<div class="go-attachments" ng-if="$ctrl.newComment.attachments.length || $flow.files.length">
+					<div ng-repeat="attachment in $ctrl.newComment.attachments" class="attachment" layout="row"> 										
+						<md-icon>attachment</md-icon>
+						<strong flex>{{attachment.name}}</strong> 
+						<md-icon ng-click="$ctrl.removeAttachment($index)" style="cursor:pointer">delete</md-icon>
+					</div>
+
+					<div ng-repeat="file in $flow.files" class="attachment" ng-if="file.isUploading()"> 					
+						<md-icon>attachment</md-icon>
+						<strong>{{file.name}}</strong>
+						<md-icon ng-click="file.cancel()" style="cursor:pointer">delete</md-icon>
+						<md-progress-linear md-mode="determinate" ng-value="file.progress()*100"></md-progress-linear>			
+					</div>
+				</div>
+
+				<div layout="row">				
+					<md-button class='md-accent' type='submit'>{{"Add comment"| goT}}</md-button>
+					<span flex></span>
+					<md-button accesskey="s" type="button" class="md-icon-button" flow-btn>
+						<md-tooltip>{{::"Attach file"| goT}} (Alt+a)</md-tooltip>
+						<md-icon>attachment</md-icon>
+					</md-button>
+					
+					
+				</div>
+
+			</form>
+		</div>
+
 	</md-card-content>
 
-	
-<!--	<md-button class="md-raised"  ng-click='$ctrl.edit()'>
-		{{"Add"| goT}}
-	</md-button>-->
-	
-	</md-card>
+
+	<!--	<md-button class="md-raised"  ng-click='$ctrl.edit()'>
+			{{"Add"| goT}}
+		</md-button>-->
+
+</md-card>

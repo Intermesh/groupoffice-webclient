@@ -32,7 +32,8 @@
 	</md-toolbar>
 	<md-tabs md-selected="0">
 		<!-- goto is defined in $rootScope in app/controller/body-controller.js" -->
-		<md-tab ng-click="goto('info')">Info</md-tab>
+		<md-tab ng-click="goto('info')">{{::"Info" | goT}}</md-tab>
+		<md-tab ng-click="goto('go-comments')">{{::"Comments" | goT}}</md-tab>
 	</md-tabs>
 
 	<md-content class="go-grey">

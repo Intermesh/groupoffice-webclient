@@ -62,6 +62,9 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 		$scope.addRecipient = function (field, chip, index) {
 			if (!chip.address) {
 				$scope.model[field][index - 1] = {address: chip, personal: chip};			
+			}else
+			{
+				delete $scope.model[field][index - 1].full;
 			}
 		};
 		

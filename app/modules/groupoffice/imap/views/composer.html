@@ -155,7 +155,7 @@
 				<input id="subject" name="subject" ng-model="model.subject" required  />
 			</md-input-container>
 
-			<div class="attachments">
+			<div class="go-attachments" ng-if="model.attachments.length || $flow.files.length">
 				<div ng-repeat="attachment in model.attachments" class="attachment" ng-if="!attachment.src && !attachment.contentId" layout="row"> 										
 					<md-icon>attachment</md-icon>
 					<strong flex>{{attachment.name}}</strong> 

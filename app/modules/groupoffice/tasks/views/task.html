@@ -4,7 +4,7 @@
 		<md-button class="md-raised md-warn" ng-click="task.unDelete()">{{::"Undo delete"| goT }}</md-button>        
 	</go-mask>
 
-	<md-toolbar class="md-hue-1" go-scroll-class>
+	<md-toolbar class="md-hue-2" go-scroll-class>
 		<div class="md-toolbar-tools">
 			<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
 				<md-icon>chevron_left</md-icon>
@@ -38,7 +38,7 @@
 	<md-content class="go-grey">
 
 		<md-card id="info">
-			<md-toolbar class="md-hue-1">
+			<md-toolbar class="md-hue-2">
 				<div class="md-toolbar-tools">
 					<h2 flex>Info</h2>
 					<md-button class="md-icon-button" ng-disabled="!task.permissions.update" ng-click="edit(task)">

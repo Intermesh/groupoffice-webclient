@@ -4,7 +4,7 @@
 	</go-mask>
 
 
-	<md-toolbar class="md-hue-1" go-scroll-class>
+	<md-toolbar class="md-hue-2" go-scroll-class>
 		<div class="md-toolbar-tools">
 			<md-button aria-label="{{::'Back'| goT}}" class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
 				<md-icon>chevron_left</md-icon>
@@ -70,7 +70,7 @@
 	<md-content class="go-grey flex">
 
 		<md-card id="info">
-			<md-toolbar class="md-hue-1">
+			<md-toolbar class="md-hue-2">
 				<div class="md-toolbar-tools">
 					<h2 flex>Info</h2>
 					<md-button class="md-icon-button" ng-disabled="!contact.permissions.update" ng-click="edit({contact: contact})">
@@ -216,7 +216,7 @@
 
 
 		<md-card ng-if="contact.employees.length">
-			<md-toolbar class="md-hue-1">
+			<md-toolbar class="md-hue-2">
 				<div class="md-toolbar-tools">
 					<h2>{{::"Employees"| goT}}</h2>
 				</div>

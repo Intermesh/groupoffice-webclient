@@ -1,12 +1,13 @@
 .go-scroll.scrolled{
 	.go-display-panel-header {
-		opacity: 0;
-		transform: scale(0);
+/*		opacity: 0;
+		transform: scale(0);*/
+		display: none;
 	}
 }
 
 .go-scroll {
-	transition: all .5s;
+	/*transition: all .5s;*/
 	overflow: hidden;
 	height: 164px;
 	min-height: 164px;
@@ -21,7 +22,7 @@
 }
 
 .go-scroll-hidden {
-	transition: opacity .5s;
+	transition: opacity .3s;
 	opacity: 0;
 }
  	

@@ -105,7 +105,7 @@
 
 			<go-list store="store" group="lastMessageSentAt | date: 'fullDate'">
 
-				<item ng-click="selectThread(model)" class="md-3-line" ng-class="{'unseen': !model.seen}">
+				<item ng-click="selectThread(model)" class="md-3-line" ng-class="{'unseen': !model.seen}" aria-label="{{model.subject}}">
 					<img ng-if="model.photoBlobId" alt="{{model.name}}" ng-src="{{'thumb/' + model.photoBlobId| apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
 					<img ng-if="!model.photoBlobId" alt="{{model.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="md-avatar" />
 					<div class="md-list-item-text" layout="column">						

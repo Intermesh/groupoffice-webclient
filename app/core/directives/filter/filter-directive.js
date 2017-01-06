@@ -103,7 +103,7 @@ angular.module('GO.Core').directive('goFilter', ['$location', '$state', function
 			scope:true,
 			require: '^^goFilter',			
 			template: function (tElement, tAttr) {				
-				var str = '<md-list-item ng-class="{selected: isSelected()}" ng-click="toggle()">'+tElement[0].innerHTML+'</md-list-item>';
+				var str = '<md-list-item ng-class="{selected: isSelected()}" ng-click="toggle()" aria-label="select">'+tElement[0].innerHTML+'</md-list-item>';
 				return str;
 			},
 			link: function (scope, element, attr, goFilterCtrl) {

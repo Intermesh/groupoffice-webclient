@@ -22,7 +22,7 @@
 
 		<go-list store="contactStore" flex index="name">
 
-			<item class="md-2-line" ng-click="selectContact(model)">
+			<item class="md-2-line" ui-sref="contacts.contact({contactId: model.id})" aria-label="{{model.name}}">
 				<img ng-if="model.photoBlobId" alt="{{model.name}}" ng-src="{{'thumb/'+model.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
 				<img ng-if="!model.photoBlobId" alt="{{model.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="md-avatar" />
 				<div class="md-list-item-text">

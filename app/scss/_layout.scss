@@ -88,3 +88,53 @@ md-content {
 		}
 	}
 }
+
+
+
+.go-settings-navigation {
+	
+	@media(min-width: $screen-md-min) {
+		width: 300px;
+	}
+	
+	position: relative;
+	border-right: 1px solid $border-color;
+}
+
+.go-settings-card-panel{
+	min-height:200px;
+	position:relative;
+}
+
+
+
+.go-display-panel-header {
+	
+	margin-top: -12px;
+	
+	transition: all .5s;
+	opacity: 1;
+	
+	padding: 16px;
+	
+	.go-avatar, > md-icon{
+		margin: 0px 32px 0px 16px;
+		
+		@media (min-width:$screen-desktop) {
+			margin: 0px 24px 0px 8px;
+		}
+	}
+	
+	> md-icon {
+		font-size:2em; 
+		width: 2em;
+		height:2em;;
+		line-height: 2em;
+		text-align:center;
+	}
+	
+	.header-icon {
+		font-size: 3rem;
+		height:100%;
+	}
+}

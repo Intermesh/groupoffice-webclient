@@ -79,31 +79,7 @@
 	}
 }
 
-.go-display-panel-header {
-	
-	margin-top: -12px;
-	
-	transition: all .5s;
-	opacity: 1;
-	
-	padding: 16px;
-	
-	.go-avatar, > md-icon{
-		margin: 0px 32px 0px 16px;
-		
-		@media (min-width:$screen-desktop) {
-			margin: 0px 24px 0px 8px;
-		}
-	}
-	
-	> md-icon {
-		font-size:2em; 
-		width: 2em;
-		height:2em;;
-		line-height: 2em;
-		text-align:center;
-	}
-}
+
 
 md-sidenav {
 	background-color: $cGrey05;

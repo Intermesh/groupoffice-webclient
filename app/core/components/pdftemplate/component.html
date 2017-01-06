@@ -1,4 +1,4 @@
-<md-card class="settings-card-panel" flex>
+<md-card class="go-settings-card-panel" flex layout="column">
 	
 	<go-list-toolbar store="$ctrl.store">
 		<go-tools class="md-toolbar-tools">
@@ -11,7 +11,7 @@
 		</go-tools>		
 	</go-list-toolbar>
 
-	<go-list store="$ctrl.store" virtual="false">
+	<go-list store="$ctrl.store" virtual="false" flex>
 
 		<item class="md-2-line" ng-click="null">
 			<img class="md-avatar" title="{{model.language}}" alt="{{model.language}}" ng-src="resources/flags/{{model.language}}.svg" width="20" /> 

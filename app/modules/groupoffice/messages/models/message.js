@@ -62,15 +62,21 @@ angular.module('GO.Modules.GroupOffice.Messages').factory('GO.Modules.GroupOffic
 		};				
 		
 		Message.prototype.compose = function() {
-			return AccountStore.findModelByAttribute('id', this.thread.accountId).getAccountModel().compose({}, this);
+			return AccountStore.loadIf().then(function(){
+				return AccountStore.findModelByAttribute('id', this.thread.accountId).getAccountModel().compose({}, this);
+			}.bind(this));
 		};
 		
 		Message.prototype.reply = function(all) {
-			return AccountStore.findModelByAttribute('id', this.thread.accountId).getAccountModel().reply(this,all);
+			return AccountStore.loadIf().then(function(){
+				return AccountStore.findModelByAttribute('id', this.thread.accountId).getAccountModel().reply(this,all);
+			}.bind(this));
 		};
 		
 		Message.prototype.forward = function() {
-			return AccountStore.findModelByAttribute('id', this.thread.accountId).getAccountModel().forward(this);
+			return AccountStore.loadIf().then(function(){		
+				return AccountStore.findModelByAttribute('id', this.thread.accountId).getAccountModel().forward(this);
+			}.bind(this));
 		};
 
 		return Message;

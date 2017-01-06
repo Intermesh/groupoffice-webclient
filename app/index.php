@@ -53,8 +53,8 @@ ob_start();
 
 					<go-notifications-button></go-notifications-button>
 
-					<md-button class="md-icon-button" ng-click="$state.go('settings');">
-						<md-icon aria-label="Settings" class="mdi-settings">settings</md-icon>
+					<md-button class="md-icon-button" ng-click="$state.go('settings.accounts');">
+						<md-icon aria-label="Settings">settings</md-icon>
 						<md-tooltip>{{::"Settings"| goT}}</md-tooltip>
 					</md-button>
 

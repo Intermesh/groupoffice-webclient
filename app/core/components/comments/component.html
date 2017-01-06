@@ -21,23 +21,25 @@
 		<div ng-repeat="model in $ctrl.store.items" class="go-comment">
 			<div layout="row">
 
-				<img ng-if="model.creator.photoBlobId" alt="{{model.creator.username}}" ng-src="{{'thumb/' + model.creator.photoBlobId| apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="go-avatar small" />
+				<img ng-if="model.creator.photoBlobId" alt="{{model.creator.username}}" ng-src="{{'thumb/' + model.creator.photoBlobId| apiUrl : {w:30, h: 30, zoomCrop: 1} }}" class="go-avatar small" />
 				<img ng-if="!model.creator.photoBlobId" alt="{{model.creator.username}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar small" />
 
-				<div flex layout-align="center start" layout="column">
-					<h4>{{model.creator.username}}</h4>
-					<small>{{model.createdAt| date}}</small>
-				</div>
-
-			</div>
-
-			<div ng-if="::model.attachments.length" class="go-attachments">
+				<div>
+					<i>{{model.createdAt| date}}, {{model.creator.username}} wrote:</i><br />
+					
+					<p ng-bind-html="model.content"></p>
+					<div ng-if="::model.attachments.length" class="go-attachments">
 				<a ng-repeat="attachment in ::model.attachments" href="{{'download/' + attachment.blobId| apiUrl}}" target="_blank">
 					<md-icon>attach_file</md-icon>&nbsp;{{attachment.name}}
 				</a>
 			</div>
+				</div>
 
-			<p ng-bind-html="model.content"></p>
+			</div>
+
+			
+
+			
 			<md-divider></md-divider>
 		</div>
 

@@ -11,8 +11,6 @@ angular.module('GO.Controllers').controller('GO.Controllers.CreateAccountControl
 
 		$scope.close = close;
 		
-		console.log(App);
-
 		$scope.accountTypes = App.accountTypes;
 		
 		$scope.createAccount = function (accountType) {
@@ -21,7 +19,9 @@ angular.module('GO.Controllers').controller('GO.Controllers.CreateAccountControl
 			close();
 
 			accountType.createDialogConfig.inputs = accountType.createDialogConfig.inputs || {};
-			accountType.createDialogConfig.inputs.accountStore = accountStore;
+			accountType.createDialogConfig.inputs.callback = function(){
+				accountStore.load();
+			};
 
 			Dialog.show(accountType.createDialogConfig).then(function (dialog) {
 				dialog.close.then(function () {

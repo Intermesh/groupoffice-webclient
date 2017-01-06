@@ -1,5 +1,5 @@
-<md-card>
-	<md-card-contents>
+<md-card class="go-settings-card-panel" layout="column" flex-gt-md="50">
+	
 		<go-list-toolbar store="store">
 			<go-tools class="md-toolbar-tools">
 				<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
@@ -8,23 +8,10 @@
 
 				<h3 flex>{{::"Accounts" | goT}}</h3>
 
-				<!--		<go-search-button></go-search-button>-->
-
-				<md-menu md-position-mode="target-right target">
-					<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-						<md-icon md-menu-origin>more_vert</md-icon>
-					</md-button>
-					<md-menu-content>
-						<md-menu-item>
-							<md-button ng-click="store.reload()">{{::"Refresh"| goT}}</md-button>
-						</md-menu-item>
-					</md-menu-content>
-				</md-menu>
-			</go-tools>			
 		</go-list-toolbar>
 
 
-		<go-list store="store" virtual="false">
+		<go-list store="store" virtual="false" flex>
 
 			<item ng-click="editAccount(model)">
 				<md-icon>{{accountTypes[model.modelName].iconCls}}</md-icon>
@@ -38,7 +25,7 @@
 
 		</go-list>
 
-		<md-button class="md-fab md-fab-bottom-right" ng-click='createAccount()'><md-icon>add</md-icon></md-button>
-
-	</md-card-contents>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button class="md-accent" ng-click='createAccount()'>{{"Add" | goT}}</md-button>
+	</md-card-actions>
 </md-card>

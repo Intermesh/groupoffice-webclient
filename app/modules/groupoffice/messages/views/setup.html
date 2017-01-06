@@ -1,0 +1,29 @@
+<div class="md-padding go-grey" style="height:100%">
+
+	<md-card>
+		<md-card-content layout="row" layout-align="start center">
+			
+			<div class="go-setup-icon">
+				<md-icon class="md-48 md-accent">message</md-icon>
+			</div>
+			<div flex>
+				<h1 class="md-headline">{{"Welcome" | goT}}</h1>
+				<p>{{"Messages hasn't been setup yet. Please proceed to your account settings and add an IMAP account." | goT}}</p>	
+				
+				<md-button class="md-raised md-primary" ng-click="$state.go('settings.accounts')">
+					{{"Accounts"| goT}}
+				</md-button>
+			</div>
+		</md-card-content>
+		<md-card-actions layout="row">
+				
+				
+
+		</md-card-actions>
+	</md-card>
+
+</div>
+
+
+
+

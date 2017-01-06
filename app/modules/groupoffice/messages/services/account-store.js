@@ -5,7 +5,7 @@ angular.module('GO.Modules.GroupOffice.Messages').service('GO.Modules.GroupOffic
 	function (Account) {
 		
 		var accounts = (new Account()).getStore();		
-		accounts.load();
+		
 			
 		return accounts;	
 		

@@ -150,10 +150,10 @@ GO.module('GO.Modules.GroupOffice.Messages').
 						
 						
 						
-						accountStore.loadIf().then(function(){
+						accountStore.load().then(function(){
 							
 							if(!accountStore.items[0]) {
-								$state.go('settings');
+								$state.go('messages-setup');
 								return;
 							}
 							

@@ -27,6 +27,9 @@ GO.module('GO.Modules.GroupOffice.Messages', ['GO.Core']).run([
 			templateUrl: 'modules/groupoffice/messages/views/main.html',
 			controller: 'GO.Modules.GroupOffice.Messages.Controller.Main',
 			url: "/messages"
+		}).state('messages-setup', {
+			templateUrl: 'modules/groupoffice/messages/views/setup.html',			
+			url: "/messages/setup"
 		}).state('messages.thread', {
 			url: "/{threadId:[0-9,]*}",
 			templateUrl: 'modules/groupoffice/messages/views/thread.html',

@@ -1,4 +1,4 @@
-<go-hook name="messages.main" layout="row">
+<go-hook name="messages.main" layout="row" ng-if="accountStore.init">
 	<aside>	
 		<!--<div go-on-load="onFilterLoad(filterCollection)" go-filter-collection="messages/filters" go-store="store"></div>-->		
 		<go-filter name="type" type="single" go-value="filters.type" on-change="updateFilter('type', value)">

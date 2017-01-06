@@ -21,6 +21,8 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 		$scope.accountId = account.id;					
 		$scope.accountStore = accountStore;
 		
+		$scope.accountStore.loadIf();
+		
 		
 		read.then(function () {
 				

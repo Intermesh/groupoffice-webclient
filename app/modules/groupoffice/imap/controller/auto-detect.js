@@ -7,9 +7,9 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 	'GO.Core.Services.Mask',
 	'GO.Core.Services.Dialog',
 	'close',
-	'accountStore',
+	'callback',
 	'GO.Modules.GroupOffice.Imap.Model.Account',
-	function ($scope, AutoDetect, Mask, Dialog, close, accountStore,Account) {
+	function ($scope, AutoDetect, Mask, Dialog, close, callback,Account) {
 
 
 		$scope.autodetect = new AutoDetect();
@@ -44,10 +44,12 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 						autodetect: $scope.autodetect
 					}
 				}).then(function (data) {
-					data.close.then(function (account) {
-						if (account) {
-							accountStore.reload();
+					data.close.then(function (account) {						
+						
+						if(callback) {
+							callback.call(this, account);
 						}
+						
 					});
 				});
 

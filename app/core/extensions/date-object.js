@@ -4,12 +4,6 @@
  * @returns {String}
  */
 Date.prototype.toIntermeshApiFormat = function () {
-	
-	console.log(this.getHours());
-	console.log(this.getMinutes());
-	console.log(this.toISOString());
-	
-
 	if (this.getHours() === 0 && this.getMinutes() === 0) {
 		//when there's no time in the date we just want to send 2014-09-01 for example.
 		return this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + this.getDate();

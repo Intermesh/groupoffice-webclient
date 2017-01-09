@@ -593,8 +593,10 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 										
 										if (data) {
 											//this.loadData(data, false);// do not load complete data because it may return partial data of has many relations. Only the submitted elements are returned.
-											this._loadValidationErrors(data);
+											this._loadValidationErrors(data);										
 										}
+										
+										console.log('reject');
 
 										deferred.reject({model: this, response: response, validationErrors: data ? data.validationErrors : null});
 									} else {
@@ -604,6 +606,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 										}
 
 										this._updateStores();
+										
+										console.log('resolve');
 
 										deferred.resolve({model: this, response: response});
 									}

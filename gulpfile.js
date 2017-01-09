@@ -48,7 +48,7 @@ var sassGlob = require('gulp-sass-glob');
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('sass', function () {
-	gulp.src('./app/core/scss/app.scss')
+	gulp.src('./app/scss/app.scss')
 					.pipe(sassGlob())
 					.pipe(sass().on('error', sass.logError))
 					.pipe(gulp.dest('./app/css'));
@@ -56,7 +56,7 @@ gulp.task('sass', function () {
 
 gulp.task('sass:watch', function () {
 	gulp.watch('./app/**/*.scss', function () {
-		gulp.src('./app/core/scss/app.scss')
+		gulp.src('./app/scss/app.scss')
 						.pipe(sourcemaps.init())
 						.pipe(sassGlob())
 						.pipe(sass().on('error', sass.logError))

@@ -1,0 +1,10 @@
+@import "../core/scss/_core.scss";
+/* gulp uses gulp-sass-glob to support these include patterns: (unfrotunately it does not support nested imports) */ 
+@import "../core/services/**/*.scss";
+@import "../core/directives/**/*.scss";
+@import "../core/components/**/*.scss";
+
+@import "_custom.scss";
+@import "_utils.scss";
+@import "_layout.scss";
+@import "../modules/**/*.scss";

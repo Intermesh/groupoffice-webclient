@@ -24,11 +24,6 @@ $toolbar-tools-height: 48px;
 /*@import "_ng-sortable.scss";*/
 @import "cards";
 
-/* gulp uses gulp-sass-glob to support these include patterns: */ 
-@import "../services/**/*.scss";
-@import "../directives/**/*.scss";
-@import "../components/**/*.scss";
-@import "../../scss/*.scss";
-@import "../../modules/**/*.scss";
+
 
 

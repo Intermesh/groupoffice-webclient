@@ -24,7 +24,7 @@
 				<img ng-if="model.creator.photoBlobId" alt="{{model.creator.username}}" ng-src="{{'thumb/' + model.creator.photoBlobId| apiUrl : {w:30, h: 30, zoomCrop: 1} }}" class="go-avatar small" />
 				<img ng-if="!model.creator.photoBlobId" alt="{{model.creator.username}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar small" />
 
-				<div>
+				<div flex>
 					<i>{{model.createdAt| date}}, {{model.creator.username}} wrote:</i><br />
 					
 					<p ng-bind-html="model.content"></p>

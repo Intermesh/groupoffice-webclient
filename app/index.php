@@ -146,9 +146,9 @@ ob_start();
 	findJs();
 	?>		
 	<script src="./app.js"></script>
-	<script src="./config.js"></script>
-
 	<!-- endbuild -->
+	
+	<script src="./config.js"></script>
 </body>
 </html>
 

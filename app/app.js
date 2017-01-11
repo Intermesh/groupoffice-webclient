@@ -103,7 +103,7 @@ angular.module('GO', GO.appModules.concat([
 
 //						FastClick.attach(document.body);
 	}]).config(['$mdThemingProvider', function ($mdThemingProvider) {
-		var customBlueMap = $mdThemingProvider.extendPalette('grey', {
+		var customBlueMap = $mdThemingProvider.extendPalette('blue-grey', {
 			'contrastDefaultColor': 'light',
 			'contrastDarkColors': ['50', '100'],
 //			'50': 'FFFFFF',
@@ -119,7 +119,7 @@ angular.module('GO', GO.appModules.concat([
 		$mdThemingProvider.definePalette('customBlue', customBlueMap);
 		$mdThemingProvider.theme('default')
 						.primaryPalette('customBlue', {
-							'default': '500',
+							'default': '500'
 //							'hue-1': '100'
 //							'hue-2': '50'
 						})

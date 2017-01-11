@@ -1,4 +1,4 @@
-<go-hook name="tasks.task" flex layout="column" md-theme="InfoPanel">
+<go-hook name="tasks.task" flex layout="column">
 
 	<go-mask ng-show="task.deleted">
 		<md-button class="md-raised md-warn" ng-click="task.unDelete()">{{::"Undo delete"| goT }}</md-button>        
@@ -30,7 +30,7 @@
 		</div>
 
 	</md-toolbar>
-	<md-tabs md-selected="0" class="md-primary">
+	<md-tabs md-selected="0">
 		<!-- goto is defined in $rootScope in app/controller/body-controller.js" -->
 		<md-tab ng-click="goto('info')">{{::"Info" | goT}}</md-tab>
 		<md-tab ng-click="goto('go-comments')">{{::"Comments" | goT}}</md-tab>

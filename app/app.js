@@ -103,72 +103,38 @@ angular.module('GO', GO.appModules.concat([
 
 //						FastClick.attach(document.body);
 	}]).config(['$mdThemingProvider', function ($mdThemingProvider) {
-		var customBlueMap = $mdThemingProvider.extendPalette('light-blue', {
+		var customBlueMap = $mdThemingProvider.extendPalette('grey', {
 			'contrastDefaultColor': 'light',
-			'contrastDarkColors': ['50'],
-			'50': 'FFFFFF',
-//			'300': '21C1EF',
-			'400': '10B3E2',
-			'600': '0E9CC5',
-//			'600': '0C85A8',
-//			'700': '0A6F8C'
-			'A100' : 'FFFFFF'
-		});
-
-		$mdThemingProvider.definePalette('GroupOffice', customBlueMap);
-		$mdThemingProvider.theme('GroupOffice')
-						.primaryPalette('GroupOffice',{							
-							'default': '400',
-							'hue-1' : '100',
-							'hue-2' : '600',
-							'hue-3' : 'A100'
-						})
-						.accentPalette('light-green', {
-							'default' : '700',
-							'hue-1' : '500'
-						})
-						.backgroundPalette('grey', {
-							'default': 'A100' //change background to white
-						});
-						
-						
-		var customInfoPanelMap = $mdThemingProvider.extendPalette('grey', {
-//			'contrastDefaultColor': 'dark',
-//			'contrastDarkColors': ['50'],
-			'50': 'FFFFFF',
-			'100' :'BDBDBD' //for inactive tab color
+			'contrastDarkColors': ['50', '100'],
+//			'50': 'FFFFFF',
+//			'100': 'f1f1f1',
 //			'300': '21C1EF',
 //			'400': '10B3E2',
-//			'600': '0E9CC5',
+			'500': '0E9CC5'
 //			'600': '0C85A8',
 //			'700': '0A6F8C'
-//			'A100' : 'FFFFFF'
 		});
 		
-		$mdThemingProvider.definePalette('InfoPanel', customInfoPanelMap);
-						
-		$mdThemingProvider.theme('InfoPanel')
-						.primaryPalette('InfoPanel',{							
-							'default': '50'
-//							'hue-1' : '100',
-//							'hue-2' : '600',
-//							'hue-3' : 'A100'
+
+		$mdThemingProvider.definePalette('customBlue', customBlueMap);
+		$mdThemingProvider.theme('default')
+						.primaryPalette('customBlue', {
+							'default': '500',
+//							'hue-1': '100'
+//							'hue-2': '50'
 						})
 						.accentPalette('light-green', {
-							'default' : '700',
-							'hue-1' : '500'
-						})
-						.backgroundPalette('grey', {
-							'default': '50' //change background to white
+							'default': '700'
 						});
+//						.backgroundPalette('grey', {
+//							'default': 'A100' //change background to white
+//						});
 						
-						
-//		$mdThemingProvider.setDefaultTheme('GroupOffice');
-		
-		
+					
 
-//						$mdThemingProvider.theme('input', 'default')
+//		$mdThemingProvider.theme('input', 'default')
 //										.primaryPalette('grey');
+						
 	}]).config(['$mdIconProvider', function ($mdIconProvider) {
 		// Configure URLs for icons specified by [set:]id.
 		$mdIconProvider.defaultFontSet('material-icons');

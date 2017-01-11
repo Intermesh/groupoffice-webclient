@@ -1,4 +1,4 @@
-<go-hook name="contacts.contact" flex layout="column" md-theme="InfoPanel">
+<go-hook name="contacts.contact" flex layout="column" >
 	<go-mask ng-show="contact.deleted">
 		<md-button class="md-raised md-warn" ng-click="contact.unDelete()">{{::"Undo delete"| goT : "contacts" }}</md-button>		
 	</go-mask>
@@ -59,7 +59,7 @@
 
 	</md-toolbar>
 
-	<md-tabs md-selected="tabs.selectedIndex" class="md-primary">
+	<md-tabs md-selected="tabs.selectedIndex">
 		<md-tab ng-click="goto('info')">Info</md-tab>
 		<!--			<md-tab ng-click="goto('files')">Files</md-tab>
 					<md-tab ng-click="goto('files')">Activities</md-tab>-->

@@ -58,11 +58,11 @@ angular.module('GO.Core').directive('goList', [
 									'<div ng-repeat-start="model in ' + tAttr['store'] + '.items track by model.' + tAttr['trackBy'] + '" style="display:none"></div>'; //dummy div as workaround because ng-repeat-start on md-subheader gives a strange result
 
 					if (tAttr.index) {
-						itemReplacement += '<md-subheader ng-if="model.$index" class="md-primary">{{model.$index}}</md-subheader>';
+						itemReplacement += '<md-subheader ng-if="model.$index">{{model.$index}}</md-subheader>';
 					}
 
 					if (tAttr.group) {
-						itemReplacement += '<md-subheader ng-if="model.$group" class="md-primary">{{model.$group}}</md-subheader>';
+						itemReplacement += '<md-subheader ng-if="model.$group">{{model.$group}}</md-subheader>';
 					}
 
 

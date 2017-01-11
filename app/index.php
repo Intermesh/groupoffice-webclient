@@ -39,7 +39,7 @@ ob_start();
 		<div class="go-header" ng-if="::loggedIn" ng-controller="GO.Controllers.HeaderController">
 			<go-launchpad show="showLaunchpad"></go-launchpad>
 
-			<md-toolbar class="md-hue-2">
+			<md-toolbar>
 				<div class="md-toolbar-tools">
 
 					<md-button class="md-icon-button" ng-click="toggleLaunchpad()" ng-if="::loggedIn" accesskey="z">

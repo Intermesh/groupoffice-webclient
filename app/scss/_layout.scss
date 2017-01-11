@@ -5,8 +5,20 @@
 	height: 100%;
 	background-color: #f1f1f1;
 	md-tabs {
+		
 		border-bottom: 1px solid $border-color;
 		background-color: white;
+	}
+	
+	md-toolbar {
+		color: $color;
+		background-color: white;
+		
+		
+		md-icon {
+			color: $color;
+		}
+	
 	}
 	a {
 		color: $font-color;

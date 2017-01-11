@@ -1,10 +1,10 @@
-<go-hook name="contacts.contact" flex layout="column">
+<go-hook name="contacts.contact" flex layout="column" md-theme="InfoPanel">
 	<go-mask ng-show="contact.deleted">
 		<md-button class="md-raised md-warn" ng-click="contact.unDelete()">{{::"Undo delete"| goT : "contacts" }}</md-button>		
 	</go-mask>
 
 
-	<md-toolbar class="md-hue-2" go-scroll-class>
+	<md-toolbar go-scroll-class>
 		<div class="md-toolbar-tools">
 			<md-button aria-label="{{::'Back'| goT}}" class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
 				<md-icon>chevron_left</md-icon>
@@ -59,7 +59,7 @@
 
 	</md-toolbar>
 
-	<md-tabs md-selected="tabs.selectedIndex">
+	<md-tabs md-selected="tabs.selectedIndex" class="md-primary">
 		<md-tab ng-click="goto('info')">Info</md-tab>
 		<!--			<md-tab ng-click="goto('files')">Files</md-tab>
 					<md-tab ng-click="goto('files')">Activities</md-tab>-->
@@ -67,10 +67,10 @@
 
 
 
-	<md-content class="go-grey flex">
+	<md-content class="flex">
 
 		<md-card id="info">
-			<md-toolbar class="md-hue-2">
+			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2 flex>Info</h2>
 					<md-button class="md-icon-button" ng-disabled="!contact.permissions.update" ng-click="edit({contact: contact})">
@@ -216,7 +216,7 @@
 
 
 		<md-card ng-if="contact.employees.length">
-			<md-toolbar class="md-hue-2">
+			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2>{{::"Employees"| goT}}</h2>
 				</div>

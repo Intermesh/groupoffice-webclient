@@ -49,8 +49,11 @@ var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('sass', function () {
 	gulp.src('./app/scss/app.scss')
+					.pipe(sourcemaps.init())
 					.pipe(sassGlob())
 					.pipe(sass().on('error', sass.logError))
+					.pipe(sourcemaps.write())
+						
 					.pipe(gulp.dest('./app/css'));
 });
 

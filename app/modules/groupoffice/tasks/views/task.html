@@ -1,10 +1,10 @@
-<go-hook name="tasks.task" flex layout="column">
+<go-hook name="tasks.task" flex layout="column" md-theme="InfoPanel">
 
 	<go-mask ng-show="task.deleted">
 		<md-button class="md-raised md-warn" ng-click="task.unDelete()">{{::"Undo delete"| goT }}</md-button>        
 	</go-mask>
 
-	<md-toolbar class="md-hue-2" go-scroll-class>
+	<md-toolbar go-scroll-class>
 		<div class="md-toolbar-tools">
 			<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
 				<md-icon>chevron_left</md-icon>
@@ -30,7 +30,7 @@
 		</div>
 
 	</md-toolbar>
-	<md-tabs md-selected="0">
+	<md-tabs md-selected="0" class="md-primary">
 		<!-- goto is defined in $rootScope in app/controller/body-controller.js" -->
 		<md-tab ng-click="goto('info')">{{::"Info" | goT}}</md-tab>
 		<md-tab ng-click="goto('go-comments')">{{::"Comments" | goT}}</md-tab>
@@ -39,7 +39,7 @@
 	<md-content class="go-grey">
 
 		<md-card id="info">
-			<md-toolbar class="md-hue-2">
+			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2 flex>Info</h2>
 					<md-button class="md-icon-button" ng-disabled="!task.permissions.update" ng-click="edit(task)">

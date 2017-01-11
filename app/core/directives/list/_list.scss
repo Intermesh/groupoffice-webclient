@@ -2,6 +2,8 @@
 	
 	@extend .col;
 	
+	background-color: white;
+	
 	border-right: 1px solid $border-color;
 	
 	@media(min-width: $screen-md) {

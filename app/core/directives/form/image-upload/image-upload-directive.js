@@ -48,7 +48,7 @@ angular.module('GO.Core').directive('goImageUpload', [
 
 //					scope.url = ServerAPI.url('thumb/' + data.data.blobId, {dummy: "1"}); //dummy param so we can add params in view easily
 
-					scope.goModel = data.data.blobId;
+					scope.goModel = data.data;
 					
 
 					if (scope.onChange) {
@@ -62,13 +62,13 @@ angular.module('GO.Core').directive('goImageUpload', [
 					scope.url = null;
 				};
 				
-				scope.$watch('goModel', function(blobId) {
+				scope.$watch('goModel', function(blob) {
 				
 					if(scope.goDefaultUrl && scope.goDefaultUrl.indexOf('?') === -1) {
 						scope.goDefaultUrl += '?dummy=1';
 					}
 				
-					scope.url = blobId ? ServerAPI.url('thumb/' + blobId, {dummy: "1"}) : scope.goDefaultUrl; //dummy param so we can add params in view easily
+					scope.url = blob.blobId ? ServerAPI.url('thumb/' + blob.blobId, {dummy: "1"}) : scope.goDefaultUrl; //dummy param so we can add params in view easily
 				});
 
 			},

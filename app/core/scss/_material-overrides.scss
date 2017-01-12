@@ -40,3 +40,34 @@ md-card-content {
 			margin-left: 0px;
 	}
 }
+
+._md-datepicker-floating-label._md-datepicker-has-calendar-icon > label:not(.md-no-float):not(.md-container-ignore) {
+	right: auto !important;
+	left: 36px;
+}
+._md-datepicker-floating-label {
+	
+	md-datepicker {
+		.md-datepicker-button {
+			md-icon {
+				color: $color;
+			}
+			margin:0;
+			padding:0;
+			width: 18px;
+		}
+		
+	}
+	
+	.md-datepicker-input {
+		font-size: inherit;
+	}
+}
+
+.md-icon-button + .md-datepicker-input-container {
+    margin-left: 18px;
+}
+
+._md-datepicker-floating-label > md-datepicker .md-datepicker-button {
+    top: 1.5px;
+}

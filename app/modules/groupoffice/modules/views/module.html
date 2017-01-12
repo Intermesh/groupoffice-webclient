@@ -1,6 +1,6 @@
 <go-hook name="module" flex layout="column">
 
-	<md-toolbar class="md-hue-1" go-scroll-class>
+	<md-toolbar class="" go-scroll-class>
 		<div class="md-toolbar-tools">
 			<md-button aria-label="{{::'Back'| goT}}" class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
 				<md-icon>chevron_left</md-icon>
@@ -45,7 +45,7 @@
 	<md-content class="go-grey" flex>
 
 		<md-card id="info">
-			<md-toolbar class="md-hue-1">
+			<md-toolbar class="">
 				<div class="md-toolbar-tools">
 					<h2 flex>Info</h2>
 					<!--					<md-button class="md-icon-button" ng-disabled="!module.permissions.update" ng-click="edit({module: module})">
@@ -115,7 +115,7 @@
 		</md-card>
 
 		<md-card id="permissions" ng-if="module.installed">
-			<md-toolbar class="md-hue-1">
+			<md-toolbar class="">
 				<div class="md-toolbar-tools">
 					<h2 flex>{{::"Permissions" | goT}}</h2>
 					<!--					<md-button class="md-icon-button" ng-disabled="!module.permissions.update" ng-click="edit({module: module})">

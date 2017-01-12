@@ -150,3 +150,14 @@ md-content {
 		height:100%;
 	}
 }
+
+
+.go-login-card {
+	width:600px;
+	margin-top: 20px;
+	z-index:4;
+	
+	@media (min-width: 1200px) {
+		margin-top:-72px;
+	}
+}

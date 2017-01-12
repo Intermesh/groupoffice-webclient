@@ -69,7 +69,7 @@ angular.module('GO.Core')
 								}],
 
 							template: '<div ng-if="fieldSetIf(fieldSet);"  ng-repeat="fieldSet in customFieldSetStore.items"><md-card >\
-									<md-toolbar class="md-hue-2"><div class="md-toolbar-tools">{{fieldSet.name}}</div></md-toolbar>\
+									<md-toolbar><div class="md-toolbar-tools">{{fieldSet.name}}</div></md-toolbar>\
 									<md-card-content>\
 									<md-list>\
 									<md-list-item class="md-2-line" ng-if="!$root.GO.isEmpty(goModel[field.databaseName])" ng-repeat="field in fieldSet.fields">\

@@ -25,12 +25,6 @@ go-log-button {
 }
 
 
-.mod-log .md-fab {
-	background-color: orange;
-	&:before{
-		content: mdi('bell-outline');
-	}
-}
 
 .go-month-select {
 	md-select {

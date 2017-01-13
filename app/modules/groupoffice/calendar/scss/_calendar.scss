@@ -6,13 +6,7 @@ md-list-item.field md-select, // && .md-input-focused
 md-list-item.field md-select-value {
 	border-bottom:0;
 }
-// launcher icon
-.mod-calendar .md-fab {
-	background-color: green;
-	&:hover:not([disabled]) {
-		background-color: #E64A19;
-	}
-}
+
 md-toolbar input {
 	background-color:transparent;
 	color:inherit;

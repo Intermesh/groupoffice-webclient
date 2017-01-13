@@ -1,12 +1,3 @@
-
-.mod-customfields .md-fab {
-	background-color: orange;
-	&:before{
-		content: mdi('textbox');
-	}
-	
-}
-
 .go-customfields-panel {
 	position:relative;
 	border-right: 1px solid $border-color;

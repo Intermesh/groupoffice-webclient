@@ -38,7 +38,7 @@ fieldset {
 		border-bottom: 1px solid $border-color;
     
     margin: 0;
-		padding:16px;
+		padding: 2 * $baseline-grid;
 		
 		
 		legend {
@@ -60,3 +60,9 @@ fieldset {
 		}
 }
 
+md-card-content {
+	fieldset {
+		margin-left: -2 * $baseline-grid;
+		margin-right: -2 * $baseline-grid;
+	}
+}

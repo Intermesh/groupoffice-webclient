@@ -80,6 +80,7 @@ gulp.task('usemin', ['clean', 'template-cache', 'index'], function () {
 						css: [minifyCss(), autoprefixer(), 'concat'],
 						html: [minifyHtml({empty: true})],
 						js: [uglify().on('error', function(e){console.log(e);}), rev(), 'concat'],
+						//						js: ['concat'],//for debugging
 						inlinejs: [uglify()],
 						inlinecss: [minifyCss(), 'concat']
 					}))
@@ -122,25 +123,8 @@ gulp.task('rename-index', ['usemin'], function (cb) {
 	gulp.src("./build/build.html")
 					.pipe(rename("index.html"))
 					.pipe(gulp.dest("./build"));
-
-//	gulp.src("./build/app.html")
-//					.pipe(gulpRimraf());
-	
-	 del([
-			'./build/build.html'    
-		], cb);
-
 });
 
-//empty template cache again
-
-
-//gulp.task('copy-fonts', ['clean'], function(){
-//	return gulp.src('app/css/fonts/*.*', {
-//					 base: 'app/css'
-//			 })
-//			 .pipe(gulp.dest('build/'));
-//});
 
 gulp.task("build", ['clean', 'sass', "copy-resources", "template-cache", "usemin", 'index', 'rename-index', 'removetemplates']);
 

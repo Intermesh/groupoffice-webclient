@@ -125,10 +125,10 @@ angular.module('GO', GO.appModules.concat([
 						})
 						.accentPalette('light-green', {
 							'default': '700'
+						})
+						.backgroundPalette('grey', {
+							'default': 'A100' //change background to white
 						});
-//						.backgroundPalette('grey', {
-//							'default': 'A100' //change background to white
-//						});
 						
 					
 

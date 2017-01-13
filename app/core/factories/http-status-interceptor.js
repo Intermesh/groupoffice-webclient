@@ -60,6 +60,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.HttpStatusInterceptor', [
 				return config;
 			},
 			response: function (response) {
+				
+				debugLog(response);
 								
 				busy--;				
 				if(busy === 0) {

@@ -98,9 +98,9 @@ gulp.task('clean', function (cb) {
 });
 
 
-gulp.task('copy-resources', ['clean', 'sass'], function () {
+gulp.task('copy-resources', ['clean', 'sass', 'usemin'], function () {
 
-	return gulp.src(['app/**/resources/**/*.*', 'app/api.php'], {
+	gulp.src(['app/**/resources/**/*.*', 'app/api.php'], {
 		base: 'app'
 	}).pipe(gulp.dest('build/'));
 
@@ -126,6 +126,6 @@ gulp.task('rename-index', ['usemin'], function (cb) {
 });
 
 
-gulp.task("build", ['clean', 'sass', "copy-resources", "template-cache", "usemin", 'index', 'rename-index', 'removetemplates']);
+gulp.task("build", ['clean', 'sass', "template-cache", "usemin", 'index', 'rename-index', "copy-resources", 'removetemplates']);
 
 //scp -r build/* root@amadeiro.intermesh.nl:/home/govhosts/go7.group-office.com/groupoffice/

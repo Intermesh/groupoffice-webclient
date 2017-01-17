@@ -30,4 +30,8 @@ GO.module('GO.Modules.GroupOffice.Users').controller('GO.Modules.GroupOffice.Use
 			}
 			return chip;
 		};
+		
+		$scope.filterGroups = function(group) {
+			return group.id != 2;// && group.userId != $scope.model.id;
+		};
 	}]);

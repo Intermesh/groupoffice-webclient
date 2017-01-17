@@ -51,7 +51,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 	'$timeout',
 	'GO.Core.Services.ServerAPI',
 	'GO.Core.Factories.Data.Store',
-	function ($http, $q, $timeout, ServerAPI, Store) {
+	'$rootScope',
+	function ($http, $q, $timeout, ServerAPI, Store, $rootScope) {
 
 		var Model = function (constructorArgs) {			
 			
@@ -239,7 +240,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 
 
 		Model.prototype._updateStores = function () {
-
 //							$rootScope.$emit('modelUpdated', this);
 			angular.forEach(this.$stores, function (store) {
 				store.updateModel(this);
@@ -603,6 +603,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 										}
 
 										this._updateStores();
+										
+//										$rootScope.$broadcast('modelupdate', this);
 
 										deferred.resolve({model: this, response: response});
 									}

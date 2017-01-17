@@ -26,7 +26,14 @@
  * 
  */
 
-
+var update = function(event, updatedModel) {
+						
+						console.log("Calling listener on store "+updatedModel.getStoreRoute());
+						
+//						if(updatedModel.$storeRoute === store.$storeRoute) {
+//							store.updateModel(updatedModel);
+//						}
+					};
 
 angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 	'$http',
@@ -38,16 +45,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 	function ($http, ServerAPI, $injector, $q, $parse, $mdToast) {
 
 		var Store = function (storeRoute, loadParams) {
-
-//					var store = this;
-//					$rootScope.$on('modelupdate', function(event, updatedModel) {
-//						
-//						console.log("Calling listener on store "+store.$storeRoute);
-//						
-//						if(updatedModel.$storeRoute === store.$storeRoute) {
-//							store.updateModel(updatedModel);
-//						}
-//					});
 
 			/**
 			 * @ngdoc property

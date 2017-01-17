@@ -56,7 +56,7 @@ GO.module('GO.Modules.GroupOffice.Modules').
 							if (v) {
 								$scope.groupSearchText = "";
 
-								var url = ServerAPI.url('modules/groupoffice/'+encodeURIComponent($stateParams.moduleName) +'/permissions/'+v.id+'/read');								
+								var url = ServerAPI.url('modules/'+encodeURIComponent($stateParams.moduleName) +'/permissions/'+v.id+'/read');								
 								$http.post(url).then(function() {
 									$scope.permissionStore.reload();
 								});
@@ -67,7 +67,7 @@ GO.module('GO.Modules.GroupOffice.Modules').
 
 
 						$scope.deleteRecord = function (groupId) {
-							var url = ServerAPI.url('modules/groupoffice/'+encodeURIComponent($stateParams.moduleName) +'/permissions/'+groupId);								
+							var url = ServerAPI.url('modules/'+encodeURIComponent($stateParams.moduleName) +'/permissions/'+groupId);								
 								$http.delete(url).then(function() {
 									$scope.permissionStore.reload();
 								});
@@ -75,7 +75,7 @@ GO.module('GO.Modules.GroupOffice.Modules').
 
 						$scope.togglePermission = function (group, action) {						
 												
-							var url = ServerAPI.url('modules/groupoffice/'+encodeURIComponent($stateParams.moduleName) +'/permissions/'+group.id+'/'+action.name);
+							var url = ServerAPI.url('modules/'+encodeURIComponent($stateParams.moduleName) +'/permissions/'+group.id+'/'+action.name);
 							if(group.permissions[action.name]) {
 								$http.post(url);
 							}else

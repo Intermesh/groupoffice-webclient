@@ -170,7 +170,7 @@
 							
 							<td class="center">
 								<md-button ng-click="deleteRecord(group.id)" class="md-icon-button">
-									<md-icon class="mdi-delete"></md-icon>
+									<md-icon>delete</md-icon>
 								</md-button>
 							</td>
 						</tr>
@@ -178,7 +178,7 @@
 						<tr ng-if="permissionStore.items.length == 0">
 							<td colspan="4" class="center">
 								<div class="empty-state">
-									<md-icon class="mdi-account-multiple"></md-icon>
+									<md-icon>accounts</md-icon>
 									<p>{{::"Add groups to share"| goT}}</p>
 								</div>
 							</td>

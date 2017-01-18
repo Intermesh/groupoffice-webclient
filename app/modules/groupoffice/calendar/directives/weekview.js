@@ -22,7 +22,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 					};
 					$scope.hourToPx = 43;// one hour is x pixels heigh
 					$scope.edit = function (event) {
-						$scope.$parent.openEventDialog(event.id,event.userId);
+						$scope.$parent.openEventDialog(event.id,event.startAt,event.userId);
 					};
 					$scope.add = function(begin) {
 						console.log(+begin);
@@ -30,7 +30,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 							end = new Date(+begin);
 						console.log(start);
 						end.setHours(start.getHours() + 1);
-						$scope.$parent.openEventDialog(null,null, {startAt: start, endAt: end});
+						$scope.$parent.openEventDialog(null,null,null, {startAt: start, endAt: end});
 					};
 					$scope.calcStyle = function (event, d) {
 						var height = ((event.endAt.getTime() - event.startAt.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),

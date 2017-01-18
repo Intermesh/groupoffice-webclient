@@ -1,4 +1,4 @@
-<form layout="column" name="eventForm" go-submit="save()" go-server-errors="model.event.validationErrors" novalidate>
+<form layout="column" name="eventForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
 	<md-toolbar  ng-style="color(calendars[model.calendarId].color)">
 		<div ng-if="hasCalendars()" class="md-toolbar-tools">
 			<md-button type="button" class="md-icon-button" ng-click="cancel()">
@@ -73,9 +73,11 @@
 
 		<md-divider></md-divider>
 
-		<div ng-if="model.isOrganizer || !!model.event.recurrenceRule.freq" ng-include="'modules/groupoffice/calendar/views/recurrence-form.html'" ng-controller="GO.Modules.GroupOffice.Calendar.RecurrenceForm"></div>
+		<div ng-if="model.isOrganizer || !!model.event.recurrenceRule.frequency"
+			  ng-include="'modules/groupoffice/calendar/views/recurrence-form.html'"
+			  ng-controller="GO.Modules.GroupOffice.Calendar.RecurrenceForm"></div>
 
-		<md-divider ng-if="model.isOrganizer || !!model.event.recurrenceRule.freq" ></md-divider>
+		<md-divider ng-if="model.isOrganizer || !!model.event.recurrenceRule.frequency" ></md-divider>
 
 		<div layout="row" layout-align="start center" ng-if="model.isOrganizer || !!model.event.location">
 			<md-icon>location_on</md-icon>

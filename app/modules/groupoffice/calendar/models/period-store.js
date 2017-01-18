@@ -6,9 +6,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').
 
 			var PeriodStore = GO.extend(Store, function (baseParams) {
 				this.$parent.skipFilterDupes = true;
-				this.$parent.constructor.call(this, 'event', baseParams || {
-					year: "2016"
-				});
+				this.$parent.constructor.call(this, 'event');
 
 			});
 
@@ -16,6 +14,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').
 
 			PeriodStore.prototype.itemsByDay = function() {
 				var i,a,data = {}, self = this;
+	
 				angular.forEach(this.items, function (event) {
 					i = new Date(+event.startAt);
 					for(i.setHours(0,0,0,0); i <= event.endAt; i.addDays(1)) {

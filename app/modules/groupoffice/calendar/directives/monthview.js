@@ -17,7 +17,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 						return cal && GO.Calendar.util.color(cal.color, (event.responseStatus == 1) /*NEEDS-ACTION*/);
 					};
 					$scope.edit = function (event, $event) {
-						$scope.$parent.openEventDialog(event.id,event.userId);
+						$scope.$parent.openEventDialog(event.id,event.startAt,event.userId);
 						$event.stopPropagation(); // do not bubble
 					};
 					$scope.classFor = function (event,day) {
@@ -42,7 +42,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 						begin.setHours(13);
 						var end = new Date(+begin);
 						end.setHours(begin.getHours() + 1);
-						$scope.$parent.openEventDialog(null,null, {startAt: begin, endAt: end});
+						$scope.$parent.openEventDialog(null,null,null, {startAt: begin, endAt: end});
 					};
 				}
 			],
@@ -131,8 +131,8 @@ ng-click="edit(e, $event)">\n\
 					}
 				},true);
 
-				scope.$watchCollection('store', function (newStore) {
-					scope.events = newStore.itemsByDay();
+				scope.$watchCollection('store.items', function (newItems) {
+					scope.events = scope.store.itemsByDay();
 				});
 
 				render(now);

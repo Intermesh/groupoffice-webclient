@@ -12,9 +12,24 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		$scope.model = $scope.$parent.model;
 
 		$scope.save = function() {
-			$scope.model.save().then(function(){
-				$mdDialog.hide();
-				$scope.$parent.eventStore.load({year: 2016});
+			function internalSave() {
+				$scope.model.save().then(function(){
+					$mdDialog.hide();
+					$scope.$parent.eventStore.reload();
+				});
+			}
+			var confirm = $mdDialog.confirm()
+							.title('Herhalende afspraak wijzigen')
+							.textContent("Wil u ook alle volgende afspraken wijzigen of alleen deze?")
+							//.targetEvent(ev)
+							.ok('Deze en alle volgende')
+							.cancel('Alleen deze afspraak');
+			$mdDialog.show(confirm).then(function() {
+				$scope.model.changeOccurrence = 1;
+				internalSave();
+			},function() {
+				$scope.model.changeOccurrence = 2;
+				internalSave();
 			});
 		};
 		$scope.selectedItem;

@@ -48,14 +48,14 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 
 			$scope.searchStore = new Store('/event');
 
-			$scope.nav = new CurrentDate($scope.eventStore);
 			$scope.selectedCalendars = {}; // checkboxed in de sidepanel
 			$scope.calendars = {};
 			$scope.userCalendars = {}; // writeable calendars for a user
 
-			$scope.eventStore = new PeriodStore('/event', {year: 2016});
+			$scope.eventStore = new PeriodStore('/event');
 			$scope.eventStore.$modelProto = $scope.model;
-			$scope.eventStore.load({year: 2016});
+
+			$scope.nav = new CurrentDate($scope.eventStore);
 
 			$scope.accountStore = new Store('/account', {returnProperties:"*,calendars[*,defaultAlarms]"});
 			$scope.accountStore.onLoad = function(data){
@@ -79,7 +79,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 
 			$scope.$watchCollection('selectedCalendars', function(selection) {
 				$scope.eventStore.selected = selection;
-				$scope.eventStore.load({year: 2016});
+				$scope.nav.view($state.current.name);
 			});
 
 			$scope.selectEvent = function (event, search) {
@@ -111,7 +111,24 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				$scope.editAccount($scope.currentAccount);
 			};
 
-			$scope.openEventDialog = function (eventId, userId, defaults) {
+			$scope.openEventDialog = function (eventId, startAt, userId, defaults) {
+				function open() {
+					$mdDialog.show({
+						controller: 'GO.Modules.GroupOffice.Calendar.EventForm',
+						templateUrl: 'modules/groupoffice/calendar/views/event-form.html',
+						parent: angular.element(document.body),
+						scope: $scope.$new(),
+						hasBackdrop: false,
+						clickOutsideToClose:true
+						//fullscreen: useFullScreen
+					})
+					.then(function(answer) {
+//						if(eventId) {
+//							$scope.eventStore.reload();
+//						}
+					});
+				}
+
 				if (!eventId) {
 					$scope.model = new Attendee(); // is attendens of event
 					$scope.model.read({eventId:0}).then(function () {
@@ -122,26 +139,15 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 							//model.clearModified();
 							// this will not post the attributes I set
 						}
-					});
+					}).then(open);
 					$scope.model.addStore($scope.eventStore);
 				} else {
-					$scope.model.read({'eventId':eventId,'userId':userId});
-				}
-				$mdDialog.show({
-					controller: 'GO.Modules.GroupOffice.Calendar.EventForm',
-					templateUrl: 'modules/groupoffice/calendar/views/event-form.html',
-					parent: angular.element(document.body),
-					scope: $scope.$new(),
-					hasBackdrop: false,
-					clickOutsideToClose:true
-					//fullscreen: useFullScreen
-				})
-				.then(function(answer) {
-				  if(eventId) {
-						$scope.eventStore.reload();
+					var p = {};
+					if(startAt) {
+						p = {occurrenceTime: +startAt/1000};
 					}
-				});
-
+					$scope.model.read({'eventId':eventId,'userId':userId}, p).then(open);
+				}
 			};
 
 
@@ -153,4 +159,5 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 			if($state.is('calendar')) {
 				$state.go('calendar.month');
 			}
+			$scope.nav.today();
 		}]);

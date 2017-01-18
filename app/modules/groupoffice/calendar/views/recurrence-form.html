@@ -2,14 +2,14 @@
 	<div style="margin-top:16px;"><md-icon>refresh</md-icon></div>
 	<div flex>
 		<div layout="row" layout-align="start center">
-			<md-select ng-disabled="!model.isOrganizer" ng-model="rRule" ng-change="changeRule(rRule)" style="width:130px">
-				<md-option value="0" selected>Niet herhaald</md-option>
+			<md-select ng-disabled="!model.isOrganizer" ng-model="model.event.recurrenceRule.frequency" ng-change="changeRule()" style="width:130px">
+				<md-option ng-value="null">Niet herhaald</md-option>
 				<md-option value="DAILY">Dagelijks</md-option>
 				<md-option value="WEEKLY">Weeklijks</md-option>
 				<md-option value="MONTHLY">Maandelijks</md-option>
 				<md-option value="YEARLY">Jaarlijks</md-option>
 			</md-select>
-			<md-button ng-click="moreOptions()" ng-if="rRule!=0 && !more && model.isOrganizer">More options</md-button>
+			<md-button ng-click="moreOptions()" ng-if="!!rRule && !more && model.isOrganizer">More options</md-button>
 			<span flex></span>
 		</div>
 
@@ -23,12 +23,15 @@
 		</div>
 
 		<div class="weekdays" layout-align="start center" ng-if="more && rRule=='MONTHLY'">
-			
-			<md-button class="md-icon-button" ng-repeat="lbl in datez">{{lbl}}</md-button>
+			<span ng-repeat="lbl in datez">
+			<md-button class="md-icon-button">{{lbl}}</md-button>
+			<br ng-if="($index+1) % 8 == 0" style="clear:both" />
+			</span>
+			<md-button class="md-icon-button">L</md-button>
 		</div>
 
 		<div layout="row" layout-align="start center" ng-if="more">
-			<md-select ng-model="range" ng-change="changeRange(range)" style="width:160px">
+			<md-select ng-model="range" ng-change="changeRange()" style="width:160px">
 				<md-option value="forever">Voor altijd</md-option>
 				<md-option value="until">Tot een datum</md-option>
 				<md-option value="count">Voor een aantal afspraken</md-option>

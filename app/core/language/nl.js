@@ -213,7 +213,29 @@ angular.module("GO.Core").config(["GO.Core.Providers.TranslateProvider", functio
 		"All months": "Alle maanden",
 		
 		"All": "Alles",
-		"Open side navigation": "Open navigatiebalk"
+		"Open side navigation": "Open navigatiebalk",
+
+    "PDF template": "PDF sjabloon",
+    "Margins": "Marges",
+    "Top": "Boven",
+    "Right": "Rechter",
+    "Bottom": "Beneden",
+    "Left": "Linker",
+    "Layout": "Opmaak",
+    "Page size": "Pagina grootte",
+    "Measure unit": "Maateenheid",
+    "Landscape": "Liggend",
+    "Blocks": "Blokken",
+    "Data": "Gegevens",
+    "Stationary PDF": "Briefpapier PDF",
+    "PDF templates": "PDF sjablonen",
+    "No PDF templates set": "Geen PDF sjablonen ingesteld",
+    "Add comment": "Opmerking toevoegen",
+    "Attach file": "Bestand bijvoegen",
+    "E-mail template": "E-mail sjabloon",
+    "Subject": "Onderwerp",
+    "E-mail templates": "E-mail sjablonen",
+    "No e-mail templates set": "Geen e-mail sjablonen ingesteld"
 });
 
 

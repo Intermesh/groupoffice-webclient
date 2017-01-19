@@ -576,7 +576,11 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 			}
 
 			var deferred = $q.defer();
-			var modifiedAttributes = this.isNew() ? this.getAttributes() : this.getModifiedAttributes();
+			
+//			Posting all props had the problem with relations posting both the object and the key. {language: null, languageId: 1}
+//			var modifiedAttributes = this.isNew() ? this.getAttributes() : this.getModifiedAttributes();
+			
+			var modifiedAttributes = this.getModifiedAttributes();
 
 			if (Object.keys(modifiedAttributes).length) {
 				var saveParams = {};

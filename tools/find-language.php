@@ -83,7 +83,7 @@ foreach($scripts as $script){
 	preg_match_all('/<go-.*label=\'([^\']*)\'/', $content, $matches);	
 	$keys = array_merge($keys, $matches[1]);
 	
-//	var_dump($keys);
+	var_dump($keys);
 
 	foreach($keys as $str){
 		

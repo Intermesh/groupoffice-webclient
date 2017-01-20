@@ -551,6 +551,9 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 		 * @methodOf GO.Core.Factories.Data.Model
 		 * @description
 		 * Save the model on the server
+		 * 
+		 * Save by defaults only sends modified attributes. If you need to send
+		 * additional properties use touchAttribute(propName) before saving.
 		 *
 		 * @returns {HttpPromise} Returns a HttpPromise. See: {@link https://docs.angularjs.org/api/ng/service/$http#post}
 		 */

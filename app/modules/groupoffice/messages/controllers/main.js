@@ -79,6 +79,7 @@ GO.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOffice.
 			}
 
 			if ($scope.filters.tags.length) {
+				$scope.store.$loadParams.q.push(['joinRelation', 'tags']);
 				$scope.store.$loadParams.q.push(['andWhere', {'tags.id': $scope.filters.tags}]);
 			}
 

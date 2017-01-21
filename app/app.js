@@ -152,4 +152,7 @@ angular.module('GO', GO.appModules.concat([
 			var m = moment(dateString, 'DD-MM-YYYY', true);
 			return m.isValid() ? m.toDate() : new Date();
 		};
-	}]);
+	}]).config(['$mdAriaProvider',function($mdAriaProvider) {
+		// Globally disables all ARIA warnings.
+		$mdAriaProvider.disableWarnings();
+ }]);

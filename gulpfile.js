@@ -98,7 +98,7 @@ gulp.task('clean', function (cb) {
 });
 
 
-gulp.task('copy-resources', [], function () {
+gulp.task('copy-resources', ['clean', 'sass', 'usemin'], function () {
 
 	gulp.src(['app/**/resources/**/*.*', 'app/api.php'], {
 		base: 'app',

@@ -33,7 +33,7 @@ gulp.task('docs', shell.task([
 					'-r app/core'                              // source code directory
 ]));
 
-var debug = require('gulp-debug');
+
 var usemin = require('gulp-usemin');
 var uglify = require('gulp-uglify');
 var minifyHtml = require('gulp-minify-html');
@@ -103,9 +103,7 @@ gulp.task('copy-resources', ['clean', 'sass', 'usemin'], function () {
 	gulp.src(['app/**/resources/**/*.*', 'app/api.php'], {
 		base: 'app',
 		follow: true
-	})
-//					.pipe(debug())
-					.pipe(gulp.dest('build/'));
+	}).pipe(gulp.dest('build/'));
 
 });
 

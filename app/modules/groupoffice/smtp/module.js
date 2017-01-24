@@ -10,5 +10,7 @@ GO.module('GO.Modules.GroupOffice.Smtp', ['GO.Core'])
 				templateUrl: 'modules/groupoffice/smtp/views/account.html',
 				controller: 'GO.Modules.GroupOffice.Smtp.Controller.Account'
 			});
+			
+			
 
 		}]);

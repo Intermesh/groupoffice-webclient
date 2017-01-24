@@ -9,6 +9,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.SettingsController',
 	function ($scope, $http, ServerAPI, App, CurrentUser) {
 
 		$scope.settingsOptions = App.settingsOptions;
+		$scope.adminSettingsOptions = App.adminSettingsOptions;
 
 		$scope.user = {
 			currentPassword: "",

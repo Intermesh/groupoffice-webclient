@@ -49,7 +49,7 @@ angular.module('GO', GO.appModules.concat([
 		$rootScope.$state = $state;
 		
 		$rootScope.logo = Config.logo || "resources/groupoffice-logo-full.png";
-		$rootScope.shortCutIcon = "../app/"+Config.shortCutIcon || "../app/resources/groupoffice-logo.png";
+		$rootScope.shortCutIcon = Config.shortCutIcon || "../app/resources/groupoffice-logo.png";
 
 		//ServerAPI.setBaseUrl("../../groupoffice-server/html/index.php");
 

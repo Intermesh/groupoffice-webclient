@@ -44,6 +44,36 @@
 			</a>
 		</li>
 		
+		<li>
+		 <a data-wysihtml5-command="createLink"><md-icon>link</md-icon></a>
+		 
+			
+		</li>
+		
+		<div data-wysihtml5-dialog="createLink" style="display:none;position:absolute;background-color:white;">
+				<md-card layout="column">
+					
+					<md-card-content>
+					<md-input-container>
+						<md-icon>link</md-icon>
+						<label>URL:</label>
+						<input data-wysihtml5-dialog-field="href" value="http://" />
+					</md-input-container>
+					</md-card-content>
+					<md-card-actions>				
+						<md-button data-wysihtml5-dialog-action="save">OK</md-button>
+						<md-button data-wysihtml5-dialog-action="cancel">Cancel</md-button>
+					</md-card-actions>
+				</md-card>
+			</div>
+
+		
+		<li>
+			<a unselectable="on" tabindex="-1" href="javascript:;" data-wysihtml5-action='change_view'>
+				<md-icon>code</md-icon>
+			</a>
+		</li>
+		
 <!--		<li>
 			<a data-wysihtml5-command="undo" href="javascript:;" unselectable="on" tabindex="-1"><i class="undo"></i></a>
 			<a data-wysihtml5-command="redo" href="javascript:;" unselectable="on" tabindex="-1"><i class="redo"></i></a>
@@ -52,4 +82,8 @@
 
 
 	<div flex class="editor" id="{{::inputId}}" data-placeholder="{{placeholder}}"></div>
-</div>
+
+
+
+	
+	</div>

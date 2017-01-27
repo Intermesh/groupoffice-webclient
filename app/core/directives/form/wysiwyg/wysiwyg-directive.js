@@ -44,6 +44,7 @@ angular.module('GO.Core').directive('goWysiwyg', [
 						toolbar: scope.inputId + "_toolbar",
 						parserRules: wysihtml5ParserRules,
 						pasteParserRulesets: wysihtml5ParserPasteRulesets
+						
 					});
 
 					function setModelValue() {

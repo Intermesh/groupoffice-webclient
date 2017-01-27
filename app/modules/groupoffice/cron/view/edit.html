@@ -59,6 +59,20 @@
 					<div ng-message="INVALIDEXPRESSION">{{"Not a valid CRON expression"| goT}}</div>
 				</div>
 			</md-input-container>
+			
+			<md-input-container>
+				<md-icon>language</md-icon>
+				<label>{{"Time zone"| goT}}</label>
+				<input ng-model="model.timezone" name="timezone" required>
+				<div ng-messages="emailTemplateForm.timezone.$error" role="alert">
+					<div ng-message="required">{{"This field is required"| goT}}</div>
+					<div ng-message="INVALIDTIMEZONE">{{"Not a valid time zone"| goT}}</div>
+				</div>
+			</md-input-container>
+			
+<!--			<small class="go-offset-icon">
+				{{"Note: The expression is calculated in UTC time so please consider your timezone" | goT}}
+			</small>-->
 
 
 		</fieldset>

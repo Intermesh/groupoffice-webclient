@@ -241,7 +241,7 @@ var wysihtml5ParserRules = {
         },
         "a": {
             "check_attributes": {
-                "href": "href", // if you compiled master manually then change this from 'url' to 'href'
+                "href": "any", // if you compiled master manually then change this from 'url' to 'href'
                 "rel": "any",
                 "target": "any",
                 "id": "any"

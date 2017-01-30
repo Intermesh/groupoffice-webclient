@@ -39,6 +39,10 @@ if(!$endpos2) {
 function langKeyExists($key) {
 	global $existingLang, $coreLang;
 	
+	if(empty($key)) {
+		return true;
+	}
+	
 	if(strpos($existingLang, json_encode($key)) !== false){
 		return true;
 	}
@@ -67,8 +71,13 @@ foreach($scripts as $script){
 	
 	$content = file_get_contents($script);
 	
-	preg_match_all('/\{(::)?[\'"]([^"\']+)[\'"][\s]*\|[\s]*goT[^\}]*\}/', $content, $matches);	
+	preg_match_all('/\{(::)?"([^"]+)"[\s]*\|[\s]*goT[^\}]*\}/', $content, $matches);	
 	$keys = $matches[2];
+	
+	
+	preg_match_all("/\{(::)?'([^']+)'[\s]*\|[\s]*goT[^\}]*\}/", $content, $matches);	
+	$keys = array_merge($keys, $matches[2]);
+	
 	
 	preg_match_all('/<go-multiple.*title="([^"]*)"/', $content, $matches);	
 	$keys = array_merge($keys, $matches[1]);
@@ -83,8 +92,8 @@ foreach($scripts as $script){
 	preg_match_all('/<go-.*label=\'([^\']*)\'/', $content, $matches);	
 	$keys = array_merge($keys, $matches[1]);
 	
-	var_dump($keys);
 
+	
 	foreach($keys as $str){
 		
 		if(!langKeyExists($str)){		
@@ -104,9 +113,14 @@ foreach($scripts as $script){
 	
 	$content = file_get_contents($script);
 	
-	preg_match_all('/Translate\.t\([\'"]([^\'"]+)[\'"]\)/', $content, $matches);
+	preg_match_all('/Translate\.t\s*\(\s*[\'"]([^\'"]+)[\'"]\)/', $content, $matches);
 
-	foreach($matches[1] as $str){		
+	$keys = $matches[1];	
+	
+	preg_match_all('/App.addLauncher\s*\(\s*[\'"]([^\'"]+)[\'"]/', $content, $matches);
+	$keys = array_merge($keys, $matches[1]);
+	
+	foreach($keys as $str){		
 		if(!langKeyExists($str)){		
 			$lang[$str] = $str;
 		}

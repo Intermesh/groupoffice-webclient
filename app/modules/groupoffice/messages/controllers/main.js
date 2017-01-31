@@ -36,23 +36,19 @@ GO.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOffice.
 			angular.forEach(this.items, function (model, index) {
 				if (model.$selected) {
 					deletes.push({
-						className: model.className,
-						pk: model.pk(),
-						data: {
-							type: 4//trash
-						}
+						id: model.id,
+						type: 4//trash
 					});
 				}
 			}.bind(this));
 
 
-			$http.post(ServerAPI.url('selections'), {
-				method: 'update',
+			return $http.put(ServerAPI.url('messages/threads'), {
 				data: deletes
 			}).then(function (response) {
-
-				angular.forEach(response.data, function (subresponse) {
-					var index = this.findIndexByAttribute('id', subresponse.data.id);
+				
+				angular.forEach(response.data.data, function (subresponse) {
+					var index = this.findIndexByAttribute('id', subresponse.id);
 					this.items.splice(index, 1);
 				}.bind(this));
 
@@ -83,6 +79,7 @@ GO.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOffice.
 			}
 
 			if ($scope.filters.tags.length) {
+				$scope.store.$loadParams.q.push(['joinRelation', 'tags']);
 				$scope.store.$loadParams.q.push(['andWhere', {'tags.id': $scope.filters.tags}]);
 			}
 

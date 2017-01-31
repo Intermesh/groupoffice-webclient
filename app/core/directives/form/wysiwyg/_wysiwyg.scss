@@ -22,6 +22,12 @@
 		
 	}
 	
+	.wysihtml5-commands-disabled {
+		a{ 
+			opacity: .5;
+		}
+	}
+	
 
 
 	menu[type="toolbar"] {		
@@ -34,10 +40,13 @@
 		overflow: hidden;
 		white-space: nowrap;
 		
+		
+		
 		a {
 			 color: $font-color;
-			 	&.wysihtml5-command-active{
+			 	&.wysihtml5-command-active, &.wysihtml5-action-active{
 					background-color: $color-bg-selected;
+					opacity: 1 !important;
 				}
 		}
 		

@@ -1,0 +1,58 @@
+<md-card class="go-settings-card-panel" flex layout="column">
+	
+	<go-list-toolbar store="store">
+		<go-tools class="md-toolbar-tools">
+			<h3>
+				<span>{{"Scheduled tasks"| goT}}</span>
+			</h3>
+
+			<span flex></span>
+
+		</go-tools>		
+	</go-list-toolbar>
+
+	<go-list store="store" virtual="false" flex>
+
+		<item class="md-3-line" ng-click="null">
+			
+			<div>
+				
+				<md-switch ng-model="model.enabled" ng-change="model.save()"></md-switch>
+				
+			</div>
+			
+			<div class="md-list-item-text">
+				<h3>{{model.name}}</h3>				
+				<h4>{{model.cronExpression}}</h4>
+				<p>
+					<span ng-if="model.nextRun">{{model.nextRun | date: 'medium'}}</span>
+					<span ng-if="model.runningSince">{{"Running" | goT}}</span>
+				</p>
+			</div>
+			
+			<md-button class="md-icon-button" ng-click="runNow(model);">
+				<md-icon>play_arrow</md-icon>
+				<md-tooltip>
+					{{::"Run now" | goT}}
+				</md-tooltip>
+			</md-button>
+			
+			<go-list-edit-button on-edit="edit(model)"></go-list-edit-button>
+			
+			<go-list-delete-button></go-list-delete-button>			
+			
+		</item>
+
+		<empty-state>
+			<md-icon>schedule</md-icon>
+			<p>{{"No scheduled tasks"| goT}}</p>
+		</empty-state>
+
+	</go-list>
+
+	<md-card-actions  layout="row" layout-align="end center">
+		<md-button class="md-accent"  ng-click='edit()'>	
+			{{"Add"| goT}}
+		</md-button>
+	</md-card-actions>
+</md-card>

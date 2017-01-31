@@ -20,7 +20,8 @@
     "moment": "latest",
     "angular-chartist": "*",
     "chartist": "^0.9.8",
-    "angular-material": "master"
+    "angular-material": "master",
+    "roboto-fontface": "^0.7.0"
   },
   "devDependencies": {},
   "resolutions": {

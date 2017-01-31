@@ -14,11 +14,15 @@ angular.module('GO.Core').service('GO.Core.Services.Application', [
 			
 			this.launchers = [];
 			this.settingsOptions = [];
+			this.adminSettingsOptions = [];
 			this.accountTypes = {};
 			
 			this.dashboardWidgets = [];
 			
 			this.notificationTemplates = [];
+			
+			//Add core settings
+			this.addSettingsOption('settings.core', 'General', 'settings', true);
 		}
 		
 		App.prototype.addDashboardWidget = function(name, view){
@@ -87,12 +91,20 @@ angular.module('GO.Core').service('GO.Core.Services.Application', [
 		
 		
 		App.prototype.addSettingsOption = function(state, title, iconCls, adminsOnly, priority) {
-			this.settingsOptions.push({
-				state: state,
-				title: title,
-				iconCls: iconCls,
-				adminsOnly: adminsOnly
-			});
+			if(adminsOnly) {
+				this.adminSettingsOptions.push({
+					state: state,
+					title: title,
+					iconCls: iconCls
+				});
+			}else
+			{
+				this.settingsOptions.push({
+					state: state,
+					title: title,
+					iconCls: iconCls
+				});
+			}
 		};
 		
 		App.prototype.addAccountType = function(serverModelName, clientModelName, iconCls, editDialogConfig, createDialogConfig) {			

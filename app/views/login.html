@@ -1,5 +1,5 @@
 <div ng-if="!checkingAuth">
-	<md-toolbar class="md-tall">
+	<md-toolbar class="md-tall go-login-header">
 		<div class="go-logo" layout="row" layout-align="left center">
 			<img alt="{{title}}"  style='' ng-src="{{::logo}}" />
 		</div>	
@@ -9,7 +9,7 @@
 
 	<form name="loginForm" go-submit="login(user)" role="form" novalidate="" layout="row" layout-align="center center" flex go-server-errors="user.validationErrors">
 
-		<md-card style="width:600px;margin-top:-72px;z-index:4">
+		<md-card class="go-login-card">
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline">{{::"Login"| goT}}</span>

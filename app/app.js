@@ -49,7 +49,7 @@ angular.module('GO', GO.appModules.concat([
 		$rootScope.$state = $state;
 		
 		$rootScope.logo = Config.logo || "resources/groupoffice-logo-full.png";
-		$rootScope.shortCutIcon = "../app/"+Config.shortCutIcon || "../app/resources/groupoffice-logo.png";
+		$rootScope.shortCutIcon = Config.shortCutIcon || "../app/resources/groupoffice-logo.png";
 
 		//ServerAPI.setBaseUrl("../../groupoffice-server/html/index.php");
 
@@ -125,10 +125,10 @@ angular.module('GO', GO.appModules.concat([
 						})
 						.accentPalette('light-green', {
 							'default': '700'
+						})
+						.backgroundPalette('grey', {
+							'default': 'A100' //change background to white
 						});
-//						.backgroundPalette('grey', {
-//							'default': 'A100' //change background to white
-//						});
 						
 					
 
@@ -152,4 +152,7 @@ angular.module('GO', GO.appModules.concat([
 			var m = moment(dateString, 'DD-MM-YYYY', true);
 			return m.isValid() ? m.toDate() : new Date();
 		};
-	}]);
+	}]).config(['$mdAriaProvider',function($mdAriaProvider) {
+		// Globally disables all ARIA warnings.
+		$mdAriaProvider.disableWarnings();
+ }]);

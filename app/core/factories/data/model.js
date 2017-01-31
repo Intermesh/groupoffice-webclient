@@ -51,7 +51,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 	'$timeout',
 	'GO.Core.Services.ServerAPI',
 	'GO.Core.Factories.Data.Store',
-	function ($http, $q, $timeout, ServerAPI, Store) {
+	'$rootScope',
+	function ($http, $q, $timeout, ServerAPI, Store, $rootScope) {
 
 		var Model = function (constructorArgs) {			
 			
@@ -244,7 +245,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 
 
 		Model.prototype._updateStores = function () {
-
 //							$rootScope.$emit('modelUpdated', this);
 			angular.forEach(this.$stores, function (store) {
 				store.updateModel(this);
@@ -556,6 +556,9 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 		 * @methodOf GO.Core.Factories.Data.Model
 		 * @description
 		 * Save the model on the server
+		 * 
+		 * Save by defaults only sends modified attributes. If you need to send
+		 * additional properties use touchAttribute(propName) before saving.
 		 *
 		 * @returns {HttpPromise} Returns a HttpPromise. See: {@link https://docs.angularjs.org/api/ng/service/$http#post}
 		 */
@@ -581,7 +584,11 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 			}
 
 			var deferred = $q.defer();
-			var modifiedAttributes = this.isNew() ? this.getAttributes() : this.getModifiedAttributes();
+			
+//			Posting all props had the problem with relations posting both the object and the key. {language: null, languageId: 1}
+//			var modifiedAttributes = this.isNew() ? this.getAttributes() : this.getModifiedAttributes();
+			
+			var modifiedAttributes = this.getModifiedAttributes();
 
 			if (Object.keys(modifiedAttributes).length) {
 				var saveParams = {};
@@ -608,6 +615,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 										}
 
 										this._updateStores();
+										
+//										$rootScope.$broadcast('modelupdate', this);
 
 										deferred.resolve({model: this, response: response});
 									}

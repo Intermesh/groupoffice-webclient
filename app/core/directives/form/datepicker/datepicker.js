@@ -20,10 +20,11 @@ angular.module('GO.Core').directive('goDatePicker', [
 			transclude: true,
 			require: "ngModel",
 			scope: {
-				label: '@'
+				label: '@',
 //				ngModel: '=',
 //				required: '=?'
 //				enabledFields: '@'
+				ngDisabled: '=?'
 			},
 			link: function (scope, element, attr, ngModel) {
 

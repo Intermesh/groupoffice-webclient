@@ -1,6 +1,6 @@
 <go-hook name="module" flex layout="column">
 
-	<md-toolbar class="md-hue-1" go-scroll-class>
+	<md-toolbar class="" go-scroll-class>
 		<div class="md-toolbar-tools">
 			<md-button aria-label="{{::'Back'| goT}}" class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
 				<md-icon>chevron_left</md-icon>
@@ -45,7 +45,7 @@
 	<md-content class="go-grey" flex>
 
 		<md-card id="info">
-			<md-toolbar class="md-hue-1">
+			<md-toolbar class="">
 				<div class="md-toolbar-tools">
 					<h2 flex>Info</h2>
 					<!--					<md-button class="md-icon-button" ng-disabled="!module.permissions.update" ng-click="edit({module: module})">
@@ -115,7 +115,7 @@
 		</md-card>
 
 		<md-card id="permissions" ng-if="module.installed">
-			<md-toolbar class="md-hue-1">
+			<md-toolbar class="">
 				<div class="md-toolbar-tools">
 					<h2 flex>{{::"Permissions" | goT}}</h2>
 					<!--					<md-button class="md-icon-button" ng-disabled="!module.permissions.update" ng-click="edit({module: module})">
@@ -170,7 +170,7 @@
 							
 							<td class="center">
 								<md-button ng-click="deleteRecord(group.id)" class="md-icon-button">
-									<md-icon class="mdi-delete"></md-icon>
+									<md-icon>delete</md-icon>
 								</md-button>
 							</td>
 						</tr>
@@ -178,7 +178,7 @@
 						<tr ng-if="permissionStore.items.length == 0">
 							<td colspan="4" class="center">
 								<div class="empty-state">
-									<md-icon class="mdi-account-multiple"></md-icon>
+									<md-icon>accounts</md-icon>
 									<p>{{::"Add groups to share"| goT}}</p>
 								</div>
 							</td>

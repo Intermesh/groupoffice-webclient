@@ -13,9 +13,9 @@
 			</md-list-item>
 
 			<md-divider></md-divider>
-			<md-list-item ng-if="::currentUser.isAdmin" ui-sref-active="selected" ui-sref="settings.core">
-				<md-icon>settings</md-icon>
-				<p>{{::"System" | goT}}</p>
+			<md-list-item ng-if="::currentUser.isAdmin" ng-repeat="settingsOption in adminSettingsOptions" ui-sref-active="selected" ui-sref="{{settingsOption.state}}">			
+				<md-icon>{{settingsOption.iconCls}}</md-icon>
+				<p>{{::settingsOption.title | goT}}</p>				
 			</md-list-item>
 		</md-list>
 	</div>

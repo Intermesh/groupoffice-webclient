@@ -1,0 +1,81 @@
+<form layout="column" name="emailTemplateForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<span flex>{{"Scheduled task"| goT}}</span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-content>
+
+		<fieldset layout="column">
+
+
+			<md-input-container>
+				<md-icon>description</md-icon>
+				<label>{{"Name"| goT}}</label>
+				<input ng-model="model.name" name="name" required>
+				<div ng-messages="emailTemplateForm.name.$error" role="alert">
+					<div ng-message="required">{{"This field is required"| goT}}</div>
+				</div>
+			</md-input-container>
+			
+			<md-input-container>
+				<md-icon>description</md-icon>
+				<label>{{"Class name"| goT}}</label>
+				<input ng-model="model.cronClassName" name="cronClassName" required>
+				<div ng-messages="emailTemplateForm.cronClassName.$error" role="alert">
+					<div ng-message="required">{{"This field is required"| goT}}</div>
+					<div ng-message="CLASSNOTFOUND">{{"The class does not exist"| goT}}</div>
+					<div ng-message="INVALIDCLASS">{{"The class name is invalid. It does not extend IFW\Data\Object"| goT}}</div>
+				</div>
+			</md-input-container>
+			
+			<md-input-container>
+				<md-icon>description</md-icon>
+				<label>{{"Method"| goT}}</label>
+				<input ng-model="model.method" name="method" required>
+				<div ng-messages="emailTemplateForm.method.$error" role="alert">
+					<div ng-message="required">{{"This field is required"| goT}}</div>
+					<div ng-message="METHODNOTFOUND">{{"The method does not exist"| goT}}</div>
+				</div>
+			</md-input-container>
+			
+			<md-input-container>
+				<md-icon>description</md-icon>
+				<label>{{"Expression"| goT}}</label>
+				<input ng-model="model.cronExpression" name="cronExpression" required>
+				<div ng-messages="emailTemplateForm.cronExpression.$error" role="alert">
+					<div ng-message="required">{{"This field is required"| goT}}</div>
+					<div ng-message="INVALIDEXPRESSION">{{"Not a valid CRON expression"| goT}}</div>
+				</div>
+			</md-input-container>
+			
+			<md-input-container>
+				<md-icon>language</md-icon>
+				<label>{{"Time zone"| goT}}</label>
+				<input ng-model="model.timezone" name="timezone" required>
+				<div ng-messages="emailTemplateForm.timezone.$error" role="alert">
+					<div ng-message="required">{{"This field is required"| goT}}</div>
+					<div ng-message="INVALIDTIMEZONE">{{"Not a valid time zone"| goT}}</div>
+				</div>
+			</md-input-container>
+			
+<!--			<small class="go-offset-icon">
+				{{"Note: The expression is calculated in UTC time so please consider your timezone" | goT}}
+			</small>-->
+
+
+		</fieldset>
+	</md-content>
+
+</form>

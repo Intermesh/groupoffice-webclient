@@ -8,6 +8,12 @@
 			</md-button>
 
 			<span flex>{{"PDF template"| goT}}</span>
+			<md-button class="md-icon-button" ng-click="preview()">
+				<md-icon>visibility</md-icon>
+				<md-tooltip>
+					{{::"Preview"| goT}}
+				</md-tooltip>				
+			</md-button>
 			<md-button type="submit" class="md-icon-button">
 				<md-tooltip>{{"Save"| goT}}</md-tooltip>
 				<md-icon>check</md-icon>
@@ -15,112 +21,200 @@
 		</div>
 	</md-toolbar>
 
-	<md-content>
 
-		<fieldset layout="column">
+	<md-tabs flex>
+		<md-tab>
+			<md-tab-label>
+				{{"Properties"| goT}}
+			</md-tab-label>
+			<md-tab-body>
 
+				<fieldset>
+					<div layout="row">
+						<md-input-container flex>
+							<md-icon>description</md-icon>
+							<label>{{"Name"| goT}}</label>
+							<input ng-model="model.name" name="name" required>
+							<div ng-messages="pdfTemplateForm.name.$error" role="alert">
+								<div ng-message="required">{{"This field is required"| goT}}</div>
+							</div>
+						</md-input-container>
 
-			<div layout="row">
-				<md-input-container flex>
-					<md-icon>description</md-icon>
-					<label>{{"Name"| goT}}</label>
-					<input ng-model="model.name" name="name" required>
-					<div ng-messages="pdfTemplateForm.name.$error" role="alert">
-						<div ng-message="required">{{"This field is required"| goT}}</div>
+						<md-input-container flex>
+							<md-icon>language</md-icon>
+							<label>{{"Language"| goT}}</label>
+							<md-select name="language" ng-model="model.language" required>
+								<md-option ng-repeat="language in languages track by language.code" value="{{language.code}}">					
+									{{language.name}}
+								</md-option>
+							</md-select>					
+						</md-input-container>
+
 					</div>
-				</md-input-container>
 
-				<md-input-container flex>
-					<md-icon>language</md-icon>
-					<label>{{"Language"| goT}}</label>
-					<md-select name="language" ng-model="model.language" required>
-						<md-option ng-repeat="language in languages track by language.code" value="{{language.code}}">					
-							{{language.name}}
-						</md-option>
-					</md-select>					
-				</md-input-container>
+					<h3>{{"Margins"| goT}}</h3>
+					<div layout="row">
+						<md-input-container flex>
+							<md-icon>description</md-icon>
+							<label>{{"Top"| goT}}</label>
+							<input ng-model="model.marginTop" name="marginTop" required go-number>					
+						</md-input-container>
 
-			</div>
-
-			<h3>{{"Margins"| goT}}</h3>
-			<div layout="row">
-				<md-input-container flex>
-					<md-icon>description</md-icon>
-					<label>{{"Top"| goT}}</label>
-					<input ng-model="model.marginTop" name="marginTop" required go-number>					
-				</md-input-container>
-
-				<md-input-container flex>					
-					<label>{{"Right"| goT}}</label>
-					<input ng-model="model.marginRight" name="marginRight" required go-number>					
-				</md-input-container>
+						<md-input-container flex>					
+							<label>{{"Right"| goT}}</label>
+							<input ng-model="model.marginRight" name="marginRight" required go-number>					
+						</md-input-container>
 
 
-				<md-input-container flex>					
-					<label>{{"Bottom"| goT}}</label>
-					<input ng-model="model.marginBottom" name="marginBottom" required go-number>					
-				</md-input-container>
+						<md-input-container flex>					
+							<label>{{"Bottom"| goT}}</label>
+							<input ng-model="model.marginBottom" name="marginBottom" required go-number>					
+						</md-input-container>
 
-				<md-input-container flex>					
-					<label>{{"Left"| goT}}</label>
-					<input ng-model="model.marginLeft" name="marginLeft" required go-number>					
-				</md-input-container>
+						<md-input-container flex>					
+							<label>{{"Left"| goT}}</label>
+							<input ng-model="model.marginLeft" name="marginLeft" required go-number>					
+						</md-input-container>
 
-			</div>
+					</div>
 
-			<h3>{{"Layout"| goT}}</h3>
-			<div layout="row">
-				<md-input-container flex>
-					<md-icon>description</md-icon>
-					<label>{{"Page size"| goT}}</label>
-					<md-select ng-model="model.pageSize" name="pageSize" required>
-						<md-option value="A4">A4</md-option>
-						<md-option value="letter">US Letter</md-option>
-					</md-select>
-				</md-input-container>
+					<h3>{{"Layout"| goT}}</h3>
+					<div layout="row">
+						<md-input-container flex>
+							<md-icon>description</md-icon>
+							<label>{{"Page size"| goT}}</label>
+							<md-select ng-model="model.pageSize" name="pageSize" required>
+								<md-option value="A4">A4</md-option>
+								<md-option value="letter">US Letter</md-option>
+							</md-select>
+						</md-input-container>
 
-				<md-input-container flex>					
-					<label>{{"Measure unit"| goT}}</label>
-					<md-select ng-model="model.measureUnit" name="measureUnit" required>
-						<md-option value="mm">mm</md-option>
-						<md-option value="inch">Inch</md-option>
-					</md-select>
-				</md-input-container>
+						<md-input-container flex>					
+							<label>{{"Measure unit"| goT}}</label>
+							<md-select ng-model="model.measureUnit" name="measureUnit" required>
+								<md-option value="mm">mm</md-option>
+								<md-option value="inch">Inch</md-option>
+							</md-select>
+						</md-input-container>
 
-				<md-switch ng-model="model.langscape">
-					{{::"Landscape"| goT}}
-				</md-switch>
-			</div>
-			
-			
-			<go-single-upload icon-cls="description" file-added="!!{pdf:1}[$file.getExtension()]" form="pdfTemplateForm" label="Stationary PDF" go-model="model.stationaryPdfBlob" flex></go-single-upload>
+						<md-switch ng-model="model.langscape">
+							{{::"Landscape"| goT}}
+						</md-switch>
+					</div>
 
-		</fieldset>
 
-		<fieldset>
-			
-			<h3>{{::"Blocks" | goT}}</h3>
+					<go-single-upload icon-cls="description" file-added="!!{pdf:1}[$file.getExtension()]" form="pdfTemplateForm" label="Stationary PDF" go-model="model.stationaryPdfBlob" flex></go-single-upload>
+				</fieldset>
+			</md-tab-body>
+		</md-tab>
 
-			<go-multiple go-models="model.blocks" sortable-on="sortOrder" go-add-model="{type: 'text'}">
+		<md-tab>
 
-				<md-input-container flex>					
-					<label>{{"Type"| goT}}</label>
-					<md-select ng-model="model.type" name="type" required>
-						<md-option value="text">Plain text</md-option>
-						<md-option value="html">HTML</md-option>
-						<md-option value="items">Invoice items</md-option>
-					</md-select>
-				</md-input-container>
-				<md-input-container flex>					
-					<label>{{"Data"| goT}}</label>
-					<textarea ng-model="model.data" max-rows="10" ng-trim="false">
+			<md-tab-label>{{::"Blocks"| goT}}</md-tab-label>
+			<md-tab-body>
+				<fieldset>
+					<go-multiple go-models="model.blocks" sortable-on="sortOrder" go-add-model="{type: 'text'}">
 
-					</textarea>
-				</md-input-container>
+						<div flex="30">						
+							<div layout="row">
+								<md-input-container flex>					
+									<label>{{"Type"| goT}}</label>
+									<md-select ng-model="model.type" name="type" required>
+										<md-option value="text">Plain text</md-option>
+										<md-option value="html">HTML</md-option>
+										<md-option value="items">Invoice items</md-option>
+									</md-select>
+								</md-input-container>
+								<md-button class="md-icon-button" ng-click="model.$showProps = !model.$showProps">
+									<md-icon>description</md-icon>
+									<md-tooltip>{{"Properties"}}</md-tooltip>
+								</md-button>
+							</div>
 
-			</go-multiple>
+							<div class="md-whiteframe-z1 md-padding" style="position:absolute; background-color:white;z-index:10000000" ng-if="model.$showProps">
 
-		</fieldset>
-	</md-content>
+								<md-button style="position:absolute; top: 8px;right: 8px;" class="md-icon-button" ng-click="model.$showProps = false">
+									<md-icon>close</md-icon>
+								</md-button>
+								
+								<p>
+									{{::"By default all blocks are drawn one by one, width is 100% and height is automatic. If you need an absolute position you can set the position and dimensions." | goT}}
+								</p>
 
+								<h3>{{"Margins"| goT}}</h3>
+								<div layout="row">
+
+									<md-input-container flex>
+										<label>{{"Top"| goT}}</label>
+										<input ng-model="model.marginTop" name="marginTop" required go-number>					
+									</md-input-container>
+
+									<md-input-container flex>					
+										<label>{{"Right"| goT}}</label>
+										<input ng-model="model.marginRight" name="marginRight" required go-number>					
+									</md-input-container>
+
+
+									<md-input-container flex>					
+										<label>{{"Bottom"| goT}}</label>
+										<input ng-model="model.marginBottom" name="marginBottom" required go-number>					
+									</md-input-container>
+
+									<md-input-container flex>					
+										<label>{{"Left"| goT}}</label>
+										<input ng-model="model.marginLeft" name="marginLeft" required go-number>					
+									</md-input-container>
+								</div>
+
+								<div layout="row">
+									<div flex>
+
+										<h3>{{::"Positioning"| goT}}</h3>
+										<div layout="row">
+											<md-input-container flex>					
+												<label>{{"X"| goT}}</label>
+												<input ng-model="model.x" name="x" go-number>					
+											</md-input-container>
+
+											<md-input-container flex>					
+												<label>{{"Y"| goT}}</label>
+												<input ng-model="model.y" name="y" go-number>					
+											</md-input-container>
+										</div>
+									</div>
+									<div flex>
+										<h3>{{"Dimensions"| goT}}</h3>
+										<div layout="row">
+											<md-input-container flex>					
+												<label>{{"Width"| goT}}</label>
+												<input ng-model="model.width" name="width" go-number>					
+											</md-input-container>
+
+											<md-input-container flex>					
+												<label>{{"Height"| goT}}</label>
+												<input ng-model="model.height" name="height" go-number>					
+											</md-input-container>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+
+
+						<md-input-container flex>					
+							<label>{{"Data"| goT}}</label>
+							<textarea ng-model="model.data" max-rows="10" ng-trim="false">
+
+							</textarea>
+						</md-input-container>
+
+					</go-multiple>
+				</fieldset>
+			</md-tab-body>
+
+		</md-tab>
+	</md-tabs>
 </form>

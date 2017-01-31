@@ -1,19 +1,13 @@
 <div class="go-form-dateinterval" layout="column" layout-align="space-between start">
 	<div layout="row">
-		<md-input-container class="md-icon-left">							
-			<md-icon>schedule</md-icon>
-			<p>{{label | goT}}</p>
-		</md-input-container>
-		
+		<md-icon>schedule</md-icon>
+		<p>{{label | goT}}</p>
 	</div>
 	
 	<div layout="row" layout-align="space-between start">
-		<md-input-container class="md-icon-left">				
-			<md-icon></md-icon>
-		</md-input-container>
+		<div class="go-icon-spacer"></div>
 		<div ng-repeat="unit in units">
-			<md-input-container>
-				
+			<md-input-container>				
 				<label>{{unit.name}}</label>
 				<input name="amount" ng-model="duration[unit.key]" placeholder="0" required ng-pattern="/^\d+$/">
 			</md-input-container>

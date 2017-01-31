@@ -78,13 +78,6 @@
 }
 
 
-.mod-messages .md-fab {
-	background-color: orange;
-	&:before{
-		content: mdi('email-outline');
-	}
-}
-
 .messages-thread {
 	md-toolbar {
 		border-bottom: 1px solid $border-color;

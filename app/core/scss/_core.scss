@@ -3,7 +3,12 @@
 
 $font-size: 7.5px;
 $baseline-grid:            6px;
+$button-left-right-padding: $baseline-grid;
 $toolbar-tools-height: 48px;
+
+$card-padding: 2*$baseline-grid;
+
+$button-min-width: $font-size * 5;
 
 @import "../../../bower_components/angular-material/modules/scss/angular-material.scss"; // remove font-size in rem function
 

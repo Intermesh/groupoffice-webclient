@@ -25,6 +25,10 @@ go-multiple {
 		margin: 0 0 8px 0;
 	}
 	
+	.layout-row > md-input-container + .md-button {
+			margin: 0 0 8px 0;
+	}
+	
 	md-input-container + button {
 			/*margin-top: 16px !important;*/
 	}

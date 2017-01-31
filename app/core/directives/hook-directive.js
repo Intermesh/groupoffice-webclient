@@ -30,7 +30,7 @@ angular.module('GO.Core')
 		return function (constructor, locals) {
 
 			GO.hooks.applyControllerOverrides(constructor, locals, $injector);
-
+			
 			var controller = $delegate.apply(null, arguments);
 			return controller;
 		};

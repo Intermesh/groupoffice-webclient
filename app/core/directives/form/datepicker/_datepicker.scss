@@ -13,11 +13,18 @@ go-date-picker {
 		display: inline-block;
 	}*/
 	
-	&.ng-invalid.ng-touched {
-		color: rgb(221,44,0);
+	&.ng-invalid {
 		
-		.md-select-value {
-			border-bottom-color: rgb(221,44,0) !important;
+		&.ng-touched, .ng-submitted & {
+			color: rgb(221,44,0);
+
+			.md-select-value {
+				border-bottom-color: rgb(221,44,0) !important;
+			}
+			
+			label {
+				color: rgb(221,44,0);
+			}
 		}
 	}
 	
@@ -37,8 +44,15 @@ go-date-picker {
 	}
 
 	.ng-messages {
-		display: block;
-		color: rgb(221,44,0);
-		margin-left: 36px;
+		display: none;		
+	}
+	
+	
+	&.ng-touched , .ng-submitted &  {
+		.ng-messages {
+			display: block;
+			color: rgb(221,44,0);
+			margin-left: 36px;
+		}
 	}
 }

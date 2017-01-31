@@ -26,7 +26,14 @@
  * 
  */
 
-
+var update = function(event, updatedModel) {
+						
+						console.log("Calling listener on store "+updatedModel.getStoreRoute());
+						
+//						if(updatedModel.$storeRoute === store.$storeRoute) {
+//							store.updateModel(updatedModel);
+//						}
+					};
 
 angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 	'$http',
@@ -38,16 +45,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 	function ($http, ServerAPI, $injector, $q, $parse, $mdToast) {
 
 		var Store = function (storeRoute, loadParams) {
-
-//					var store = this;
-//					$rootScope.$on('modelupdate', function(event, updatedModel) {
-//						
-//						console.log("Calling listener on store "+store.$storeRoute);
-//						
-//						if(updatedModel.$storeRoute === store.$storeRoute) {
-//							store.updateModel(updatedModel);
-//						}
-//					});
 
 			/**
 			 * @ngdoc property
@@ -796,34 +793,34 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 			if (this.$selected.length) {
 				this.busy = true;
 
-				var deletes = [];
+				var deletes = [], data;
 
 				angular.forEach(this.items, function (model, index) {
 					if (model.$selected) {
-						deletes.push({
-							className: model.className,
-							pk: model.pk()
-						});
+						
+						data = model.pk();
+						data.markDeleted = true;
+						
+						deletes.push(data);
 					}
 				}.bind(this));
 
 
-				$http.post(ServerAPI.url('selections'), {
-					method: 'delete',
+				return $http.put(ServerAPI.url(this.$storeRoute), {					
 					data: deletes
 				}).then(function (response) {
 					
 					var soft = false;
 
-					angular.forEach(response.data, function (subresponse) {
+					angular.forEach(response.data.data, function (subresponse) {
 						//no soft delete
-						if (angular.isUndefined(subresponse.data.deleted)) {
-							var index = this.findIndexByAttribute('id', subresponse.data.id);
+						if (angular.isUndefined(subresponse.deleted)) {
+							var index = this.findIndexByAttribute('id', subresponse.id);
 							this.items.splice(index, 1);
 						} else
 						{
 							soft = true;
-							this.updateModel(subresponse.data);							
+							this.updateModel(subresponse);							
 						}
 					}.bind(this));
 
@@ -850,14 +847,19 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 
 				$mdToast.show(toast).then(function (response) {
 					if (response == 'ok') {
-						$http.post(ServerAPI.url('selections'), {
-							method: 'undelete',
+						
+						for(var i = 0, l = deletes.length; i < l; i++) {
+							delete deletes[i].markDeleted;
+							deletes[i].deleted = false;
+						}
+						
+						$http.put(ServerAPI.url(this.$storeRoute), {							
 							data: deletes
 						}).then(function (response) {
 
-							angular.forEach(response.data, function (subresponse) {
+							angular.forEach(response.data.data, function (subresponse) {
 						
-									this.updateModel(subresponse.data);
+									this.updateModel(subresponse);
 								
 							}.bind(this));
 						}.bind(this));

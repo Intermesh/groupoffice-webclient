@@ -184,54 +184,59 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 		 
 		 * @returns {HttpPromise} Returns a HttpPromise. See: {@link https://docs.angularjs.org/api/ng/service/$http#get}
 		 */
-		Model.prototype.delete = function () {
+		Model.prototype.delete = function (getParams) {
 
 			var deferred = $q.defer();
+			var params = this._getBaseParams();
+
+			if (getParams) {
+				angular.extend(params, getParams);
+			}
 
 //					Utils.promiseSuccessDecorator(deferred.promise);
 
 			this.$busy = true;
 
-			var url = ServerAPI.url(this.getDeleteRoute(), this._getBaseParams());
+			var url = ServerAPI.url(this.getDeleteRoute(), params);
 			$http.delete(url).then(function (response) {
 
-								if (response.data.success) {
-									var data = response.data.data;
+				if (response.data.success) {
+					var data = response.data.data;
 
-									if (data && data.validationErrors && data.validationErrors.length) {
+					if (data && data.validationErrors && data.validationErrors.length) {
 
 //										this.validationErrors = data.validationErrors;
 
-										deferred.reject({model: this, response: response.data});
-									} else {
+						deferred.reject({model: this, response: response.data});
+					} else {
 
-										if (data) {
-											this.loadData(data);
-										}
+						if (data) {
+							this.loadData(data);
+						}
 
-										//SoftDeleteTrait has a 'deleted' attribute.
-										if (typeof (this.deleted) !== 'undefined') {
-											this.deleted = true;
-											this.$oldAttributes.deleted = true;
-										} else
-										{
-											for (var i in this.$keys) {
-												this[this.$keys[i]] = null;
-											}
-										}
+						//SoftDeleteTrait has a 'deleted' attribute.
+						if (typeof (this.deleted) !== 'undefined') {
+							this.deleted = true;
+							this.$oldAttributes.deleted = true;
+						} else
+						{
+							for (var i in this.$keys) {
+								this[this.$keys[i]] = null;
+							}
+						}
 
-										deferred.resolve({model: this, response: response.data});
+						deferred.resolve({model: this, response: response.data});
 
-										this._updateStores();
-									}
-								} else
-								{
-									deferred.reject({model: this, response: response, modelData: data});
-								}
+						this._updateStores();
+					}
+				} else
+				{
+					deferred.reject({model: this, response: response, modelData: data});
+				}
 
-							}.bind(this)).finally(function () {
-								this.$busy = false;
-							}.bind(this));
+			}.bind(this)).finally(function () {
+				this.$busy = false;
+			}.bind(this));
 
 
 			return deferred.promise;

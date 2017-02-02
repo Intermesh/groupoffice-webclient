@@ -70,7 +70,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goYearview', ['$com
 					}
 					cls = (now.getYmd() === d.getYmd()) ? ' class="current"' : '';
 					str += '<td'+cls+' ng-click="open(d)"><span>' + d.getDate()+'</span><div>';
-					str += '<p ng-repeat="e in events[\'' + d.getYmd() + '\']" ng-style="color(calendars[e.calendarId])" title="{{e.title}} - {{e.startAt.getTimeString()}}"></p></div></td>';
+					str += '<p ng-repeat="e in ::events[\'' + d.getYmd() + '\']" ng-style="color(calendars[e.calendarId])" title="{{::e.title}} - {{::e.startAt.getTimeString()}}"></p></div></td>';
 					d.setDate(d.getDate()+1);
 				}
 				return str+'</tr>';
@@ -83,8 +83,9 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goYearview', ['$com
 				$compile(element.contents())(scope);
 			};
 
-			scope.$watchCollection('store', function (newStore) {
-				scope.events = newStore.itemsByDay();
+			scope.$watchCollection('store.items', function (newStore) {
+				console.log('all years items');
+				scope.events = scope.store.itemsByDay();
 			});
 
 			scope.$watch('date.date', function(value) {

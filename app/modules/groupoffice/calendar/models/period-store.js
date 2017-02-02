@@ -29,7 +29,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').
 							if(!self.selected[attendee.calendarId]) {
 								continue;
 							}
-							var eventCopy = angular.copy(event);
+							var eventCopy = event.getAttributes();
 							eventCopy.calendarId = attendee.calendarId;
 							eventCopy.responseStatus = attendee.responseStatus;
 							eventCopy.hasAlarms = attendee.hasAlarms;

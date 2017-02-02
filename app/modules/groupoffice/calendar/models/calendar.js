@@ -14,17 +14,23 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 
 		Calendar.prototype.colors = function() {
 			return {
-				'5484ed': 'Bold blue',
-				'a4bdfc': 'Blue',
-				'46d6db': 'Turquoise',
-				'7ae7bf': 'Green',
-				'51b749': 'Bold green',
-				'fbd75b': 'Yellow',
-				'ffb878': 'Orange',
-				'ff887c': 'Red',
-				'dc2127': 'Bold red',
-				'dbadff': 'Purple',
-				'e1e1e1': 'Gray'
+				'ad1457': 'Pink',
+				'6a1b9a': 'Purple',
+				'4527a0': 'Deep Purple',
+				'283593': 'Indigo',
+				'1565c0': 'Blue',
+				'0277bd': 'Light Blue',
+				'00838f': 'Cyan',
+				'00695c': 'Teal',
+				'2e7d32': 'Green',
+				'558b2f': 'Light green',
+				'9e9d24': 'Lime',
+				'f9a825': 'Yellow',
+				'ff8f00': 'Amber',
+				'ef6c00': 'Orange',
+				'd84315': 'Deep Orange',
+				'4e342e': 'Brown',
+				'c62828': 'Red'
 			};
 		};
 //

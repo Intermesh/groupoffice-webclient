@@ -79,7 +79,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 
 			$scope.$watchCollection('selectedCalendars', function(selection) {
 				$scope.eventStore.selected = selection;
-				$scope.nav.view($state.current.name);
+				$scope.nav.notify();
 			});
 
 			$scope.selectEvent = function (event, search) {
@@ -144,7 +144,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				} else {
 					var p = {};
 					if(startAt) {
-						p = {occurrenceTime: +startAt/1000};
+						p = {recurrenceId: startAt.toIntermeshApiFormat()};
 					}
 					$scope.model.read({'eventId':eventId,'userId':userId}, p).then(open);
 				}

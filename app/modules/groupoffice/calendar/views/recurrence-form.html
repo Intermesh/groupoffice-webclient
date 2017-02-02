@@ -36,7 +36,7 @@
 				<md-option value="until">Tot een datum</md-option>
 				<md-option value="count">Voor een aantal afspraken</md-option>
 			</md-select>
-			<md-datepicker ng-if="range=='until'" ng-model="model.event.recurrenceRule.until" md-min-date="model.event.startAt"></md-datepicker>
+			<md-datepicker ng-if="range=='until'" ng-model="model.event.recurrenceRule.until"></md-datepicker>
 			<md-input-container ng-if="range=='count'"><input type="number" style="width:30px; text-align:right;" ng-model="model.event.recurrenceRule.occurrences" /> Occurrences</md-input-container>
 		</div>
 	</div>

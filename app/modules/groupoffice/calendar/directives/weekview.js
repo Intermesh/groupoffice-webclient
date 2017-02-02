@@ -247,7 +247,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 
 						// Set to the item object
 						items[i].overlap = cfg[id];
-						items[i].clearModified();
+//						items[i].clearModified();
 					}
 					return items;
 				};

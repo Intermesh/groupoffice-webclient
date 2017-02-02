@@ -13,7 +13,7 @@
 				</md-button>
 				<md-menu-content>
 					<md-menu-item>
-						<md-button ng-click="model.delete();cancel()">{{::"Delete"| goT}}</md-button>
+						<md-button ng-click="delete()">{{::"Delete"| goT}}</md-button>
 					</md-menu-item>
 					<md-menu-item>
 						<md-button ng-click="model.download()">{{"Download" | goT}}</md-button>
@@ -62,7 +62,7 @@
 					</div>
 					
 					<div layout="row" layout-align="start center">
-						<md-datepicker md-open-on-focus md-hide-icons="calendar" ng-model="model.event.endAt"></md-datepicker>
+						<md-datepicker ng-change="changeEndTime();" md-open-on-focus md-hide-icons="calendar" ng-model="model.event.endAt"></md-datepicker>
 						<span style="width: 32px;"></span>
 						<md-input-container>
 							<input type="time" ng-model="model.event.endAt" ng-show="!model.event.allDay"/>

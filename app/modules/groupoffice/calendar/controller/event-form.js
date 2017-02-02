@@ -11,27 +11,74 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		$scope.color = GO.Calendar.util.color;
 		$scope.model = $scope.$parent.model;
 
+		function internalSave(p) {
+			$scope.model.save(p || {}).then(function(){
+				$mdDialog.hide();
+				$scope.eventStore.reload();
+			});
+		}
+		function internalDelete(p) {
+			$scope.model.delete(p || {}).then(function() {
+				$mdDialog.cancel();
+				$scope.eventStore.reload();
+			});
+
+		};
+
 		$scope.save = function() {
-			function internalSave() {
-				$scope.model.save().then(function(){
-					$mdDialog.hide();
-					$scope.$parent.eventStore.reload();
-				});
+			console.log($scope.model.event);
+			if(!$scope.model.event.isRecurring) {
+				return internalSave();
+			}
+			var p = {
+				recurrenceId: $scope.model.$oldAttributes.event.startAt.toIntermeshApiFormat()
+			};
+			if($scope.model.event.isException) {
+				p.single = true;
+				return internalSave(p);
 			}
 			var confirm = $mdDialog.confirm()
-							.title('Herhalende afspraak wijzigen')
-							.textContent("Wil u ook alle volgende afspraken wijzigen of alleen deze?")
-							//.targetEvent(ev)
-							.ok('Deze en alle volgende')
-							.cancel('Alleen deze afspraak');
+				.title('Herhalende afspraak wijzigen')
+				.textContent("Wil u ook alle volgende afspraken wijzigen of alleen deze?")
+				.ok('Deze en alle volgende')
+				.cancel('Alleen deze afspraak');
 			$mdDialog.show(confirm).then(function() {
-				$scope.model.changeOccurrence = 1;
-				internalSave();
+				p.single = false;
+				internalSave(p);
 			},function() {
-				$scope.model.changeOccurrence = 2;
-				internalSave();
+				p.single = true;
+				internalSave(p);
 			});
+			return confirm;
 		};
+
+		$scope.delete = function() {
+			
+			if(!$scope.model.event.isRecurring) {
+				return internalDelete();
+			}
+			var p = {
+				recurrenceId: $scope.model.$oldAttributes.event.startAt.toIntermeshApiFormat()
+			};
+			if($scope.model.event.isException) {
+				p.single = true;
+				return internalDelete(p);
+			}
+			var confirm = $mdDialog.confirm()
+				.title('Verwijder herhalende afspraak')
+				.textContent("Wil u ook alle volgende afspraken verwijderen of alleen deze?")
+				.ok('Deze en alle volgende')
+				.cancel('Alleen deze afspraak');
+			$mdDialog.show(confirm).then(function() {
+				p.single = false;
+				internalDelete(p);
+			},function() {
+				p.single = true;
+				internalDelete(p);
+			});
+			
+		};
+
 		$scope.selectedItem;
 		$scope.cancel = function() { $mdDialog.cancel(); };
 
@@ -82,9 +129,22 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 			$scope.model.responseStatus = responseStatus;
 		};
 
-		$scope.changeStartTime = function(event) {
+		$scope.changeStartTime = function() {
 			if($scope.model.event.startAt > $scope.model.event.endAt)
 				$scope.model.event.endAt = $scope.model.event.startAt;
+		};
+
+		$scope.changeEndTime = function() {
+			var end = $scope.model.event.endAt;
+			if($scope.model.event.startAt > end) {
+				$scope.model.event.startAt.setDate(end.getDate());
+				$scope.model.event.startAt.setMonth(end.getMonth());
+				$scope.model.event.startAt.setFullYear(end.getFullYear());
+				console.log($scope.model.event.startAt);
+			}
+			if($scope.model.event.startAt > end) {
+				$scope.model.event.startAt = new Date(+end);
+			}
 		};
 
 		$scope.uploadSuccess = function($file, $message) {

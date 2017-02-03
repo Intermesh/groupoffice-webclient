@@ -37,7 +37,7 @@
 					<md-option ng-repeat="calendar in $parent.userCalendars[model.userId]" ng-value="calendar.id">{{calendar.name}}</md-option>
 				</md-select>
 				<span flex></span>
-				<md-select ng-model="model.event.visibility">
+				<md-select ng-model="model.event.visibility" ng-readonly="!model.isOrganizer">
 					<md-option ng-value="1"><md-icon>lock_outline</md-icon>Confidential</md-option>
 					<md-option ng-value="2"><md-icon>lock_open</md-icon> Public</md-option>
 					<md-option ng-value="3"><md-icon>lock</md-icon> Private</md-option>
@@ -51,10 +51,10 @@
 				<div flex>
 					<div layout="row" layout-align="start center" style="margin: 9px 0;">
 						<label style="width:158px">&nbsp;{{"All-day"| goT}}</label>
-						<md-switch ng-model="model.event.allDay"></md-switch>
+						<md-switch ng-model="model.event.allDay" ng-disabled="!model.isOrganizer"></md-switch>
 					</div>
 					<div layout="row" layout-align="start center">
-						<md-datepicker ng-change="changeStartTime();" md-open-on-focus md-hide-icons="all" ng-model="model.event.startAt"></md-datepicker>
+						<md-datepicker ng-disabled="!model.isOrganizer" ng-change="changeStartTime();" md-open-on-focus md-hide-icons="all" ng-model="model.event.startAt"></md-datepicker>
 						<span style="width: 32px;"></span>
 						<md-input-container>
 							<input type="time" ng-model="model.event.startAt" ng-show="!model.event.allDay"/>
@@ -62,7 +62,7 @@
 					</div>
 					
 					<div layout="row" layout-align="start center">
-						<md-datepicker ng-change="changeEndTime();" md-open-on-focus md-hide-icons="calendar" ng-model="model.event.endAt"></md-datepicker>
+						<md-datepicker ng-disabled="!model.isOrganizer" ng-change="changeEndTime();" md-open-on-focus md-hide-icons="calendar" ng-model="model.event.endAt"></md-datepicker>
 						<span style="width: 32px;"></span>
 						<md-input-container>
 							<input type="time" ng-model="model.event.endAt" ng-show="!model.event.allDay"/>

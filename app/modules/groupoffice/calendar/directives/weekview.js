@@ -54,8 +54,18 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 								cls.push('mid');
 							}
 						}
-						if(event.responseStatus == 1) {
-							cls.push('new');
+						switch(event.responseStatus) {
+							case 1: /* NEEDS-ACTION*/
+								cls.push('new');
+								break;
+							case 2: /* Tentative */
+								cls.push('tentative');
+								break;
+							case 3: /* Accepted */
+								break;
+							case 4: /* Declined */
+								cls.push('declined');
+								break;
 						}
 						return cls;
 					};

@@ -227,6 +227,12 @@ $tagList: (beer, xmas, drinks, xmasparty);
 		border-width: 1px;
 		border-style: solid;
 	}
+	&.declined {
+		text-decoration: line-through;
+	}
+	&.tentative {
+		opacity: .6;
+	}
 	md-icon {
 		font-size: inherit !important;
 		min-height:12px;

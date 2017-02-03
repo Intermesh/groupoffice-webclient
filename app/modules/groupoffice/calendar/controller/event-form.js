@@ -31,7 +31,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				return internalSave();
 			}
 			var p = {
-				recurrenceId: $scope.model.$oldAttributes.event.startAt.toIntermeshApiFormat()
+				recurrenceId: $scope.model.event.recurrenceId.toIntermeshApiFormat()
 			};
 			if($scope.model.event.isException) {
 				p.single = true;
@@ -58,7 +58,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				return internalDelete();
 			}
 			var p = {
-				recurrenceId: $scope.model.$oldAttributes.event.startAt.toIntermeshApiFormat()
+				recurrenceId: $scope.model.event.recurrenceId.toIntermeshApiFormat()
 			};
 			if($scope.model.event.isException) {
 				p.single = true;

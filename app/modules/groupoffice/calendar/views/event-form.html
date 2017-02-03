@@ -56,17 +56,17 @@
 					<div layout="row" layout-align="start center">
 						<md-datepicker ng-disabled="!model.isOrganizer" ng-change="changeStartTime();" md-open-on-focus md-hide-icons="all" ng-model="model.event.startAt"></md-datepicker>
 						<span style="width: 32px;"></span>
-						<md-input-container>
-							<input type="time" ng-model="model.event.startAt" ng-show="!model.event.allDay"/>
-						</md-input-container>
+						<mdp-time-picker
+							mdp-format="HH:mm" mdp-open-on-click mdp-auto-switch="true"
+							ng-model="model.event.startAt" ng-show="!model.event.allDay"></mdp-time-picker>
 					</div>
 					
 					<div layout="row" layout-align="start center">
 						<md-datepicker ng-disabled="!model.isOrganizer" ng-change="changeEndTime();" md-open-on-focus md-hide-icons="calendar" ng-model="model.event.endAt"></md-datepicker>
 						<span style="width: 32px;"></span>
-						<md-input-container>
-							<input type="time" ng-model="model.event.endAt" ng-show="!model.event.allDay"/>
-						</md-input-container>
+						<mdp-time-picker
+							mdp-format="HH:mm" mdp-open-on-click mdp-auto-switch="true"
+							ng-model="model.event.endAt" ng-show="!model.event.allDay"></mdp-time-picker>
 					</div>
 				</div>
 			</div>

@@ -1,6 +1,15 @@
 aside{
 	
 	
+	md-toolbar {
+		border-bottom: 1px solid $border-color !important;
+		color: $color !important;
+		background-color: white !important;		
+		
+		md-icon {
+			color: $color !important;
+		}	
+	}
 	
 	
 	@media(max-width: $screen-md-max) {

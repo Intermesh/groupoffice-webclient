@@ -19,12 +19,14 @@
 		<div style="padding-bottom: 8px;">
 		<md-autocomplete	
 			md-delay="500"
+			md-no-cache="1"
 			md-selected-item="selectedGroup"
-										 md-search-text="groupSearchText"
-										 md-items="group in getGroups(groupSearchText)"
-										 md-item-text="group.name"				
-										 md-selected-item-change="addGroup()"
-										 placeholder="Add group"
+			md-min-length="0"
+			md-search-text="groupSearchText"
+			md-items="group in getGroups(groupSearchText)"
+			md-item-text="group.name"				
+			md-selected-item-change="addGroup()"
+			placeholder="Add group"
 										 >							
 			<md-item-template>
 				<span md-highlight-text="groupSearchText" md-highlight-flags="^i">{{group.name}}</span>							
@@ -36,15 +38,15 @@
 
 			<table class="styled">
 				<tr>
-					<th flex="60">
-						Group
+					<th style="min-width: 200px">
+						{{"Group" | goT}}
 					</th>
 
 					<th flex="20" class="center">
-						Write
+						{{"Write" | goT}}
 					</th>
 					<th flex="20" class="center">
-						Delete
+						{{"Delete" | goT}}
 					</th>
 					<th flex="20" class="center">
 						
@@ -53,10 +55,13 @@
 
 				<tr ng-repeat="item in store.items track by item.groupId">
 					<td>{{item.group.name}}</td>
-					<td class="center"><md-checkbox ng-model="item.write" ng-change="item.save()"></md-checkbox></td>
-					<td class="center"><md-checkbox ng-model="item.delete" ng-change="item.save()"></md-checkbox></td>
+					<td class="center"><md-checkbox ng-model="item.write" ng-change="item.save()" ng-disabled="!item.permissions.update"></md-checkbox></td>
+					<td class="center"><md-checkbox ng-model="item.delete" ng-change="item.save()" ng-disabled="!item.permissions.update"></md-checkbox></td>
 					<td class="center">
-						<md-button ng-click="deleteRecord($index)" class="md-icon-button"><md-icon class="mdi-close md-warn"></md-icon></md-button>
+						<md-button ng-click="deleteRecord($index)" class="md-icon-button" ng-disabled="!item.permissions.delete">
+							<md-icon>delete</md-icon>
+							<md-tooltip>{{::"Delete" | goT}}</md-tooltip>
+						</md-button>
 					</td>
 				</tr>
 				

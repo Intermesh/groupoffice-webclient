@@ -2,35 +2,40 @@
 
 GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.Contacts.Controller.Share', [
 	'$scope',
-	'contact',
-	'GO.Modules.GroupOffice.Contacts.Model.ContactGroup',
+	'model',
 	'close',
 	'GO.Modules.GroupOffice.Users.Model.Group',
-	function ($scope, contact, ContactGroup, close, Group) {
+	function ($scope, model,  close, Group) {
+		
+		
+		
 
 		$scope.close = close;
-
-		var contactGroup = new ContactGroup();
-		contactGroup.contactId = contact.id;
-
-		$scope.store = contactGroup.getStore();
-		$scope.store.load();
-
+		$scope.model = model;
+		
+		var ownerRecord;
+		
+		angular.forEach($scope.model.groups, function(g) {
+			if(g.isOwner) {
+				ownerRecord = g;
+			}
+		});
+		
+		
 		function getGroupIds() {
 			var ids = [];
-			angular.forEach($scope.store.items, function (item) {
+			angular.forEach($scope.model.groups, function (item) {
 				ids.push(item.groupId);
 			});
 
 			return ids;
 		}
 
-		var groupStore = new Group().getStore({returnProperties: "id,name", limit: 10});
+		var groupStore = new Group().getStore({returnProperties: "id,name", limit: 20});
 
 		$scope.getGroups = function (input) {
 			var p = {
 				searchQuery: input
-
 			};
 
 			var groupIds = getGroupIds();
@@ -52,23 +57,23 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 			if ($scope.selectedGroup) {
 				$scope.groupSearchText = "";
 
-				var contactGroup = new ContactGroup();
-				contactGroup.group = $scope.selectedGroup;
-				contactGroup.contactId = contact.id;
-				contactGroup.groupId = $scope.selectedGroup.id;
-				contactGroup.save();
-
-				$scope.store.items.push(contactGroup);
+				var groupAccess = angular.copy(ownerRecord);
+				groupAccess.permissions.update = groupAccess.permissions.delete = true;
+				groupAccess.group = $scope.selectedGroup;				
+				groupAccess.groupId = $scope.selectedGroup.id;
+				$scope.model.groups.push(groupAccess);
+				
+				$scope.model.save();
+				$scope.selectedGroup = null;
+				document.activeElement.blur();
 			}
 		};
 
 
-		$scope.deleteRecord = function (index) {
-			var record = $scope.store.items[index];
-			$scope.store.items.splice(index, 1);
-			record.deleteRecord();
-
-
+		$scope.deleteRecord = function (group) {
+			group.markDeleted = true;
+			$scope.model.save();
 		};
+		
 
 	}]);

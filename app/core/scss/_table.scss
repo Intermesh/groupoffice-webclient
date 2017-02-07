@@ -91,5 +91,14 @@ table.styled {
 		min-width: 20px;
 	}
 	
+	md-input-container {
+		margin: 0;
+	}
+	//for share model
+	md-autocomplete {
+		margin-top: -16px;
+    margin-left: -2px;
+	}
+	
 	
 }

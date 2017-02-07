@@ -428,7 +428,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 			for (var attName in obj) {
 				
 				if (this._isAttribute(attName)) {
-					attr[attName] = obj[attName];
+					//Added copy for permissions that included a "delete" property that interferred with the delete function.
+					attr[attName] = angular.copy(obj[attName]);
 					
 					if(angular.isArray(attr[attName])) {
 						for(var i=0,l=attr[attName].length;i<l;i++) {
@@ -809,6 +810,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 //					this._convertDateStringsToDates(attr);
 
 			for (var key in attr) {
+				
 				
 				//if the relation is defined as function we call that with the data.
 				if (angular.isObject(this[key])) {

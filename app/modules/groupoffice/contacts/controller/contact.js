@@ -32,7 +32,7 @@ GO.module('GO.Modules.GroupOffice.Contacts').
 				templateUrl: 'modules/groupoffice/contacts/views/share.html',
 				controller: 'GO.Modules.GroupOffice.Contacts.Controller.Share',
 				inputs: {
-					contact: contact
+					model: contact
 				}
 			});
 		};

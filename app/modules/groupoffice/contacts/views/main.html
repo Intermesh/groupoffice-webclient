@@ -37,8 +37,18 @@
 					</md-button>
 					<go-search-button></go-search-button>				
 					<go-order-button columns="{ 't.firstName': 'First name', 't.lastName': 'Last name', 't.modifiedAt': 'Modified at'}"></go-order-button>
-				</go-tools>					
-
+				</go-tools>			
+				
+				<go-select class="md-toolbar-tools">
+					<go-list-selection-clear></go-list-selection-clear>
+					<go-list-selection-count flex></go-list-selection-count>
+					<md-button>
+						<md-icon>edit</md-icon>
+						<md-tooltip>{{"Edit selected" | goT}}</md-tooltip>
+					</md-button>
+					<go-list-selection-delete></go-list-selection-delete>
+				</go-select>
+				
 			</go-list-toolbar>
 
 

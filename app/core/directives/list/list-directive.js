@@ -245,12 +245,14 @@ angular.module('GO.Core').directive('goList', [
 
 				}
 
+				var newButton;
 				element.bind("keydown", function (e) {
 					
 					//arrow up or down
 					if (e.keyCode != 40 && e.keyCode != 38 && e.keyCode != 46) {
 						return;
 					}
+					
 					
 					var li = findLi(e.target);					
 					var button, nextLi, nextLiScope;
@@ -287,6 +289,7 @@ angular.module('GO.Core').directive('goList', [
 					e.preventDefault();
 
 					button.focus();
+					
 					if (e.shiftKey) {
 
 						nextLiScope = nextLi.scope();
@@ -305,16 +308,18 @@ angular.module('GO.Core').directive('goList', [
 					}else
 					{
 						store.select([angular.element(li).scope().$index]);
-					}
-
-					if (!attrs.disableAutofollow) {
-						button[0].click();
+						if (!attrs.disableAutofollow) {
+							newButton = button[0];
+						}
 					}
 					
 				});
-
-
-
+				
+				element.bind('keyup', function() {
+					if(newButton) {
+						newButton.click();
+					}
+				});
 			}
 		};
 	}])

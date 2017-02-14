@@ -29,8 +29,8 @@
  */
 
 angular.module('GO.Core').directive('goList', [
-
-	function ( ) {
+	'$timeout',
+	function ($timeout) {
 		return {
 			scope: false,
 //			replace: true,
@@ -156,11 +156,11 @@ angular.module('GO.Core').directive('goList', [
 
 
 
-				function liToModel(el) {
-					var listItemScope = el.scope();
-
-					return listItemScope.model;
-				}
+//				function liToModel(el) {
+//					var listItemScope = el.scope();
+//
+//					return listItemScope.model;
+//				}
 				
 				function toggleSelection(index) {
 					var selected = store.getSelectedIndexes();
@@ -173,7 +173,9 @@ angular.module('GO.Core').directive('goList', [
 						selected.splice(alreadySelected, 1);
 					}
 
+					$timeout(function(){
 					store.select(selected);
+					});
 					
 				}
 
@@ -275,7 +277,11 @@ angular.module('GO.Core').directive('goList', [
 					}					
 					
 					if(!button || !button[0]) {
-						return;
+						
+						button = nextLi.find('a');
+						if(!button || !button[0]) {
+							return;
+						}
 					}					
 
 					e.preventDefault();
@@ -298,7 +304,7 @@ angular.module('GO.Core').directive('goList', [
 						return;
 					}else
 					{
-						toggleSelection(angular.element(li).scope().$index);
+						store.select([angular.element(li).scope().$index]);
 					}
 
 					if (!attrs.disableAutofollow) {

@@ -61,6 +61,11 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 			$scope.filters[name] = value;
 			load();
 		};
+		
+		$scope.onCustomFiltersChange = function(filters) {
+			$scope.filters.custom = filters;
+			load();
+		};
 
 		function load() {
 
@@ -103,39 +108,7 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 
 		load();
 		
-		$scope.deleteFilter = function(index) {
-			$scope.filters.custom.splice(index,1);
-			load();
-		};
-
-
-		$scope.addFilter = function () {
-			$mdDialog.show({
-				controller: ['$scope', '$mdDialog', function ($scope, $mdDialog) {
-						$scope.hide = function () {
-							$mdDialog.hide();
-						};
-
-
-						$scope.model = {field: null, query: [], comparator: 'LIKE'};
-
-						$scope.save = function () {
-							$mdDialog.hide($scope.model);
-						};
-					}],
-				templateUrl: 'modules/groupoffice/contacts/views/add-filter.html',
-
-				clickOutsideToClose: true,
-				fullscreen: true
-			})
-							.then(function (model) {
-								if (model) {
-									$scope.filters.custom.push(model);
-									load();
-								}
-
-							});
-		};
+		
 
 
 	}]);

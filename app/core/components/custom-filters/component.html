@@ -1,0 +1,23 @@
+<md-toolbar>
+	<div class="md-toolbar-tools">
+		<div flex>{{::"Filters" | goT}}</div>
+		<md-button class="md-icon-button" ng-click="$ctrl.addFilter()">
+			<md-icon>add</md-icon>
+			<md-tooltip>{{::"Add" | goT}}</md-tooltip>
+		</md-button>
+	</div>
+</md-toolbar>
+
+<md-list ng-if="$ctrl.filters.length">
+	<md-list-item ng-click="edit()" ng-repeat="filter in $ctrl.filters">
+		<md-icon>filter</md-icon>
+		<p>{{filter.field}} = {{filter.query}}</p>
+
+		<md-button class="md-icon-button md-secondary" ng-click="$ctrl.deleteFilter()">
+			<md-icon>delete</md-icon>
+			<md-tooltip>{{::"Delete" | goT}}</md-tooltip>
+		</md-button>
+	</md-list-item>
+
+	<md-divider></md-divider>
+</md-list>

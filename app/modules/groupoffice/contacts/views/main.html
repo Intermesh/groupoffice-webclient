@@ -1,27 +1,7 @@
 <go-hook name="contacts">
 	<aside>
 		
-		<md-toolbar>
-			<div class="md-toolbar-tools">
-				<div flex>Filters</div>
-				<md-button class="md-icon-button" ng-click="addFilter()">
-					<md-icon>add</md-icon>
-				</md-button>
-			</div>
-		</md-toolbar>
-		
-		<md-list ng-if="filters.custom.length">
-			<md-list-item ng-click="edit()" ng-repeat="filter in filters.custom">
-				<md-icon>filter</md-icon>
-				<p>{{filter.field}} = {{filter.query}}</p>
-			
-				<md-button class="md-icon-button md-secondary" ng-click="deleteFilter()">
-					<md-icon>delete</md-icon>
-				</md-button>
-			</md-list-item>
-			
-			<md-divider></md-divider>
-		</md-list>
+		<go-custom-filters add-view='modules/groupoffice/contacts/views/add-filter.html' on-change='onCustomFiltersChange(filters)'></go-custom-filters>
 		
 		<go-filter name="type" type="single" go-value="filters.type" on-change="updateFilter('type', value)">
 			<go-option value="all">

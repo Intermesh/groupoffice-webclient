@@ -8,7 +8,9 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 	'GO.Modules.GroupOffice.Contacts.ContactEditor',
 	'$state',
 	'$mdDialog',
-	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog) {
+	'$http',
+	'GO.Core.Services.ServerAPI',
+	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog, $http, ServerAPI) {
 		//Will be used in child scope. We define it here so we can access
 		//the properties if needed in the future.
 		//Child scopes automatically inherit properties of the parents but
@@ -104,9 +106,55 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 
 			$scope.contactStore.load();
 		}
-		;
+		
 
 		load();
+		
+		
+		$scope.editMultiple = function() {
+			$mdDialog.show({
+				locals: {
+					items: $scope.contactStore.$selected
+				},
+					controller: ['$scope', '$mdDialog', 'items', function ($scope, $mdDialog, items) {
+							$scope.hide = function () {
+								
+								
+								$mdDialog.hide();
+							};
+							
+							$scope.model = {
+								tags: []
+							};
+							
+							$scope.save = function () {
+								
+								var data = [];
+								
+								angular.forEach(items, function(i) {
+									data.push({
+										id: i.id,
+										tags: $scope.model.tags
+									});
+								});
+								
+								console.log(data);
+								
+								$http.put(ServerAPI.url('contacts'), {data: data}).then(function() {
+									$mdDialog.hide($scope.model);
+								});
+								
+								
+							};
+						}],
+					templateUrl: 'modules/groupoffice/contacts/views/edit-multiple.html',
+
+					clickOutsideToClose: true,
+					fullscreen: true
+				}).then(function (model) {
+									load();
+								});
+		};
 		
 		
 

@@ -1,0 +1,18 @@
+<md-chips class="md-block" ng-model="$ctrl.ngModel" md-require-match="false" md-on-add="$ctrl.createTag($chip, $index)">
+	<md-autocomplete
+		md-delay="500"
+		md-select-on-match="true"
+		md-match-case-insensitive="true"
+		md-selected-item="selectedItem"
+		md-search-text="searchText"
+		md-items="item in $ctrl.getTags(searchText)"
+		md-item-text="item.name"
+		placeholder="Enter a tag..">
+		<md-item-template>
+			<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+		</md-item-template>
+	</md-autocomplete>
+	<md-chip-template>
+		<span style="display:inline-block;margin-right:4px;vertical-align:middle;border-radius:50%;height:12px;width:12px; background-color: black;" ng-style="{'background-color': $chip.color ? '#' + $chip.color : 'black' }"></span>{{$chip.name}}
+	</md-chip-template>
+</md-chips>

@@ -186,9 +186,10 @@ angular.module('GO.Core').directive('goList', [
 					//happense with secondary list action clicks
 					if (!itemScope || !angular.isDefined(itemScope.$index)) {
 						return;
-					}
+					}				
 
-					var curIndex = itemScope.$index;
+					var curIndex = store.findIndexes(itemScope.model.pk(), true);
+					
 
 					if (event.ctrlKey || event.metaKey) {
 						toggleSelection(curIndex);
@@ -203,7 +204,7 @@ angular.module('GO.Core').directive('goList', [
 							}
 
 							if (store.items[i].$selected || i === curIndex) {
-								if (select) {
+								if (select && i >= curIndex) {
 									break;
 								} else
 								{
@@ -212,12 +213,16 @@ angular.module('GO.Core').directive('goList', [
 								}
 							}
 						}
-
-						store.select(selected);
+						
+						$timeout(function(){
+							store.select(selected);
+						});
 						event.preventDefault();
 					} else
 					{
-						store.select([curIndex]);
+						$timeout(function(){
+							store.select([curIndex]);
+						});
 					}
 				});
 

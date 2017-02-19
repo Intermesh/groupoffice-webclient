@@ -7,7 +7,8 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 	'GO.Core.Services.Dialog',
 	'$state',
 	'GO.Core.Services.CurrentUser',
-	function ($scope, Task, Dialog, $state, CurrentUser) {
+	'$stateParams',
+	function ($scope, Task, Dialog, $state, CurrentUser, $stateParams) {
 
 
 		$scope.task = new Task();
@@ -22,7 +23,8 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 		$scope.filters ={
 			status : 'incomplete',
 			assigned: 'mine',
-			tags: []
+			tags: [],
+			custom: []
 		};
 		
 		
@@ -31,9 +33,20 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 			load();
 		};		
 		
+		$scope.onCustomFiltersChange = function(filters, q) {
+			$scope.filters.custom = q;
+			load();
+		};
+		
+		$scope.onCustomFiltersReady = function(ctrl) {
+			if($stateParams.contactId) {
+				ctrl.add('contact.id', $stateParams.contactId, '=', $stateParams.contactName);
+			}
+		};
+		
 		function load() {
 
-			$scope.store.$loadParams.q = [];
+			$scope.store.$loadParams.q = angular.copy($scope.filters.custom);
 			
 			switch($scope.filters.assigned) {
 				case 'mine':

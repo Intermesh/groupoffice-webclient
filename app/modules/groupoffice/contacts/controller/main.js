@@ -64,14 +64,14 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 			load();
 		};
 		
-		$scope.onCustomFiltersChange = function(filters) {
-			$scope.filters.custom = filters;
+		$scope.onCustomFiltersChange = function(filters, q) {
+			$scope.filters.custom = q;
 			load();
 		};
 
 		function load() {
 
-			$scope.contactStore.$loadParams.q = [];
+			$scope.contactStore.$loadParams.q = angular.copy($scope.filters.custom);
 
 			switch ($scope.filters.type) {
 				case 'persons':
@@ -88,21 +88,6 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 				$scope.contactStore.$loadParams.q.push(['joinRelation', 'tags']);
 				$scope.contactStore.$loadParams.q.push(['andWhere', {'tags.id': $scope.filters.tags}]);
 			}
-
-			angular.forEach($scope.filters.custom, function (c) {
-				$scope.contactStore.$loadParams.q.push(['joinRelation', 'tags']);
-				var where = {};
-				where[c.field] = c.query;
-
-				var parts = c.field.split('.');
-				if (parts.length > 1) {
-					parts.pop();
-					var rel = parts.join('.');
-					$scope.contactStore.$loadParams.q.push(['joinRelation', rel]);
-				}
-
-				$scope.contactStore.$loadParams.q.push(['andWhere', [c.comparator, where]]);
-			});
 
 			$scope.contactStore.load();
 		}

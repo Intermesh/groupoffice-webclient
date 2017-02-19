@@ -1,7 +1,7 @@
 <go-hook name="tasks">
 	<aside>
-		<!--<div go-filter-collection="tasks/filters" go-store="store" flex></div>-->
-
+		<go-custom-filters add-view='modules/groupoffice/contacts/views/add-filter.html' on-change='onCustomFiltersChange(filters, q)' on-ready="onCustomFiltersReady(ctrl)"></go-custom-filters>
+				
 		<go-filter name="status" type="single" go-value="filters.status" on-change="updateFilter('status', value)">
 
 			<go-option value="all">

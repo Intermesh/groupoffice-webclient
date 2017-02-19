@@ -33,7 +33,7 @@ GO.module('GO.Modules.GroupOffice.Tasks', ['GO.Core'])
 		// Now set up the states
 		$stateProvider
 						.state('tasks', {
-							url: '/tasks',
+							url: '/tasks?contactId&contactName',
 							templateUrl: 'modules/groupoffice/tasks/views/main.html',
 							controller: 'GO.Modules.GroupOffice.Tasks.Controller.Main'
 						})

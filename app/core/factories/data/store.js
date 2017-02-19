@@ -730,10 +730,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 			{
 				this.items.push(updatedModel);
 			}
-
-			if (this.$filterCollection) {
-				this.$filterCollection.load();
-			}
 		};
 
 

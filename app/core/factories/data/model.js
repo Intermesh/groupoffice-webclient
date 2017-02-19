@@ -615,11 +615,15 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 											this.loadData(data); 											
 										}
 
-										this._updateStores();
+//										this._updateStores();
 										
-//										$rootScope.$broadcast('modelupdate', this);
+										$rootScope.$broadcast('modelupdate', this);
+										
+										if(modifiedAttributes.tags) {
+											$rootScope.$broadcast('tagschange', this);
+										}
 
-										deferred.resolve({model: this, response: response});
+										deferred.resolve({model: this, response: response, modifiedAttributes: modifiedAttributes});
 									}
 
 								}.bind(this)).finally(function(){
@@ -628,7 +632,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 			} else
 			{
 				console.log("Not sending save request to server because model has not been modified");
-				deferred.resolve({model: this, response: false});
+				deferred.resolve({model: this, response: false, modifiedAttributes: modifiedAttributes});
 			}
 
 			return deferred.promise;
@@ -850,7 +854,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 			store.$modelProto = Object.getPrototypeOf(this);
 			store.$modelConstructorArgs = this.$constructorArgs;
 
-			this.addStore(store);
+//			this.addStore(store);
 
 			return store;
 		};

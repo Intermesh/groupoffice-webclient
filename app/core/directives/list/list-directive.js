@@ -111,11 +111,11 @@ angular.module('GO.Core').directive('goList', [
 				var store = scope.$eval(attrs.store);
 				
 //				//this automatically updates the store when a model is updated.
-//				scope.$on('modelupdate', function(event, updatedModel) {
-//						if(updatedModel.getStoreRoute() === store.$storeRoute) {
-//							store.updateModel(updatedModel);
-//						}
-//					});
+				scope.$on('modelupdate', function(event, updatedModel) {
+						if(updatedModel.getStoreRoute() === store.$storeRoute) {
+							store.updateModel(updatedModel);
+						}
+					});
 
 
 				if (attrs.index) {
@@ -180,7 +180,11 @@ angular.module('GO.Core').directive('goList', [
 				}
 
 				element.bind("click", function (event) {
-
+					
+					if(!event.isTrusted) {
+						//this means we called click from js when button nav is used.
+						return;
+					}
 					var itemScope = angular.element(event.target).scope();
 
 					//happense with secondary list action clicks
@@ -295,6 +299,8 @@ angular.module('GO.Core').directive('goList', [
 
 					button.focus();
 					
+					var curIndex = store.findIndexes(angular.element(li).scope().model.pk(), true);
+					
 					if (e.shiftKey) {
 
 						nextLiScope = nextLi.scope();
@@ -305,14 +311,14 @@ angular.module('GO.Core').directive('goList', [
 								toggleSelection(angular.element(li).scope().$index);							
 							}else
 							{
-								toggleSelection(nextLiScope.$index);							
+								toggleSelection(store.findIndexes(nextLiScope.model.pk(), true));							
 							}
 						});
 
 						return;
 					}else
 					{
-						store.select([angular.element(li).scope().$index]);
+						store.select([curIndex]);
 						if (!attrs.disableAutofollow) {
 							newButton = button[0];
 						}

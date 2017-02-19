@@ -26,8 +26,11 @@ GO.module('GO.Core').component('goTagSelect', {
 
 				if (!chip.name) {
 					chip = {name: chip};
+				}else
+				{
+					chip = chip.getAttributes();
 				}
-				this.ngModel[index] = chip.getAttributes();				
+				this.ngModel[index] = chip;				
 			};
 
 		}],

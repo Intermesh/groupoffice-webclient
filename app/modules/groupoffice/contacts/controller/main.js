@@ -10,7 +10,8 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 	'$mdDialog',
 	'$http',
 	'GO.Core.Services.ServerAPI',
-	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog, $http, ServerAPI) {
+	'$timeout',
+	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog, $http, ServerAPI, $timeout) {
 		//Will be used in child scope. We define it here so we can access
 		//the properties if needed in the future.
 		//Child scopes automatically inherit properties of the parents but
@@ -61,12 +62,19 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 
 		$scope.updateFilter = function (name, value) {
 			$scope.filters[name] = value;
-			load();
+			//wait until view is rendered
+			if($scope.contactStore.init) {
+				load();
+			}
 		};
 		
 		$scope.onCustomFiltersChange = function(filters, q) {
 			$scope.filters.custom = q;
-			load();
+			
+			//wait until view is rendered
+			if($scope.contactStore.init) {
+				load();
+			}
 		};
 
 		function load() {
@@ -88,13 +96,15 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 				$scope.contactStore.$loadParams.q.push(['joinRelation', 'tags']);
 				$scope.contactStore.$loadParams.q.push(['andWhere', {'tags.id': $scope.filters.tags}]);
 			}
-
-			$scope.contactStore.load();
+			
+			$scope.contactStore.load();			
 		}
-		
 
-		load();
-		
+		//timeout makes sure view is done.
+		//this prevents the filters firing on change while still rendering.
+		$timeout(function() {
+			load();			
+		});
 		
 		$scope.editMultiple = function() {
 			$mdDialog.show({

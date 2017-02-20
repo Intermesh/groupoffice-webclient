@@ -6,13 +6,14 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 	'$rootScope',
 	'$http',
 	'$state',
+	'$location',
 	'GO.Core.Services.ServerAPI',
 	'GO.Core.Services.Application',
 	'$mdToast',
 	'GO.Core.Providers.Translate',
 	'GO.Core.Services.CurrentUser',
 	'$mdDialog',
-	function ($scope, $rootScope, $http, $state, ServerAPI, Application, $mdToast, Translate, CurrentUser, $mdDialog) {
+	function ($scope, $rootScope, $http, $state, $location, ServerAPI, Application, $mdToast, Translate, CurrentUser, $mdDialog) {
 		
 		
 		function afterLogin() {
@@ -20,7 +21,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 				
 				$rootScope.loggedIn = true;
 				if ($rootScope.stateBeforeAuth) {
-					$state.go($rootScope.stateBeforeAuth[0], $rootScope.stateBeforeAuth[1]);
+					$location.url($rootScope.stateBeforeAuth);
 					delete $rootScope.stateBeforeAuth;
 				} else
 				{

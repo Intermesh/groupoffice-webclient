@@ -41,7 +41,14 @@ angular.module('GO', GO.appModules.concat([
 		});
 
 
-	}]).run(['GO.Core.Services.ServerAPI', '$rootScope', 'GO.Config', 'GO.Core.Providers.Translate','$state','$http', 'GO.Core.Services.CurrentUser','$mdSidenav','$location', 'GO.Core.Services.AccountSync','$anchorScroll', function (ServerAPI, $rootScope, Config, Translate,$state, $http, CurrentUser, $mdSidenav, $location, AccountSync, $anchorScroll) {
+	}]).run([
+	'GO.Core.Services.ServerAPI', 
+	'$rootScope', 
+	'GO.Config',
+	
+	'$state',
+	'$location', 
+	'$anchorScroll', function (ServerAPI, $rootScope, Config, $state,  $location, $anchorScroll) {
 		$rootScope.GO = GO;
 		$rootScope.showMask = false;
 
@@ -63,7 +70,7 @@ angular.module('GO', GO.appModules.concat([
 				
 				event.preventDefault();
 				
-				$rootScope.stateBeforeAuth = [toState.name, toParams];				
+				$rootScope.stateBeforeAuth = $location.url();				
 				$state.go('login');
 			}else
 			{				

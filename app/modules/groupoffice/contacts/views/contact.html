@@ -60,9 +60,8 @@
 	</md-toolbar>
 
 	<md-tabs md-selected="tabs.selectedIndex">
-		<md-tab ng-click="goto('info')">Info</md-tab>
-		<!--			<md-tab ng-click="goto('files')">Files</md-tab>
-					<md-tab ng-click="goto('files')">Activities</md-tab>-->
+		<md-tab ng-click="goto('info')">{{"Info" | goT}}</md-tab>
+		<md-tab ng-click="goto('employees')" ng-if="contact.employees.length">{{"Employees" | goT}}</md-tab>		
 	</md-tabs>
 
 
@@ -174,13 +173,6 @@
 							
 							<md-divider></md-divider>
 						</md-list>	
-
-						
-
-
-
-
-
 					</div>
 				</div>
 				<md-list ng-if="contact.tags.length">
@@ -215,7 +207,7 @@
 		</md-card>
 
 
-		<md-card ng-if="contact.employees.length">
+		<md-card ng-if="contact.employees.length" id="employees">
 			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2>{{::"Employees"| goT}}</h2>
@@ -234,48 +226,7 @@
 
 		<go-custom-fields-detail ng-model="contact.customfields" server-model="GO\Modules\GroupOffice\Contacts\Model\CustomFields"></go-custom-fields-detail>
 
-
-		<!--		<go-files go-controller-route="'contacts/'+contact.id+'/files'"></go-files>-->
-
-
-		<!--	<md-card id="activities" layout="column" style="height: 400px" ng-controller="GO.Modules.GroupOffice.Contacts.ContactActivitiesController">
-				<go-list-toolbar class="md-hue-1" store="activityStore">
-					<div class="md-toolbar-tools">
-						<h2 class="md-title">{{::"Activities"| goT}}</h2>
-					</div>
-				</go-list-toolbar>
 		
-				<md-card-content flex layout="column">
-		
-		
-					<go-list store="activityStore">
-						<item class="md-2-line" ng-click="selectActivity(model)">
-							<md-icon>{{model.$iconCls}}</md-icon>
-		
-							<a href="{{model.$href}}" class="md-list-item-text">
-								<h3>{{model.description}}</h3>
-								<p>{{model.notes}}</p>
-							</a>
-						</item>
-		
-		
-						<empty-state>
-							<md-icon>folder</md-icon>
-		
-							<p>{{::"No activities found"| goT}}</p>
-						</empty-state>
-		
-					</go-list>
-		
-				</md-card-content>
-		
-				<md-card-actions layout="row" layout-align="end center">
-					<md-button class="md-primary">
-					{{::"Add"| goT}}
-					</md-button>
-				</md-card-actions>
-		
-			</md-card>-->
 
 	</md-content>
 </go-hook>

@@ -8,7 +8,8 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 	'$state',
 	'GO.Core.Services.CurrentUser',
 	'$stateParams',
-	function ($scope, Task, Dialog, $state, CurrentUser, $stateParams) {
+	'$timeout',
+	function ($scope, Task, Dialog, $state, CurrentUser, $stateParams, $timeout) {
 
 
 		$scope.task = new Task();
@@ -30,12 +31,19 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 		
 		$scope.updateFilter = function(name, value) {
 			$scope.filters[name] = value;			
-			load();
+			
+			//wait for view to be rendered
+			if($scope.store.init) {
+				load();
+			}
 		};		
 		
 		$scope.onCustomFiltersChange = function(filters, q) {
 			$scope.filters.custom = q;
-			load();
+			//wait for view to be rendered
+			if($scope.store.init) {
+				load();
+			}
 		};
 		
 		$scope.onCustomFiltersReady = function(ctrl) {
@@ -79,12 +87,16 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 					$scope.store.$loadParams.q.push(['andWhere', ['<',{'dueAt': new Date() }]]);
 					$scope.store.$loadParams.q.push(['andWhere', {'completedAt': null }]);
 					break;
-			}
+			}			
 			
 			$scope.store.load();	
 		};
 
-		load();
+		//timeout will parse filter components first.
+		$timeout(function() {
+			load();
+		});
+		
 
 		$scope.edit = function (task) {
 

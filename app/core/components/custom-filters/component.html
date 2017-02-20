@@ -9,8 +9,8 @@
 </md-toolbar>
 
 <md-list ng-if="$ctrl.filters.length">
-	<md-list-item ng-click="edit()" ng-repeat="filter in $ctrl.filters">
-		<md-icon>filter</md-icon>
+	<md-list-item ng-repeat="filter in $ctrl.filters" ng-click="$ctrl.click(filter)">
+		<md-icon>{{filter.icon}}</md-icon>
 		<p>{{filter.label}}</p>
 
 		<md-button class="md-icon-button md-secondary" ng-click="$ctrl.deleteFilter()">

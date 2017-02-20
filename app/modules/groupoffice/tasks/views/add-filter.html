@@ -1,0 +1,47 @@
+	<fieldset layout="column">
+			<md-input-container>
+				<label>{{"Field"| goT}}</label>
+				<md-select ng-model="model.field" required>
+
+					<md-option value="addresses.country" selected>
+						{{"Address Country"| goT}}
+					</md-option>
+					
+					<md-option value="debtors.terms.name">
+						{{"Debtor terms"| goT}}
+					</md-option>
+				</md-select>
+
+			</md-input-container>
+			
+			<md-input-container>
+				<label>{{"Comparator"| goT}}</label>
+				<md-select ng-model="model.comparator" required>
+
+										
+					<md-option value="=">
+						{{"Equals"| goT}}
+					</md-option>
+					
+					<md-option value="!=">
+						{{"Doesn't equal"| goT}}
+					</md-option>
+					
+					<md-option value=">">
+						{{"Greather than"| goT}}
+					</md-option>
+					
+					<md-option value="<">
+						{{"Lower than"| goT}}
+					</md-option>
+				</md-select>
+
+			</md-input-container>
+			
+			<md-chips ng-model="model.query" placeholder="Add search phrase">
+			</md-chips>
+<!--			<md-input-container>
+				<label>{{"Query"| goT}}</label>
+				<input type="text" name="query" ng-model="model.query" />
+			</md-input-container>	-->
+		</fieldset>

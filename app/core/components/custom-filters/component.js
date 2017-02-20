@@ -55,11 +55,17 @@ GO.module('GO.Core').component('goCustomFilters', {
 				return q;
 			}
 			
-			this.add = function(field, query, comparator, label) {
-				ctrl.filters.push({field: field, query: query, comparator: comparator, label: label});						
+			this.add = function(field, query, comparator, label, icon, onClick) {
+				ctrl.filters.push({field: field, query: query, comparator: comparator, label: label, icon: icon, onClick: onClick});						
 				ctrl.onChange({q: buildQ(), filters: ctrl.filters});
 			};
 
+
+			this.click = function(filter) {
+				if(filter.onClick) {
+					filter.onClick();
+				};
+			};
 
 			this.addFilter = function () {
 				$mdDialog.show({
@@ -76,6 +82,7 @@ GO.module('GO.Core').component('goCustomFilters', {
 							$scope.save = function () {
 								
 								$scope.model.label = $scope.model.field + ' ' + $scope.model.comparator + ' ' + $scope.model.query;
+								$scope.model.icon = 'star';
 								
 								$mdDialog.hide($scope.model);
 							};

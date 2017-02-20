@@ -38,20 +38,27 @@ angular.module('GO.Core').directive('goFilter', ['$location', '$state', function
 						});
 
 					this.getValue = function() {
-						return $scope.goValue+"";
+						return $scope.goValue;
 					};
 					
-					this.setValue =function (v) {
-						
-						//to string
-						v+="";
+					//non strict checking because string and int mixup with url's
+					this.isMultiselected = function(v) {
+						for(var i=0, l = $scope.goValue.length; i < l; i++) {
+							if($scope.goValue[i] == v) {
+								return i;
+							}							
+						}
+						return -1;
+					};
+					
+					this.setValue =function (v) {					
 						
 						var searchParams = $location.search();
 						
 						if(this.type==='multiselect') {
 							if(!GO.isEmpty(v)) {
 								
-								var index = $scope.goValue.indexOf(v);
+								var index = this.isMultiselected(v);
 								
 								if(index===-1) {
 									$scope.goValue.push(v);
@@ -127,7 +134,7 @@ angular.module('GO.Core').directive('goFilter', ['$location', '$state', function
 				scope.isSelected = function () {
 					if(goFilterCtrl.type=='multiselect')
 					{
-						return goFilterCtrl.getValue().indexOf(""+scope.value) != -1;
+						return goFilterCtrl.isMultiselected(scope.value) !== -1;
 					}else
 					{
 						return goFilterCtrl.getValue() == ""+scope.value;

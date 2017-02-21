@@ -1,0 +1,42 @@
+<md-card>
+	
+	<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>{{::"Incomplete tasks"| goT}}</h2>
+				</div>
+			</md-toolbar>
+		
+	<md-card-content>
+			<go-list store="taskStore" virtual="false">
+
+				<item class="md-2-line" ui-sref="tasks.task({taskId: model.id})">
+
+					<md-icon class="md-secondary" ng-if="!model.completedAt" ng-click="model.setCompleted(true)">check_box_outline_blank</md-icon>
+					<md-icon class="md-secondary" ng-if="model.completedAt" ng-click="model.setCompleted(false)">check_box</md-icon>
+					<!--<md-checkbox ng-model="model.isComplete" class="md-secondary"></md-checkbox>-->
+
+					<div class="md-list-item-text">
+						<h3>{{model.description}}</h3>
+						<p ng-if="!model.dueAt">{{model.dueAt|| "No dueTime" | goT}}</p>
+						<p ng-if="model.dueAt">{{model.dueAt| date:"longDate"}}</p>
+					</div>
+				</item>
+
+				<empty-state>
+					<md-icon>assignment</md-icon>
+					<p>{{::"No tasks found"| goT}}</p>
+				</empty-state>
+
+			</go-list>
+			
+	</md-card-content>
+		
+		<md-card-actions  layout="row" layout-align="end center">
+		<md-button class="md-accent"  ng-click="more()">
+			{{"More"| goT}}
+		</md-button>
+		<md-button class="md-accent"  ng-click="add()">
+			{{"Add"| goT}}
+		</md-button>
+	</md-card-actions>
+</md-card>

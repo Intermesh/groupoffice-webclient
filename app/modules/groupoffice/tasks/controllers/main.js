@@ -48,7 +48,9 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 		
 		$scope.onCustomFiltersReady = function(ctrl) {
 			if($stateParams.contactId) {
-				ctrl.add('contact.id', $stateParams.contactId, '=', $stateParams.contactName);
+				ctrl.add('contact.id', $stateParams.contactId, '=', $stateParams.contactName, 'chevron_left', function() {
+					$state.go('contacts.contact', {contactId: $stateParams.contactId});
+				});
 			}
 		};
 		

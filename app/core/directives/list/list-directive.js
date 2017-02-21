@@ -299,21 +299,20 @@ angular.module('GO.Core').directive('goList', [
 
 					button.focus();
 					
-					var curIndex = store.findIndexes(angular.element(li).scope().model.pk(), true);
+					var curIndex = store.findIndexes(angular.element(nextLi).scope().model.pk(), true);
 					
 					if (e.shiftKey) {
 
 						nextLiScope = nextLi.scope();
 
-						scope.$apply(function(){
-							if(nextLiScope.model.$selected) {
-								//we're deselecting after going back with shift pressed
-								toggleSelection(angular.element(li).scope().$index);							
-							}else
-							{
-								toggleSelection(store.findIndexes(nextLiScope.model.pk(), true));							
-							}
-						});
+						
+						if(nextLiScope.model.$selected) {
+							//we're deselecting after going back with shift pressed
+							toggleSelection(angular.element(li).scope().$index);
+						}else
+						{
+							toggleSelection(store.findIndexes(nextLiScope.model.pk(), true));							
+						}
 
 						return;
 					}else

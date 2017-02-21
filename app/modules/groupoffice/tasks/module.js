@@ -12,6 +12,21 @@ GO.module('GO.Modules.GroupOffice.Tasks', ['GO.Core'])
 				App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Tasks\\Module').then(function (module) {
 					
 					App.addLauncher('Tasks', 'tasks', false, {icon:'assignment'});
+					
+					
+					
+					GO.hooks.register('contacts.contact', ['element', function(element) {
+					
+						var contents = angular.element(element[0].querySelector('md-content'));
+						contents.append('\
+						<div id="tasks" ng-include="\'modules/groupoffice/tasks/views/tasks-card.html\'" ng-controller="GO.Modules.GroupOffice.Tasks.Controllers.ContactTasks"></div>\
+						');
+
+						var toolbar = element.find('md-tabs');
+						toolbar.append('<md-tab ng-if="hasTasks" ng-click="goto(\'tasks\')">{{"Tasks" | goT}}</md-tab>');
+					}]);
+
+					
 				});
 			});
 			

@@ -2,8 +2,11 @@
 
 angular.module('GO', GO.appModules.concat([
 	'angular-chartist'
-])).config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+])).config(['$stateProvider', '$urlRouterProvider', '$uiViewScrollProvider', function ($stateProvider, $urlRouterProvider, $uiViewScrollProvider) {
 		// For any unmatched url, redirect to /state1
+		
+		
+		$uiViewScrollProvider.useAnchorScroll();
 
 		$urlRouterProvider.when('', '/login');
 		$urlRouterProvider.otherwise("/404");
@@ -45,10 +48,10 @@ angular.module('GO', GO.appModules.concat([
 	'GO.Core.Services.ServerAPI', 
 	'$rootScope', 
 	'GO.Config',
-	
 	'$state',
+	'$timeout',	
 	'$location', 
-	'$anchorScroll', function (ServerAPI, $rootScope, Config, $state,  $location, $anchorScroll) {
+	'$anchorScroll', function (ServerAPI, $rootScope, Config, $state, $timeout, $location, $anchorScroll) {
 		$rootScope.GO = GO;
 		$rootScope.showMask = false;
 
@@ -58,14 +61,10 @@ angular.module('GO', GO.appModules.concat([
 		$rootScope.logo = Config.logo || "resources/groupoffice-logo-full.png";
 		$rootScope.shortCutIcon = Config.shortCutIcon || "../app/resources/groupoffice-logo.png";
 
-		//ServerAPI.setBaseUrl("../../groupoffice-server/html/index.php");
-
-		ServerAPI.setBaseUrl(Config.APIUrl);
-		
+		ServerAPI.setBaseUrl(Config.APIUrl);		
 		$rootScope.APIUrl = Config.APIUrl;
 		
 		var authListener = $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-//console.log(toState);
 			if (!$rootScope.loggedIn && (!toState.data || !toState.data.noAuth)) {
 				
 				event.preventDefault();
@@ -74,39 +73,24 @@ angular.module('GO', GO.appModules.concat([
 				$state.go('login');
 			}else
 			{				
-//				authListener();
+				//remove listener
+				authListener();
 			}
-		});
+		});		
 		
-		//deprecated use aside
-//		$rootScope.toggleSidenav = function (menuId) {
-//			$mdSidenav(menuId).toggle();
-//		};
-
-
+		//for full screen loading mask
 		$rootScope.showMask = false;
 
-		//Make loggedIn undefined so bind onnce works in template
-//						$rootScope.loggedIn = false;
-
+		
 		$rootScope.goto = function (id) {
 			// set the location.hash to the id of
 			// the element you wish to scroll to.
-			$location.hash(id);
+//			$location.hash(id);
 
 			// call $anchorScroll()
-			$anchorScroll();
+			$anchorScroll(id);
 		};
 		
-//		$rootScope.accountSync = AccountSync;
-//		
-//		var loggedInWatch = $rootScope.$watch('loggedIn', function (v) {
-//			if (v) {
-//				$rootScope.accountSync.init();
-//				loggedInWatch(); //remove watch
-//			}
-//		});
-
 
 //						FastClick.attach(document.body);
 	}]).config(['$mdThemingProvider', function ($mdThemingProvider) {

@@ -41,15 +41,15 @@
 		-->
 		
 		
-		<div layout="row">
+		<!--<div layout="row">-->
 			<go-date-picker label="Due at" ng-model="model.dueAt"></go-date-picker>
 			
-			<md-input-container flex class="md-block">							
+<!--			<md-input-container flex class="md-block">							
 				<md-icon>schedule</md-icon>
 				<label>{{::"Duration (Minutes)"| goT}}</label>
 				<input ng-model="model.duration" ng-pattern="/^[0-9]*$/" />
 			</md-input-container>
-		</div>
+		</div>-->
 		
 		<md-input-container class="md-block">
 			<md-icon>note</md-icon>
@@ -57,26 +57,12 @@
 			<textarea ng-model="model.notes" md-maxlength="150" md-select-on-focus></textarea>
 		</md-input-container>
 
-		
-		
-		<md-chips class="md-block" ng-model="model.tags" md-require-match="false" md-on-add="createTag($chip, $index)">
-				<md-autocomplete
-					md-delay="500"
-					md-select-on-match="true"
-					md-match-case-insensitive="true"
-					md-selected-item="selectedItem"
-					md-search-text="searchText"
-					md-items="item in getTags(searchText)"
-					md-item-text="item.name"
-					placeholder="Enter a tag..">
-					<md-item-template>
-						<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
-					</md-item-template>
-				</md-autocomplete>
-				<md-chip-template>
-					<span style="display:inline-block;margin-right:4px;vertical-align:middle;border-radius:50%;height:12px;width:12px; background-color: black;" ng-style="{'background-color': $chip.color ? '#'+$chip.color : 'black' }"></span>{{$chip.name}}
-				</md-chip-template>
-			</md-chips>
+		<div layout="row">
+			<div class="go-icon-spacer">				
+				<md-icon>labels</md-icon>			
+			</div>
+			<go-tag-select flex ng-model="model.tags"></go-tag-select>
+		</div>
 		
 
 	</md-content>

@@ -256,10 +256,16 @@
 				</md-input-container>
 
 
-				<go-tag-select ng-model="model.tags"></go-tag-select>
+				<div layout="row">
+					<div class="go-icon-spacer">				
+						<md-icon>labels</md-icon>			
+					</div>
+					<go-tag-select flex ng-model="model.tags"></go-tag-select>
+				</div>
 
 
 				<md-input-container class="md-block">
+					<md-icon>note</md-icon>
 					<label>{{::"Notes"| goT}}</label>
 					<textarea ng-model="model.notes"></textarea>
 				</md-input-container>

@@ -716,7 +716,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 		 * @methodOf GO.Core.Factories.Data.Store
 		 * @description
 		 * Finds a given model in the store and updates it. If the model wasn't
-		 * found then it will be added.
+		 * found then the store will reload.
 		 * 
 		 * @param {GO.Core.Factories.Data.Model} updatedModel The model that was updated
 		 *
@@ -728,7 +728,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 				angular.extend(this.items[index], updatedModel);
 			} else
 			{
-				this.items.push(updatedModel);
+				this.reload();
 			}
 		};
 

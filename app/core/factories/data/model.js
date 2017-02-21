@@ -268,7 +268,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 //				throw "$storeRoutes don't match in Model.addStore(): " + store.$storeRoute + " != " + this.getStoreRoute();
 //			}
 
-			this.$stores.push(store);
+//			this.$stores.push(store);
 		};
 
 		/**

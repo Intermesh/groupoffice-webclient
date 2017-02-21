@@ -27,7 +27,7 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 		
 		$scope.taskStore.load().then(function() {			
 			//for tab
-			$scope.$parent.hasTasks = $scope.taskStore.items.length > 0;
+			//$scope.$parent.hasTasks = $scope.taskStore.items.length > 0;
 		});
 		
 		$scope.more = function() {
@@ -41,16 +41,12 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 				controller: 'GO.Modules.GroupOffice.Tasks.Controller.TaskEdit'
 			}).then(function (dialog) {
 				
-				dialog.read.then(function(result) {
-					console.log(result);
-					
+				dialog.read.then(function(result) {					
 					result.model.contact = {id: $stateParams.contactId};
 				});
 				
 				dialog.close.then(function (task) {
-//					if (task) {
-//						$state.go("tasks.task", {taskId: task.id});
-//					}
+//			
 				});
 			});
 		};

@@ -23,7 +23,7 @@ GO.module('GO.Modules.GroupOffice.Tasks', ['GO.Core'])
 						');
 
 						var toolbar = element.find('md-tabs');
-						toolbar.append('<md-tab ng-if="hasTasks" ng-click="goto(\'tasks\')">{{"Tasks" | goT}}</md-tab>');
+						toolbar.append('<md-tab ng-click="goto(\'tasks\')">{{"Tasks" | goT}}</md-tab>');
 					}]);
 
 					

@@ -10,19 +10,19 @@
 				<md-icon>chevron_left</md-icon>
 			</md-button>
 			<span flex>
-				<span class="go-scroll-hidden" ng-style="{'text-decoration': line-through}">
+				<span class="go-scroll-hidden" ng-style="{'text-decoration': line - through}">
 					{{task.description}}
 				</span>
 			</span>
 		</div>
 
 		<div class="go-display-panel-header" layout="row" layout-align="start center">
-			
+
 			<md-icon ng-if="!task.completedAt" ng-click="task.setCompleted(true);" style="cursor:pointer">check_box_outline_blank</md-icon>
 			<md-icon ng-if="task.completedAt" ng-click="task.setCompleted(false);" style="cursor:pointer">check_box</md-icon>
-			
+
 			<span>
-				<strong ng-style="{'text-decoration': line-through}">{{task.description}}</strong><br />
+				<strong ng-style="{'text-decoration': line - through}">{{task.description}}</strong><br />
 				<small ng-show="task.completedAt">{{::"Completed on"| goT}} {{task.completedAt| date:"longDate"}} {{"at"| goT}} {{task.completedAt| date:"shortTime"}}</small>
 				<small ng-hide="task.completedAt">{{::"Not yet completed"| goT}}</small>
 			</span>
@@ -32,8 +32,8 @@
 	</md-toolbar>
 	<md-tabs md-selected="0">
 		<!-- goto is defined in $rootScope in app/controller/body-controller.js" -->
-		<md-tab ng-click="goto('info')">{{::"Info" | goT}}</md-tab>
-		<md-tab ng-click="goto('go-comments')">{{::"Comments" | goT}}</md-tab>
+		<md-tab ng-click="goto('info')">{{::"Info"| goT}}</md-tab>
+		<md-tab ng-click="goto('go-comments')">{{::"Comments"| goT}}</md-tab>
 	</md-tabs>
 
 	<md-content class="go-grey">
@@ -44,7 +44,7 @@
 					<h2 flex>Info</h2>
 					<md-button class="md-icon-button" ng-disabled="!task.permissions.update" ng-click="edit(task)">
 						<md-tooltip>
-						{{::"Edit"| goT}}                    
+							{{::"Edit"| goT}}                    
 						</md-tooltip>
 						<md-icon>edit</md-icon>
 					</md-button>
@@ -53,10 +53,12 @@
 
 			<md-card-content>
 
-				<md-list>
-					
-					
-					
+
+				<go-tag-display ng-model="task.tags"></go-tag-display>
+
+				<md-list>					
+
+
 					<md-list-item class="md-2-line" ng-if="task.dueAt">
 						<md-icon>event</md-icon>
 						<div class="md-list-item-text">
@@ -64,15 +66,15 @@
 							<p>{{::"Due time"| goT}}</p>
 						</div>
 					</md-list-item>  
-					
-					<md-list-item class="md-2-line" ng-if="task.duration">
-						<md-icon>schedule</md-icon>
-						<div class="md-list-item-text">
-							<h3>{{task.duration}}{{::"minutes"| goT}}</h3>
-							<p>{{::"Duration"| goT}}</p>
-						</div>
-					</md-list-item>
-					
+
+					<!--					<md-list-item class="md-2-line" ng-if="task.duration">
+											<md-icon>schedule</md-icon>
+											<div class="md-list-item-text">
+												<h3>{{task.duration}}{{::"minutes"| goT}}</h3>
+												<p>{{::"Duration"| goT}}</p>
+											</div>
+										</md-list-item>-->
+
 					<md-list-item class="md-2-line" ng-if="task.completedAt">
 						<md-icon>check_box</md-icon>
 						<div class="md-list-item-text">
@@ -80,62 +82,24 @@
 							<p>{{::"Completed at"| goT}}</p>
 						</div>
 					</md-list-item>
-					
-					
-					
-<!--					<md-list-item class="md-2-line" ng-if="task.contact">
-						<md-icon>contacts</md-icon>
-						<div class="md-list-item-text">
-							<a ui-sref="contacts.contact({contactId: task.contact.id})">{{task.contact.name}}</a>
-							<p>{{::"Contact"| goT}}</p>
-						</div>
-					</md-list-item>-->
-					
+
+
 					<md-list-item class="md-2-line" ng-if="task.notes">
 						<md-icon>note</md-icon>
 						<div class="md-list-item-text">
-							<h3 class="go-line-breaks">{{task.notes | goT}}</h3>
+							<h3 class="go-line-breaks">{{task.notes| goT}}</h3>
 						</div>
 					</md-list-item>  
-					
-<!--					<md-list ng-if="task.reminders.length">
-						<md-list-item class="md-2-line" ng-repeat="reminder in task.reminders">
-							<md-icon ng-if="$index === 0" class="mdi-bell"></md-icon>
-							<div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
-								<h3></h3>
-								<p>{{::"Reminder"| goT}}</p>
-							</div>
-						</md-list-item>				
-						<md-divider></md-divider>
-					</md-list>-->
-					
-						<md-list-item class="md-2-line" ng-if="task.tags.length">
-							<md-icon>labels</md-icon>
-							<div class="md-list-item-text">
-								<div>
-									<span ng-repeat="tag in task.tags"><span style="border-bottom:4px solid {{tag.color}};">{{tag.name}}</span>{{$last ? '' : ', '}}</span>
-								</div>
-								<p>{{::"Tags"| goT}}</p>
-							</div>
-						</md-list-item>
-					
-					
-					
-<!--					<md-list-item class="md-2-line">
-						<md-icon class="mdi-clock"></md-icon>
-						<div class="md-list-item-text">
-							<h3>{{::task.createdAt| date:"longDate"}}{{::"at"| goT}} {{::task.createdAt| date:"shortTime"}}</h3>
-							<p>{{::"Created at"| goT}}</p>
-						</div>
-					</md-list-item>    -->
-     
+
+
+
 
 				</md-list>
 
 			</md-card-content>
 		</md-card>
-		
-		
+
+
 		<go-comments ng-if="task.id" go-route="tasks/comments/{{task.id}}"></go-comments>
 
 	</md-content>

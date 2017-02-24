@@ -41,6 +41,7 @@ angular.module('GO.Modules.GroupOffice.Messages').factory('GO.Modules.GroupOffic
 
 			var store = contact.getStore({returnProperties: 'id'});
 			store.$loadParams.q = [
+				['joinRelation', 'emailAddresses'],
 				['andWhere', ['like', {'emailAddresses.email': this.from.address}]],
 				['limit', 1],
 				['offset', 0]

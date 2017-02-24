@@ -174,7 +174,8 @@ angular.module("GO.Core").config(["GO.Core.Providers.TranslateProvider", functio
     "Language": "Taal",
     "Info": "Info",
     "Email": "Email",
-    "Amount": "Aantal",
+    "Amount": "Bedrag",
+		"Quantity": "Aantal",
 
     "Save changes": "Save changes",
     "Do you want to save your changes?": "Do you want to save your changes?",

@@ -17,6 +17,7 @@
 			<md-button class="md-icon-button" ng-click="clipboard.copy(model)" title="{{'Copy' | goT}}"><md-icon>content_copy</md-icon></md-button>
 			<md-button class="md-icon-button" ng-disabled="clipboard.isEmpty()" ng-click="clipboard.paste(model)" title="{{'Paste' | goT}}"><md-icon>content_paste</md-icon></md-button>
 			|
+			<md-button ng-disabled="!model.permissions.changePermissions" ng-click="share(model)"><md-icon>share</md-icon></md-button>
 			<md-button class="md-icon-button" ng-click="deleteNode(model)" title="{{'Delete' | goT}}"><md-icon>delete</md-icon></md-button>
 		</div>
 		<md-button class="md-fab md-primary" title="Download" style="position: absolute; left: 408px; bottom:-24px;">

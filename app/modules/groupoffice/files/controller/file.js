@@ -4,8 +4,9 @@ angular.module('GO.Modules.GroupOffice.Files').
 	'$state',
 	'$stateParams',
 	'$mdSidenav',
+	'$mdDialog',
 	'GO.Modules.GroupOffice.Files.Model.Node',
-	function($scope, $state, $stateParams, $mdSidenav, Node) {
+	function($scope, $state, $stateParams, $mdSidenav, $mdDialog, Node) {
 		$scope.model = $scope.$parent.model;
 		$scope.clipboard = $scope.$parent.clipboard;
 
@@ -19,6 +20,15 @@ angular.module('GO.Modules.GroupOffice.Files').
 
 		$scope.close = function() {
 			$mdSidenav('fileinfo').close();
+		};
+
+		$scope.share = function() {
+			$mdDialog.show({
+				templateUrl: 'modules/groupoffice/files/views/share.html',
+				scope: $scope.$new(),
+				clickOutsideToClose: true,
+				escapeToClose: true
+			});
 		};
 
 		$scope.deleteNode = function(node) {

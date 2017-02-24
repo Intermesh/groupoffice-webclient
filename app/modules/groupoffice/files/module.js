@@ -5,7 +5,7 @@ GO.module('GO.Modules.GroupOffice.Files', [])
 
 			App.currentUser.whenAuthenticated().then(function(){
 				App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Files\\Module').then(function (module) {
-					App.addLauncher('Files','files');
+					App.addLauncher('Files','files',false,{icon:'folder'});
 				});
 			});
 

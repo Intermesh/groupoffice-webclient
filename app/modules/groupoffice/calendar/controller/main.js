@@ -62,7 +62,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				//todo select all
 				for(var a in this.items) {
 					var account = this.items[a];
-					if(account.id == App.currentUser.id) {
+					if(account.id == App.currentUser.group.id) {
 						$scope.currentAccount = account;
 					}
 					$scope.userCalendars[account.id] = [];

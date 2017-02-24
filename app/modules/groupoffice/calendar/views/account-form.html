@@ -39,6 +39,7 @@
 			 
         <h1>{{ current.isNew()?'New':'Edit'}} Calendar</h1>
 		<span flex></span>
+		<md-button ng-disabled="!current.permissions.changePermissions" ng-click="share(current)"><md-icon>share</md-icon></md-button>
 			<md-button type="submit">{{"Save" | goT}}</md-button>
 		   </div>
 		</md-toolbar>

@@ -34,7 +34,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 
 		if (!$rootScope.loggedIn) {
 			$scope.checkingAuth = true;
-			$http.get(ServerAPI.url('auth', {returnProperties: '*,user[*]'})).then(function (response) {
+			$http.get(ServerAPI.url('auth', {returnProperties: '*,user[*,group[*]]'})).then(function (response) {
 
 				if (response.data.success) {
 					

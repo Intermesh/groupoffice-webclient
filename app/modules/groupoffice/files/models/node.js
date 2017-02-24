@@ -18,7 +18,7 @@ factory('GO.Modules.GroupOffice.Files.Model.Node', [
 		var Node = GO.extend(Model, function () {
 			this.$parent.constructor.call(this, arguments);
 		});
-		Node.prototype.$returnProperties = "*,nodeUser";
+		Node.prototype.$returnProperties = "*,nodeUser,groups";
 		Node.prototype.$keys = ['id'];
 		Node.prototype.getStoreRoute = function() {
 			return 'files';

@@ -1,0 +1,5 @@
+<div class="tags" ng-if="$ctrl.ngModel.length">
+	<span class="tag" ng-repeat="tag in $ctrl.ngModel track by tag.id">
+		<md-icon ng-style="{color: '#'+tag.color}" style='vertical-align: middle'>label</md-icon> {{tag.name}}
+	</span>
+</div>

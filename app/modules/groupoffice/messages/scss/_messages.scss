@@ -5,44 +5,6 @@
 }
 
 
-.filtercollection {
-	.TypeFilter-incoming:before {
-		content: 'inbox';
-	}
-	.TypeFilter-unread:before {
-		content: 'email';
-	}
-
-	.TypeFilter-flagged:before{
-		content: 'flag';
-	}
-
-	.TypeFilter-actioned:before{
-		content: 'folder';
-	}
-
-
-	.TypeFilter-sent:before{
-		content: 'send';
-	}
-
-	.TypeFilter-trash:before{
-		content: 'delete';
-	}
-
-	.TypeFilter-junk:before{
-		content: "report";
-	}
-
-
-	.AccountFilter:before {
-		content: 'email';
-	}
-
-}
-
-
-
 .messages-message{
 
 	.body, .quote {
@@ -74,6 +36,13 @@
 		margin-right: 20px;
 		margin-bottom: -10px;
 		font-style: italic;
+	}
+	
+	.body {
+		a {
+			color: #0e9cc5;
+			text-decoration: underline;
+		}
 	}
 }
 

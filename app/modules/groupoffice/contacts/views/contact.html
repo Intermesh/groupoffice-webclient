@@ -79,10 +79,12 @@
 				</div>
 			</md-toolbar>
 
-			<md-card-content >
-
+			<md-card-content>
+				
+				<go-tag-display ng-model="contact.tags"></go-tag-display>
+				
 				<div layout="column" layout-gt-sm="row">
-					<div flex>
+					<div flex style="padding: 16px;margin-left: -16px;">
 
 
 						<md-list flex ng-if="contact.emailAddresses.length">
@@ -115,7 +117,7 @@
 
 					</div>
 
-					<div flex>
+					<div flex style="padding: 16px;margin-left: -16px;">
 
 
 						<md-list flex ng-if="contact.phoneNumbers.length">
@@ -173,29 +175,10 @@
 						</md-list>	
 					</div>
 				</div>
-				<md-list ng-if="contact.tags.length">
-					<md-list-item class="md-2-line">
-						<md-icon>label</md-icon>
-						<div class="md-list-item-text">
-							<h3>
-								<ul class="go-comma-list">
-									<li  ng-repeat="tag in contact.tags track by tag.id">
-										{{tag.name}}
-									</li>
-
-								</ul>
-
-							</h3>
-							<p>{{::"Tags"| goT}}</p>
-						</div>
-					</md-list-item>
-					<md-divider></md-divider>
-				</md-list>
-
 
 
 				<div layout ng-if="contact.notes">
-					<md-icon style="margin-left:16px;margin-right: 32px;">note</md-icon>
+					<md-icon style="margin-left:12px;margin-right: 36px;">note</md-icon>
 					<p flex class="md-offset" ng-bind-html="contact.notes | nl2br"></p>				
 				</div>
 

@@ -8,7 +8,10 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 	'GO.Modules.GroupOffice.Contacts.ContactEditor',
 	'$state',
 	'$mdDialog',
-	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog) {
+	'$http',
+	'GO.Core.Services.ServerAPI',
+	'$timeout',
+	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog, $http, ServerAPI, $timeout) {
 		//Will be used in child scope. We define it here so we can access
 		//the properties if needed in the future.
 		//Child scopes automatically inherit properties of the parents but
@@ -59,17 +62,24 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 
 		$scope.updateFilter = function (name, value) {
 			$scope.filters[name] = value;
-			load();
+			//wait until view is rendered
+			if($scope.contactStore.init) {
+				load();
+			}
 		};
 		
-		$scope.onCustomFiltersChange = function(filters) {
-			$scope.filters.custom = filters;
-			load();
+		$scope.onCustomFiltersChange = function(filters, q) {
+			$scope.filters.custom = q;
+			
+			//wait until view is rendered
+			if($scope.contactStore.init) {
+				load();
+			}
 		};
 
 		function load() {
 
-			$scope.contactStore.$loadParams.q = [];
+			$scope.contactStore.$loadParams.q = angular.copy($scope.filters.custom);
 
 			switch ($scope.filters.type) {
 				case 'persons':
@@ -86,27 +96,60 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 				$scope.contactStore.$loadParams.q.push(['joinRelation', 'tags']);
 				$scope.contactStore.$loadParams.q.push(['andWhere', {'tags.id': $scope.filters.tags}]);
 			}
-
-			angular.forEach($scope.filters.custom, function (c) {
-				$scope.contactStore.$loadParams.q.push(['joinRelation', 'tags']);
-				var where = {};
-				where[c.field] = c.query;
-
-				var parts = c.field.split('.');
-				if (parts.length > 1) {
-					parts.pop();
-					var rel = parts.join('.');
-					$scope.contactStore.$loadParams.q.push(['joinRelation', rel]);
-				}
-
-				$scope.contactStore.$loadParams.q.push(['andWhere', [c.comparator, where]]);
-			});
-
-			$scope.contactStore.load();
+			
+			$scope.contactStore.load();			
 		}
-		;
 
-		load();
+		//timeout makes sure view is done.
+		//this prevents the filters firing on change while still rendering.
+		$timeout(function() {
+			load();			
+		});
+		
+		$scope.editMultiple = function() {
+			$mdDialog.show({
+				locals: {
+					items: $scope.contactStore.$selected
+				},
+					controller: ['$scope', '$mdDialog', 'items', function ($scope, $mdDialog, items) {
+							$scope.hide = function () {
+								
+								
+								$mdDialog.hide();
+							};
+							
+							$scope.model = {
+								tags: []
+							};
+							
+							$scope.save = function () {
+								
+								var data = [];
+								
+								angular.forEach(items, function(i) {
+									data.push({
+										id: i.id,
+										tags: $scope.model.tags
+									});
+								});
+								
+								console.log(data);
+								
+								$http.put(ServerAPI.url('contacts'), {data: data}).then(function() {
+									$mdDialog.hide($scope.model);
+								});
+								
+								
+							};
+						}],
+					templateUrl: 'modules/groupoffice/contacts/views/edit-multiple.html',
+
+					clickOutsideToClose: true,
+					fullscreen: true
+				}).then(function (model) {
+									load();
+								});
+		};
 		
 		
 

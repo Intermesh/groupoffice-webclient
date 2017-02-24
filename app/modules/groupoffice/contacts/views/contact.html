@@ -1,4 +1,4 @@
-<go-hook name="contacts.contact" flex layout="column" >
+<go-hook name="contacts.contact" flex layout="column">
 	<go-mask ng-show="contact.deleted">
 		<md-button class="md-raised md-warn" ng-click="contact.unDelete()">{{::"Undo delete"| goT : "contacts" }}</md-button>		
 	</go-mask>
@@ -59,15 +59,12 @@
 
 	</md-toolbar>
 
-	<md-tabs md-selected="tabs.selectedIndex">
-		<md-tab ng-click="goto('info')">Info</md-tab>
-		<!--			<md-tab ng-click="goto('files')">Files</md-tab>
-					<md-tab ng-click="goto('files')">Activities</md-tab>-->
+	<md-tabs md-selected="0">
+		<md-tab ng-click="goto('info')"><md-tab-label>{{"Info" | goT}}</md-tab-label></md-tab>
+		<md-tab ng-click="goto('employees')" ng-if="contact.employees.length"><md-tab-label>{{"Employees" | goT}}</md-tab-label></md-tab>		
 	</md-tabs>
 
-
-
-	<md-content class="flex">
+	<md-content class="go-grey" flex>
 
 		<md-card id="info">
 			<md-toolbar>
@@ -82,10 +79,12 @@
 				</div>
 			</md-toolbar>
 
-			<md-card-content >
-
+			<md-card-content>
+				
+				<go-tag-display ng-model="contact.tags"></go-tag-display>
+				
 				<div layout="column" layout-gt-sm="row">
-					<div flex>
+					<div flex style="padding: 16px;margin-left: -16px;">
 
 
 						<md-list flex ng-if="contact.emailAddresses.length">
@@ -118,7 +117,7 @@
 
 					</div>
 
-					<div flex>
+					<div flex style="padding: 16px;margin-left: -16px;">
 
 
 						<md-list flex ng-if="contact.phoneNumbers.length">
@@ -174,38 +173,12 @@
 							
 							<md-divider></md-divider>
 						</md-list>	
-
-						
-
-
-
-
-
 					</div>
 				</div>
-				<md-list ng-if="contact.tags.length">
-					<md-list-item class="md-2-line">
-						<md-icon>label</md-icon>
-						<div class="md-list-item-text">
-							<h3>
-								<ul class="go-comma-list">
-									<li  ng-repeat="tag in contact.tags track by tag.id">
-										{{tag.name}}
-									</li>
-
-								</ul>
-
-							</h3>
-							<p>{{::"Tags"| goT}}</p>
-						</div>
-					</md-list-item>
-					<md-divider></md-divider>
-				</md-list>
-
 
 
 				<div layout ng-if="contact.notes">
-					<md-icon style="margin-left:16px;margin-right: 32px;">note</md-icon>
+					<md-icon style="margin-left:12px;margin-right: 36px;">note</md-icon>
 					<p flex class="md-offset" ng-bind-html="contact.notes | nl2br"></p>				
 				</div>
 
@@ -215,7 +188,7 @@
 		</md-card>
 
 
-		<md-card ng-if="contact.employees.length">
+		<md-card ng-if="contact.employees.length" id="employees">
 			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2>{{::"Employees"| goT}}</h2>
@@ -234,48 +207,7 @@
 
 		<go-custom-fields-detail ng-model="contact.customfields" server-model="GO\Modules\GroupOffice\Contacts\Model\CustomFields"></go-custom-fields-detail>
 
-
-		<!--		<go-files go-controller-route="'contacts/'+contact.id+'/files'"></go-files>-->
-
-
-		<!--	<md-card id="activities" layout="column" style="height: 400px" ng-controller="GO.Modules.GroupOffice.Contacts.ContactActivitiesController">
-				<go-list-toolbar class="md-hue-1" store="activityStore">
-					<div class="md-toolbar-tools">
-						<h2 class="md-title">{{::"Activities"| goT}}</h2>
-					</div>
-				</go-list-toolbar>
 		
-				<md-card-content flex layout="column">
-		
-		
-					<go-list store="activityStore">
-						<item class="md-2-line" ng-click="selectActivity(model)">
-							<md-icon>{{model.$iconCls}}</md-icon>
-		
-							<a href="{{model.$href}}" class="md-list-item-text">
-								<h3>{{model.description}}</h3>
-								<p>{{model.notes}}</p>
-							</a>
-						</item>
-		
-		
-						<empty-state>
-							<md-icon>folder</md-icon>
-		
-							<p>{{::"No activities found"| goT}}</p>
-						</empty-state>
-		
-					</go-list>
-		
-				</md-card-content>
-		
-				<md-card-actions layout="row" layout-align="end center">
-					<md-button class="md-primary">
-					{{::"Add"| goT}}
-					</md-button>
-				</md-card-actions>
-		
-			</md-card>-->
 
 	</md-content>
 </go-hook>

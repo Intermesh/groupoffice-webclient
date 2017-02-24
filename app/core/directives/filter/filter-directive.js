@@ -30,25 +30,35 @@ angular.module('GO.Core').directive('goFilter', ['$location', '$state', function
 					this.name = $scope.name;
 					this.type = $scope.type;
 
-//					if(this.type==='multiselect' && angula) {
-//						$scope.goValue = [];
-//					}else
-//					{
-//						$scope.goValue = null;
-//					}
+						//updates the query parameters when the state changes to a sub view/state
+						$scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+							var p = $location.search();
+							p[$scope.name] = $scope.goValue;
+							$location.search(p);
+						});
 
 					this.getValue = function() {
 						return $scope.goValue;
 					};
 					
-					this.setValue =function (v) {
+					//non strict checking because string and int mixup with url's
+					this.isMultiselected = function(v) {
+						for(var i=0, l = $scope.goValue.length; i < l; i++) {
+							if($scope.goValue[i] == v) {
+								return i;
+							}							
+						}
+						return -1;
+					};
+					
+					this.setValue =function (v) {					
 						
 						var searchParams = $location.search();
 						
 						if(this.type==='multiselect') {
 							if(!GO.isEmpty(v)) {
 								
-								var index = $scope.goValue.indexOf(v);
+								var index = this.isMultiselected(v);
 								
 								if(index===-1) {
 									$scope.goValue.push(v);
@@ -75,12 +85,16 @@ angular.module('GO.Core').directive('goFilter', ['$location', '$state', function
 					};
 					
 					var searchParams = $location.search();
-					if(searchParams[name]) {						
+					if(searchParams[this.name]) {						
 						if(this.type==='multiselect') {
-							$scope.goValue = searchParams[name].split(',');
+							$scope.goValue = searchParams[this.name].split(',');
 						}else
 						{
-							$scope.goValue = searchParams[name];
+							$scope.goValue = searchParams[this.name];
+						}
+						
+						if($scope.onChange) {
+							$scope.onChange({value: this.getValue()});
 						}
 					}
 				}],
@@ -120,10 +134,10 @@ angular.module('GO.Core').directive('goFilter', ['$location', '$state', function
 				scope.isSelected = function () {
 					if(goFilterCtrl.type=='multiselect')
 					{
-						return goFilterCtrl.getValue().indexOf(scope.value) != -1;
+						return goFilterCtrl.isMultiselected(scope.value) !== -1;
 					}else
 					{
-						return goFilterCtrl.getValue() == scope.value;
+						return goFilterCtrl.getValue() == ""+scope.value;
 					}
 				};
 

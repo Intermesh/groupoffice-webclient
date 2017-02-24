@@ -5,13 +5,15 @@
  * @type type
  * @example 
  * `````````````````````````````````````````````````````````````````````````````
- * <go-custom-filters add-view='modules/groupoffice/contacts/views/add-filter.html' on-change='onCustomFiltersChange(filters)'></go-custom-filters>
+ * <go-custom-filters add-view='modules/groupoffice/contacts/views/add-filter.html' on-change='onCustomFiltersChange(filters, q)'></go-custom-filters>
  * `````````````````````````````````````````````````````````````````````````````
  */
 GO.module('GO.Core').component('goCustomFilters', {
 	bindings: {
 		onChange: '&',
-		addView: '@'
+		addView: '@',
+		onReady: '&'
+		
 	},
 	controller: [
 		'$scope',
@@ -21,11 +23,49 @@ GO.module('GO.Core').component('goCustomFilters', {
 			this.filters = [];
 			this.deleteFilter = function (index) {
 				this.filters.splice(index, 1);
-				ctrl.onChange({filters: ctrl.filters});
+				ctrl.onChange({filters: ctrl.filters, q: buildQ()});
 			};
 			
 			var ctrl = this;
+			
+			this.$onInit = function () {
+				this.onReady({ctrl: ctrl});
+			};
+			
+			
+			function buildQ() {
+				
+				var q = [];
+				
+				angular.forEach(ctrl.filters, function (c) {
+					
+					var where = {};
+					where[c.field] = c.query;
 
+					var parts = c.field.split('.');
+					if (parts.length > 1) {
+						parts.pop();
+						var rel = parts.join('.');
+						q.push(['joinRelation', rel]);
+					}
+
+					q.push(['andWhere', [c.comparator, where]]);
+				});
+				
+				return q;
+			}
+			
+			this.add = function(field, query, comparator, label, icon, onClick) {
+				ctrl.filters.push({field: field, query: query, comparator: comparator, label: label, icon: icon, onClick: onClick});						
+				ctrl.onChange({q: buildQ(), filters: ctrl.filters});
+			};
+
+
+			this.click = function(filter) {
+				if(filter.onClick) {
+					filter.onClick();
+				};
+			};
 
 			this.addFilter = function () {
 				$mdDialog.show({
@@ -37,9 +77,13 @@ GO.module('GO.Core').component('goCustomFilters', {
 							$scope.addView = ctrl.addView;
 
 
-							$scope.model = {field: null, query: [], comparator: '='};
+							$scope.model = {field: null, query: [], comparator: '=', label: null};
 
 							$scope.save = function () {
+								
+								$scope.model.label = $scope.model.field + ' ' + $scope.model.comparator + ' ' + $scope.model.query;
+								$scope.model.icon = 'star';
+								
 								$mdDialog.hide($scope.model);
 							};
 						}],
@@ -50,8 +94,8 @@ GO.module('GO.Core').component('goCustomFilters', {
 				})
 								.then(function (model) {
 									if (model) {
-										ctrl.filters.push(model);
-										ctrl.onChange({filters: ctrl.filters});
+										ctrl.filters.push(model);						
+										ctrl.onChange({q: buildQ(), filters: ctrl.filters});
 									}
 
 								});

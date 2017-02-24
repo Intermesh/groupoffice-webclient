@@ -12,6 +12,21 @@ GO.module('GO.Modules.GroupOffice.Tasks', ['GO.Core'])
 				App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Tasks\\Module').then(function (module) {
 					
 					App.addLauncher('Tasks', 'tasks', false, {icon:'assignment'});
+					
+					
+					
+					GO.hooks.register('contacts.contact', ['element', function(element) {
+					
+						var contents = angular.element(element[0].querySelector('md-content'));
+						contents.append('\
+						<div id="tasks" ng-include="\'modules/groupoffice/tasks/views/tasks-card.html\'" ng-controller="GO.Modules.GroupOffice.Tasks.Controllers.ContactTasks"></div>\
+						');
+
+						var toolbar = element.find('md-tabs');
+						toolbar.append('<md-tab ng-click="goto(\'tasks\')">{{"Tasks" | goT}}</md-tab>');
+					}]);
+
+					
 				});
 			});
 			
@@ -33,7 +48,7 @@ GO.module('GO.Modules.GroupOffice.Tasks', ['GO.Core'])
 		// Now set up the states
 		$stateProvider
 						.state('tasks', {
-							url: '/tasks',
+							url: '/tasks?contactId&contactName',
 							templateUrl: 'modules/groupoffice/tasks/views/main.html',
 							controller: 'GO.Modules.GroupOffice.Tasks.Controller.Main'
 						})

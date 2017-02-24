@@ -7,7 +7,9 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 	'GO.Core.Services.Dialog',
 	'$state',
 	'GO.Core.Services.CurrentUser',
-	function ($scope, Task, Dialog, $state, CurrentUser) {
+	'$stateParams',
+	'$timeout',
+	function ($scope, Task, Dialog, $state, CurrentUser, $stateParams, $timeout) {
 
 
 		$scope.task = new Task();
@@ -22,18 +24,39 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 		$scope.filters ={
 			status : 'incomplete',
 			assigned: 'mine',
-			tags: []
+			tags: [],
+			custom: []
 		};
 		
 		
 		$scope.updateFilter = function(name, value) {
 			$scope.filters[name] = value;			
-			load();
+			
+			//wait for view to be rendered
+			if($scope.store.init) {
+				load();
+			}
 		};		
+		
+		$scope.onCustomFiltersChange = function(filters, q) {
+			$scope.filters.custom = q;
+			//wait for view to be rendered
+			if($scope.store.init) {
+				load();
+			}
+		};
+		
+		$scope.onCustomFiltersReady = function(ctrl) {
+			if($stateParams.contactId) {
+				ctrl.add('contact.id', $stateParams.contactId, '=', $stateParams.contactName, 'chevron_left', function() {
+					$state.go('contacts.contact', {contactId: $stateParams.contactId});
+				});
+			}
+		};
 		
 		function load() {
 
-			$scope.store.$loadParams.q = [];
+			$scope.store.$loadParams.q = angular.copy($scope.filters.custom);
 			
 			switch($scope.filters.assigned) {
 				case 'mine':
@@ -66,12 +89,16 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 					$scope.store.$loadParams.q.push(['andWhere', ['<',{'dueAt': new Date() }]]);
 					$scope.store.$loadParams.q.push(['andWhere', {'completedAt': null }]);
 					break;
-			}
+			}			
 			
 			$scope.store.load();	
 		};
 
-		load();
+		//timeout will parse filter components first.
+		$timeout(function() {
+			load();
+		});
+		
 
 		$scope.edit = function (task) {
 

@@ -174,15 +174,15 @@
 
 
 				</go-multiple>
-				
-				
-				
-				
+
+
+
+
 
 
 			</fieldset>
-			
-			
+
+
 			<fieldset>
 				<go-multiple icon-cls="link" title="URL's" go-models="model.urls" go-add-model="{}">
 
@@ -218,36 +218,36 @@
 
 
 			</fieldset>
-			
-			
+
+
 			<fieldset ng-if="model.isOrganization" id="business" layout="column">
-				<h3>{{::"Business details" | goT}}</h3>
-				
+				<h3>{{::"Business details"| goT}}</h3>
+
 				<md-input-container flex>
 					<md-icon>domain</md-icon>
 					<label>{{::"Debtor number"| goT}}</label>
 					<input ng-model="model.debtorNumber">
 				</md-input-container>
-				
+
 				<md-input-container flex>
 					<md-icon>domain</md-icon>
 					<label>{{::"Chamber of Commerce"| goT}}</label>
 					<input ng-model="model.registrationNumber">
 				</md-input-container>
-				
+
 				<md-input-container flex>
 					<md-icon>domain</md-icon>
 					<label>{{::"IBAN"| goT}}</label>
 					<input ng-model="model.IBAN">
 				</md-input-container>
-				
-				
-				
+
+
+
 			</fieldset>
-			
+
 
 			<fieldset>
-			<md-input-container class="md-block" ng-if="!model.isOrganization">
+				<md-input-container class="md-block" ng-if="!model.isOrganization">
 					<md-radio-group ng-model="model.gender" layout="row" layout-align="start center">
 						<md-radio-button ng-value="null" class="md-primary">{{::"Gender unknown"| goT}}</md-radio-button>
 						<md-radio-button value="M">{{::"Male"| goT}} </md-radio-button>
@@ -255,27 +255,17 @@
 					</md-radio-group>
 				</md-input-container>
 
-			<md-chips class="md-block" ng-model="model.tags" md-require-match="false" md-on-add="createTag($chip, $index)">
-					<md-autocomplete
-						md-delay="500"
-						md-select-on-match="true"
-						md-match-case-insensitive="true"
-						md-selected-item="selectedItem"
-						md-search-text="searchText"
-						md-items="item in getTags(searchText)"
-						md-item-text="item.name"
-						placeholder="Enter a tag..">
-						<md-item-template>
-							<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
-						</md-item-template>
-					</md-autocomplete>
-					<md-chip-template>
-						<span style="display:inline-block;margin-right:4px;vertical-align:middle;border-radius:50%;height:12px;width:12px; background-color: black;" ng-style="{'background-color': $chip.color ? '#' + $chip.color : 'black' }"></span>{{$chip.name}}
-					</md-chip-template>
-				</md-chips>
+
+				<div layout="row">
+					<div class="go-icon-spacer">				
+						<md-icon>labels</md-icon>			
+					</div>
+					<go-tag-select flex ng-model="model.tags"></go-tag-select>
+				</div>
 
 
-			<md-input-container class="md-block">
+				<md-input-container class="md-block">
+					<md-icon>note</md-icon>
 					<label>{{::"Notes"| goT}}</label>
 					<textarea ng-model="model.notes"></textarea>
 				</md-input-container>

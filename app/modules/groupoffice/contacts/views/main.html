@@ -1,7 +1,7 @@
 <go-hook name="contacts">
 	<aside>
 		
-		<go-custom-filters add-view='modules/groupoffice/contacts/views/add-filter.html' on-change='onCustomFiltersChange(filters)'></go-custom-filters>
+		<go-custom-filters add-view='modules/groupoffice/contacts/views/add-filter.html' on-change='onCustomFiltersChange(filters, q)'></go-custom-filters>
 		
 		<go-filter name="type" type="single" go-value="filters.type" on-change="updateFilter('type', value)">
 			<go-option value="all">
@@ -37,8 +37,18 @@
 					</md-button>
 					<go-search-button></go-search-button>				
 					<go-order-button columns="{ 't.firstName': 'First name', 't.lastName': 'Last name', 't.modifiedAt': 'Modified at'}"></go-order-button>
-				</go-tools>					
-
+				</go-tools>			
+				
+				<go-select class="md-toolbar-tools">
+					<go-list-selection-clear></go-list-selection-clear>
+					<go-list-selection-count flex></go-list-selection-count>
+					<md-button ng-click="editMultiple()">
+						<md-icon>edit</md-icon>
+						<md-tooltip>{{"Edit selection" | goT}}</md-tooltip>
+					</md-button>
+					<go-list-selection-delete></go-list-selection-delete>
+				</go-select>
+				
 			</go-list-toolbar>
 
 

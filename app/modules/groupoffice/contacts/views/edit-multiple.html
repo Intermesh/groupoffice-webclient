@@ -1,0 +1,36 @@
+
+<form name="addFilterForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" ng-click="hide()">
+				<md-icon>
+					close
+				</md-icon>
+			</md-button>
+			<div flex>
+				{{"Edit selection" | goT}}
+			</div>
+			<md-button class="md-icon-button" type="submit">
+				<md-icon>
+					check
+				</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-content>
+
+		<fieldset>
+			
+
+		<div layout="row">
+			<div class="go-icon-spacer">				
+				<md-icon>labels</md-icon>			
+			</div>
+			<go-tag-select flex ng-model="model.tags"></go-tag-select>
+		</div>
+		
+		</fieldset>
+	
+	</md-content>
+</form>

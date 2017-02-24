@@ -111,11 +111,11 @@ angular.module('GO.Core').directive('goList', [
 				var store = scope.$eval(attrs.store);
 				
 //				//this automatically updates the store when a model is updated.
-//				scope.$on('modelupdate', function(event, updatedModel) {
-//						if(updatedModel.getStoreRoute() === store.$storeRoute) {
-//							store.updateModel(updatedModel);
-//						}
-//					});
+				scope.$on('modelupdate', function(event, updatedModel) {
+						if(updatedModel.getStoreRoute() === store.$storeRoute) {
+							store.updateModel(updatedModel);
+						}
+					});
 
 
 				if (attrs.index) {
@@ -180,15 +180,20 @@ angular.module('GO.Core').directive('goList', [
 				}
 
 				element.bind("click", function (event) {
-
+					
+					if(!event.isTrusted) {
+						//this means we called click from js when button nav is used.
+						return;
+					}
 					var itemScope = angular.element(event.target).scope();
 
 					//happense with secondary list action clicks
 					if (!itemScope || !angular.isDefined(itemScope.$index)) {
 						return;
-					}
+					}				
 
-					var curIndex = itemScope.$index;
+					var curIndex = store.findIndexes(itemScope.model.pk(), true);
+					
 
 					if (event.ctrlKey || event.metaKey) {
 						toggleSelection(curIndex);
@@ -203,7 +208,7 @@ angular.module('GO.Core').directive('goList', [
 							}
 
 							if (store.items[i].$selected || i === curIndex) {
-								if (select) {
+								if (select && i >= curIndex) {
 									break;
 								} else
 								{
@@ -212,12 +217,16 @@ angular.module('GO.Core').directive('goList', [
 								}
 							}
 						}
-
-						store.select(selected);
+						
+						$timeout(function(){
+							store.select(selected);
+						});
 						event.preventDefault();
 					} else
 					{
-						store.select([curIndex]);
+						$timeout(function(){
+							store.select([curIndex]);
+						});
 					}
 				});
 
@@ -245,12 +254,14 @@ angular.module('GO.Core').directive('goList', [
 
 				}
 
+				var newButton;
 				element.bind("keydown", function (e) {
 					
 					//arrow up or down
 					if (e.keyCode != 40 && e.keyCode != 38 && e.keyCode != 46) {
 						return;
 					}
+					
 					
 					var li = findLi(e.target);					
 					var button, nextLi, nextLiScope;
@@ -287,34 +298,38 @@ angular.module('GO.Core').directive('goList', [
 					e.preventDefault();
 
 					button.focus();
+					
+					var curIndex = store.findIndexes(angular.element(nextLi).scope().model.pk(), true);
+					
 					if (e.shiftKey) {
 
 						nextLiScope = nextLi.scope();
 
-						scope.$apply(function(){
-							if(nextLiScope.model.$selected) {
-								//we're deselecting after going back with shift pressed
-								toggleSelection(angular.element(li).scope().$index);							
-							}else
-							{
-								toggleSelection(nextLiScope.$index);							
-							}
-						});
+						
+						if(nextLiScope.model.$selected) {
+							//we're deselecting after going back with shift pressed
+							toggleSelection(angular.element(li).scope().$index);
+						}else
+						{
+							toggleSelection(store.findIndexes(nextLiScope.model.pk(), true));							
+						}
 
 						return;
 					}else
 					{
-						store.select([angular.element(li).scope().$index]);
-					}
-
-					if (!attrs.disableAutofollow) {
-						button[0].click();
+						store.select([curIndex]);
+						if (!attrs.disableAutofollow) {
+							newButton = button[0];
+						}
 					}
 					
 				});
-
-
-
+				
+				element.bind('keyup', function() {
+					if(newButton) {
+						newButton.click();
+					}
+				});
 			}
 		};
 	}])

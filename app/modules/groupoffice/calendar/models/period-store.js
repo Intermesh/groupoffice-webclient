@@ -23,7 +23,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').
 						}
 						for(a in event.attendees) {
 							var attendee =  event.attendees[a];
-							if(!attendee.userId) {
+							if(!attendee.groupId) {
 								continue;
 							}
 							if(!self.selected[attendee.calendarId]) {
@@ -33,7 +33,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').
 							eventCopy.calendarId = attendee.calendarId;
 							eventCopy.responseStatus = attendee.responseStatus;
 							eventCopy.hasAlarms = attendee.hasAlarms;
-							eventCopy.userId = attendee.userId;
+							eventCopy.groupId = attendee.groupId;
 							if(event.startAt.getYmd() < event.endAt.getYmd())
 								data[i.getYmd()].unshift(eventCopy);
 							else { // From previous day

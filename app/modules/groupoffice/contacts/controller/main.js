@@ -8,10 +8,9 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 	'GO.Modules.GroupOffice.Contacts.ContactEditor',
 	'$state',
 	'$mdDialog',
-	'$http',
-	'GO.Core.Services.ServerAPI',
+	
 	'$timeout',
-	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog, $http, ServerAPI, $timeout) {
+	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog, $timeout) {
 		//Will be used in child scope. We define it here so we can access
 		//the properties if needed in the future.
 		//Child scopes automatically inherit properties of the parents but
@@ -119,37 +118,7 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 				locals: {
 					items: $scope.contactStore.$selected
 				},
-					controller: ['$scope', '$mdDialog', 'items', function ($scope, $mdDialog, items) {
-							$scope.hide = function () {
-								
-								
-								$mdDialog.hide();
-							};
-							
-							$scope.model = {
-								tags: []
-							};
-							
-							$scope.save = function () {
-								
-								var data = [];
-								
-								angular.forEach(items, function(i) {
-									data.push({
-										id: i.id,
-										tags: $scope.model.tags
-									});
-								});
-								
-								console.log(data);
-								
-								$http.put(ServerAPI.url('contacts'), {data: data}).then(function() {
-									$mdDialog.hide($scope.model);
-								});
-								
-								
-							};
-						}],
+					controller: 'GO.Modules.GroupOffice.Contacts.Controller.EditMultiple',
 					templateUrl: 'modules/groupoffice/contacts/views/edit-multiple.html',
 
 					clickOutsideToClose: true,

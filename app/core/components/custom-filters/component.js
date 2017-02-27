@@ -11,7 +11,7 @@
 GO.module('GO.Core').component('goCustomFilters', {
 	bindings: {
 		onChange: '&',
-		addView: '@',
+		properties: '<',
 		onReady: '&'
 		
 	},
@@ -69,19 +69,21 @@ GO.module('GO.Core').component('goCustomFilters', {
 
 			this.addFilter = function () {
 				$mdDialog.show({
-					controller: ['$scope', '$mdDialog', function ($scope, $mdDialog) {
+					locals: {
+						properties: this.properties
+					},
+					controller: ['$scope', '$mdDialog', 'properties', function ($scope, $mdDialog, properties) {
 							$scope.hide = function () {
 								$mdDialog.hide();
 							};
 							
-							$scope.addView = ctrl.addView;
+							$scope.properties = properties;							
 
-
-							$scope.model = {field: null, query: [], comparator: '=', label: null};
+							$scope.model = {field: Object.keys(properties)[0], query: [], comparator: '=', label: null};
 
 							$scope.save = function () {
 								
-								$scope.model.label = $scope.model.field + ' ' + $scope.model.comparator + ' ' + $scope.model.query;
+								$scope.model.label = properties[$scope.model.field].label+ ' ' + $scope.model.comparator + ' ' + $scope.model.query;
 								$scope.model.icon = 'star';
 								
 								$mdDialog.hide($scope.model);

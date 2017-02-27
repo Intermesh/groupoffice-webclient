@@ -230,7 +230,7 @@ GOHooks.prototype.overrideController = function(controllerName, fn) {
  * @param {type} $injector
  * @returns {undefined}
  */
-GOHooks.prototype.applyControllerOverrides = function(controllerName, ctrlLocals, $injector) {
+GOHooks.prototype.applyControllerOverrides = function(controllerName, ctrlLocals, controller, $injector) {
 	
 	
 	if(!angular.isString(controllerName)) {
@@ -246,7 +246,7 @@ GOHooks.prototype.applyControllerOverrides = function(controllerName, ctrlLocals
 	
 	if(this.controllerOverrides[controllerName]) {
 		for(var i = 0, l = this.controllerOverrides[controllerName].length;i < l; i++) {
-			$injector.invoke(this.controllerOverrides[controllerName][i], this, {ctrlLocals: ctrlLocals});
+			$injector.invoke(this.controllerOverrides[controllerName][i], this, {ctrlLocals: ctrlLocals, controller: controller});
 		}
 	}
 };

@@ -29,9 +29,12 @@ angular.module('GO.Core')
 		.decorator('$controller', ['$delegate', '$injector', function ($delegate, $injector) {
 		return function (constructor, locals) {
 
-			GO.hooks.applyControllerOverrides(constructor, locals, $injector);
+			
 			
 			var controller = $delegate.apply(null, arguments);
+			
+			GO.hooks.applyControllerOverrides(constructor, locals, controller, $injector);
+			
 			return controller;
 		};
 	}]);

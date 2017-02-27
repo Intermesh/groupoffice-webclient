@@ -52,6 +52,14 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 			});
 
 		};
+		
+		$scope.filterProperties = {
+			"addresses.country" :
+			{
+				label: "Address country",
+				editorTpl: "core/components/custom-filters/editors/chips.html"
+			}
+		};
 
 
 		$scope.filters = {

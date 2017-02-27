@@ -1,7 +1,7 @@
 <go-hook name="contacts">
 	<aside>
 		
-		<go-custom-filters add-view='modules/groupoffice/contacts/views/add-filter.html' on-change='onCustomFiltersChange(filters, q)'></go-custom-filters>
+		<go-custom-filters properties="filterProperties" on-change='onCustomFiltersChange(filters, q)'></go-custom-filters>
 		
 		<go-filter name="type" type="single" go-value="filters.type" on-change="updateFilter('type', value)">
 			<go-option value="all">

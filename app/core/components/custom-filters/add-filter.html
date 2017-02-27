@@ -18,7 +18,46 @@
 		</div>
 	</md-toolbar>
 
-	<md-content ng-include="addView">
+	<md-content>
+
+		<fieldset>
+				
+				
+			<md-input-container class="md-block">
+				<md-icon>description</md-icon>
+				<label>{{"Field"| goT}}</label>
+				<md-select ng-model="model.field" required>
+					<md-option ng-value="name" ng-repeat="(name, props)  in properties">
+						{{props.label| goT}}
+					</md-option>					
+				</md-select>
+
+			</md-input-container>
+			
+			<md-input-container class="md-block">
+				<md-icon>compare_arrows</md-icon>
+				<label>{{"Comparator"| goT}}</label>
+				<md-select ng-model="model.comparator" required>										
+					<md-option value="=">
+						{{"Equals"| goT}}
+					</md-option>
+					
+					<md-option value="!=">
+						{{"Doesn't equal"| goT}}
+					</md-option>
+					
+					<md-option value=">">
+						{{"Greather than"| goT}}
+					</md-option>
+					
+					<md-option value="<">
+						{{"Lower than"| goT}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+			
+			<div ng-include="properties[model.field].editorTpl"></div>
+		</fieldset>
 
 	
 	</md-content>

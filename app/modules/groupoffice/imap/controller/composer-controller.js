@@ -18,7 +18,7 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 
 		//put modal close function in scope for close button
 		$scope.close = close;
-		$scope.accountId = account.id;					
+		$scope.model.accountId = account.id;					
 		$scope.accountStore = accountStore;
 		
 		$scope.accountStore.loadIf();
@@ -27,6 +27,7 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 		read.then(function () {
 				
 			$scope.model.setAttributes(attributes);			
+			$scope.model.accountId = account.id;	
 		
 			$scope.to = attributes && attributes.to ? attributes.to : angular.copy($scope.model.to);
 			$scope.cc = attributes && attributes.cc ? attributes.cc : angular.copy($scope.model.cc);
@@ -63,10 +64,10 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 
 		$scope.addRecipient = function (field, chip, index) {
 			if (!chip.address) {
-				$scope.model[field][index - 1] = {address: chip, personal: chip};			
+				$scope.model[field][index] = {address: chip, personal: chip};			
 			}else
 			{
-				delete $scope.model[field][index - 1].full;
+				delete $scope.model[field][index].full;
 			}
 		};
 		
@@ -163,7 +164,7 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 
 
 		//When account changes then change the composer
-		$scope.$watch('accountId', function(newValue, oldValue) {
+		$scope.$watch('model.accountId', function(newValue, oldValue) {
 			if(newValue !== oldValue) {				
 				$timeout(function() {
 					close();
@@ -171,7 +172,7 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 					$scope.accountStore.findModelByAttribute('id', newValue).getAccountModel().compose({}, $scope.model);
 				});
 			}
-		}, true);
+		});
 		
 
 

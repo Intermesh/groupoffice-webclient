@@ -118,7 +118,13 @@ GO.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOffice.
 		};
 
 		$scope.compose = function (attributes, message) {
-			accountStore.items[0].getAccountModel().compose(attributes, message).then(afterCompose);
+			
+			var selected = accountStore.items[0];
+			if($scope.filters.accounts.length) {
+				selected = accountStore.find({id: parseInt($scope.filters.accounts[0])}, true);				
+			}
+			
+			selected.getAccountModel().compose(attributes, message).then(afterCompose);
 		};
 
 		$scope.selectThread = function (model) {

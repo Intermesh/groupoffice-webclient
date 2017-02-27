@@ -7,8 +7,10 @@ angular.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOf
 	'$state',
 	'$q', 
 	'GO.Core.Factories.Models.Tag', 
-	'GO.Modules.GroupOffice.Messages.Model.Thread',
-	function ($scope, $stateParams, $timeout, $state, $q, Tag, Thread) {
+	'GO.Modules.GroupOffice.Messages.Model.Thread',	
+	'GO.Modules.GroupOffice.Contacts.ContactEditor',	
+	'GO.Modules.GroupOffice.Contacts.Model.Contact',
+	function ($scope, $stateParams, $timeout, $state, $q, Tag, Thread, ContactEditor, Contact) {
 
 //						var message = new Message($stateParams.accountId, $stateParams.threadId);
 //						$scope.threadStore = message.getStore({limit: 5});//new Store('email/accounts/'+$stateParams.accountId+'/threads/'+$stateParams.threadId, {limit: 5});				
@@ -19,7 +21,32 @@ angular.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOf
 
 
 		
-		
+		$scope.openContact = function (emailAddress, personal) {
+
+			var contact = new Contact();
+
+			var store = contact.getStore({returnProperties: 'id'});
+			store.$loadParams.q = [
+				['joinRelation', 'emailAddresses'],
+				['andWhere', ['like', {'emailAddresses.email': emailAddress}]],
+				['limit', 1],
+				['offset', 0]
+			];
+
+			return store.load().then(function (data) {
+
+				if (data.store.items.length) {
+					$state.go("contacts.contact", {contactId: data.store.items[0].id});
+				} else {
+					ContactEditor.show({
+						contact: new Contact(),
+						attributes: {
+							name: personal, emailAddresses: [{email: emailAddress}]
+						}
+					});
+				}
+			}.bind(this));
+		};				
 	
 
 		$scope.changeType = function (thread, type) {

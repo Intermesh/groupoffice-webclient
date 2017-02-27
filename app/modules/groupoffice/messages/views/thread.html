@@ -105,23 +105,30 @@
 						<img ng-if="!message.photoBlobId" alt="{{message.from.personal}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar" style="width:50px;height:50px;" />
 					</div>
 					<div class="md-padding" layout layout-align="start center" flex>
-						<a ng-click="message.openContact()">
-							<strong>
-								<span ng-if="::message.isSentByCurrentUser">{{::"You"| goT}}</span> 
-								<span ng-if="::!message.isSentByCurrentUser">{{::message.from.personal|| message.from.address}}</span>
+						
+							<div>
+									<strong>
+										<a ng-click="openContact(message.from.address, message.from.personal)">
+											<span ng-if="::message.isSentByCurrentUser">{{::"You"| goT}}</span> 
+											<span ng-if="::!message.isSentByCurrentUser">{{::message.from.personal || message.from.address}}<md-tooltip>{{message.from.address}}</md-tooltip></span>
+										</a>
 
+									</strong><br />
 
-							</strong><br>
+									<div class="to">
+										{{::"To"| goT}}:&nbsp;
+										<ul class="go-comma-list">
+											<li ng-repeat="address in ::message.to">
+												<a ng-click="openContact(address.address, address.personal)">
+													{{::address.personal|| address.address}}
+													<md-tooltip>{{address.address}}</md-tooltip>
+												</a>
+											</li>
+										</ul>
+									</div>
+						</div>
 
-							<div class="to">
-								{{::"To"| goT}}:&nbsp;
-								<ul class="go-comma-list">
-									<li ng-repeat="address in ::message.to">{{::address.personal|| address.address}}</li>
-								</ul>
-							</div>
-
-
-						</a>
+						
 					</div>
 
 					<md-menu md-position-mode="target-right target">

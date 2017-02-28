@@ -64,7 +64,7 @@ GO.module('GO.Core').directive('goShare', [
 						if ($scope.selectedGroup) {
 							$scope.groupSearchText = "";
 							var groupAccess = angular.copy(ownerRecord);
-							groupAccess.group = $scope.selectedGrouplectedGroup;
+							groupAccess.group = $scope.selectedGroup;
 							groupAccess.groupId = $scope.selectedGroup.id;
 							groupAccess[$attrs.groupFk] = $scope.model[$scope.modelPk];
 

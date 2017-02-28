@@ -17,7 +17,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 						return cal && GO.Calendar.util.color(cal.color, (event.responseStatus == 1) /*NEEDS-ACTION*/);
 					};
 					$scope.edit = function (event, $event) {
-						$scope.$parent.openEventDialog(event.id,event.startAt,event.userId);
+						$scope.$parent.openEventDialog(event.id,event.startAt,event.groupId);
 						$event.stopPropagation(); // do not bubble
 					};
 					$scope.classFor = function (event,day) {

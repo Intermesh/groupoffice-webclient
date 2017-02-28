@@ -11,6 +11,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 		Calendar.prototype.getStoreRoute = function () {
 			return 'calendar';
 		};
+		Calendar.prototype.$returnProperties = "*,groups,defaultAlarms";
 
 		Calendar.prototype.colors = function() {
 			return {

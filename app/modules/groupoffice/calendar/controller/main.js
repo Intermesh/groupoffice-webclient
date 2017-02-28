@@ -56,8 +56,9 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 			$scope.eventStore.$modelProto = $scope.model;
 
 			$scope.nav = new CurrentDate($scope.eventStore);
+			$scope.userId = App.currentUser.id;
 
-			$scope.accountStore = new Store('/account', {returnProperties:"*,calendars[*,defaultAlarms]"});
+			$scope.accountStore = new Store('/account', {returnProperties:"*,calendars[*,groups,defaultAlarms]"});
 			$scope.accountStore.onLoad = function(data){
 				//todo select all
 				for(var a in this.items) {
@@ -111,7 +112,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				$scope.editAccount($scope.currentAccount);
 			};
 
-			$scope.openEventDialog = function (eventId, startAt, userId, defaults) {
+			$scope.openEventDialog = function (eventId, startAt, groupId, defaults) {
 				function open() {
 					$mdDialog.show({
 						controller: 'GO.Modules.GroupOffice.Calendar.EventForm',
@@ -146,7 +147,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 					if(startAt) {
 						p = {recurrenceId: startAt.toIntermeshApiFormat()};
 					}
-					$scope.model.read({'eventId':eventId,'userId':userId}, p).then(open);
+					$scope.model.read({'eventId':eventId,'groupId':groupId}, p).then(open);
 				}
 			};
 

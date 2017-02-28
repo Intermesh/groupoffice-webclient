@@ -7,7 +7,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 		'GO.Core.Services.ServerAPI',
 		function ($scope, $stateParams, ServerAPI) {
 			$scope.color = GO.Calendar.util.color;
-			$scope.$parent.$parent.model.readIf({'eventId':$stateParams.id,'userId':$stateParams.userId} );
+			$scope.$parent.$parent.model.readIf({'eventId':$stateParams.id,'groupId':$stateParams.groupId} );
 
 			$scope.attachmentDownload = function(blobId) {
 				console.log('mopmop.... '+blobId);

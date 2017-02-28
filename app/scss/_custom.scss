@@ -3,6 +3,18 @@
  */
 
 /* Friesland campina */
-/*.go-login-header {
-	background-color: #cce9f7 !important;
-}*/
+.go-login-header {
+	background-color: #fff !important;
+}
+
+#go-container {
+	background-image: url("/api/elearning/frontend/sections/1/background");
+	background-size: cover;
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.go-login-card {
+	margin-top: 20px; 
+}

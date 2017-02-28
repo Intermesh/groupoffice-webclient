@@ -4,10 +4,12 @@
 @import "../core/directives/**/*.scss";
 @import "../core/components/**/*.scss";
 
-@import "_custom.scss";
+
 @import "_utils.scss";
 @import "_layout.scss";
 @import "../modules/**/*.scss";
+
+@import "_custom.scss";
 
 $roboto-font-path: '../core/resources/fonts';
 

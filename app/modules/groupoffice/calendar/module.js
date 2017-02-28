@@ -44,12 +44,12 @@ GO.module('GO.Modules.GroupOffice.Calendar', ['GO.Core'])
 					templateUrl: 'modules/groupoffice/calendar/views/search.html'
 				})
 				.state('calendar.search.event', {
-					url: "/{id:[0-9]*}/{userId:[0-9]*}",
+					url: "/{id:[0-9]*}/{groupId:[0-9]*}",
 					templateUrl: 'modules/groupoffice/calendar/views/event.html',
 					controller: 'GO.Modules.GroupOffice.Calendar.Event'
 				})
 				.state('calendar.list.event', {
-					url: "/{id:[0-9]*}/{userId:[0-9]*}",
+					url: "/{id:[0-9]*}/{groupId:[0-9]*}",
 					templateUrl: 'modules/groupoffice/calendar/views/event.html',
 					controller: 'GO.Modules.GroupOffice.Calendar.Event'
 				})

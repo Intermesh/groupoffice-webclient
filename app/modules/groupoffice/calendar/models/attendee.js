@@ -11,7 +11,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 		});
 
 		Attendee.prototype.$returnProperties = "*,alarms,calendarId,event[*,attendees,recurrenceRule,attachments]";
-		Attendee.prototype.$keys = ['eventId','userId'];
+		Attendee.prototype.$keys = ['eventId','groupId'];
 
 		Attendee.prototype.getStoreRoute = function () {
 			return 'event';

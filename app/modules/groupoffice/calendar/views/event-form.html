@@ -34,7 +34,7 @@
 			<div layout="row" layout-align="start center">
 				<md-icon>event</md-icon>
 				<md-select ng-model="model.calendarId" style="min-width:130px">
-					<md-option ng-repeat="calendar in $parent.userCalendars[model.userId]" ng-value="calendar.id">{{calendar.name}}</md-option>
+					<md-option ng-repeat="calendar in $parent.userCalendars[model.groupId]" ng-value="calendar.id">{{calendar.name}}</md-option>
 				</md-select>
 				<span flex></span>
 				<md-select ng-model="model.event.visibility" ng-readonly="!model.isOrganizer">
@@ -107,7 +107,7 @@
 		<div ng-if="model.isOrganizer || model.event.attendees.length > 0" layout="row" layout-align="start start">
 			<div style="margin-top:16px;"><md-icon>people</md-icon></div>
 			<div flex>
-				<div layout="row" layout-align="start center" flex ng-repeat="attendee in model.event.attendees | filter:{ markDeleted: false }" ng-if="attendee.userId != model.userId">
+				<div layout="row" layout-align="start center" flex ng-repeat="attendee in model.event.attendees | filter:{ markDeleted: false }" ng-if="attendee.groupId != model.groupId">
 
 					<md-input-container md-no-float flex>
 						<input ng-readonly="!model.isOrganizer" type="email" ng-model="attendee.email" ng-mode="attendees.email" placeholder="Invite people" />

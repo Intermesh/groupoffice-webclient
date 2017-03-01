@@ -2,14 +2,14 @@
 	<div style="margin-top:16px;"><md-icon>refresh</md-icon></div>
 	<div flex>
 		<div layout="row" layout-align="start center">
-			<md-select ng-disabled="!model.isOrganizer" ng-model="model.event.recurrenceRule.frequency" ng-change="changeRule()" style="width:130px">
+			<md-select ng-disabled="!model.canWrite" ng-model="model.event.recurrenceRule.frequency" ng-change="changeRule()" style="width:130px">
 				<md-option ng-value="null">Niet herhaald</md-option>
 				<md-option value="DAILY">Dagelijks</md-option>
 				<md-option value="WEEKLY">Weeklijks</md-option>
 				<md-option value="MONTHLY">Maandelijks</md-option>
 				<md-option value="YEARLY">Jaarlijks</md-option>
 			</md-select>
-			<md-button ng-click="moreOptions()" ng-if="!!rRule && !more && model.isOrganizer">More options</md-button>
+			<md-button ng-click="moreOptions()" ng-if="!!rRule && !more && model.canWrite">More options</md-button>
 			<span flex></span>
 		</div>
 

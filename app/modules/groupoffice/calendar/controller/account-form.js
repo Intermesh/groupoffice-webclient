@@ -16,26 +16,14 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 			$scope.answer = function(answer) {
 				$mdDialog.hide(answer);
 			};
-			$scope.share = function() {
-				$scope.test = 'test';
-				if(!$scope.current) {
-					return;
-				}
-				$mdDialog.show({
-					templateUrl: 'modules/groupoffice/calendar/views/share.html',
-					scope: $scope.$new(),
-					clickOutsideToClose: true,
-					escapeToClose: true,
-					multiple: true
-				});
-			};
+			
 			$scope.edit = function(calendar) {
 				var model = new Calendar();
 
 				if(calendar) {
-					model.read({id:calendar.id}).then(function() {
+					//model.read({id:calendar.id}).then(function() {
 						model.setAttributes(calendar);
-					});
+					//});
 				}
 				model.ownedBy = $scope.account.id;
 				$scope.current = model;

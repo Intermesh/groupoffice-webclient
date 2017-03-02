@@ -99,8 +99,17 @@
 			</md-card-content>
 		</md-card>
 
+		<md-card  id="go-comments">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					{{"Comments"|goT}}
+				</div>	
+			</md-toolbar>
 
-		<go-comments ng-if="task.id" go-route="tasks/comments/{{task.id}}"></go-comments>
+			<md-card-content>
+				<go-comments ng-if="task.id" go-route="tasks/{{task.id}}/comments"></go-comments>
+			</md-card-content>
+		</md-card>
 
 	</md-content>
 </go-hook>

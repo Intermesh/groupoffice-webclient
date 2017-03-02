@@ -79,14 +79,14 @@
 					<md-list-item class="md-2-line">
 						<md-icon>event</md-icon>
 						<div class="md-list-item-text">
-							<h3>{{::user.createdAt| date:"longDate"}} {{::"at"| goT}} {{::user.createdAt| date:"shortTime"}}</h3>
+							<h3>{{user.createdAt| date:"longDate"}} {{::"at"| goT}} {{user.createdAt| date:"shortTime"}}</h3>
 							<p>{{::"Created at"| goT}}</p>
 						</div>
 					</md-list-item>	
 
 					<md-list-item class="md-2-line" ng-if="user.lastLogin">
 						<div class="md-list-item-text md-offset">
-							<h3>{{::user.lastLogin| date:"longDate"}} {{::"at"| goT}} {{::user.lastLogin| date:"shortTime"}}</h3>
+							<h3>{{user.lastLogin| date:"longDate"}} {{::"at"| goT}} {{user.lastLogin| date:"shortTime"}}</h3>
 							<p>{{::"Last login"| goT}}</p>
 						</div>
 					</md-list-item>
@@ -102,14 +102,14 @@
 					<md-list-item class="md-2-line">
 						<md-icon>email</md-icon>
 						<div class="md-list-item-text ">						
-							<h3>{{::user.email}}</h3>
+							<h3>{{user.email}}</h3>
 							<p>{{::"E-mail"| goT}}</p>
 						</div>
 					</md-list-item>
 
 					<md-list-item class="md-2-line" ng-if="::user.emailSecondary">
 						<div class="md-list-item-text md-offset">						
-							<h3>{{::user.emailSecondary}}</h3>
+							<h3>{{user.emailSecondary}}</h3>
 							<p>{{::"Secondary e-mail"| goT}}</p>
 						</div>
 					</md-list-item>

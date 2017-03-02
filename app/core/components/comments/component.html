@@ -1,23 +1,5 @@
-<md-card class="go-comments" id="go-comments">
 
-
-	<!--	<md-card-title>
-			<md-card-title-text>
-				<span class="md-headline">{{"Comments" |goT}}</span>
-				<span class="md-subhead">Extra Large</span>
-			</md-card-title-text>
-		</md-card-title>-->
-
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			{{"Comments"|goT}}
-		</div>	
-	</md-toolbar>
-
-	<md-card-content>
-
-		<br />
-
+		<div class="go-comments">
 		<div ng-repeat="model in $ctrl.store.items" class="go-comment">
 			<div layout="row">
 
@@ -83,12 +65,5 @@
 
 			</form>
 		</div>
+			</div>
 
-	</md-card-content>
-
-
-	<!--	<md-button class="md-raised"  ng-click='$ctrl.edit()'>
-			{{"Add"| goT}}
-		</md-button>-->
-
-</md-card>

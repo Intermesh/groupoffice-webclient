@@ -35,7 +35,8 @@ GO.module('GO.Modules.GroupOffice.Tasks', ['GO.Core'])
 								update: "{{'Task {data.description} was updated' | goT: model}}",
 								create: "{{'Task {data.description} was created' | goT: model}}",
 								"delete": "{{'Task {data.description} was deleted' | goT: model}}",
-								"completed": "{{'Task {data.description} was completed' | goT: model}}"
+								"completed": "{{'Task {data.description} was completed' | goT: model}}",
+								"comment": '{{"New comment for task \'{data.description}\': {data.excerpt}" | goT: model}}'
 							},
 							function(record, $state){
 								$state.go('tasks.task', {taskId: record.recordId});

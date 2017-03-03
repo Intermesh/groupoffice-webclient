@@ -13,7 +13,8 @@ GO.module('GO.Modules.GroupOffice.Contacts', ['GO.Core'])
 							"GO\\Modules\\GroupOffice\\Contacts\\Model\\Contact",{
 								update: "{{'Contact {data.name} was updated' | goT: model}}",
 								create: "{{'Contact {data.name} was created' | goT: model}}",
-								"delete": "{{'Contact {data.name} was deleted' | goT: model}}"
+								"delete": "{{'Contact {data.name} was deleted' | goT: model}}",
+								"comment": '{{"New comment for contact \'{data.name}\': {data.excerpt}" | goT: model}}'
 							},
 							function(record, $state){
 								$state.go('contacts.contact', {contactId: record.recordId});

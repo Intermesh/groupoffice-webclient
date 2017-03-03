@@ -52,7 +52,10 @@ GO.module('GO.Modules.GroupOffice.Notifications').controller('GO.Modules.GroupOf
 		
 		$scope.dismiss = function(notificationId) {
 			$http.post(ServerAPI.url('notifications/dismiss/'+CurrentUser.id+'/'+notificationId));
-			this.mdPanelRef.close();
+			
+			var index = $scope.store.findIndexes({id: notificationId}, true);
+			$scope.store.remove(index);
+			
 		};
 		
 		$scope.dismissAll = function() {

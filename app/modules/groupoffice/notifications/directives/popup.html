@@ -1,9 +1,9 @@
 
 
-<div class="go-notifications" layout="column">
+<div class="go-notifications">
 
-	<md-content flex>
-		<md-list flex>
+	<md-content>
+		<md-list>
 
 			<md-list-item class="md-2-line" ng-click="open(model)" ng-repeat="model in store.items">
 
@@ -14,7 +14,7 @@
 
 					<h4>{{model.createdAt | date:'medium'}} - {{model.creator.username}} </h4>
 					
-					<h3 go-notification-body="model"></h3>
+					<p go-notification-body="model"></p>
 
 				</div>
 				<md-icon class="md-secondary" ng-click="dismiss(model.id)">delete</md-icon>

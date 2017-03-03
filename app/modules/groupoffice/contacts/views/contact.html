@@ -46,7 +46,9 @@
 		</div>
 
 		<div class="go-display-panel-header" layout="row" layout-align="start center">
-			<img ng-if="contact.photoBlobId" alt="{{contact.name}}" ng-src="{{ 'thumb/' + contact.photoBlobId | apiUrl : {w:70, h: 70, zoomCrop: 1} }}" class="go-avatar" />
+			<div class="go-avatar" ng-if="contact.photoBlobId">
+				<img alt="{{contact.name}}" ng-src="{{ 'thumb/' + contact.photoBlobId | apiUrl : {w:70, h: 70, zoomCrop: !contact.isOrganization} }}" />
+			</div>
 			<img ng-if="!contact.photoBlobId" alt="{{contact.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar" />
 
 			<span>

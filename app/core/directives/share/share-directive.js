@@ -23,6 +23,9 @@ GO.module('GO.Core').directive('goShare', [
 			controller : ['$scope','$attrs', 'GO.Modules.GroupOffice.Users.Model.Group',
 				function ($scope, $attrs, Group) {
 					var ownerRecord;
+					if(!$scope.model) {
+						return;
+					}
 					angular.forEach($scope.model.groups, function(g) {
 						if(g.isOwner) {
 							ownerRecord = g;
@@ -63,7 +66,7 @@ GO.module('GO.Core').directive('goShare', [
 					$scope.addGroup = function () {
 						if ($scope.selectedGroup) {
 							$scope.groupSearchText = "";
-							var groupAccess = angular.copy(ownerRecord);
+							var groupAccess = ownerRecord ? angular.copy(ownerRecord) : {} ;
 							groupAccess.group = $scope.selectedGroup;
 							groupAccess.groupId = $scope.selectedGroup.id;
 							groupAccess[$attrs.groupFk] = $scope.model[$scope.modelPk];

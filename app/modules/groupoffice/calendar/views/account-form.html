@@ -1,4 +1,4 @@
-<div layout="column" style="height:500px; width: 340px;" ng-cloak>
+<div layout="column" style="height:540px; width: 380px;" ng-cloak>
   <section style="overflow: hidden;">
 	  <md-toolbar>
 		<div class="md-toolbar-tools">
@@ -28,7 +28,7 @@
 		  </md-list>
     </md-content>
 
-    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="calendar">
+    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="calendar" style="min-width: 360px;">
 		<form ng-submit="submit()">
 			
 		<md-toolbar class="md-theme-light">
@@ -39,7 +39,6 @@
 			 
         <h1>{{ current.isNew()?'New':'Edit'}} Calendar</h1>
 		<span flex></span>
-		<md-button ng-disabled="!current.permissions.changePermissions" ng-click="share()"><md-icon>share</md-icon></md-button>
 			<md-button type="submit">{{"Save" | goT}}</md-button>
 		   </div>
 		</md-toolbar>
@@ -72,8 +71,17 @@
 					<md-button ng-click="addDefaultAlarm()">Add a default alarm</md-button>
 				</div>
 			</div>
-			<md-divider></md-divider>
 
+			<md-divider></md-divider>
+			<div ng-if="current.permissions.changePermissions" layout="row" layout-align="start start">
+				<div style="margin-top:16px;"><md-icon>share</md-icon></div>
+				<div flex>
+					<go-share model="current" group-fk="calendarId" permissions="[{key:'read', name: 'Read'},{key: 'write', name: 'Write'}]"></go-share>
+				</div>
+			</div>
+			
+
+			<md-divider></md-divider>
 			<md-button ng-if="!current.isNew()" ng-click="current.delete()" class="md-warn">Delete calendar</md-button>
 		</md-list>
 	</md-content>

@@ -15,7 +15,8 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			mine: 'My Files',
 			starred: 'Starred',
 			recent: 'Recent',
-			trash: 'Trash'
+			trash: 'Trash',
+			shared: 'Shared'
 		};
 		Browser.prototype.at = 'mine';
 		Browser.prototype.store = null;
@@ -27,6 +28,7 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 				case 'starred':
 				case 'recent':
 				case 'trash':
+				case 'shared':
 					var filter = {};
 					filter[model] = true;
 					this.store.$loadParams.filter = filter;

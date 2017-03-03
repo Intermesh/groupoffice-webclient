@@ -45,6 +45,9 @@ factory('GO.Modules.GroupOffice.Files.Model.Node', [
 		Node.prototype.isPlayable = function() {
 			return (this.type == t.Video || this.type == t.Audio);
 		};
+		Node.prototype.isDisplayable = function() {
+			return this.isPlayable() || this.isImage();
+		};
 
 		Node.prototype.getBlob = function() {
 			return ServerAPI.url('download/'+this.blobId);

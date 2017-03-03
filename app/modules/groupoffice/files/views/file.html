@@ -17,14 +17,14 @@
 			<md-button class="md-icon-button" ng-click="clipboard.copy(model)" title="{{'Copy' | goT}}"><md-icon>content_copy</md-icon></md-button>
 			<md-button class="md-icon-button" ng-disabled="clipboard.isEmpty()" ng-click="clipboard.paste(model)" title="{{'Paste' | goT}}"><md-icon>content_paste</md-icon></md-button>
 			|
-			<md-button ng-disabled="!model.permissions.changePermissions" ng-click="share(model)"><md-icon>share</md-icon></md-button>
 			<md-button class="md-icon-button" ng-click="deleteNode(model)" title="{{'Delete' | goT}}"><md-icon>delete</md-icon></md-button>
 		</div>
 		<md-button class="md-fab md-primary" title="Download" style="position: absolute; left: 408px; bottom:-24px;">
 			<md-icon>file_download</md-icon>
 		</md-button>
 	</md-toolbar>
-	<div id="file-preview">
+
+	<div id="file-preview" ng-if="model.isDisplayable()">
 		<div ng-if="model.isImage()" class="image" ng-style="{'background-image': 'url(\'{{model.getBlob()}}\')'}" >
 		</div>
 <!--		<iframe ng-if="model.isDocument()" ng-src="{{model.getBlob()}}">
@@ -67,11 +67,10 @@
         <md-divider></md-divider>
 		<h5>Who has access</h5>
 		<md-list-item class="md-2-line">
-          <div class="md-list-item-text">
-            <h3>Private</h3>
-            <p>test</p>
-          </div>
+            <go-share model="model" group-fk="nodeId" permissions="[{key:'read', name: 'Read'},{key: 'write', name: 'Write'}]"></go-share>
+    
         </md-list-item>
+		
 	</md-list>
 
 </go-hook>

@@ -29,8 +29,14 @@ angular.module('GO.Core').service('GO.Core.Services.Application', [
 			this.dashboardWidgets.push({name: name, view: view});
 		};
 		
-		App.prototype.addNotificationTemplate = function (ServerModelName, tpl, onClick) {
-			this.notificationTemplates[ServerModelName] = {tpl: tpl, onClick: onClick};
+		/**
+		 * 
+		 * @param {string} ServerModelName
+		 * @param {object} config template or templateUrl and onClick
+		 * @returns {undefined}
+		 */
+		App.prototype.addNotificationTemplate = function (ServerModelName, config) {
+			this.notificationTemplates[ServerModelName] = config;
 		};
 	
 		

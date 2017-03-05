@@ -21,20 +21,18 @@ angular.module('GO.Modules.GroupOffice.Notifications').directive('goNotification
 	function (App, $compile) {
 		return {
 			link: function (scope, element, attrs) {
-//				scope.$watch('model',function (model) {				
-//					
-//					if (!scope.model) {
-//						return;
-//					}				
-//					
-					var tpl = App.notificationTemplates[scope.model.about.name] && App.notificationTemplates[scope.model.about.name].tpl[scope.model.type] ? App.notificationTemplates[scope.model.about.name].tpl[scope.model.type] : 'missing tpl: {{scope.model.about.name}} - {{scope.model.type}}';
-					element.html(tpl);
+
+					var config = App.notificationTemplates[scope.model.about.name] && App.notificationTemplates[scope.model.about.name][scope.model.type] ? App.notificationTemplates[scope.model.about.name][scope.model.type] : {template: 'missing tpl: {{scope.model.about.name}} - {{scope.model.type}}'};
+					
+					if(config.templateUrl) {
+						config.template = '<div ng-include="\'' + config.templateUrl + '\'"></div>';
+					}
+					
+					element.html(config.template);
 					$compile(element.contents())(scope);
-//				}, true);
+
 			},
-			scope: {
-				model: '=goNotificationBody'
-			},
+			scope: true,
 			restrict: 'A'
 		};
 	}]);

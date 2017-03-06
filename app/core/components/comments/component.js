@@ -12,18 +12,22 @@ GO.module('GO.Core').component('goComments', {
 		function (Comment, $http, ServerAPI) {
 
 			this.$onInit = function () {
-				this.store = (new Comment(this.goRoute)).getStore();
+				this.store = (new Comment(this.goRoute)).getStore({
+					returnProperties: '*,comment',
+					limit: 0
+				});
 				this.store.load();
 
-				this.newComment = new Comment(this.goRoute);
-				this.newComment.attachments = [];
+				this.newComment = new Comment(this.goRoute);				
+				this.newComment.comment = {attachments: []};
+				
 			};
 
 			this.addComment = function () {
 				var ctrl = this;
 				this.newComment.save().then(function () {
 					ctrl.newComment = new Comment(ctrl.goRoute);
-					ctrl.newComment.attachments = [];
+					ctrl.newComment.comment = {attachments: []};
 					ctrl.store.load();
 				});
 			};
@@ -48,7 +52,7 @@ GO.module('GO.Core').component('goComments', {
 					var downloadUrl = ServerAPI.url('download/' + result.data.data.blobId, {w: 100, h: 100, zc: 1});
 
 
-					ctrl.newComment.attachments.push({
+					ctrl.newComment.comment.attachments.push({
 						blobId: result.data.data.blobId,
 						name: result.data.data.name
 					});
@@ -64,14 +68,14 @@ GO.module('GO.Core').component('goComments', {
 			this.uploadSuccess = function ($file, $message) {
 				var result = angular.fromJson($message);
 				//$file.serverFile = result.data.name;
-				this.newComment.attachments.push({
+				this.newComment.comment.attachments.push({
 					blobId: result.data.blobId,
 					name: $file.name
 				});
 			};
 
 			this.removeAttachment = function (index) {
-				this.newComment.attachments.splice(index, 1);
+				this.newComment.comment.attachments.splice(index, 1);
 			};
 
 

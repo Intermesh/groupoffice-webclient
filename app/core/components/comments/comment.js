@@ -10,8 +10,8 @@ angular.module('GO.Core').factory('GO.Core.Components.Comment', [
 			this.$parent.constructor.call(this, arguments);
 
 		});
-		
-		Comment.prototype.$returnProperties = "*";
+		Comment.prototype.$keys = ['commentId'];
+		Comment.prototype.$returnProperties = "*,comment";
 		
 		Comment.prototype.getStoreRoute = function () {
 			return this.$route;

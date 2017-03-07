@@ -43,11 +43,11 @@ GO.module('GO.Modules.GroupOffice.Notifications').controller('GO.Modules.GroupOf
 			} 		
 			App.notificationTemplates[model.about.name][model.type].onClick.call(this, model, $state);
 		}.bind(this);
-		
-		$scope.showMore = function() {
-			$state.go('notifications');
-			this.mdPanelRef.close();
-		}.bind(this);
+//		
+//		$scope.showMore = function() {
+//			$state.go('notifications');
+//			this.mdPanelRef.close();
+//		}.bind(this);
 		
 		$scope.dismiss = function(model) {
 			$http.post(ServerAPI.url('notifications/dismiss/'+CurrentUser.id+'/'+model.id));

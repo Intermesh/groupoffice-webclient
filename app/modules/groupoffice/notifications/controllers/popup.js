@@ -35,24 +35,26 @@ GO.module('GO.Modules.GroupOffice.Notifications').controller('GO.Modules.GroupOf
 //		};
 		
 		$scope.open = function(model) {
-			var tpl = App.notificationTemplates[model.about.name] ? App.notificationTemplates[model.about.name] : false;
-						
-						
+			
 			this.mdPanelRef.close();
 			
-			if(tpl) {
-				tpl.onClick.call(this, model, $state);
-			}
+			if(!App.notificationTemplates[model.about.name] || !App.notificationTemplates[model.about.name][model.type] || !App.notificationTemplates[model.about.name][model.type].onClick) {
+				return;
+			} 		
+			App.notificationTemplates[model.about.name][model.type].onClick.call(this, model, $state);
 		}.bind(this);
+//		
+//		$scope.showMore = function() {
+//			$state.go('notifications');
+//			this.mdPanelRef.close();
+//		}.bind(this);
 		
-		$scope.showMore = function() {
-			$state.go('notifications');
-			this.mdPanelRef.close();
-		}.bind(this);
-		
-		$scope.dismiss = function(notificationId) {
-			$http.post(ServerAPI.url('notifications/dismiss/'+CurrentUser.id+'/'+notificationId));
-			this.mdPanelRef.close();
+		$scope.dismiss = function(model) {
+			$http.post(ServerAPI.url('notifications/dismiss/'+CurrentUser.id+'/'+model.id));
+			
+			var index = $scope.store.findIndexes({id: model.id}, true);
+			$scope.store.remove(index);
+			
 		};
 		
 		$scope.dismissAll = function() {

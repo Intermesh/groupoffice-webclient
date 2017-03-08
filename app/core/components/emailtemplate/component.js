@@ -15,6 +15,8 @@ GO.module('GO.Core').component('goEmailTemplates', {
 				this.store = (new EmailTemplate(this.goModuleName)).getStore();
 				this.store.load();
 			};
+			
+			var me = this;
 
 			this.edit = function (emailTemplate) {
 
@@ -31,7 +33,7 @@ GO.module('GO.Core').component('goEmailTemplates', {
 				}).then(function (dialog) {
 					dialog.close.then(function (emailTemplate) {
 						if (emailTemplate) {
-							$scope.store.reload();
+							me.store.reload();
 						}
 					});
 				});

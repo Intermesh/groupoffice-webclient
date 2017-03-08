@@ -1,10 +1,10 @@
 .go-notifications {
 	/*display:none;*/
-	
+
 	max-height: 400px;
 	width: 400px;
-	border: 1px solid $border-color;
-	background-color: white;
+/*	border: 1px solid $border-color;
+	background-color: white;*/
 	
 	.go-notifications-toolbar {
 		padding: 4px 8px;
@@ -23,10 +23,3 @@ go-notifications-button {
 	font-weight: bold !important;
 }
 
-
-.mod-notifications .md-fab {
-	background-color: orange;
-	&:before{
-		content: mdi('bell-outline');
-	}
-}

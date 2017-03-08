@@ -3,14 +3,14 @@
 		<div ng-repeat="model in $ctrl.store.items" class="go-comment">
 			<div layout="row">
 
-				<img ng-if="model.creator.photoBlobId" alt="{{model.creator.username}}" ng-src="{{'thumb/' + model.creator.photoBlobId| apiUrl : {w:30, h: 30, zoomCrop: 1} }}" class="go-avatar small" />
-				<img ng-if="!model.creator.photoBlobId" alt="{{model.creator.username}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar small" />
+				<img ng-if="model.comment.creator.photoBlobId" alt="{{model.comment.creator.username}}" ng-src="{{'thumb/' + model.comment.creator.photoBlobId| apiUrl : {w:30, h: 30, zoomCrop: 1} }}" class="go-avatar small" />
+				<img ng-if="!model.comment.creator.photoBlobId" alt="{{model.comment.creator.username}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar small" />
 
 				<div flex>
-					<i>{{model.createdAt| date}}, {{model.creator.username}} wrote:</i><br />
+					<i>{{model.comment.createdAt| date}}, {{model.comment.creator.username}} wrote:</i><br />
 					
-					<p ng-bind-html="model.content"></p>
-					<div ng-if="::model.attachments.length" class="go-attachments">
+					<p ng-bind-html="model.comment.content"></p>
+					<div ng-if="::model.comment.attachments.length" class="go-attachments">
 				<a ng-repeat="attachment in ::model.attachments" href="{{'download/' + attachment.blobId| apiUrl}}" target="_blank">
 					<md-icon>attach_file</md-icon>&nbsp;{{attachment.name}}
 				</a>
@@ -33,12 +33,12 @@
 			
 			<form go-submit="$ctrl.addComment()" layout="column" go-server-errors="$ctrl.newComment.validationErrors" novalidate>
 
-				<div flex go-wysiwyg ng-model="$ctrl.newComment.content" on-image-paste="$ctrl.onImagePaste(blob, editor)"></div>
+				<div flex go-wysiwyg ng-model="$ctrl.newComment.comment.content" on-image-paste="$ctrl.onImagePaste(blob, editor)"></div>
 
 				<md-divider></md-divider>
 
-				<div class="go-attachments" ng-if="$ctrl.newComment.attachments.length || $flow.files.length">
-					<div ng-repeat="attachment in $ctrl.newComment.attachments" class="attachment" layout="row"> 										
+				<div class="go-attachments" ng-if="$ctrl.newComment.comment.attachments.length || $flow.files.length">
+					<div ng-repeat="attachment in $ctrl.newComment.comment.attachments" class="attachment" layout="row"> 										
 						<md-icon>attachment</md-icon>
 						<strong flex>{{attachment.name}}</strong> 
 						<md-icon ng-click="$ctrl.removeAttachment($index)" style="cursor:pointer">delete</md-icon>

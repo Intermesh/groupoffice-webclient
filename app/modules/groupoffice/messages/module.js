@@ -10,15 +10,7 @@ GO.module('GO.Modules.GroupOffice.Messages', ['GO.Core']).run([
 			App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Messages\\Module').then(function (module) {
 				App.addLauncher('Messages', 'messages', 'messages',{icon: 'message'});
 				
-				App.addNotificationTemplate(
-						"GO\\Modules\\GroupOffice\\Imap\\Model\\Account", {
-							unseen: "<h3>You have {{data.unseen}} unseen threads in {{data.name}}</h3>"
-						},
-						function (event, $state) {
-							$state.go('messages');
-						}
-			
-			);
+				
 			});		
 		});
 	}]).config(['$stateProvider', function ($stateProvider) {

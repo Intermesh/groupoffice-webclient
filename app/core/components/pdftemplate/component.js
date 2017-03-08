@@ -15,6 +15,8 @@ GO.module('GO.Core').component('goPdfTemplates', {
 				this.store = (new PdfTemplate(this.goModuleName)).getStore();
 				this.store.load();
 			};
+			
+			var me = this;
 
 			this.edit = function (pdfTemplate) {
 
@@ -32,7 +34,7 @@ GO.module('GO.Core').component('goPdfTemplates', {
 				}).then(function (dialog) {
 					dialog.close.then(function (pdfTemplate) {
 						if (pdfTemplate) {
-							$scope.store.reload();
+							me.store.reload();
 						}
 					});
 				});

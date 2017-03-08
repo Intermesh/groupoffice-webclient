@@ -31,6 +31,7 @@
     "postinstall": "bower install"
   },
   "dependencies": {
+    "chartist-plugin-legend": "^0.6.1",
     "gulp-debug": "^3.0.0"
   }
 }

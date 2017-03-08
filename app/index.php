@@ -30,7 +30,7 @@ ob_start();
 		<!--<link href="core/resources/iconfont/material-icons.css" rel="stylesheet" type="text/css"/>-->
 		<link href="../bower_components/angular-material-datetimepicker/css/material-datetimepicker.css" rel="stylesheet" type="text/css"/>
 		<link href="./core/components/mdpickers/mdPickers.css" rel="stylesheet" type="text/css"/>
-		<link href="../bower_components/chartist/dist/chartist.css" rel="stylesheet" type="text/css"/>
+		<!--<link href="../bower_components/chartist/dist/chartist.css" rel="stylesheet" type="text/css"/>-->
 		<link rel="stylesheet" href="css/app.css">
 		<!-- endbuild -->
 		
@@ -100,6 +100,7 @@ ob_start();
 	<script src="../bower_components/ng-sortable/dist/ng-sortable.js" type="text/javascript"></script>
 	<script src="../bower_components/chartist/dist/chartist.js" type="text/javascript"></script>
 	<script src="../bower_components/angular-chartist/angular-chartist.js" type="text/javascript"></script>
+	<script src="../node_modules/chartist-plugin-legend/chartist-plugin-legend.js" type="text/javascript"></script>
 	<script src="./core/go.js"></script>
 	<?php
 	$skip = ['go.js', 'app.js', 'config.js'];

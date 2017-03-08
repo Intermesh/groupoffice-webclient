@@ -46,7 +46,9 @@
 		</div>
 
 		<div class="go-display-panel-header" layout="row" layout-align="start center">
-			<img ng-if="contact.photoBlobId" alt="{{contact.name}}" ng-src="{{ 'thumb/' + contact.photoBlobId | apiUrl : {w:70, h: 70, zoomCrop: 1} }}" class="go-avatar" />
+			<div class="go-avatar" ng-if="contact.photoBlobId">
+				<img alt="{{contact.name}}" ng-src="{{ 'thumb/' + contact.photoBlobId | apiUrl : {w:70, h: 70, zoomCrop: !contact.isOrganization} }}" />
+			</div>
 			<img ng-if="!contact.photoBlobId" alt="{{contact.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar" />
 
 			<span>
@@ -62,6 +64,7 @@
 	<md-tabs md-selected="0">
 		<md-tab ng-click="goto('info')"><md-tab-label>{{"Info" | goT}}</md-tab-label></md-tab>
 		<md-tab ng-click="goto('employees')" ng-if="contact.employees.length"><md-tab-label>{{"Employees" | goT}}</md-tab-label></md-tab>		
+		<md-tab ng-click="goto('comments')"><md-tab-label>{{::"Comments" | goT}}</md-tab-label></md-tab>		
 	</md-tabs>
 
 	<md-content class="go-grey" flex>
@@ -207,6 +210,18 @@
 
 		<go-custom-fields-detail ng-model="contact.customfields" server-model="GO\Modules\GroupOffice\Contacts\Model\CustomFields"></go-custom-fields-detail>
 
+		
+		<md-card  id="comments">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					{{"Comments"|goT}}
+				</div>	
+			</md-toolbar>
+
+			<md-card-content>
+				<go-comments ng-if="contact.id" go-route="contacts/{{contact.id}}/comments"></go-comments>
+			</md-card-content>
+		</md-card>
 		
 
 	</md-content>

@@ -23,20 +23,11 @@
 					<md-icon>menu</md-icon>
 				</md-button>
 			<md-nav-item md-nav-click="nav.view('calendar.year')" name="year">
+				<md-icon ng-click="nav.prevYear()">chevron_left</md-icon>
 				<md-icon>view_comfy</md-icon>
 				<span>{{nav.date.getFullYear()}}</span>
+				<md-icon ng-click="nav.nextYear()">chevron_right</md-icon>
 			</md-nav-item>
-			<md-menu md-position-mode="target-right target">
-					<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-						<md-icon>arrow_drop_down</md-icon>
-					</md-button>
-					<md-menu-content>
-						<md-menu-item><md-button ng-click="nav.setYear(2015)">2015</md-button></md-menu-item>
-						<md-menu-item><md-button ng-click="nav.setYear(2016)">2016</md-button></md-menu-item>
-						<md-menu-item><md-button ng-click="nav.setYear(2017)">2017</md-button></md-menu-item>
-						<md-menu-item><md-button ng-click="nav.setYear(2018)">2018</md-button></md-menu-item>
-					</md-menu-content>
-				</md-menu>
 
 			<md-nav-item md-nav-click="nav.view('calendar.month')" name="month">
 				<md-icon ng-click="nav.prevMonth()">chevron_left</md-icon>

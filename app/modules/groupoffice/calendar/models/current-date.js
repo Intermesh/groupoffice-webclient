@@ -37,6 +37,14 @@ angular.
 				this.notify();
 			};
 
+			CurrentDate.prototype.nextYear = function () {
+				this.date.addYears(1);
+				this.notify();
+			};
+			CurrentDate.prototype.prevYear = function () {
+				this.date.addYears(-1);
+				this.notify();
+			};
 			CurrentDate.prototype.setYear = function (y) {
 				var distance = this.date.getFullYear() - y;
 				this.date.addYears(-distance);

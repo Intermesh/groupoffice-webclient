@@ -30,7 +30,7 @@
 						<md-button ng-click="editContact(user)">{{::"Edit contact"| goT}}</md-button>
 					</md-menu-item>
 					<md-menu-item>
-						<md-button ng-click="user.delete()" ng-disabled="!user.permissions.delete">{{::"Delete"| goT}}</md-button>
+						<md-button ng-click="user.delete()" ng-disabled="!user.permissions.update">{{::"Delete"| goT}}</md-button>
 					</md-menu-item>
 				</md-menu-content>
 			</md-menu>

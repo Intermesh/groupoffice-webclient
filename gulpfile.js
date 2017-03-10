@@ -68,13 +68,13 @@ gulp.task('sass:watch', function () {
 	});
 });
 
-gulp.task('template-cache', ['clean'], function () {
+gulp.task('template-cache', ['clean', 'sass'], function () {
 	return gulp.src(['app/**/*.html'])
 					.pipe(templateCache())
 					.pipe(gulp.dest('app/core/'));
 });
 
-gulp.task('usemin', ['clean', 'template-cache', 'index'], function () {
+gulp.task('usemin', ['clean', 'template-cache', 'index', 'sass'], function () {
 	return gulp.src('app/build.html')
 					.pipe(usemin({
 						css: [minifyCss(), autoprefixer(), 'concat'],
@@ -98,7 +98,7 @@ gulp.task('clean', function (cb) {
 });
 
 
-gulp.task('copy-resources', ['clean', 'sass', 'usemin'], function () {
+gulp.task('copy-resources', ['clean', 'sass', "template-cache", 'index', "usemin", 'rename-index'], function () {
 
 	gulp.src(['app/**/resources/**/*.*', 'app/api.php'], {
 		base: 'app',
@@ -112,7 +112,7 @@ gulp.task('index', ['template-cache'], shell.task([
 ]));
 
 
-gulp.task('removetemplates',  ['usemin', 'index'], function (cb) {
+gulp.task('removetemplates',  ['clean', 'sass', "template-cache", 'index', "usemin", 'rename-index', "copy-resources"], function (cb) {
   del([
 		'app/build.html',
     'app/core/templates.js'
@@ -120,13 +120,13 @@ gulp.task('removetemplates',  ['usemin', 'index'], function (cb) {
   ], cb);
 });
 
-gulp.task('rename-index', ['usemin'], function (cb) {
+gulp.task('rename-index', ['usemin'], function () {
 	gulp.src("./build/build.html")
 					.pipe(rename("index.html"))
 					.pipe(gulp.dest("./build"));
 });
 
 
-gulp.task("build", ['clean', 'sass', "template-cache", "usemin", 'index', 'rename-index', "copy-resources", 'removetemplates']);
+gulp.task("build", ['clean', 'sass', "template-cache", 'index', "usemin", 'rename-index', "copy-resources", 'removetemplates']);
 
 //scp -r build/* root@amadeiro.intermesh.nl:/home/govhosts/go7.group-office.com/groupoffice/

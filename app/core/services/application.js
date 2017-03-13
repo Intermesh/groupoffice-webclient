@@ -36,7 +36,10 @@ angular.module('GO.Core').service('GO.Core.Services.Application', [
 		 * @returns {undefined}
 		 */
 		App.prototype.addNotificationTemplate = function (ServerModelName, config) {
-			this.notificationTemplates[ServerModelName] = config;
+			if(!this.notificationTemplates[ServerModelName]) {
+				this.notificationTemplates[ServerModelName] = {};
+			}
+			angular.extend(this.notificationTemplates[ServerModelName], config);
 		};
 	
 		

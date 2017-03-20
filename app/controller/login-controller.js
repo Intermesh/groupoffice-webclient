@@ -25,7 +25,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 					delete $rootScope.stateBeforeAuth;
 				} else
 				{
-					$state.go('dashboard');
+					$state.go(localStorage['go-default-state'] ? localStorage['go-default-state'] : 'dashboard');
 				}
 				
 				

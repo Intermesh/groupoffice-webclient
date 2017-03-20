@@ -29,7 +29,12 @@ angular.module('GO.Core').directive('goLaunchpad', [
 				
 				scope.openLauncher = function(launcher, $event) {
 					
+					localStorage['go-default-state'] = launcher.state;
+					
 					if($event.ctrlKey) {
+						
+						
+						
 						var url = $state.href(launcher.state);
 						var win = window.open(url);						
 						$timeout(function(){

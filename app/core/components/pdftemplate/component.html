@@ -23,6 +23,11 @@
 			
 			<go-list-edit-button on-edit="$ctrl.edit(model)"></go-list-edit-button>
 			
+			<md-button class="md-icon-button" ng-click="$ctrl.duplicate(model)">
+				<md-tooltip>{{"Copy" | goT}}</md-tooltip>
+				<md-icon>content_copy</md-icon>
+			</md-button>
+			
 			<go-list-delete-button></go-list-delete-button>
 			
 			

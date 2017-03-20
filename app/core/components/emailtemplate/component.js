@@ -9,7 +9,9 @@ GO.module('GO.Core').component('goEmailTemplates', {
 		'GO.Core.Factories.Models.Templates.Message',
 		'GO.Core.Services.Dialog',
 		'$state',
-		function ($scope, EmailTemplate, Dialog, $state) {
+		'$http',
+	'GO.Core.Services.ServerAPI',
+		function ($scope, EmailTemplate, Dialog, $state, $http, ServerAPI) {
 
 			this.$onInit = function() {
 				this.store = (new EmailTemplate(this.goModuleName)).getStore();
@@ -17,6 +19,14 @@ GO.module('GO.Core').component('goEmailTemplates', {
 			};
 			
 			var me = this;
+			
+			this.duplicate = function (emailTemplate) {
+					
+				$http.post(ServerAPI.url('templates/messages/' +encodeURIComponent(this.goModuleName)+ '/' + emailTemplate.id + '/duplicate')).then(function() {
+					me.store.load();
+				});
+			
+			};
 
 			this.edit = function (emailTemplate) {
 

@@ -9,7 +9,9 @@ GO.module('GO.Core').component('goPdfTemplates', {
 		'GO.Core.Factories.Models.Templates.Pdf',
 		'GO.Core.Services.Dialog',
 		'$state',
-		function ($scope, PdfTemplate, Dialog, $state) {
+		'$http',
+		'GO.Core.Services.ServerAPI',
+		function ($scope, PdfTemplate, Dialog, $state, $http, ServerAPI) {
 
 			this.$onInit = function() {
 				this.store = (new PdfTemplate(this.goModuleName)).getStore();
@@ -17,6 +19,14 @@ GO.module('GO.Core').component('goPdfTemplates', {
 			};
 			
 			var me = this;
+			
+			this.duplicate = function (pdfTemplate) {
+					
+				$http.post(ServerAPI.url('templates/pdf/' +encodeURIComponent(this.goModuleName)+ '/' + pdfTemplate.id + '/duplicate')).then(function() {
+					me.store.load();
+				});
+			
+			};
 
 			this.edit = function (pdfTemplate) {
 

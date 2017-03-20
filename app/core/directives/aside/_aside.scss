@@ -11,12 +11,16 @@ aside{
 		}	
 	}
 	
-	&.active {
+	/*&.active {*/
 	z-index:57; 
-	}
+	
+	/*}*/
 	
 	@media(max-width: $screen-md-max) {
+		
+		
 		&.active {
+			display:block;
 
 			.backdrop {
 				display:block;
@@ -37,6 +41,8 @@ aside{
 			display:block;
 			
 		}		
+		display:none;
+		
 		position:absolute;
 		top:0;
 		bottom:0;

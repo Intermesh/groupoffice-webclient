@@ -2,7 +2,7 @@
 	<img ng-if="$ctrl.model.iconBlobId" alt="{{$ctrl.model.type}}" ng-src="{{'thumb/' + $ctrl.model.iconBlobId| apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="go-avatar small" />
 	<img ng-if="!$ctrl.model.iconBlobId" alt="{{$ctrl.model.type}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar small" />
 
-	<a ng-click="$ctrl.onOpen({model: $ctrl.model})" flex>
+	<a ng-click="$ctrl.notifications.onNotificationClick($ctrl.model)" flex>
 
 		<small>{{$ctrl.model.createdAt| date:'medium'}} - {{$ctrl.model.creator.username}} </small>
 
@@ -10,6 +10,6 @@
 
 	</a>
 	<md-button class="md-icon-button">
-		<md-icon ng-click="$ctrl.onDismiss({model: $ctrl.model})">delete</md-icon>					
+		<md-icon ng-click="$ctrl.notifications.dismiss($ctrl.model)">delete</md-icon>					
 	</md-button>
 </md-card-content>

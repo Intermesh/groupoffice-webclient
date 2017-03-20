@@ -4,8 +4,8 @@
 
 // register the interceptor as a service
 angular.module('GO.Modules.GroupOffice.Notifications').factory('GO.Modules.GroupOffice.Notifications.Factories.NotifcationsInterceptor', [
-	'GO.Modules.GroupOffice.Notifications.Services.NotificationsData',
-	function(NotificationsData) {
+	'$injector',
+	function($injector) {
   
 	return {
 		'response': function(response) {
@@ -17,7 +17,9 @@ angular.module('GO.Modules.GroupOffice.Notifications').factory('GO.Modules.Group
 				
 				
 				if(angular.isDefined(response.data.notificationCount)) {					
-					NotificationsData.unseenCount = response.data.notificationCount;					
+					var notifications = $injector.get('GO.Modules.GroupOffice.Notifications.Services.Notifications');
+					console.log(notifications);
+					notifications.setServerUnseenCount(response.data.notificationCount);					
 				}
 			}
 			return response;
@@ -25,7 +27,6 @@ angular.module('GO.Modules.GroupOffice.Notifications').factory('GO.Modules.Group
 		
 	};
 }])
-.value('notificationCount', 0)
 .config(['$httpProvider', function ($httpProvider) {
 	$httpProvider.interceptors.push('GO.Modules.GroupOffice.Notifications.Factories.NotifcationsInterceptor');
 }]);

@@ -11,6 +11,9 @@ aside{
 		}	
 	}
 	
+	&.active {
+	z-index:57; 
+	}
 	
 	@media(max-width: $screen-md-max) {
 		&.active {
@@ -22,7 +25,7 @@ aside{
 				bottom:0;
 				right:0;
 				left:0;
-				z-index:100000;
+				z-index:57; //backdrop has 59
 				background-color:lightgray;
 				opacity: .7;
 			}
@@ -42,7 +45,7 @@ aside{
 		width: auto;
 		
 		.content {			
-			z-index: 100001;			
+			z-index: 58;			
 			transform: translateX(-100%);
 			width:80%;	
 			max-width: 300px;			

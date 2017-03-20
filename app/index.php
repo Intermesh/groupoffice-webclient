@@ -68,6 +68,8 @@ ob_start();
 
 	<div id="go-container" ui-view>
 
+		
+		
 	</div>
 
 
@@ -80,6 +82,9 @@ ob_start();
 			</md-card-content>
 		</md-card>
 	</go-mask>
+	
+	
+	<go-notifications-panel></go-notifications-panel>
 
 	<!-- build:js js/app.js -->
 	<script src="../bower_components/wysihtml/dist/wysihtml-toolbar.js" type="text/javascript"></script>

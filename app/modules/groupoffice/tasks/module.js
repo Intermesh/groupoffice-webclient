@@ -36,11 +36,11 @@ GO.module('GO.Modules.GroupOffice.Tasks', ['GO.Core'])
 			
 			App.addNotificationTemplate(
 							"GO\\Modules\\GroupOffice\\Tasks\\Model\\Task",{
-								update: {template: "<go-notification-standard on-open='open(model)' on-dismiss='dismiss(model)' model='model'>{{'Task {data.description} was updated' | goT: model}}</go-notification-standard>", onClick: onNotificationClick},
-								create: {template: "<go-notification-standard on-open='open(model)' on-dismiss='dismiss(model)' model='model'>{{'Task {data.description} was created' | goT: model}}</go-notification-standard>", onClick: onNotificationClick},
-								"delete": {template: "<go-notification-standard on-open='open(model)' on-dismiss='dismiss(model)' model='model'>{{'Task {data.description} was deleted' | goT: model}}</go-notification-standard>", onClick: onNotificationClick},
-								"completed": {template: "<go-notification-standard on-open='open(model)' on-dismiss='dismiss(model)' model='model'>{{'Task {data.description} was completed' | goT: model}}</go-notification-standard>", onClick: onNotificationClick},
-								"comment": {template: "<go-notification-standard on-open='open(model)' on-dismiss='dismiss(model)' model=\'model\'>{{'New comment for task {data.description}: {data.excerpt}' | goT: model}}</go-notification-standard>", onClick: onNotificationClick}
+								update: {template: "<go-notification-standard model='model'>{{'Task {data.description} was updated' | goT: model}}</go-notification-standard>", onClick: onNotificationClick},
+								create: {template: "<go-notification-standard model='model'>{{'Task {data.description} was created' | goT: model}}</go-notification-standard>", onClick: onNotificationClick},
+								"delete": {template: "<go-notification-standard model='model'>{{'Task {data.description} was deleted' | goT: model}}</go-notification-standard>", onClick: onNotificationClick},
+								"completed": {template: "<go-notification-standard model='model'>{{'Task {data.description} was completed' | goT: model}}</go-notification-standard>", onClick: onNotificationClick},
+								"comment": {template: "<go-notification-standard model=\'model\'>{{'New comment for task {data.description}: {data.excerpt}' | goT: model}}</go-notification-standard>", onClick: onNotificationClick}
 //								"comment": {templateUrl: 'modules/groupoffice/notifications/test.html'}
 							}
 							

@@ -22,7 +22,12 @@ angular.module('GO.Modules.GroupOffice.Notifications').directive('goNotification
 		return {
 			link: function (scope, element, attrs) {
 
-					var config = App.notificationTemplates[scope.model.about.name] && App.notificationTemplates[scope.model.about.name][scope.model.type] ? App.notificationTemplates[scope.model.about.name][scope.model.type] : {template: 'missing tpl: {{model.about.name}} - {{model.type}}'};
+					if(scope.model.fromClient) {
+						var config = scope.model;
+					}else
+					{
+						var config = App.notificationTemplates[scope.model.about.name] && App.notificationTemplates[scope.model.about.name][scope.model.type] ? App.notificationTemplates[scope.model.about.name][scope.model.type] : {template: 'missing tpl: {{model.about.name}} - {{model.type}}'};
+					}
 					
 					var tpl = '<div';
 					
@@ -43,7 +48,15 @@ angular.module('GO.Modules.GroupOffice.Notifications').directive('goNotification
 					tpl += '</div>';
 					
 					element.html(tpl);
-					$compile(element.contents())(scope);
+					if(scope.model.fromClient) {
+						var child = scope.$new(true);
+						angular.extend(child, scope.model.locals);
+						
+						$compile(element.contents())(child);
+					}else
+					{
+						$compile(element.contents())(scope);
+					}
 
 			},
 			scope: true,

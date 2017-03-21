@@ -26,6 +26,17 @@ angular.module("GO.Core")
     "Add date": "Add date",
     "Gender unknown": "Gender unknown",
     "Private": "Private",
-    "Share with group": "Share with group"
+    "Share with group": "Share with group",
+
+    "Persons": "Persons",
+    "Edit selection": "Edit selection",
+    "Write": "Write",
+    "Download": "Download",
+    "Import": "Import",
+    "Debtor number": "Debtor number",
+    "Chamber of Commerce": "Chamber of Commerce",
+    "IBAN": "IBAN",
+    "Business details": "Business details",
+    "URL's": "URL's"
 });
 					}]);

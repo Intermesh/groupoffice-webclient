@@ -3,8 +3,8 @@ angular.module("GO.Core").config(["GO.Core.Providers.TranslateProvider", functio
 		"Log" : "Logboek",
 		"Time" : "Tijd",
 		"Action" : "Actie",
-		"Record" : "Record"
-		
+		"Record" : "Record",
+
+    "GO\\\\Core\\\\Modules\\\\Users\\\\Model\\\\User": "GO\\\\Core\\\\Modules\\\\Users\\\\Model\\\\User"
 });
 	}]);
-

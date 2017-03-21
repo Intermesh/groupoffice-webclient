@@ -132,8 +132,8 @@ if(!empty($lang)) {
 
 
 	$hasLang = preg_match('/addTranslations.*\{.*,.*\}/s', $existingLang, $matches);
-
-	var_dump( $matches);
+//
+//	var_dump( $matches);
 
 	$sep = $hasLang ? ",\n" : "\n";
 

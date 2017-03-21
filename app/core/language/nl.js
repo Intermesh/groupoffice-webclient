@@ -245,7 +245,16 @@ angular.module("GO.Core").config(["GO.Core.Providers.TranslateProvider", functio
     "X": "X",
     "Y": "Y",
     "Dimensions": "Dimensies",
-    "Width": "Breedte"
+    "Width": "Breedte",
+
+    "Add groups to share": "Add groups to share",
+    "Copy": "Copy",
+    "Add filter": "Add filter",
+    "Comparator": "Comparator",
+    "Equals": "Equals",
+    "Doesn't equal": "Doesn't equal",
+    "Greather than": "Greather than",
+    "Lower than": "Lower than"
 });
 
 

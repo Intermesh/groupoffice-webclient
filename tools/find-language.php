@@ -127,10 +127,18 @@ foreach($scripts as $script){
 	}		
 }
 
-$json = substr(json_encode($lang, JSON_PRETTY_PRINT),1, -1);
+if(!empty($lang)) {
+	$json = substr(json_encode($lang, JSON_PRETTY_PRINT),1, -1);
 
 
-$newFile = trim(substr($existingLang, 0, $endpos2)).",\n".$json.trim(substr($existingLang, $endpos2));
+	$hasLang = preg_match('/addTranslations.*\{.*,.*\}/s', $existingLang, $matches);
 
-//echo $newFile;
-file_put_contents($langFile, $newFile);
+	var_dump( $matches);
+
+	$sep = $hasLang ? ",\n" : "\n";
+
+	$newFile = trim(substr($existingLang, 0, $endpos2)).$sep.$json.trim(substr($existingLang, $endpos2));
+
+	//echo $newFile;
+	file_put_contents($langFile, $newFile);
+}

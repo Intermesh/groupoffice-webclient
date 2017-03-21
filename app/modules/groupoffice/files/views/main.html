@@ -40,16 +40,16 @@
 
 			<md-divider></md-divider>
 
-			<md-list-item>
+			<md-list-item ng-repeat="starredFolder in starredFolder.items" ng-click="selectNode(starredFolder)">
 				<md-icon>folder_special</md-icon>
-				<p>Mijn map</p>
+				<p>{{starredFolder.name}}</p>
 			</md-list-item>
 		</md-list>
 	</md-sidenav>
 
-	<md-content flex layout="column">
+	<md-content flex layout="column" ng-cloak>
 
-		<md-toolbar store="nodesStore">
+		<md-toolbar store="nodeStore">
 
 			<div class="md-toolbar-tools">
 
@@ -62,10 +62,23 @@
 						<md-icon>arrow_upward</md-icon>
 					</md-button>
 					<span ng-repeat="dir in browser.dirStack">
-						<md-icon ng-if="!$first">keyboard_arrow_right</md-icon> <span ng-style="$last?{'font-weight':'bold'}:{}">{{dir.name}}</span>
+						<md-icon ng-if="!$first">keyboard_arrow_right</md-icon> <md-button ng-click="browser.open(dir)" ng-style="$last?{'font-weight':'bold'}:{}">{{dir.name}}</md-button>
 					</span>
 				</span>
-
+				<md-menu>
+					<md-button ng-click="openMenu($mdMenu, $event)"><md-icon>create_new_folder</md-icon> {{"New folder"| goT}}</md-button>
+					<md-menu-content width="4" style="padding: 0 8px; overflow: hidden;" layout="row">
+						<md-input-container style="top:12px; margin:0;" flex>
+							<input type="text" ng-model="newFolder" placeholder="Folder name" />
+						</md-input-container>
+						<md-button style="width:38px;" ng-click="addFolder(newFolder)"><md-icon>forward</md-icon></md-button>
+					</md-menu-content>
+			  </md-menu>
+				|
+			<md-button class="md-icon-button" ng-click="clipboard.cut(model)" title="{{'Cut' | goT}}"><md-icon>content_cut</md-icon></md-button>
+			<md-button class="md-icon-button" ng-click="clipboard.copy(model)" title="{{'Copy' | goT}}"><md-icon>content_copy</md-icon></md-button>
+			<md-button class="md-icon-button" ng-disabled="clipboard.isEmpty()" ng-click="clipboard.paste(model)" title="{{'Paste' | goT}}"><md-icon>content_paste</md-icon></md-button>
+			|
 				<md-button class="md-icon-button">
 					<md-icon>search</md-icon>
 				</md-button>
@@ -75,17 +88,16 @@
 				<md-button ng-if="browser.isList()" ng-click="browser.setDisplay('grid')" class="md-icon-button">
 					<md-icon>view_module</md-icon>
 				</md-button>
-				<md-button class="md-icon-button" ng-click="toggleInfo()" >
-					<md-icon ng-style="showInfo ? {color:'white'}:{}">info</md-icon>
-				</md-button>
-
+				
 				<md-menu md-position-mode="target-right target">
 					<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 						<md-icon md-menu-origin>more_vert</md-icon>
 					</md-button>
 					<md-menu-content>
 						<md-menu-item>
-							<md-button ng-click="addFolder()"><md-icon>create_new_folder</md-icon> {{"New folder"| goT}}</md-button>
+							<md-button ng-click="toggleInfo()" >
+								<md-icon ng-style="!showInfo ? {color:'grey'}:{}">info</md-icon>{{"Info panel"| goT}}
+							</md-button>
 						</md-menu-item>
 						<md-menu-item>
 							<md-button ng-click="nodeStore.reload()"><md-icon>refresh</md-icon> {{"Refresh"| goT}}</md-button>
@@ -96,20 +108,32 @@
 			</div>
 
 		</md-toolbar>
+		
 
-		<div flex layout="row" flow-files-submitted="$flow.upload()"
+		<div flex class="go-cards-sm" layout="row"
+			flow-files-submitted="$flow.upload()"
 			flow-file-success="uploadSuccess($file, $message)"
 			flow-complete="uploadCommit()"
 			flow-drop>
 
 			
 
-			<div id="file-list-view" ng-if="browser.isList()" ng-include="'modules/groupoffice/files/views/list-view.html'"></div>
+			<div id="file-list-view" flex class="go-card go-list" ng-if="browser.isList()" ng-include="'modules/groupoffice/files/views/list-view.html'"></div>
 			<div id="file-grid-view" flex  ng-if="browser.isGrid()" ng-include="'modules/groupoffice/files/views/grid-view.html'"></div>
 
 			
 		</div>
-		<md-fab-speed-dial md-direction="up" style="position:absolute; bottom: 10px; right:10px;">
+		
+		<md-list track-by="path" index="name">
+			<md-list-item style="min-height:47px" layout="row" layout-align="start center" ng-repeat="file in $flow.files" class="attachment" ng-if="file.isUploading()">
+					<span flex>{{file.name}}</span>
+					<md-progress-circular md-mode="indeterminate" md-diameter="18"></md-progress-circular>
+					<md-icon class="cancel" ng-click="file.cancel()">cancel</md-icon>
+					<go-progress value="file.progress()" max="1"></go-progress>
+			</md-list-item>
+		</md-list>
+
+		<md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right">
 			<md-fab-trigger>
 				<md-button aria-label="menu" class="md-fab">
 					<md-icon>file_upload</md-icon>
@@ -119,17 +143,16 @@
 			<md-fab-actions>
 				<md-button flow-btn aria-label="Files" class="md-fab md-mini">
 					<md-icon>insert_drive_file</md-icon>
-					<md-tooltip md-direction="left">{{::"Files"| goT}}</md-tooltip>
 				</md-button>
-				<md-button flow-btn flow-directory aria-label="Directory" class="md-fab md-mini" >
+				<md-button flow-btn flow-directory aria-label="Folder" class="md-fab md-mini">
 					<md-icon>folder</md-icon>
-					<md-tooltip md-direction="left">{{::"Folder"| goT}}</md-tooltip>
 				</md-button>
 			</md-fab-actions>
 		</md-fab-speed-dial>
+
 	</md-content>
 	<div>
-	<md-content ng-show="showInfo" ui-view md-component-id="fileinfo" flex layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
+	<md-content ng-show="showInfo && (model != null)" ui-view md-component-id="fileinfo" flex layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
 		
 	</md-content>
 	</div>

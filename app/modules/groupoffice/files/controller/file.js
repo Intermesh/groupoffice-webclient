@@ -32,10 +32,19 @@ angular.module('GO.Modules.GroupOffice.Files').
 		};
 
 		$scope.deleteNode = function(node) {
-			node.delete().then(function() {
+			var p = {};
+			console.log($scope.browser.currentDir() );
+			if($scope.browser.currentDir().at == 'trash') {
+				p.hard = true;
+			}
+			node.delete(p).then(function() {
 				if(node.isDirectory) {
 					$scope.$parent.browser.up();
+				} 
+				if(p.hard) {
+					$scope.nodeStore.reload();
 				}
+				$scope.model = null;
 			});
 		};
 

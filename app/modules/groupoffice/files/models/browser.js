@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.Files.Model.Browser', [
+	'GO.Modules.GroupOffice.Notifications.Services.Notifications',
 	'$state',
-	function ($state) {
+	function (Notifications, $state) {
 		function Browser(store) {
 			this.store = store;
 		}
@@ -47,9 +48,17 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 		Browser.prototype.open = function(model) {
 			var self = this;
 			if(model.isDirectory) {
-				this.store.load({directory:model.id}).then(function(){
-					console.log('change dir');
-					self.dirStack.push(model);
+
+
+				
+
+				this.store.load({directory:model.id}).then(function(xhr){
+					var dir;
+					self.dirStack = [self.dirStack[0]];
+					while(dir = xhr.response.data.path.pop()) {
+						self.dirStack.push(dir);
+					}
+					//self.dirStack.push(model);
 				});
 			} else {
 				console.log('cant open file');

@@ -1,31 +1,33 @@
-<md-grid-list md-cols="1" md-cols-sm="4" md-cols-md="3" md-cols-gt-md="8"
-        md-row-height-gt-md="1:1" md-row-height="4:3"
-        md-gutter="16px" md-gutter-gt-sm="8px">
+<div class="go-card go-listview" go-infinite-scroll="nodeStore.nextPage()" layout="column" style="top:0;bottom:0;left:0;right:0;position:absolute; overflow-y:scroll;">
+	<md-grid-list md-cols="1" md-cols-sm="4" md-cols-md="3" md-cols-gt-md="8"
+			  md-row-height-gt-md="1:1" md-row-height="4:3"
+			  md-gutter="16px" md-gutter-gt-sm="8px">
 
-	<md-grid-tile ng-repeat="file in $flow.files" class="attachment" ng-if="file.isUploading()"
-		md-rowspan="1"
-		md-colspan="1">
-		<md-progress-circular md-mode="indeterminate" md-diameter="18"></md-progress-circular>
-		<md-icon class="cancel" ng-click="file.cancel()">cancel</md-icon>
-		<img flow-img="file" />
-		<md-grid-tile-footer>
-			<h3>{{file.name}}</h3>
-			<go-progress value="file.progress()" max="1"></go-progress>
-		</md-grid-tile-footer>
-	</md-grid-tile>
+		<md-grid-tile ng-repeat="file in $flow.files" class="attachment" ng-if="file.isUploading()"
+			md-rowspan="1"
+			md-colspan="1">
+			<md-progress-circular md-mode="indeterminate" md-diameter="18"></md-progress-circular>
+			<md-icon class="cancel" ng-click="file.cancel()">cancel</md-icon>
+			<img flow-img="file" />
+			<md-grid-tile-footer>
+				<h3>{{file.name}}</h3>
+				<go-progress value="file.progress()" max="1"></go-progress>
+			</md-grid-tile-footer>
+		</md-grid-tile>
 
-	<md-grid-tile ng-repeat="model in nodeStore.items" ng-click="selectNode(model)"
-		md-rowspan="1"
-		md-colspan="1">
-		
-		<md-icon ng-if="!model.isImage()">{{model.getIcon()}}</md-icon>
-		<img ng-if="model.isImage()" ng-src="{{thumb(model.blobId)}}" />
-		<h4>{{model.name}}</h4>
+		<md-grid-tile ng-repeat="model in nodeStore.items" ng-click="selectNode(model)"
+			md-rowspan="1"
+			md-colspan="1">
 
-	</md-grid-tile>
+			<md-icon ng-if="!model.isImage()">{{model.getIcon()}}</md-icon>
+			<img ng-if="model.isImage()" ng-src="{{thumb(model.blobId)}}" />
+			<h4>{{model.name}}</h4>
 
-	<md-grid-tile ng-show="!nodeStore.items.length">
-		<md-icon>folder</md-icon>
-		<p>{{"No data found"| goT}}</p>
-	</md-grid-tile>
-</md-grid-list>
+		</md-grid-tile>
+
+		<md-grid-tile ng-show="!nodeStore.items.length">
+			<md-icon>folder</md-icon>
+			<p>{{"No data found"| goT}}</p>
+		</md-grid-tile>
+	</md-grid-list>
+</div>

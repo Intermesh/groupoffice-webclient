@@ -28,6 +28,8 @@ ob_start();
 		<!-- build:css css/app.css -->
 		<!--<link href="../bower_components/angular-material/angular-material.css" rel="stylesheet" type="text/css"/>-->
 		<!--<link href="core/resources/iconfont/material-icons.css" rel="stylesheet" type="text/css"/>-->
+		
+		<link ng-href="{{::APIUrl}}/webclient/custom.css" rel="stylesheet" type="text/css"/>
 		<link href="../bower_components/angular-material-datetimepicker/css/material-datetimepicker.css" rel="stylesheet" type="text/css"/>
 		<link href="./core/components/mdpickers/mdPickers.css" rel="stylesheet" type="text/css"/>
 		<!--<link href="../bower_components/chartist/dist/chartist.css" rel="stylesheet" type="text/css"/>-->

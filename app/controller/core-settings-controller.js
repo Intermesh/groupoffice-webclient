@@ -7,7 +7,8 @@ angular.module('GO.Controllers').controller('GO.Controllers.CoreSettingsControll
 	'GO.Core.Services.ServerAPI',
 	'$mdToast',
 	'GO.Core.Services.Dialog',
-	function ($scope, Resource, $http, ServerAPI, $mdToast, Dialog) {
+	'GO.Core.Services.Application',
+	function ($scope, Resource, $http, ServerAPI, $mdToast, Dialog, App) {
 		
 		var smtpAccount = new Resource('smtp/accounts');
 
@@ -21,6 +22,11 @@ angular.module('GO.Controllers').controller('GO.Controllers.CoreSettingsControll
 			$scope.model.save();
 		}, true);
 		
+		
+//		App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Webclient\\Module').then(function (module) {		
+			$scope.webclientModel = new Resource('webclient/settings', '*', []);
+			$scope.webclientModel.read();
+//		});
 		
 		
 		$scope.sendTestMessage = function() {

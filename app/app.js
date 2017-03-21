@@ -51,7 +51,9 @@ angular.module('GO', GO.appModules.concat([
 	'$state',
 	'$timeout',	
 	'$location', 
-	'$anchorScroll', function (ServerAPI, $rootScope, Config, $state, $timeout, $location, $anchorScroll) {
+	'$anchorScroll', 
+
+	function (ServerAPI, $rootScope, Config, $state, $timeout, $location, $anchorScroll) {
 		$rootScope.GO = GO;
 		$rootScope.showMask = false;
 
@@ -63,6 +65,8 @@ angular.module('GO', GO.appModules.concat([
 
 		ServerAPI.setBaseUrl(Config.APIUrl);		
 		$rootScope.APIUrl = Config.APIUrl;
+		
+		
 		
 		var authListener = $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 			if (!$rootScope.loggedIn && (!toState.data || !toState.data.noAuth)) {

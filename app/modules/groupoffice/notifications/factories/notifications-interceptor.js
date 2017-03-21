@@ -18,7 +18,6 @@ angular.module('GO.Modules.GroupOffice.Notifications').factory('GO.Modules.Group
 				
 				if(angular.isDefined(response.data.notificationCount)) {					
 					var notifications = $injector.get('GO.Modules.GroupOffice.Notifications.Services.Notifications');
-					console.log(notifications);
 					notifications.setServerUnseenCount(response.data.notificationCount);					
 				}
 			}

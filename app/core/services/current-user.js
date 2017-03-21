@@ -46,6 +46,15 @@ angular.module('GO.Core')
 								document.location = "";
 							});
 						};
+				
+						
+						CurrentUser.prototype.getDefaultState = function() {
+							return localStorage['go-default-state'];
+						};
+						
+						CurrentUser.prototype.setDefaultState = function(state) {
+							localStorage['go-default-state'] = state;
+						};
 
 
 						return new CurrentUser();

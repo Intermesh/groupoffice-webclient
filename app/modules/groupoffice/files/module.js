@@ -18,7 +18,17 @@ GO.module('GO.Modules.GroupOffice.Files', [])
 				controller: 'GO.Modules.GroupOffice.Files.Main',
 				url: "/files?{path:[^/]*}"
 			})
-			.state('files.file', {
+			.state('files.locations', {
+				templateUrl: 'modules/groupoffice/files/views/drives.html',
+				controller: 'GO.Modules.GroupOffice.Files.Drive',
+				url: "/locations"
+			})
+			.state('files.drive', {
+				templateUrl: 'modules/groupoffice/files/views/files.html',
+				controller: 'GO.Modules.GroupOffice.Files.Main',
+				url: "/drive"
+			})
+			.state('files.drive.file', {
 				templateUrl: 'modules/groupoffice/files/views/file.html',
 				controller: 'GO.Modules.GroupOffice.Files.File',
 				url: "/{id:[0-9]*}"

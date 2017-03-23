@@ -9,13 +9,14 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'$mdSidenav',
 		'$mdDialog',
 		'$mdMenu',
+		'GO.Modules.GroupOffice.Notifications.Services.Notifications',
 		'GO.Core.Services.Application',
 		'GO.Core.Services.ServerAPI',
 		'GO.Core.Factories.Data.Store',
 		'GO.Modules.GroupOffice.Files.Model.Browser',
 		'GO.Modules.GroupOffice.Files.Model.Clipboard',
 		'GO.Modules.GroupOffice.Files.Model.Node',
-		function ($scope, $state, $http, $mdSidenav, $mdDialog,$mdMenu, App, ServerAPI, Store, Browser,Clipboard, Node) {
+		function ($scope, $state, $http, $mdSidenav, $mdDialog,$mdMenu,Notifications, App, ServerAPI, Store, Browser,Clipboard, Node) {
 			// The date that is currently viewed
 			//$scope.$mdSidenav = $mdSidenav;
 			$scope.flowInit = ServerAPI.getFlowInit();
@@ -23,7 +24,6 @@ GO.module('GO.Modules.GroupOffice.Files').
 
 			$scope.model = new Node('files', '*');
 			$scope.nodeStore = $scope.model.getStore();
-			$scope.nodeStore.load();
 
 			$scope.starredFolder = $scope.model.getStore();
 			$scope.starredFolder.$loadParams = {
@@ -34,9 +34,21 @@ GO.module('GO.Modules.GroupOffice.Files').
 
 
 			$scope.browser = new Browser($scope.nodeStore);
+			$scope.browser.open({id:'home',isDirectory:true});
 			$scope.clipboard = new Clipboard();
 
 			$scope.showInfo = true;
+
+			$scope.editDrive = function(path) {
+				$mdDialog.show({
+					controller: 'GO.Modules.GroupOffice.Files.DriveForm',
+					templateUrl: 'modules/groupoffice/files/views/drive-form.html',
+					parent: angular.element(document.body),
+					scope: $scope.$new(),
+					clickOutsideToClose:true
+					//fullscreen: useFullScreen
+				})
+			};
 
 			$scope.selectNode = function (model) {
 				$scope.model = model;
@@ -51,11 +63,14 @@ GO.module('GO.Modules.GroupOffice.Files').
 				$mdMenu.open(ev);
 			 };
 			$scope.addFolder = function(newFolder) {
-				var folder = new Node('files', '*');
+				var folder = new Node();
+				folder.addStore($scope.nodeStore);
 				folder.name = newFolder;
 				folder.isDirectory = true;
-				folder.parentId = $scope.browser.currentDir().id || null;
-				folder.save();
+				folder.parentId = $scope.browser.currentDir().id;
+				folder.save().then(function() {
+					$scope.nodeStore.reload();
+				});
 			};
 
 			$scope.toggleInfo = function() {
@@ -75,6 +90,21 @@ GO.module('GO.Modules.GroupOffice.Files').
 				$scope.uploadStack.push(node.getAttributes());
 			};
 
+			$scope.onAddFiles = function($files, $event, $flow) {
+				for(var f in $files) {
+					console.log($files[f]);
+					Notifications.add({
+						template: '<div>Uploading {{name}}</div>',
+						locals: $files[f]
+	//					controller: 'GO.'
+					});
+				}
+				Notifications.showPanel();
+			};
+			$scope.onFileProgress = function($file, $flow) {
+				console.log($file);
+			};
+
 			$scope.uploadCommit = function() { //all files are uploaded
 
 				$http.post(ServerAPI.url('files'), {data: $scope.uploadStack})
@@ -85,12 +115,16 @@ GO.module('GO.Modules.GroupOffice.Files').
 						} else {
 							console.log('BAD');
 						}
-
+						Notifications.closePanel();
 					});
 			};
 
 			$scope.thumb = function(blobId) {
 				return ServerAPI.thumbUrl(blobId, {w:132, h:132});
 			};
+			if($state.is('files')) {
+				$state.go('files.drive');
+			}
+
 
 		}]);

@@ -1,0 +1,35 @@
+<div layout="column" style="height:540px; width: 380px;" ng-cloak>
+  <section style="overflow: hidden;">
+	  <md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{"Close" | goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+			<h1>Drive</h1>
+		</div>
+	</md-toolbar>
+
+    <md-content flex>
+
+		 <md-tabs md-stretch-tabs="always" md-dynamic-height md-border-bottom>
+      <md-tab label="Home">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Home</h1>
+          <p>Name, Typem Free space etc</p>
+			 <md-progress-circular md-diameter="96" md-mode="determinate" value="80"></md-progress-circular>
+        </md-content>
+      </md-tab>
+			  <md-tab label="Share">
+        <md-content class="md-padding">
+          <h5><md-icon>share</md-icon> Who has access</h5>
+			<go-share model="model" group-fk="nodeId" permissions="[{key:'manage', name: 'Manage'},{key: 'write', name: 'Write'}]"></go-share>
+        </md-content>
+      </md-tab>
+		 </md-tabs>
+
+    
+	</md-content>
+
+  </section>
+</div>

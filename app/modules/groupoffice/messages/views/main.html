@@ -51,7 +51,14 @@
 
 		<md-divider></md-divider>
 
-		<go-tag-filter on-change="updateFilter('tags', value)" record-class-name='GO\Modules\GroupOffice\Messages\Model\Thread'></go-tag-filter>
+		<go-tag-filter 
+			on-change="updateFilter('tags', value)" 
+			record-class-name='GO\Modules\GroupOffice\Messages\Model\Thread'
+			store-route="messages/tags",
+			store-load-params="{accountIds: filters.accounts}"
+			>
+				
+		</go-tag-filter>
 
 		<md-divider></md-divider>
 		

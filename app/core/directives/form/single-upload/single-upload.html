@@ -43,7 +43,7 @@
 			</md-tooltip>
 		</md-button>
 	</div>
-	<md-progress-linear md-mode="determinate" ng-if="$flow.files[0] && $flow.files[0].progress() != 1" value="$flow.files[0].progress()*100"></md-progress-linear>
-
+	
+	<md-progress-linear md-mode="determinate" ng-if="$flow.files[0] && $flow.files[0].progress() != 1" ng-value="$flow.files[0].progress()*100"></md-progress-linear>
 
 </div>

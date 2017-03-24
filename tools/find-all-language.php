@@ -38,5 +38,6 @@ foreach($langFiles as $langFile) {
 	echo "Updating ".$langFile."\n\n";
 	
 	$cmd = $root.'/tools/find-language.php language/'.$lang.'.js';
-	system($cmd);
+	system($cmd);	
 }
+

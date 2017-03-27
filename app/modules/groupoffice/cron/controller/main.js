@@ -18,7 +18,6 @@ angular.module('GO.Modules.GroupOffice.Cron').controller('GO.Modules.GroupOffice
 
 			if (!job) {
 				job = new Job();
-				job.addStore($scope.store);
 			}
 
 

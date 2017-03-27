@@ -104,7 +104,6 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 
 			if (!task) {
 				task = new Task();
-				task.addStore($scope.store);
 			}
 
 			Dialog.show({

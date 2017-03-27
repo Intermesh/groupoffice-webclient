@@ -47,7 +47,6 @@ angular.module('GO.Core')
 //									var result = angular.fromJson($message);			
 //									
 //									var newFile = new File(ctrl.file.$storeRoute);
-//									newFile.addStore(scope.filesStore);
 //									
 //									newFile.name = result.file;
 //									newFile.tempPath = result.file;

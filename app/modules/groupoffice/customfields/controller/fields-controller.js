@@ -43,7 +43,6 @@ angular.module('GO.Modules.GroupOffice.CustomFields').
 							
 							
 							var field = new fieldModel($stateParams.modelName, $stateParams.fieldSetId);
-							field.addStore($scope.fieldsStore);
 							
 							field.read(id).then(function() {							
 								Dialog.show({

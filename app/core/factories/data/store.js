@@ -393,7 +393,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 
 			var model = Object.create(this.$modelProto);
 			model.constructor.apply(model, this.$modelConstructorArgs);
-			model.addStore(this);
 			model.$baseParams = baseParams;
 
 			return model;

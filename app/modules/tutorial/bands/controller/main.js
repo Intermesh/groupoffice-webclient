@@ -18,7 +18,6 @@ GO.module('GO.Modules.Tutorial.Bands').
 
 							if (!band) {
 								band = new Band();
-								band.addStore($scope.store);
 								band.read();
 							}
 

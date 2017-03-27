@@ -31,8 +31,7 @@ GO.module('GO.Core').component('goEmailTemplates', {
 			this.edit = function (emailTemplate) {
 
 				if (!emailTemplate) {
-					emailTemplate = new EmailTemplate(this.goModuleName);
-					emailTemplate.addStore(this.store);					
+					emailTemplate = new EmailTemplate(this.goModuleName);		
 				}
 
 

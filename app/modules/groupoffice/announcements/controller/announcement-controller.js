@@ -20,7 +20,6 @@ GO.module('GO.Modules.GroupOffice.Announcements').
 							
 							if(!config.announcement) {
 								config.announcement = new Announcement();
-								config.announcement.addStore($scope.store);
 							}
 							
 							AnnouncementEditor.show(config).then(function (data) {

@@ -78,8 +78,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 			 */
 			this.$busy = false;
 
-			this.$stores = [];
-
 			this.$lastReadParams = {};
 
 			this.$baseParams = {};
@@ -227,8 +225,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 						}
 
 						deferred.resolve({model: this, response: response.data});
-
-						this._updateStores();
 					}
 				} else
 				{
@@ -244,33 +240,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 		};
 
 
-		Model.prototype._updateStores = function () {
-//							$rootScope.$emit('modelUpdated', this);
-			angular.forEach(this.$stores, function (store) {
-				store.updateModel(this);
-			}.bind(this));
-		};
-
-
-		/**
-		 * @ngdoc method
-		 * @name GO.Core.Factories.Data.Model#addStore
-		 * @methodOf GO.Core.Factories.Data.Model
-		 * @description
-		 * 
-		 * Adds a store that will be updated when the model is saved or deleted
-		 * 
-		 * @param {GO.Core.Factories.Data.Store} store
-		 */
-		Model.prototype.addStore = function (store) {
-
-//			if (store.$storeRoute !== this.getStoreRoute()) {
-//				throw "$storeRoutes don't match in Model.addStore(): " + store.$storeRoute + " != " + this.getStoreRoute();
-//			}
-
-//			this.$stores.push(store);
-		};
-
 		/**
 		 * @ngdoc method
 		 * @name GO.Core.Factories.Data.Model#undelete
@@ -285,7 +254,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 			this.deleted = false;
 
 			return this.save().then(function () {
-				this._updateStores();
+
 			}.bind(this));
 		};
 
@@ -614,9 +583,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 										if (data) {
 											this.loadData(data); 											
 										}
-
-//										this._updateStores();
-										
 										$rootScope.$broadcast('modelupdate', this);
 										
 										if(modifiedAttributes.tags) {
@@ -853,8 +819,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 			var store = new Store(this.getStoreRoute(), loadParams);
 			store.$modelProto = Object.getPrototypeOf(this);
 			store.$modelConstructorArgs = this.$constructorArgs;
-
-//			this.addStore(store);
 
 			return store;
 		};

@@ -39,7 +39,6 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 			if (!config.contact) {
 				//this will keep the store connection
 				config.contact = new Contact();
-				config.contact.addStore($scope.contactStore);
 			}
 
 			ContactEditor.show(config).then(function (data) {

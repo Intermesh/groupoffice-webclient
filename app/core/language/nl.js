@@ -170,7 +170,7 @@ angular.module("GO.Core").config(["GO.Core.Providers.TranslateProvider", functio
     "Ascending": "Oplopend",
     "Descending": "Aflopend",
     "Description": "Beschrijving",
-    "Undo delete": "Verijderen ongedaan maken",
+    "Undo delete": "Verwijderen ongedaan maken",
     "Language": "Taal",
     "Info": "Info",
     "Email": "Email",

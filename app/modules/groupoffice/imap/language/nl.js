@@ -1,7 +1,7 @@
 angular.module("GO.Core")
-.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
-		TranslateProvider.addTranslations("nl", {
-
+		.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
+				TranslateProvider.addTranslations("nl", 
+					{
     "Send": "Send",
     "None": "None",
     "Archive all incoming": "Archive all incoming",
@@ -16,5 +16,6 @@ angular.module("GO.Core")
     "Signatures": "Signatures",
     "createImapAccountText": "createImapAccountText",
     "Invalid e-mail address": "Invalid e-mail address"
-});
-	}]);
+}
+				);
+			}]);

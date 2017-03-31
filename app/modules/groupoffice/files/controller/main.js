@@ -11,17 +11,21 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'$mdMenu',
 		'GO.Modules.GroupOffice.Notifications.Services.Notifications',
 		'GO.Core.Services.Application',
+		'GO.Core.Services.ServerModules',
 		'GO.Core.Services.ServerAPI',
 		'GO.Core.Factories.Data.Store',
 		'GO.Modules.GroupOffice.Files.Model.Browser',
 		'GO.Modules.GroupOffice.Files.Model.Clipboard',
 		'GO.Modules.GroupOffice.Files.Model.Node',
-		function ($scope, $state, $http, $mdSidenav, $mdDialog,$mdMenu,Notifications, App, ServerAPI, Store, Browser,Clipboard, Node) {
+		function ($scope, $state, $http, $mdSidenav, $mdDialog,$mdMenu,Notifications, App,ServerModules, ServerAPI, Store, Browser,Clipboard, Node) {
 			// The date that is currently viewed
 			//$scope.$mdSidenav = $mdSidenav;
 			$scope.flowInit = ServerAPI.getFlowInit();
-			
 
+			ServerModules.fetchModule('GO\\Modules\\GroupOffice\\Files\\Module').then(function (module) {
+				$scope.permissions = module.permissions;
+			});
+			
 			$scope.model = new Node('files', '*');
 			$scope.nodeStore = $scope.model.getStore();
 
@@ -32,6 +36,8 @@ GO.module('GO.Modules.GroupOffice.Files').
 			};
 			$scope.starredFolder.load();
 
+			$scope.mountStore = new Store('/mounts');
+			$scope.mountStore.load();
 
 			$scope.browser = new Browser($scope.nodeStore);
 			$scope.browser.open({id:'home',isDirectory:true});
@@ -47,7 +53,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 					scope: $scope.$new(),
 					clickOutsideToClose:true
 					//fullscreen: useFullScreen
-				})
+				});
 			};
 
 			$scope.selectNode = function (model) {
@@ -122,9 +128,9 @@ GO.module('GO.Modules.GroupOffice.Files').
 			$scope.thumb = function(blobId) {
 				return ServerAPI.thumbUrl(blobId, {w:132, h:132});
 			};
-			if($state.is('files')) {
-				$state.go('files.drive');
-			}
+//			if($state.is('files')) {
+//				$state.go('files.drive');
+//			}
 
 
 		}]);

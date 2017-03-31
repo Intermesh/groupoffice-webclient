@@ -35,7 +35,6 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 					var filter = {};
 					filter[model] = true;
 					this.store.$loadParams.filter = filter;
-					this.store.load();
 					break;
 				case 'home':
 					delete this.store.$loadParams.filter;
@@ -44,13 +43,14 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 				this.store.load();
 				this.dirStack = [{name:specialFolders[model], id:null, at:model}];
 			}
-			$state.go("files.file", {id:model.id});
+			$state.go("files.drive", {id:model.id});
 			return this;
 		};
 		Browser.prototype.open = function(model) {
 			var self = this;
+			$state.go("files.drive");
 			if(model.isDirectory) {
-
+				console.log(model);
 				this.store.load({directory: model.id}).then(function(xhr){
 					var dir;
 					self.dirStack = [self.dirStack[0]];

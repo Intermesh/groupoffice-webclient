@@ -2,10 +2,10 @@
 	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 		
 		<md-list>
-			<md-list-item ng-class="{'selected' : browser.isAt('home')}" ng-click="browser.goTo('home')" ui-sref="files.drive">
+			<md-list-item ng-class="{'selected' : browser.isAt('home')}" ng-click="browser.goTo('home')">
 				<md-icon>home</md-icon>
 				<p>Home</p>
-				<md-button class="md-secondary md-icon-button" ng-click="editDrive('home')"><md-icon>storage</md-icon></md-button>
+				<md-button class="md-secondary md-icon-button" ng-click="editDrive('home')"><md-icon>settings</md-icon></md-button>
 			</md-list-item>
 			<md-list-item ng-class="{'selected' : browser.isAt('starred')}" ng-click="browser.goTo('starred')">
 				<md-icon>star_rate</md-icon>
@@ -36,12 +36,14 @@
 
 			<md-divider></md-divider>
 
-			<md-list-item ng-class="{'selected' : browser.isAt('shared')}" ng-click="browser.goTo('shared')">
+			<md-list-item ng-repeat="drive in mountStore.items" ng-click="browser.open(drive.root)">
 				<md-icon>folder_shared</md-icon>
-				<p>Group drive</p>
+				<p>{{drive.name}}</p>
 			</md-list-item>
-			
-			<md-list-item ng-class="{'selected' : browser.isAt('locations')}" ui-sref="files.locations">
+
+
+
+			<md-list-item ng-if="::permissions.mountDrives" ng-class="{'selected' : browser.isAt('locations')}" ui-sref="files.locations">
 				<md-icon>add</md-icon>
 				<p>Locations</p>
 			</md-list-item>
@@ -56,6 +58,7 @@
 	</md-sidenav>
 
 	<md-content flex ui-view layout="row">
+		
 	</md-content>
 	
 </go-hook>

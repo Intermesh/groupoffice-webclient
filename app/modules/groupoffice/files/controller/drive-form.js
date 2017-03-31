@@ -21,14 +21,6 @@ GO.module('GO.Modules.GroupOffice.Files').
 					model.setAttributes(calendar);
 				}
 				model.ownedBy = $scope.account.id;
-				$scope.current = model;
-				$mdSidenav('calendar').toggle();
-			};
-			$scope.delete = function() {
-				$scope.current.delete().then(function() {
-					$mdSidenav('calendar').close();
-					$scope.$parent.accountStore.reload();
-				});
 			};
 			$scope.escape = function() {
 				$mdSidenav('calendar').close();

@@ -2,7 +2,7 @@
 
 /* Controllers */
 GO.module('GO.Modules.GroupOffice.Files').
-	controller('GO.Modules.GroupOffice.Files.Drive', [
+	controller('GO.Modules.GroupOffice.Files.Drives', [
 		'$scope',
 		'$state',
 		'$mdDialog',
@@ -13,7 +13,9 @@ GO.module('GO.Modules.GroupOffice.Files').
 			$scope.driveStore = $scope.model.getStore();
 			$scope.driveStore.load();
 
-			$scope.addDrive = function() {
+			$scope.editDrive = function(drive) {
+				$scope.model = drive || new Drive();
+				
 				$mdDialog.show({
 					controller: 'GO.Modules.GroupOffice.Files.DriveForm',
 					templateUrl: 'modules/groupoffice/files/views/drive-form.html',
@@ -26,13 +28,16 @@ GO.module('GO.Modules.GroupOffice.Files').
 
 			$scope.selectDrive = function (model) {
 				$scope.model = model;
-				$scope.browser.goTo(model);
-				//MOUNT?
-				//$scope.browser.open(model);
 			};
 
 			$scope.toggleInfo = function() {
 				$scope.showInfo = !$scope.showInfo;
 			};
 
+			$scope.mount = function(drive) {
+				var mounts = $scope.mountStore;
+				drive.mount().then(function() {
+					mounts.load();
+				});
+			};
 		}]);

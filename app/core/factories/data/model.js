@@ -592,6 +592,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 										deferred.resolve({model: this, response: response, modifiedAttributes: modifiedAttributes});
 									}
 
+								}.bind(this)).catch(function(response){
+									deferred.reject({model: this, response: response, modifiedAttributes: modifiedAttributes});
 								}.bind(this)).finally(function(){
 									this.$busy = false;
 								}.bind(this));

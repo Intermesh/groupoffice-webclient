@@ -4,32 +4,19 @@ GO.module('GO.Modules.GroupOffice.Files').
 	controller('GO.Modules.GroupOffice.Files.DriveForm', [
 		'$scope',
 		'$mdDialog',
-		'$mdSidenav',
-		'GO.Modules.GroupOffice.Files.Model.Node',
-		function ($scope, $mdDialog, $mdSidenav, Node) {
+		'GO.Modules.GroupOffice.Files.Model.Drive',
+		function ($scope, $mdDialog, Drive) {
 			$scope.hide = function() {
 				$mdDialog.hide();
 			};
 			$scope.cancel = function() {
 				$mdDialog.cancel();
 			};
-			
-			$scope.edit = function(calendar) {
-				var model = new Calendar();
 
-				if(calendar) {
-					model.setAttributes(calendar);
-				}
-				model.ownedBy = $scope.account.id;
-			};
-			$scope.escape = function() {
-				$mdSidenav('calendar').close();
-			};
-			$scope.submit = function() {
-				$scope.current.save().then(function() {
-					$mdSidenav('calendar').close();
+			$scope.save = function() {
+				$scope.model.save().then(function() {
 					$mdDialog.hide();
-					$scope.$parent.accountStore.reload();
+					$scope.driveStore.reload();
 				});
 			};
 		}

@@ -7,7 +7,7 @@
 					<md-icon>close</md-icon>
 				</md-button>
 				<h1 flex>Drive</h1>
-				<md-button type="submit">{{"Save" | goT}}</md-button>
+				<md-button ng-click="save()">{{"Save" | goT}}</md-button>
 			</div>
 		</md-toolbar>
 
@@ -43,7 +43,7 @@
 				<md-tab label="Share" ng-if="model.isNew || model.permissions.changePermissions">
 					<md-content class="md-padding">
 						<h5><md-icon>share</md-icon> Who has access</h5>
-						<go-share model="model" group-fk="nodeId" permissions="[{key:'manage', name: 'Manage'},{key: 'write', name: 'Write'}]"></go-share>
+						<go-share model="model" group-fk="driveId" permissions="[{key:'manage', name: 'Manage'},{key: 'write', name: 'Write'}]"></go-share>
 					</md-content>
 				</md-tab>
 			</md-tabs>

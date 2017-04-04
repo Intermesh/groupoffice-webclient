@@ -8,23 +8,30 @@ angular.module('GO.Modules.GroupOffice.Files')
 		function (Model, $http, ServerAPI) {
 
 		//Extend the base model and set default return proeprties
-		var driveModel = GO.extend(Model, function () {
+		var Drive = GO.extend(Model, function () {
 			this.$parent.constructor.call(this, arguments);
 		});
-		driveModel.prototype.usage = 0;
-		driveModel.prototype.quota = 0;
 
-		driveModel.prototype.getStoreRoute = function() {
+		Drive.prototype.$returnProperties = "*,groups";
+
+		Drive.prototype.usage = 0;
+		Drive.prototype.quota = 0;
+
+		Drive.prototype.getStoreRoute = function() {
 			return 'drives';
 		};
 
-		driveModel.prototype.percentage = function() {
+		Drive.prototype.save = function() {
+			return this.$parent.save.call(this, arguments);
+		};
+
+		Drive.prototype.percentage = function() {
 			return Math.round((100/this.quota)*this.usage);
 		};
 
-		driveModel.prototype.mount = function() { //bool
+		Drive.prototype.mount = function() { //bool
 			return $http.post(ServerAPI.url('drives/'+this.id+'/mount',{mount:this.isMounted=='0'?false:true}));
 		};
 
-		return driveModel;
+		return Drive;
 	}]);

@@ -10,7 +10,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Resource', [
 			this.$storeRoute = storeRoute;
 			
 			if(returnProperties){
-				this.$baseParams = {returnProperties: returnProperties};
+				this.$returnProperties = returnProperties;
 			}
 			
 			this.$keys = keys || ['id'];

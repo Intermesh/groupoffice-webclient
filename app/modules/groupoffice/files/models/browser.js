@@ -42,13 +42,16 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			if(angular.isString(model)) { // mine, recent, etc
 				this.store.load();
 				this.dirStack = [{name:specialFolders[model], id:null, at:model}];
+				$state.go("files.storage");
+			} else {
+				$state.go("files.storage", {drive:model.path});
 			}
-			$state.go("files.drive", {id:model.id});
+			
 			return this;
 		};
 		Browser.prototype.open = function(model) {
 			var self = this;
-			$state.go("files.drive");
+			$state.go("files.storage.node");
 			if(model.isDirectory) {
 				console.log(model);
 				this.store.load({directory: model.id}).then(function(xhr){

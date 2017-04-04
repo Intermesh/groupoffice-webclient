@@ -16,7 +16,17 @@ GO.module('GO.Modules.GroupOffice.Files', [])
 			.state('files', {
 				templateUrl: 'modules/groupoffice/files/views/main.html',
 				controller: 'GO.Modules.GroupOffice.Files.Main',
-				url: "/files?{path:[^/]*}"
+				url: "/files" //?{path:[^/]*}
+			})
+			.state('files.storage', {
+				templateUrl: 'modules/groupoffice/files/views/files.html',
+				//controller: 'GO.Modules.GroupOffice.Files.Main',
+				url: "/home" // /{drive:[a-z]*}
+			})
+			.state('files.storage.node', {
+				templateUrl: 'modules/groupoffice/files/views/file.html',
+				controller: 'GO.Modules.GroupOffice.Files.File',
+				url: "/{id:[0-9]*}"
 			})
 			.state('files.locations', {
 				templateUrl: 'modules/groupoffice/files/views/drives.html',
@@ -25,12 +35,7 @@ GO.module('GO.Modules.GroupOffice.Files', [])
 			})
 			.state('files.locations.drive', {
 				templateUrl: 'modules/groupoffice/files/views/drive.html',
-				//controller: 'GO.Modules.GroupOffice.Files.Drive',
-				url: "/drive"
-			})
-			.state('files.drive', {
-				templateUrl: 'modules/groupoffice/files/views/files.html',
-				controller: 'GO.Modules.GroupOffice.Files.File',
+				controller: 'GO.Modules.GroupOffice.Files.Drive',
 				url: "/{id:[0-9]*}"
 			});
 			

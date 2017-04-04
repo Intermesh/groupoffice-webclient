@@ -26,8 +26,8 @@ GO.module('GO.Modules.GroupOffice.Files').
 				});
 			};
 
-			$scope.selectDrive = function (model) {
-				$scope.model = model;
+			$scope.selectDrive = function(model) {
+				$state.go('files.locations.drive', {id: model.id});
 			};
 
 			$scope.toggleInfo = function() {

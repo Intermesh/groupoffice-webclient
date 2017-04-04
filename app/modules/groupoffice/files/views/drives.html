@@ -24,12 +24,12 @@
 			<md-button class="md-icon-button">
 				<md-icon>search</md-icon>
 			</md-button>
-			<md-button ng-if="browser.isGrid()" ng-click="browser.setDisplay('list')" class="md-icon-button">
+<!--			<md-button ng-if="browser.isGrid()" ng-click="browser.setDisplay('list')" class="md-icon-button">
 				<md-icon>view_list</md-icon>
 			</md-button>
 			<md-button ng-if="browser.isList()" ng-click="browser.setDisplay('grid')" class="md-icon-button">
 				<md-icon>view_module</md-icon>
-			</md-button>
+			</md-button>-->
 			<md-button ng-click="toggleInfo()" ><md-icon ng-style="!showInfo ? {color:'grey'}:{}">info</md-icon>{{"Info panel"| goT}}</md-button>
 			<md-button ng-click="driveStore.reload()"><md-icon>refresh</md-icon> {{"Refresh" | goT}}</md-button>
 
@@ -51,7 +51,9 @@
 						<h4 flex>{{model.name}}</h4>
 						<p flex="20" class="go-ellipsis">{{model.owner.name}}</p>
 						<p style="width:60px; text-align:right;">{{model.quota | bytes}}</p>
-						<p style="width:60px; text-align:right;"><md-switch class="md-secondary" ng-change="mount(model)" ng-model="model.isMounted" ng-true-value="'1'" ng-false-value="'0'"></md-switch></p>
+						<p class="md-secondary-container" style="width:60px; text-align:right;">
+							<md-switch class="md-secondary" ng-change="mount(model)" ng-model="model.isMounted" ng-true-value="'1'" ng-false-value="'0'"></md-switch>
+						</p>
 					</div>
 
 				</md-list-item>
@@ -72,7 +74,7 @@
 </md-content>
 
 <div>
-	<md-content ng-include="'modules/groupoffice/files/views/drive.html'" layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
-
+	<md-content ui-view layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
+		Select a drive
 	</md-content>
 </div>

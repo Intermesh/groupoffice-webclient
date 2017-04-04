@@ -1,4 +1,4 @@
-<md-content flex layout="column">
+<md-content flex layout="column" ng-cloak>
 	<md-toolbar store="nodeStore">
 
 		<div class="md-toolbar-tools">
@@ -104,7 +104,7 @@
 
 	</md-content>
 	<div>
-	<md-content ng-show="showInfo" ng-include="'modules/groupoffice/files/views/file.html'" layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
+	<md-content ng-show="showInfo" ui-view layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
 		No file selected
 	</md-content>
 	</div>

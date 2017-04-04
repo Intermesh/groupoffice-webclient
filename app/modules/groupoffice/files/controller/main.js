@@ -56,14 +56,6 @@ GO.module('GO.Modules.GroupOffice.Files').
 				});
 			};
 
-			$scope.selectNode = function (model) {
-				$scope.model = model;
-				$scope.browser.goTo(model);
-				if(model.isDirectory && $scope.browser.currentDir().at !== 'trash') {
-					$scope.browser.open(model);
-				}
-			};
-
 			$scope.openMenu = function($mdMenu, ev) {
 				//originatorEv = ev;
 				$mdMenu.open(ev);
@@ -129,7 +121,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 				return ServerAPI.thumbUrl(blobId, {w:132, h:132});
 			};
 //			if($state.is('files')) {
-//				$state.go('files.drive');
+//				$state.go('files.storage');
 //			}
 
 

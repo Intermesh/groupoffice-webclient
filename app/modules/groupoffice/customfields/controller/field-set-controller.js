@@ -28,7 +28,6 @@ angular.module('GO.Modules.GroupOffice.CustomFields').controller('GO.Modules.Gro
 					
 						if(!fieldset) {
 							fieldset = new fieldsetModel($stateParams.modelName);
-							fieldset.addStore($scope.fieldsetStore)
 						}
 						
 						Dialog.show({

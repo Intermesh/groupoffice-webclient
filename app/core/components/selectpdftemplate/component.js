@@ -29,7 +29,6 @@ GO.module('GO.Core').component('goSelectPdfTemplates', {
 				var me = this;
 
 				var pdfTemplate = new PdfTemplate(this.goModuleName);
-				pdfTemplate.addStore(this.store);
 
 				Dialog.show({
 					editModel: pdfTemplate,

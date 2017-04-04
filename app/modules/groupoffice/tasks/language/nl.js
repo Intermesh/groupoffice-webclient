@@ -1,7 +1,7 @@
 angular.module("GO.Core")
-.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
-		TranslateProvider.addTranslations("nl", {
-
+		.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
+				TranslateProvider.addTranslations("nl", 
+					{
     "Complete": "Complete",
     "Incomplete": "Incomplete",
     "Late": "Late",
@@ -24,5 +24,6 @@ angular.module("GO.Core")
     "Debtor terms": "Debtor terms",
     "Query": "Query",
     "Tasks": "Tasks"
-});
-	}]);
+}
+				);
+			}]);

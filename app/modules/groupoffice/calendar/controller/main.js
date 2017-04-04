@@ -141,7 +141,6 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 							// this will not post the attributes I set
 						}
 					}).then(open);
-					$scope.model.addStore($scope.eventStore);
 				} else {
 					var p = {};
 					if(startAt) {

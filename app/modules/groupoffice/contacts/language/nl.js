@@ -1,17 +1,16 @@
 angular.module("GO.Core")
-				.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
-						TranslateProvider.addTranslations("nl", {
-							"Contacts": "Contactpersonen",
-							"GO\\Modules\\GroupOffice\\Contacts\\Module": 'Contactpersonen',
-							"First name": "Voornaam",
-							"Middle name": "Tussenvoegsel",
-							"Last name": "Achternaam",
-
+		.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
+				TranslateProvider.addTranslations("nl", 
+					{
+    "Contacts": "Contactpersonen",
+    "GO\\Modules\\GroupOffice\\Contacts\\Module": "Contactpersonen",
+    "First name": "Voornaam",
+    "Middle name": "Tussenvoegsel",
+    "Last name": "Achternaam",
     "Organization": "Organization",
     "Organizations": "Organizations",
     "E-mail addresses": "E-mail addresses",
     "Dates": "Dates",
-
     "Open side navigation": "Open side navigation",
     "No contacts found": "No contacts found",
     "Contact": "Contact",
@@ -27,7 +26,6 @@ angular.module("GO.Core")
     "Gender unknown": "Gender unknown",
     "Private": "Private",
     "Share with group": "Share with group",
-
     "Persons": "Persons",
     "Edit selection": "Edit selection",
     "Write": "Write",
@@ -38,5 +36,6 @@ angular.module("GO.Core")
     "IBAN": "IBAN",
     "Business details": "Business details",
     "URL's": "URL's"
-});
-					}]);
+}
+				);
+			}]);

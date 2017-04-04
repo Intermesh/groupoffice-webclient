@@ -4,24 +4,64 @@ GO.module('GO.Core').component('goTagFilter', {
 	bindings: {
 		selectedTags: '<',
 		recordClassName: '@',
-		onChange: '&'
+		onChange: '&',
+		storeRoute: '@?',
+		storeLoadParams: '<?'
 	},
 	controller: [
 		'$scope',
 		'GO.Core.Factories.Models.Tag',
 		function ($scope, Tag) {
+			
+			var me = this;
 
 			this.$onInit = function () {
-				this.store = (new Tag()).getStore({
+				
+				console.log(me);
+				
+				me.store = (new Tag()).getStore({
 					limit: 0,
-					recordClassName: this.recordClassName
+					recordClassName: me.recordClassName
 				});
-				this.store.load();
+				
+				if(me.storeRoute) {
+					me.store.$storeRoute = me.storeRoute;
+				};
+				
+				if(this.storeLoadParams) {
+					me.store.$loadParams = me.storeLoadParams;
+				};
+				
+				me.store.load();
 
-				if (!this.selectedTags) {
-					this.selectedTags = [];
+				if (!me.selectedTags) {
+					me.selectedTags = [];
 				}
+				
+				
+				me.$onChanges = function(changesObj){
+				
+					console.log(changesObj);
+					
+					if(changesObj.storeRoute) {
+						me.store.$storeRoute = changesObj.storeRoute.currentValue;
+					}
+
+					if(changesObj.storeLoadParams) {
+						me.store.$loadParams = changesObj.storeLoadParams.currentValue;
+					}
+						
+					if(changesObj.storeRoute || changesObj.storeLoadParams) {
+						me.store.load();
+						me.selectedTags = [];
+						
+						me.onChange({value: []});
+					}
+				};
+
 			};
+			
+			
 
 
 			//this automatically updates the store when a model is updated.

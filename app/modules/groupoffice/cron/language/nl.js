@@ -1,6 +1,7 @@
-angular.module("GO.Core").config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
-		TranslateProvider.addTranslations("nl", {
-
+angular.module("GO.Core")
+		.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
+				TranslateProvider.addTranslations("nl", 
+					{
     "Scheduled task": "Geplande taak",
     "Class name": "Class name",
     "The class does not exist": "The class does not exist",
@@ -16,6 +17,6 @@ angular.module("GO.Core").config(["GO.Core.Providers.TranslateProvider", functio
     "Running": "Bezig",
     "Run now": "Voer nu uit",
     "No scheduled tasks": "No scheduled tasks"
-});
-		
-	}]);
+}
+				);
+			}]);

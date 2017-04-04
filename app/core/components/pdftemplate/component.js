@@ -31,9 +31,7 @@ GO.module('GO.Core').component('goPdfTemplates', {
 			this.edit = function (pdfTemplate) {
 
 				if (!pdfTemplate) {
-					pdfTemplate = new PdfTemplate(this.goModuleName);
-					pdfTemplate.addStore(this.store);
-					
+					pdfTemplate = new PdfTemplate(this.goModuleName);					
 				}
 
 

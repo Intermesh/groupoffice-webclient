@@ -58,7 +58,6 @@ GO.module('GO.Modules.GroupOffice.Users').controller('GO.Modules.GroupOffice.Use
 
 			if (!user) {
 				user = new User();
-				user.addStore($scope.store);
 			}
 
 			Modal.show({

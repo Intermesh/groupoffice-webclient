@@ -89,8 +89,9 @@ angular.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOf
 			if (!chip.name) {
 				chip = {name: chip};
 			}
-			$scope.thread.tags[index - 1] = chip;
-			$scope.tags[index - 1] = chip;
+
+			$scope.thread.tags[index] = chip;
+			$scope.tags[index] = chip;
 			
 			$scope.thread.save().then(function() {
 				$scope.tags = angular.copy($scope.thread.tags);

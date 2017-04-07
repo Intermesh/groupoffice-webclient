@@ -3,12 +3,12 @@ angular.module("GO.Core")
 				TranslateProvider.addTranslations("nl", 
 					{
     "GO\\\\Core\\\\Smtp\\\\Model\\\\Account": "GO\\\\Core\\\\Smtp\\\\Model\\\\Account",
-    "E-mail address": "E-mail address",
-    "Sender name": "Sender name",
+    "E-mail address": "E-mail adres",
+    "Sender name": "Naam verzender",
     "Hostname": "Hostname",
-    "Encryption": "Encryption",
-    "None": "None",
-    "Port": "Port"
+    "Encryption": "Encryptie",
+    "None": "Geen",
+    "Port": "Poort"
 }
 				);
 			}]);

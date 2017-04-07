@@ -59,6 +59,7 @@ GO.module('GO.Modules.GroupOffice.Tasks', ['GO.Core'])
 
 						.state('tasks.task', {
 							url: "/{taskId:[0-9]*}",
+							reloadOnSearch: false, //needed for contactName query param in main state
 							templateUrl: 'modules/groupoffice/tasks/views/task.html',
 							controller: 'GO.Modules.GroupOffice.Tasks.Controller.Task'
 						})

@@ -18,7 +18,7 @@ factory('GO.Modules.GroupOffice.Files.Model.Node', [
 		var Node = GO.extend(Model, function () {
 			this.$parent.constructor.call(this, arguments);
 		});
-		Node.prototype.$returnProperties = "*,nodeUser,groups";
+		Node.prototype.$returnProperties = "*,nodeUser";
 		Node.prototype.$keys = ['id'];
 		Node.prototype.getStoreRoute = function() {
 			return 'files';
@@ -54,9 +54,6 @@ factory('GO.Modules.GroupOffice.Files.Model.Node', [
 		};
 		
 		Node.prototype.getIcon = function() {
-			if(this.isDirectory) {
-				return 'folder';
-			}
 			switch(this.type) {
 				case t.Other: return 'insert_drive_file';
 				case t.Document: return 'description';

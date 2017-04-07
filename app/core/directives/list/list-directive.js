@@ -62,7 +62,7 @@ angular.module('GO.Core').directive('goList', [
 					}
 
 					if (tAttr.group) {
-						itemReplacement += '<md-subheader ng-if="model.$group">{{model.$group}}</md-subheader>';
+						itemReplacement += '<md-subheader ng-if="model.$group || model.$group == 0">{{model.$group}}</md-subheader>';
 					}
 
 
@@ -86,7 +86,7 @@ angular.module('GO.Core').directive('goList', [
 					}
 
 					if (tAttr.group) {
-						itemReplacement += '<md-subheader class="md-primary md-no-sticky" ng-if="model.$group">{{model.$group}}</md-subheader>';
+						itemReplacement += '<md-subheader class="md-primary md-no-sticky" ng-if="model.$group || model.$group == 0">{{model.$group}}</md-subheader>';
 					}
 
 

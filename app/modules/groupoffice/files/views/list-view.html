@@ -1,27 +1,28 @@
-<md-list track-by="path" index="name" flex>
+<div class="go-card go-listview" go-infinite-scroll="nodeStore.nextPage()" layout="column" style="top:0;bottom:0;left:0;right:0;position:absolute; overflow-y:scroll;">
+<md-list>
+	<div ng-repeat="model in nodeStore.items">
 
-	<md-list-item style="min-height:47px" layout="row" layout-align="start center" ng-repeat="file in $flow.files" class="attachment" ng-if="file.isUploading()">
-		<span flex>{{file.name}}</span>
-		<md-progress-circular md-mode="indeterminate" md-diameter="18"></md-progress-circular>
-		<md-icon class="cancel" ng-click="file.cancel()">cancel</md-icon>
-		<go-progress value="file.progress()" max="1"></go-progress>
-	</md-list-item>
+		<md-subheader ng-if="!nodeStore.items[$index - 1] || nodeStore.items[$index - 1].isDirectory != model.isDirectory">{{model.isDirectory?'Folders':'Files'}}</md-subheader>
 
-	<md-list-item ng-repeat="model in nodeStore.items"  class="md-2-line" ng-click="selectNode(model)">
+		<md-list-item ui-sref="files.storage.node({id: model.id})">
 
-		<md-icon ng-if="!model.isImage()">{{model.getIcon()}}</md-icon>
-		<img ng-if="model.isImage()" class="md-avatar" ng-src="{{thumb(model.blobId)}}" />
-		<div class="md-list-item-text">
-			<h3>{{model.name}}</h3>
-			
-		</div>
-		<div class="md-list-item-text">{{model.owner.name}}</div>
-		<div>{{model.blob.size | bytes}}</div>
-
-	</md-list-item>
-
-	<md-list-item ng-show="!nodeStore.items.length">
+			<div  class="md-list-item-text" layout="row" flex layout-wrap>
+				<div class="md-avatar">
+					<md-icon style="padding:8px 0 0 5px;" ng-if="!model.isImage()">{{model.getIcon()}}</md-icon>
+					<img ng-if="model.isImage()" class="md-avatar" ng-src="{{thumb(model.blobId)}}" />
+				</div>
+				<h4 flex>{{model.name}}</h4>
+				<p flex="20" class="go-ellipsis">{{model.owner.name}}</p>
+				<p style="width:60px; text-align:right;">{{model.size | bytes}}</p>
+				<p style="width:60px; text-align:right;"><md-icon>{{model.nodeUser.starred ? 'star' : 'star_border' }}</md-icon></p>
+			</div>
+		</md-list-item>
+		
+	</div>
+	<div class="empty-state" ng-show="!nodeStore.items.length">
 		<md-icon>folder</md-icon>
 		<p>{{"No data found"| goT}}</p>
-	</md-list-item>
+	</div>
+
 </md-list>
+</div>

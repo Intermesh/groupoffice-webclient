@@ -54,12 +54,14 @@
 	}
 }
 
-#file-list-view md-list {
-	position:absolute;
-	top:48px;
-	bottom:0;
-	width:100%;
-	overflow-y:scroll;
+#files-drive .drive {
+	background-repeat:no-repeat;
+	background-color:white;
+	background-image: url('../modules/groupoffice/files/assets/cloud-drive2.png');
+	background-size: 200px;
+	background-position: -28px 16px;
+	padding-left: 170px;
+	min-height:170px;
 }
 
 $info-pabnel-height: rem(52);

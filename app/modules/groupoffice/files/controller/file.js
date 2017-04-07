@@ -7,20 +7,22 @@ angular.module('GO.Modules.GroupOffice.Files').
 	'$mdDialog',
 	'GO.Modules.GroupOffice.Files.Model.Node',
 	function($scope, $state, $stateParams, $mdSidenav, $mdDialog, Node) {
-		$scope.model = $scope.$parent.model;
-		$scope.clipboard = $scope.$parent.clipboard;
+
+		var selectNode = function (model) {
+				$scope.model = model;
+				if(model.isDirectory && $scope.browser.currentDir().at !== 'trash') {
+					$scope.browser.open(model);
+				}
+			};
+
 
 		$scope.model.$baseParams = {
 			returnProperties: "*"
 		};
 
 		$scope.model.read({id:$stateParams.id}).then(function(){  // TODO: ,'userId':userId
-			//$mdSidenav('fileinfo').open();
+			selectNode($scope.model);
 		});
-
-		$scope.close = function() {
-			$mdSidenav('fileinfo').close();
-		};
 
 		$scope.share = function() {
 			$mdDialog.show({
@@ -32,10 +34,19 @@ angular.module('GO.Modules.GroupOffice.Files').
 		};
 
 		$scope.deleteNode = function(node) {
-			node.delete().then(function() {
+			var p = {};
+			console.log($scope.browser.currentDir() );
+			if($scope.browser.currentDir().at == 'trash') {
+				p.hard = true;
+			}
+			node.delete(p).then(function() {
 				if(node.isDirectory) {
 					$scope.$parent.browser.up();
+				} 
+				if(p.hard) {
+					$scope.nodeStore.reload();
 				}
+				$scope.model = null;
 			});
 		};
 

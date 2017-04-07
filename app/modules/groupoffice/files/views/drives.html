@@ -1,0 +1,80 @@
+<md-content flex layout="column">
+	<md-toolbar store="driveStore">
+
+		<div class="md-toolbar-tools">
+
+			<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
+				<md-icon>menu</md-icon>
+			</md-button>
+			<md-button ng-disabled="!browser.depth()" class="md-icon-button" ng-click="browser.up()">
+				<md-icon>arrow_upward</md-icon>
+			</md-button>
+			<span flex >
+
+
+				 <md-tabs class="md-primary">
+					 <md-tab>
+						<md-tab-label>Locations</md-tab-label>
+					 </md-tab>
+				 </md-tabs>
+
+
+			</span>
+
+			<md-button class="md-icon-button">
+				<md-icon>search</md-icon>
+			</md-button>
+<!--			<md-button ng-if="browser.isGrid()" ng-click="browser.setDisplay('list')" class="md-icon-button">
+				<md-icon>view_list</md-icon>
+			</md-button>
+			<md-button ng-if="browser.isList()" ng-click="browser.setDisplay('grid')" class="md-icon-button">
+				<md-icon>view_module</md-icon>
+			</md-button>-->
+			<md-button ng-click="toggleInfo()" ><md-icon ng-style="!showInfo ? {color:'grey'}:{}">info</md-icon>{{"Info panel"| goT}}</md-button>
+			<md-button ng-click="driveStore.reload()"><md-icon>refresh</md-icon> {{"Refresh" | goT}}</md-button>
+
+		</div>
+
+	</md-toolbar>
+
+	<div flex class="go-cards-sm" layout="row">
+		<div flex class="go-card go-listview" go-infinite-scroll="driveStore.nextPage()" layout="column" style="top:0;bottom:0;left:0;right:0;position:absolute; overflow-y:scroll;">
+		<md-list>
+			<div ng-repeat="model in driveStore.items">
+
+				<md-list-item ng-click="selectDrive(model)">
+
+					<div class="md-list-item-text" layout="row" flex layout-wrap>
+						<div class="md-avatar">
+							<md-icon style="padding:8px 0 0 5px;">storage</md-icon>
+						</div>
+						<h4 flex>{{model.name}}</h4>
+						<p flex="20" class="go-ellipsis">{{model.owner.name}}</p>
+						<p style="width:60px; text-align:right;">{{model.quota | bytes}}</p>
+						<p class="md-secondary-container" style="width:60px; text-align:right;">
+							<md-switch class="md-secondary" ng-change="mount(model)" ng-model="model.isMounted" ng-true-value="'1'" ng-false-value="'0'"></md-switch>
+						</p>
+					</div>
+
+				</md-list-item>
+
+			</div>
+			<div class="empty-state" ng-show="!driveStore.items.length">
+				<md-icon>storage</md-icon>
+				<p>{{"No data found"| goT}}</p>
+			</div>
+
+		</md-list>
+		</div>
+
+		<md-button ng-if="::permissions.manageDrives" class="md-fab md-fab-bottom-right md-primary" aria-label="Add Drive" ng-click="editDrive()">
+         <md-icon>add</md-icon>
+      </md-button>
+	</div>
+</md-content>
+
+<div>
+	<md-content ui-view layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
+		Select a drive
+	</md-content>
+</div>

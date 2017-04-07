@@ -1,0 +1,55 @@
+<div layout="column" style="height:540px; width: 380px;" ng-cloak>
+	<section style="overflow: hidden;">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button type="button" class="md-icon-button" ng-click="cancel()">
+					<md-tooltip>{{"Close"| goT}}</md-tooltip>
+					<md-icon>close</md-icon>
+				</md-button>
+				<h1 flex>Drive</h1>
+				<md-button ng-click="save()">{{"Save" | goT}}</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-content flex>
+
+			<md-tabs md-stretch-tabs="always" md-dynamic-height md-border-bottom>
+				<md-tab label="Home">
+					<md-content class="md-padding">
+						<div layout="row" layout-align="start center">
+							<md-icon>storage</md-icon>
+							<md-input-container md-no-float flex>
+								<input ng-readonly="!model.isNew && !model.permissions.write" ng-model="model.name" placeholder="Drive naam" >
+							</md-input-container>
+							
+						</div>
+						Group-Office online storage
+						<div layout="row" flex>
+							<input ng-model="model.quota" placeholder="Disk space" >
+							<md-select ng-model="model.quotaUnit">
+								<md-option value="KB">KB</md-option>
+								<md-option value="MB">MB</md-option>
+								<md-option selected value="GB">GB</md-option>
+								<md-option value="TB">TB</md-option>
+							</md-select>
+						</div>
+						<md-divider></md-divider>
+						<md-progress-circular md-diameter="96" md-mode="determinate" value="model.percentage()"></md-progress-circular>
+
+						<md-button ng-if="!model.isNew && model.permissions.write" flex ng-click="model.delete()" class="md-warn">Delete</md-button>
+					</md-content>
+				</md-tab>
+
+				<md-tab label="Share" ng-if="model.isNew || model.permissions.changePermissions">
+					<md-content class="md-padding">
+						<h5><md-icon>share</md-icon> Who has access</h5>
+						<go-share model="model" group-fk="driveId" permissions="[{key:'manage', name: 'Manage'},{key: 'write', name: 'Write'}]"></go-share>
+					</md-content>
+				</md-tab>
+			</md-tabs>
+
+
+		</md-content>
+
+	</section>
+</div>

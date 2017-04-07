@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.Files.Model.Browser', [
+	
 	'$state',
 	function ($state) {
 		function Browser(store) {
@@ -12,15 +13,16 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			images:3 // todo
 		};
 		var specialFolders = {
-			mine: 'My Files',
+			home: 'Home',
 			starred: 'Starred',
 			recent: 'Recent',
 			trash: 'Trash',
-			shared: 'Shared'
+			shared: 'Shared',
+			locations: 'Locations'
 		};
-		Browser.prototype.at = 'mine';
+		Browser.prototype.at = 'home';
 		Browser.prototype.store = null;
-		Browser.prototype.dirStack = [{name:'My Files', id:null, at:'mine'}];
+		Browser.prototype.dirStack = [{name:'Home', id:'home', at:'home'}];
 		Browser.prototype.display = t.list;
 
 		Browser.prototype.goTo = function(model) {
@@ -29,27 +31,40 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 				case 'recent':
 				case 'trash':
 				case 'shared':
+				case 'locations':
 					var filter = {};
 					filter[model] = true;
 					this.store.$loadParams.filter = filter;
-					this.store.load();
 					break;
-				case 'mine':
+				case 'home':
 					delete this.store.$loadParams.filter;
 			}
 			if(angular.isString(model)) { // mine, recent, etc
 				this.store.load();
 				this.dirStack = [{name:specialFolders[model], id:null, at:model}];
+				$state.go("files.storage");
+			} else {
+				$state.go("files.storage", {drive:model.path});
 			}
-			$state.go("files.file", {id:model.id});
+			
 			return this;
 		};
 		Browser.prototype.open = function(model) {
 			var self = this;
+			$state.go("files.storage.node");
 			if(model.isDirectory) {
-				this.store.load({directory:model.id}).then(function(){
-					console.log('change dir');
-					self.dirStack.push(model);
+				console.log(model);
+				this.store.load({directory: model.id}).then(function(xhr){
+					var dir;
+					self.dirStack = [self.dirStack[0]];
+					if(self.at === 'home') {
+						self.dirStack = [];
+					}
+					while(dir = xhr.response.data.path.pop()) {
+						self.dirStack.push(dir);
+					}
+					console.log(self.dirStack);
+					//self.dirStack.push(model);
 				});
 			} else {
 				console.log('cant open file');
@@ -71,7 +86,7 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 		};
 
 		Browser.prototype.currentDir = function() {
-			return this.dirStack[this.dirStack.length-1];
+			return this.dirStack[this.depth()];
 		};
 
 		Browser.prototype.isGrid = function() {

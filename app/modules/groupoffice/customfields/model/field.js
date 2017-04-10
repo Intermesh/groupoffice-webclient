@@ -23,23 +23,23 @@ angular.module('GO.Modules.GroupOffice.CustomFields').factory('GO.Modules.GroupO
 			{
 				value: 'text',
 				label: 'Text field',
-				icon: 'mdi mdi-textbox'
+				icon: 'short_text'
 			}, {
 				value: 'select',
 				label: 'Select',
-				icon: 'mdi mdi-missing'
+				icon: 'format_list_numbered'
 			}, {
 				value: 'checkbox',
 				label: 'Check box',
-				icon: 'mdi mdi-checkbox-marked-outline'
+				icon: 'check'
 			}, {
 				value: 'date',
 				label: 'Date',
-				icon: 'mdi mdi-timetable'
+				icon: 'event'
 			}, {
 				value: 'number',
 				label: 'Number',
-				icon: 'mdi mdi-numeric'
+				icon: 'looks_one'
 			}
 		];
 

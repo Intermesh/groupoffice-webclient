@@ -1,6 +1,14 @@
-<go-hook name="customfields" layout="row">
+<go-hook name="customfields" layout="row" id="go-customfields">
 	<div flex="33" class="go-customfields-panel" ng-class="{'go-active' : $state.is('customfields')}">
+			<md-toolbar>
+			<div class="md-toolbar-tools">
 
+				<span>
+					{{"Type" | goT}}
+        </span>
+
+			</div>
+    </md-toolbar>
 		<go-list store="modelsStore" virtual="false" >
 			<item  index="model.moduleName" ui-sref="customfields.fieldset({modelName: model.customFieldsModelName})">
 				<div class="md-list-item-text">

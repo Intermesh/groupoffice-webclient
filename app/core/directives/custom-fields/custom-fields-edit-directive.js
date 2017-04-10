@@ -24,7 +24,7 @@ angular.module('GO.Core')
 						
 						var fieldSet = customFieldSetStore.items[i];
 						
-						tpl +=  '<fieldset><legend>'+fieldSet.name+'</legend>';
+						tpl +=  '<fieldset><h3>'+fieldSet.name+'</h3>';
 				
 						for(var n = 0, cl = fieldSet.fields.length; n < cl; n++){
 							var field = fieldSet.fields[n];
@@ -92,10 +92,7 @@ angular.module('GO.Core')
 					
 					checkbox: function(field){
 						return '<md-input-container class="md-block">\
-							<md-icon>star</md-icon>\
-							<label>\
-								<input id="cf_{{field.id}}" type="checkbox" ng-model="goModel[\''+field.databaseName+'\']" /> '+field.name+'\
-							</label>\
+								<md-checkbox id="cf_{{field.id}}" ng-model="goModel[\''+field.databaseName+'\']"> '+field.name+'</md-checkbox>\
 						</md-input-container>';
 					},
 					

@@ -1,6 +1,6 @@
 
 
-	<md-toolbar class="md-hue-1" >
+	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
 				<md-icon>chevron_left</md-icon>
@@ -26,7 +26,7 @@
 	<go-list store="fieldsStore" virtual="false">
 
 		<item  class="md-2-line" ng-click="editField(model)">
-			<md-icon aria-label="{{model.name}}" class="{{model.getIcon()}}" ></md-icon>
+			<md-icon aria-label="{{model.name}}">{{model.getIcon()}}</md-icon>
 			<div class="md-list-item-text">
 				<h3>{{model.name}}</h3>
 				<p>{{model.type}}</p>
@@ -52,7 +52,7 @@
 			<div ng-repeat="fieldType in ::customFieldTypes" ng-cloak>
 
 				<md-button  class="md-fab md-mini" ng-click="editField(false, {type: fieldType.value})">
-					<md-icon class="{{::fieldType.icon}}"></md-icon>
+					<md-icon>{{::fieldType.icon}}</md-icon>
 					<md-tooltip md-direction="left">{{::fieldType.label| goT}}</md-tooltip>
 				</md-button>
 

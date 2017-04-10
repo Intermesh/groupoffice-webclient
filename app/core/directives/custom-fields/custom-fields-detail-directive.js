@@ -29,7 +29,7 @@ angular.module('GO.Core')
 							<p>{{field.name}}</p>');
 
 						$templateCache.put('customfield-checkbox-detail.html',
-										'<h3><i ng-class="{\'checkbox-off\': !goModel[field.databaseName],\'checkbox-on\': goModel[field.databaseName]}"></i> {{field.name}}</h3>');
+										'<h3><md-icon>{{goModel[field.databaseName] ? "check_box" : "check_box_outline_blank"}}</md-icon> {{field.name}}</h3>');
 
 						$templateCache.put('customfield-date-detail.html',
 										'<h3>{{goModel[field.databaseName] | date:\'longDate\'}}</h3>\

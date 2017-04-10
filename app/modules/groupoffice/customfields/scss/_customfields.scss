@@ -2,3 +2,15 @@
 	position:relative;
 	border-right: 1px solid $border-color;
 }
+
+#go-customfields {
+	md-toolbar {
+		border-bottom: 1px solid $border-color;
+		color: $color;
+		background-color: white;		
+		
+		md-icon {
+			color: $color;
+		}	
+	}
+}

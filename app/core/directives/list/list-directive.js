@@ -110,12 +110,7 @@ angular.module('GO.Core').directive('goList', [
 
 				var store = scope.$eval(attrs.store);
 				
-//				//this automatically updates the store when a model is updated.
-				scope.$on('modelupdate', function(event, updatedModel) {
-						if(updatedModel.getStoreRoute() === store.$storeRoute) {
-							store.updateModel(updatedModel);
-						}
-					});
+
 
 
 				if (attrs.index) {

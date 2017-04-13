@@ -97,12 +97,7 @@ angular.module('GO.Core')
 					},
 					
 					date: function(field){
-						return '<md-input-container class="md-block">\
-							<md-icon>star</md-icon>\
-							<label>'+field.name+'</label>\
-							<div class="input-group" style="width:300px">\
-								<input name="'+field.databaseName+'" id="cf_{{field.id}}" type="text" class="form-control"  ng-model="goModel[\''+field.databaseName+'\']" datepicker-popup />\
-						</md-input-container>';
+						return '<go-date-picker id="cf_{{field.id}}" name="dateOfBirth" label="'+field.name+'" ng-model="goModel[\''+field.databaseName+'\']" ng-required="field.required"></go-date-picker>';
 					},
 					number: function(field){
 						return '<md-input-container class="md-block">\

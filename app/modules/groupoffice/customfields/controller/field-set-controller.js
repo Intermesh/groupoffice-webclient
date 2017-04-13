@@ -7,7 +7,10 @@ angular.module('GO.Modules.GroupOffice.CustomFields').controller('GO.Modules.Gro
 	'$stateParams', 
 	'GO.Core.Services.Dialog', 
 	'GO.Modules.GroupOffice.CustomFields.Model.Fieldset', 
-	'GO.Modules.GroupOffice.CustomFields.Model.Model', function($scope, $state, $stateParams, Dialog, fieldsetModel, CustomFieldsModel){
+	'GO.Modules.GroupOffice.CustomFields.Model.Model', 
+	'$http',
+	'GO.Core.Services.ServerAPI',
+	function($scope, $state, $stateParams, Dialog, fieldsetModel, CustomFieldsModel, $http,ServerAPI){
 								
 				$scope.fieldsetModel = new fieldsetModel($stateParams.modelName);
 
@@ -45,4 +48,25 @@ angular.module('GO.Modules.GroupOffice.CustomFields').controller('GO.Modules.Gro
 
 						};
 				
+				$scope.dragControlListeners = {
+						accept: function (sourceItemHandleScope, destSortableScope) {
+							return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
+						},
+						itemMoved: function (event) {//Do what you want
+						},
+						orderChanged: function(event) {//Do what you want
+							var sort = [];
+							for(var i=0,l=$scope.fieldsetStore.items.length;i<l;i++) {
+//								$scope.fieldsetStore.items[i][$scope.sortableOn] = i;
+								
+								sort.push({id: $scope.fieldsetStore.items[i].id, sortOrder: i});
+							}
+							
+							$http.put(ServerAPI.url( 'customfields/fieldsets/' + encodeURIComponent($stateParams.modelName)), {data: sort});
+							
+						},
+						//containment: '#board',//optional param.
+						clone: false, //optional param for clone feature.
+						allowDuplicates: false //optional param allows duplicates to be dropped.
+				};
 		}]);

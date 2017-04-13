@@ -23,14 +23,22 @@
 
 	</md-toolbar>
 
-	<go-list store="fieldsStore" virtual="false">
+	<go-list store="fieldsStore" virtual="false" as-sortable="dragControlListeners" ng-model="fieldsStore.items">
 
-		<item  class="md-2-line" ng-click="editField(model)">
+		<item  class="md-2-line" ng-click="editField(model)" as-sortable-item>
 			<md-icon aria-label="{{model.name}}">{{model.getIcon()}}</md-icon>
 			<div class="md-list-item-text">
 				<h3>{{model.name}}</h3>
 				<p>{{model.type}}</p>
 			</div>
+			<md-button class="md-icon-button md-secondary"  as-sortable-item-handle>
+				<md-icon>
+					drag_handle
+				</md-icon>
+				<md-tooltip>
+					{{"Drag to reorder"| goT}}
+				</md-tooltip>
+			</md-button>
 		</item>
 
 		<empty-state>

@@ -14,120 +14,123 @@
  * @example
  * <go-custom-fields-edit ng-model="contact.customfields" server-model="GO\Modules\GroupOffice\Contacts\Model\ContactCustomFields"></go-custom-fields-edit>				
  */
-angular.module('GO.Core')
-		.directive('goCustomFieldsEdit', ['$templateCache', '$compile','GO.Core.Directives.CustomFields', function($templateCache, $compile, CustomFields) {
+angular.module('GO.Core').directive('goCustomFieldsEdit', [
+	'$templateCache',
+	'$compile',
+	'GO.Core.Directives.CustomFields',
+	function ($templateCache, $compile, CustomFields) {
 
 
-				var buildTemplate = function(customFieldSetStore){
-					var tpl = '';
-					for(var i = 0, l = customFieldSetStore.items.length; i < l; i++){
-						
-						var fieldSet = customFieldSetStore.items[i];
-						
-						tpl +=  '<fieldset><h3>'+fieldSet.name+'</h3>';
-				
-						for(var n = 0, cl = fieldSet.fields.length; n < cl; n++){
-							var field = fieldSet.fields[n];
-							tpl += buildFunctions[field.type](field);
-						}
+		var buildTemplate = function (customFieldSetStore) {
+			var tpl = '';
+			for (var i = 0, l = customFieldSetStore.items.length; i < l; i++) {
 
-						tpl += '</fieldset>';
-						
-					}
-					
-					return tpl;
-							
-							
-				};
-				
-				var buildFunctions = {
-					formName: null,
-					text: function(field){
-						return '<md-input-container class="md-block">\
+				var fieldSet = customFieldSetStore.items[i];
+
+				tpl += '<fieldset><h3>' + fieldSet.name + '</h3>';
+
+				for (var n = 0, cl = fieldSet.fields.length; n < cl; n++) {
+					var field = fieldSet.fields[n];
+					tpl += buildFunctions[field.type](field);
+				}
+
+				tpl += '</fieldset>';
+
+			}
+
+			return tpl;
+
+
+		};
+
+		var buildFunctions = {
+			formName: null,
+			text: function (field) {
+				return '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
-							<label>'+field.name+'</label>\
-							<input id="'+field.databaseName+'" name="'+field.databaseName+'" type="text" maxlength="'+field.data.maxLength+'" ng-model="goModel[\''+field.databaseName+'\']" placeholder="'+field.placeholder+'" ng-required="'+(field.required ? 'true' : 'false')+'" />\
-							<div ng-messages="formController.'+field.databaseName+'.$error" role="alert">\
+							<label>' + field.name + '</label>\
+							<input name="' + field.databaseName + '" type="text" maxlength="' + field.data.maxLength + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '" />\
+							<div ng-messages="formController.' + field.databaseName + '.$error" role="alert">\
 								<div ng-message="required">\
 								{{::"This field is required" | goT}}\
 								</div>\
 							</div>\
 						</md-input-container>';
-					},
-					
-					textarea: function(field){
-						return '<md-input-container class="md-block">\
+			},
+
+			textarea: function (field) {
+				return '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
-							<label>'+field.name+'</label>\
-							<textarea id="'+field.databaseName+'" name="'+field.databaseName+'" maxlength="'+field.data.maxLength+'" ng-model="goModel[\''+field.databaseName+'\']" placeholder="'+field.placeholder+'" ng-required="'+(field.required ? 'true' : 'false')+'"></textarea>\
-							<div ng-messages="formController.'+field.databaseName+'.$error" role="alert">\
+							<label>' + field.name + '</label>\
+							<textarea id="' + field.databaseName + '" name="' + field.databaseName + '" maxlength="' + field.data.maxLength + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '"></textarea>\
+							<div ng-messages="formController.' + field.databaseName + '.$error" role="alert">\
 								<div ng-message="required">\
 								{{::"This field is required" | goT}}\
 								</div>\
 							</div>\
 						</md-input-container>';
-					},
-					
-					select: function(field){
-						var tpl = '<md-input-container class="md-block">\
+			},
+
+			select: function (field) {
+				var tpl = '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
-							<label>'+field.name+'</label>\
-								<md-select id="'+field.databaseName+'" name="'+field.databaseName+'" ng-model="goModel[\''+field.databaseName+'\']">';
-						
-							for(var i = 0, l = field.data.options.length; i < l; i++) {
-								tpl += '<md-option value="'+field.data.options[i]+'">'+field.data.options[i]+'</md-option>';
-							}
-							
-								tpl += '</md-select>\
-							<div ng-messages="formController.'+field.databaseName+'.$error" role="alert">\
+							<label>' + field.name + '</label>\
+								<md-select name="' + field.databaseName + '" ng-model="goModel[\'' + field.databaseName + '\']">';
+
+				for (var i = 0, l = field.data.options.length; i < l; i++) {
+					tpl += '<md-option value="' + field.data.options[i] + '">' + field.data.options[i] + '</md-option>';
+				}
+
+				tpl += '</md-select>\
+							<div ng-messages="formController.' + field.databaseName + '.$error" role="alert">\
 								<div ng-message="required">\
 								{{::"This field is required" | goT}}\
 								</div>\
 							</div>';
-						
-							tpl += '</md-input-container>';
-						
-						return tpl;
-					},
-					
-					checkbox: function(field){
-						return '<md-input-container class="md-block">\
-								<md-checkbox id="cf_{{field.id}}" ng-model="goModel[\''+field.databaseName+'\']"> '+field.name+'</md-checkbox>\
+
+				tpl += '</md-input-container>';
+
+				return tpl;
+			},
+
+			checkbox: function (field) {
+				return '<md-input-container class="md-block">\
+								<md-checkbox id="cf_{{field.id}}" ng-model="goModel[\'' + field.databaseName + '\']"> ' + field.name + '</md-checkbox>\
 						</md-input-container>';
-					},
-					
-					date: function(field){
-						return '<go-date-picker id="cf_{{field.id}}" name="dateOfBirth" label="'+field.name+'" ng-model="goModel[\''+field.databaseName+'\']" ng-required="field.required"></go-date-picker>';
-					},
-					number: function(field){
-						return '<md-input-container class="md-block">\
+			},
+
+			date: function (field) {
+				return '<go-date-picker id="cf_{{field.id}}" name="dateOfBirth" label="' + field.name + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="field.required"></go-date-picker>';
+			},
+			number: function (field) {
+				return '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
-							<label>'+field.name+'</label>\
-								<input go-number id="cf_{{field.id}}" name="'+field.databaseName+'" type="text" ng-model="goModel[\''+field.databaseName+'\']" placeholder="{{field.placeholder}}" ng-required="field.required" class="form-control" />\
-							<div ng-messages="formController.'+field.databaseName+'.$error" role="alert">\
+							<label>' + field.name + '</label>\
+								<input go-number id="cf_{{field.id}}" name="' + field.databaseName + '" type="text" ng-model="goModel[\'' + field.databaseName + '\']"  ng-required="field.required" />\
+							<div ng-messages="formController.' + field.databaseName + '.$error" role="alert">\
 								<div ng-message="required">\
 								{{::"This field is required" | goT}}\
 								</div>\
 							</div>\
 						</md-input-container>';
-					}
-				};
+			}
+		};
 
-				return {
-					restrict: 'E',
-					scope: {
-						goModel: '=ngModel',
-						serverModel: '@',
-						formController: '='
-					},
-					link: function(scope, element, attrs){						
-						var customFieldSetStore = CustomFields.getFieldSetStore(attrs.serverModel);
-						//TODO load is called twice now
-						customFieldSetStore.promise.then(function(){							
-							var tpl  = buildTemplate(customFieldSetStore);
-							element.html(tpl);
-							$compile(element.contents())(scope);
-						});
-					}					
-				};		
-			}]);
+		return {
+			restrict: 'E',
+			scope: {
+				goModel: '=ngModel',
+				serverModel: '@',
+				formController: '='
+			},
+			link: function (scope, element, attrs) {
+				var customFieldSetStore = CustomFields.getFieldSetStore(attrs.serverModel);
+				//TODO load is called twice now
+				customFieldSetStore.promise.then(function () {
+					var tpl = buildTemplate(customFieldSetStore);
+					element.html(tpl);
+					$compile(element.contents())(scope);
+				});
+			}
+		};
+	}]);

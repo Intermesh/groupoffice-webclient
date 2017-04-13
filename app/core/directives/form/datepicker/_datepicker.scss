@@ -3,12 +3,18 @@ go-date-picker {
 	min-width: 330px;
   display: block;
 	
-	margin-bottom: 22px;
+	margin: 18px 0;
+	
+	md-input-container {
+		margin:0;
+	}
+	
+/*	margin-bottom: 22px;
 	
 	@media (min-width:$screen-desktop) {
 		margin-bottom: 16px;
 	}
-		
+		*/
 /*	* {
 		display: inline-block;
 	}*/

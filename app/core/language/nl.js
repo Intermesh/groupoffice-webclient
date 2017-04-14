@@ -176,7 +176,7 @@ angular.module("GO.Core")
     "Quantity": "Aantal",
     "Save changes": "Wijzigingen opslaan",
     "Do you want to save your changes?": "Wilt u de wijzigingen opslaan?",
-    "Discard": "Weggooien",
+    "Discard": "Annuleren",
     "A stupid question": "Een stomme vraag",
     "Do you really want to edit this contact?": "Weet u zeker dat u dit contract wilt bewerken?",
     "No, take me away!": "Nee, haal me hier weg!",

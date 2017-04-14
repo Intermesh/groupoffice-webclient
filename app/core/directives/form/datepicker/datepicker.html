@@ -2,14 +2,15 @@
 	<md-input-container>
 		<md-icon>event</md-icon>
 		<label>{{label| goT}}</label>
-		<md-select ng-model="year" class="year" ng-required="required" ng-disabled="ngDisabled">
+		<!--<input go-number decimals="0"  ng-model="year" class="year" ng-required="ngRequired" ng-disabled="ngDisabled" />-->
+		<md-select ng-model="year" class="year" ng-required="ngRequired" ng-disabled="ngDisabled" md-on-open="openYear()">
 			<md-option ng-value="null">{{::"Year"|goT}}</md-option>
 			<md-option ng-value="yearoption" ng-repeat="yearoption in years">{{::yearoption}}</md-option>
 		</md-select>
 	</md-input-container>
 
 	<md-input-container class="month">
-		<md-select ng-model="month" ng-required="required" ng-disabled="ngDisabled">
+		<md-select ng-model="month" ng-required="ngRequired" ng-disabled="ngDisabled">
 			<md-option ng-value="null">{{::"Month"|goT}}</md-option>
 			<md-option ng-value="0">{{::"January"|goT}}</md-option>
 			<md-option ng-value="1">{{::"February"|goT}}</md-option>
@@ -26,7 +27,7 @@
 		</md-select>
 	</md-input-container>
 	<md-input-container class="day">
-		<md-select ng-model="day" ng-required="required" ng-disabled="ngDisabled">
+		<md-select ng-model="day" ng-required="ngRequired" ng-disabled="ngDisabled">
 			<md-option ng-value="null">{{::"Day"|goT}}</md-option>
 			<md-option ng-value="dayoption" ng-repeat="dayoption in days">{{::dayoption}}</md-option>	
 		</md-select>

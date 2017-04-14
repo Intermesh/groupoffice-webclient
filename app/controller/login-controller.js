@@ -90,8 +90,8 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 
 		$scope.forgotPassword = function () {
 			var prompt = $mdDialog.prompt()
-							.title(Translate.t('Reset password'))
-							.textContent(Translate.t('Please enter an e-mail address to find your user and send a password reset link'))
+							.title(Translate.t('Reset your password'))
+							.textContent(Translate.t('Please enter your registered e-mail address to receive a link to reset your password.'))
 							.ok(Translate.t('Send'))
 							.cancel(Translate.t('Cancel'));
 
@@ -103,14 +103,18 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 //									'andWhere', ['>',{'goUserId': 0}]
 //							];
 
+								var link = $state.href('resetpassword', {}, {absolute: true}) + '?token={{token}}&userId={{user.id}}';
+								
+								var body = Translate.t("Hi {{user.username}},\n\nYou've requested a link to reset your password. Please click the link below: {link}\n\nIf you didn't request this link then please discard this e-mail and notify your system adminstrator.").replace('{link}', link);
+
 								$http.post(ServerAPI.url('auth/forgotpassword/' + email), {
-									subject: "Recover your password",
-									body: "Hi {{user.username}},\n\nYou requested a link to reset your password. Please go to " + $state.href('resetpassword', {}, {absolute: true}) + '?token={{token}}&userId={{user.id}}'
+									subject: Translate.t("Reset your password"),
+									body: body
 								}).then(function (response) {
 
 									var msg;
 									if (response.data.success) {
-										msg = Translate.t("An e-mail was sent to {email}", {email: email});
+										msg = Translate.t("The e-mail was sent to {email}.", {email: email});
 									} else
 									{
 										msg = Translate.t("An error occured");

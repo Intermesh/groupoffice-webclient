@@ -245,7 +245,17 @@ angular.module("GO.Core")
     "Doesn't equal": "Is niet gelijk aan",
     "Greather than": "Groter dan",
     "Lower than": "Kleiner dan",
-    "By default all blocks are drawn one by one  width is 100% and height is automatic. If you need an absolute position you can set the position and dimensions.": "Standaard worden alle blokken een voor een getekend. de breedte is 100% en de hoogte wordt automatisch bepaald. Als je iets absoluut moet positioneren dan kun je de positie en dimensies invullen."
+    "By default all blocks are drawn one by one  width is 100% and height is automatic. If you need an absolute position you can set the position and dimensions.": "Standaard worden alle blokken een voor een getekend. de breedte is 100% en de hoogte wordt automatisch bepaald. Als je iets absoluut moet positioneren dan kun je de positie en dimensies invullen.",
+		"Please enter your username and password" : "Voer uw gebruikersnaam en wachtwoord in a.u.b.",
+		"Forgot password?" : "Wachtwoord vergeten?",
+		"Reset your password" : "Uw wachtwoord opnieuw instellen",
+		"Please enter your registered e-mail address to receive a link to reset your password." : "Voer uw geregistreerde e-mail adres in om een link te ontvangen om uw wachtwoord opnieuw in te stellen.",
+		"Hi {{user.username}},\n\nYou've requested a link to reset your password. Please click the link below: {link}\n\nIf you didn't request this link then please discard this e-mail and notify your system adminstrator.": "Hoi {{user.username}},\n\nU heeft een link aangevraagd om uw wachtwoord opnieuw in te stellen. Klik op onderstaande link: {link}\n\nAls u hier niet om gevraagd heeft negeer dan deze e-mail en stel uw systeembeheerder op de hoogte.",
+		"The e-mail was sent to {email}." : "De e-mail is verstuurd naar {email}.",
+		"An error occured" : "Er is een fout opgetreden",
+		"Please create a new password" : "Maak een nieuw wachtwoord aan a.u.b.",
+		"Your password has been reset. Continue to the login screen." : "Uw wachtwoord is opnieuw ingesteld. Ga door naar het login scherm."
+		
 }
 				);
 			}]);

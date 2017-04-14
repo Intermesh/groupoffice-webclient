@@ -75,7 +75,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 				var tpl = '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
 							<label>' + field.name + '</label>\
-								<md-select name="' + field.databaseName + '" ng-model="goModel[\'' + field.databaseName + '\']">';
+								<md-select name="' + field.databaseName + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '">';
 
 				for (var i = 0, l = field.data.options.length; i < l; i++) {
 					tpl += '<md-option value="' + field.data.options[i] + '">' + field.data.options[i] + '</md-option>';
@@ -95,18 +95,18 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 
 			checkbox: function (field) {
 				return '<md-input-container class="md-block">\
-								<md-checkbox id="cf_{{field.id}}" ng-model="goModel[\'' + field.databaseName + '\']"> ' + field.name + '</md-checkbox>\
+								<md-checkbox id="cf_{{field.id}}" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '"> ' + field.name + '</md-checkbox>\
 						</md-input-container>';
 			},
 
 			date: function (field) {
-				return '<go-date-picker id="cf_{{field.id}}" name="dateOfBirth" label="' + field.name + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="field.required"></go-date-picker>';
+				return '<go-date-picker id="cf_{{field.id}}" name="dateOfBirth" label="' + field.name + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '"></go-date-picker>';
 			},
 			number: function (field) {
 				return '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
 							<label>' + field.name + '</label>\
-								<input go-number id="cf_{{field.id}}" name="' + field.databaseName + '" type="text" ng-model="goModel[\'' + field.databaseName + '\']"  ng-required="field.required" />\
+								<input go-number id="cf_{{field.id}}" name="' + field.databaseName + '" type="text" ng-model="goModel[\'' + field.databaseName + '\']"  ng-required="' + (field.required ? 'true' : 'false') + '" />\
 							<div ng-messages="formController.' + field.databaseName + '.$error" role="alert">\
 								<div ng-message="required">\
 								{{::"This field is required" | goT}}\

@@ -10,13 +10,6 @@
 				{{fieldsetRec.name}}
 			</span>
 
-			<md-button class="md-icon-button" ng-click="editFieldSet(fieldsetRec)">
-				<md-tooltip>
-					{{"Edit"| goT}}					
-				</md-tooltip>
-				<md-icon>edit</md-icon>
-			</md-button>
-
 		</div>
 
 
@@ -25,12 +18,16 @@
 
 	<go-list store="fieldsStore" virtual="false" as-sortable="dragControlListeners" ng-model="fieldsStore.items">
 
-		<item  class="md-2-line" ng-click="editField(model)" as-sortable-item>
+		<item  class="md-2-line" as-sortable-item>
 			<md-icon aria-label="{{model.name}}">{{model.getIcon()}}</md-icon>
 			<div class="md-list-item-text">
 				<h3>{{model.name}}</h3>
 				<p>{{model.type}}</p>
 			</div>
+			
+			<go-list-edit-button on-edit="editField(model)" class="md-secondary"></go-list-edit-button>
+			<go-list-delete-button class="md-secondary"></go-list-delete-button>
+			
 			<md-button class="md-icon-button md-secondary"  as-sortable-item-handle>
 				<md-icon>
 					drag_handle

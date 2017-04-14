@@ -18,7 +18,10 @@
 			
 			<div class="md-list-item-text">
 				{{model.name}}
-			</div>		
+			</div>
+			
+			<go-list-edit-button on-edit="editFieldSet(model)" class="md-secondary"></go-list-edit-button>
+			<go-list-delete-button class="md-secondary"></go-list-delete-button>
 			
 			<md-button class="md-icon-button md-secondary"  as-sortable-item-handle>
 				<md-icon>

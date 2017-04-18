@@ -27,7 +27,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 
 				var fieldSet = customFieldSetStore.items[i];
 
-				tpl += '<fieldset><h3>' + fieldSet.name + '</h3>';
+				tpl += '<fieldset><h3>{{::"' + fieldSet.name + '" | goT}}</h3>';
 
 				for (var n = 0, cl = fieldSet.fields.length; n < cl; n++) {
 					var field = fieldSet.fields[n];
@@ -48,7 +48,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 			text: function (field) {
 				return '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
-							<label>' + field.name + '</label>\
+							<label>{{::"' + field.name + '" | goT}}</label>\
 							<input name="' + field.databaseName + '" type="text" maxlength="' + field.data.maxLength + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '" />\
 							<div ng-messages="formController.' + field.databaseName + '.$error" role="alert">\
 								<div ng-message="required">\
@@ -61,7 +61,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 			textarea: function (field) {
 				return '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
-							<label>' + field.name + '</label>\
+							<label>{{::"' + field.name + '" | goT}}</label>\
 							<textarea id="' + field.databaseName + '" name="' + field.databaseName + '" maxlength="' + field.data.maxLength + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '"></textarea>\
 							<div ng-messages="formController.' + field.databaseName + '.$error" role="alert">\
 								<div ng-message="required">\
@@ -74,7 +74,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 			select: function (field) {
 				var tpl = '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
-							<label>' + field.name + '</label>\
+							<label>{{::"' + field.name + '" | goT}}</label>\
 								<md-select name="' + field.databaseName + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '">';
 
 				for (var i = 0, l = field.data.options.length; i < l; i++) {
@@ -82,6 +82,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 				}
 
 				tpl += '</md-select>\
+							<div class="md-errors-spacer"></div>\
 							<div ng-messages="formController.' + field.databaseName + '.$error" role="alert">\
 								<div ng-message="required">\
 								{{::"This field is required" | goT}}\
@@ -95,7 +96,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 
 			checkbox: function (field) {
 				return '<md-input-container class="md-block">\
-								<md-checkbox id="cf_{{field.id}}" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '"> ' + field.name + '</md-checkbox>\
+								<md-checkbox id="cf_{{field.id}}" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '"> {{::"' + field.name + '" | goT}}</md-checkbox>\
 						</md-input-container>';
 			},
 
@@ -105,7 +106,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 			number: function (field) {
 				return '<md-input-container class="md-block">\
 							<md-icon>star</md-icon>\
-							<label>' + field.name + '</label>\
+							<label>{{::"' + field.name + '" | goT}}</label>\
 								<input go-number id="cf_{{field.id}}" name="' + field.databaseName + '" type="text" ng-model="goModel[\'' + field.databaseName + '\']"  ng-required="' + (field.required ? 'true' : 'false') + '" />\
 							<div ng-messages="formController.' + field.databaseName + '.$error" role="alert">\
 								<div ng-message="required">\

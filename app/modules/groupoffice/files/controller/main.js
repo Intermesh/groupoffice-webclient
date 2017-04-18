@@ -6,18 +6,16 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'$scope',
 		'$state',
 		'$http',
-		'$mdSidenav',
 		'$mdDialog',
-		'$mdMenu',
 		'GO.Modules.GroupOffice.Notifications.Services.Notifications',
-		'GO.Core.Services.Application',
 		'GO.Core.Services.ServerModules',
 		'GO.Core.Services.ServerAPI',
 		'GO.Core.Factories.Data.Store',
 		'GO.Modules.GroupOffice.Files.Model.Browser',
 		'GO.Modules.GroupOffice.Files.Model.Clipboard',
 		'GO.Modules.GroupOffice.Files.Model.Node',
-		function ($scope, $state, $http, $mdSidenav, $mdDialog,$mdMenu,Notifications, App,ServerModules, ServerAPI, Store, Browser,Clipboard, Node) {
+		'GO.Modules.GroupOffice.Files.Model.Drive',
+		function ($scope, $state, $http, $mdDialog,Notifications, ServerModules, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
 			// The date that is currently viewed
 			//$scope.$mdSidenav = $mdSidenav;
 			$scope.flowInit = ServerAPI.getFlowInit();
@@ -29,31 +27,29 @@ GO.module('GO.Modules.GroupOffice.Files').
 			$scope.model = new Node('files', '*');
 			$scope.nodeStore = $scope.model.getStore();
 
-			$scope.starredFolder = $scope.model.getStore();
-			$scope.starredFolder.$loadParams = {
-				filter: {'starred':true},
-				q:[['andWhere',{isDirectory:true}]]
-			};
-			$scope.starredFolder.load();
-
-			$scope.mountStore = new Store('/mounts');
+			$scope.mountStore = new Store('mounts');
 			$scope.mountStore.load();
 
 			$scope.browser = new Browser($scope.nodeStore);
-			$scope.browser.open({id:'home',isDirectory:true});
+			$scope.browser.goTo('home');
 			$scope.clipboard = new Clipboard();
 
 			$scope.showInfo = true;
+			$scope.drive = new Drive();
+
 
 			$scope.editDrive = function(path) {
-				$mdDialog.show({
-					controller: 'GO.Modules.GroupOffice.Files.DriveForm',
-					templateUrl: 'modules/groupoffice/files/views/drive-form.html',
-					parent: angular.element(document.body),
-					scope: $scope.$new(),
-					clickOutsideToClose:true
-					//fullscreen: useFullScreen
+				$scope.drive.read({id:path}).then(function() {
+					$mdDialog.show({
+						controller: 'GO.Modules.GroupOffice.Files.DriveForm',
+						templateUrl: 'modules/groupoffice/files/views/drive-form.html',
+						parent: angular.element(document.body),
+						scope: $scope.$new(),
+						clickOutsideToClose:true
+						//fullscreen: useFullScreen
+					});
 				});
+				
 			};
 
 			$scope.openMenu = function($mdMenu, ev) {
@@ -62,7 +58,6 @@ GO.module('GO.Modules.GroupOffice.Files').
 			 };
 			$scope.addFolder = function(newFolder) {
 				var folder = new Node();
-				folder.addStore($scope.nodeStore);
 				folder.name = newFolder;
 				folder.isDirectory = true;
 				folder.parentId = $scope.browser.currentDir().id;

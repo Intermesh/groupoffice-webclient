@@ -36,14 +36,14 @@
 
 			<md-divider></md-divider>
 
-			<md-list-item ng-repeat="drive in mountStore.items" ng-click="browser.open(drive.root)">
+			<md-list-item ng-class="{'selected' : browser.isAt('d'+drive.rootId)}" ng-repeat="drive in mountStore.items" ng-click="browser.goTo(drive.rootId)">
 				<md-icon>folder_shared</md-icon>
 				<p>{{drive.name}}</p>
 			</md-list-item>
 
 
 
-			<md-list-item ng-if="::permissions.mountDrives" ng-class="{'selected' : browser.isAt('locations')}" ui-sref="files.locations">
+			<md-list-item ng-if="::permissions.mountDrives" ng-class="{'selected' : browser.isAt('locations')}" ui-sref="files.locations" ng-click="browser.at = 'locations'">
 				<md-icon>add</md-icon>
 				<p>Locations</p>
 			</md-list-item>

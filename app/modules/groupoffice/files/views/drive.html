@@ -9,9 +9,9 @@
 
 			<md-icon class="md-avatar">storage</md-icon>
 			<p flex>
-			{{model.name}}
+			{{drive.name}}
 			</p>
-			<md-button ng-if="::permissions.manageDrives" ng-click="editDrive(model)">Edit</md-button>
+			<md-button ng-if="::permissions.manageDrives" ng-click="editDrive(drive)">Edit</md-button>
 			<md-button class="md-icon-button" ng-click="showInfo = false"><md-icon>close</md-icon></md-button>
 
 		</div>
@@ -21,16 +21,16 @@
 	<md-list flex>
 
 		<md-list-item class="drive">
-			<h1 style="width:100%;">{{model.name}}</h1>
-			<p> {{model.quota | bytes}} Server storage</p>
+			<h1 style="width:100%;">{{drive.name}}</h1>
+			<p> {{drive.quota | bytes}} Server storage</p>
 		 </md-list-item>
 
 		<md-divider></md-divider>
 		
-		<md-list-item class="md-2-line" ng-click="mount(model)">
+		<md-list-item class="md-2-line" ng-click="mount(drive)">
 			<md-icon>folder_shared</md-icon>
 			<p>Mount</p>
-			<md-switch class="md-secondary" ng-model="model.isMounted" ng-true-value="'1'" ng-false-value="'0'"></md-switch>
+			<md-switch class="md-secondary" ng-model="drive.isMounted" ng-true-value="'1'" ng-false-value="'0'"></md-switch>
 		</md-list-item>
 		<md-divider></md-divider>
 		<div layout="row">
@@ -38,25 +38,25 @@
 		<md-list-item class="md-2-line">
 			<div class="md-list-item-text">
             <h3>Capacity</h3>
-            <p>{{model.quota | bytes}}</p>
+            <p>{{drive.quota | bytes}}</p>
 			</div>
 		</md-list-item>
 		<md-list-item class="md-2-line">
 			<div class="md-list-item-text">
             <h3>Used</h3>
-            <p>{{model.usage | bytes}}</p>
+            <p>{{drive.usage | bytes}}</p>
 			</div>
 		</md-list-item>
 		<md-list-item class="md-2-line">
 			<div class="md-list-item-text">
             <h3>Available</h3>
-            <p>{{(model.quota - model.usage) | bytes}}</p>
+            <p>{{(drive.quota - drive.usage) | bytes}}</p>
 			</div>
 		</md-list-item>
 		</div>
 		<div layout="column" layout-align="center center">
-			<md-progress-circular md-mode="determinate" md-diameter="96" value="{{model.percentage()}}"></md-progress-circular>
-			{{model.percentage()}}%
+			<md-progress-circular md-mode="determinate" md-diameter="96" value="{{drive.percentage()}}"></md-progress-circular>
+			{{drive.percentage()}}%
 		</div>
 		</div>
 		<md-divider></md-divider>
@@ -64,7 +64,7 @@
 		<md-list-item class="md-2-line">
 			<div class="md-list-item-text">
             <h3>Location</h3>
-            <p>/{{model.root.path}}</p>
+            <p>/{{drive.root.path}}</p>
 			</div>
 		</md-list-item>
 		
@@ -78,7 +78,7 @@
 		<md-list-item class="md-2-line">
 			<div class="md-list-item-text">
             <h3>Owner</h3>
-            <p>{{model.owner.name}}</p>
+            <p>{{drive.owner.name}}</p>
 			</div>
 		</md-list-item>
 
@@ -87,7 +87,7 @@
 		<md-list-item class="md-2-line">
 			<div class="md-list-item-text">
             <h3>Last Modified</h3>
-            <p>{{model.modifiedAt| date}}</p>
+            <p>{{drive.modifiedAt| date}}</p>
 			</div>
 		</md-list-item>
 

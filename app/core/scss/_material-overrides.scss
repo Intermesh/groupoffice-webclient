@@ -30,7 +30,7 @@ md-tooltip .md-content {
 }
 
 //For buttons next to an input
-.layout-row {
+.layout-row:not(.md-input-container-wrapper) {
 	>md-input-container + .md-button {
 		margin: 2.5 * $baseline-grid 0;
 	}
@@ -83,4 +83,12 @@ md-card-content {
 
 .md-tab {
 	font-size: (2*$baseline-grid) - 1;
+}
+
+
+.md-input-container-wrapper {
+	margin: 18px 0;	
+	md-input-container {
+		margin:0;
+	}
 }

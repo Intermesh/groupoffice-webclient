@@ -1,4 +1,4 @@
-<form layout="column" name="fieldSetForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+<form layout="column" name="fieldForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
 
 
 	<md-toolbar>
@@ -22,7 +22,7 @@
 		<md-input-container  class="md-block">
 			<label>{{"Name"| goT}}</label>
 			<input ng-model="model.name" name="name" required go-autofocus>
-			<div ng-messages="modelForm.name.$error" role="alert">
+			<div ng-messages="fieldForm.name.$error" role="alert">
 				<div ng-message="required">
 					{{"This field is required"| goT}}
 				</div>
@@ -32,9 +32,12 @@
 		<md-input-container  class="md-block">
 			<label>{{"Database name"| goT}}</label>
 			<input ng-model="model.databaseName" name="databaseName" required >
-			<div ng-messages="modelForm.databaseName.$error" role="alert">
+			<div ng-messages="fieldForm.databaseName.$error" role="alert">
 				<div ng-message="required">
 					{{"This field is required"| goT}}
+				</div>
+				<div ng-message="11">
+					{{"This name is already in use"| goT}}
 				</div>
 			</div>
 		</md-input-container>
@@ -61,36 +64,33 @@
 		<md-input-container  class="md-block" ng-if="model.type === 'text' && model.data.multiline === true">
 			<label>{{"Max length text or textarea"| goT}}</label>
 			<input ng-model="model.data.maxLength" name="maxLength"  type="number" >
-			<div ng-messages="modelForm.defaultValue.$error" role="alert">
+			<div ng-messages="fieldForm.defaultValue.$error" role="alert">
 
 			</div>
 		</md-input-container>
 		
-		<md-checkbox ng-if="model.type === 'date'" ng-model="model.data.withTime" >
+<!--		<md-checkbox ng-if="model.type === 'date'" ng-model="model.data.withTime" >
 			{{"date with time"| goT}}
-		</md-checkbox>
+		</md-checkbox>-->
 		
 		
 		
 		
 		
 
+		<go-multiple title="Options" go-models="options" ng-if="model.type === 'select'" sortable-on="$sort">
 
-
-		<div class="go-input-multiple" ng-if="model.type === 'select'">
-			<div layout ng-init="option.$formName = 'option_' + $index" ng-repeat="option in options">
 				<md-input-container flex>                            
 					<label>{{"Option"| goT}}</label>
-					<input type="text" name="{{option.$formName}}" ng-model="option.value" required go-autofocus="!album.id">
-					<div ng-messages="bandForm[album.$formName].$error" role="alert">
+					<input type="text" name="{{model.$formName}}" ng-model="model.value" required go-autofocus="!album.id">
+					<div ng-messages="fieldForm[model.$formName].$error" role="alert">
 						<div ng-message="required">
 							{{"This field is required"| goT}}
 						</div>
 					</div>
 				</md-input-container>
-			</div>
-			<md-button type="button" ng-click="options.push({value: ''});"><md-icon>add</md-icon> {{"Add selection"| goT}}</md-button>
-		</div>
+			
+		</go-multiple>
 				
 				
 
@@ -98,15 +98,17 @@
 		<md-input-container  class="md-block">
 			<label>{{"Default value"| goT}}</label>
 			<input ng-model="model.defaultValue" name="defaultValue"  >
-			<div ng-messages="modelForm.defaultValue.$error" role="alert">
-
+			<div ng-messages="fieldForm.defaultValue.$error" role="alert">
+				<div ng-message="5">
+					{{"Please make sure the select option exists"| goT}}
+				</div>
 			</div>
 		</md-input-container>
 		
 		<md-input-container  class="md-block">
 			<label>{{"Placeholder"| goT}}</label>
 			<input ng-model="model.placeholder" name="placeholder"  >
-			<div ng-messages="modelForm.defaultValue.$error" role="alert">
+			<div ng-messages="fieldForm.defaultValue.$error" role="alert">
 
 			</div>
 		</md-input-container>
@@ -117,9 +119,9 @@
 		<md-checkbox ng-model="model.required" >
 			{{"Field is required"| goT}}
 		</md-checkbox>
-		<md-checkbox ng-model="model.filterable" >
+<!--		<md-checkbox ng-model="model.filterable" >
 			{{"Field can be filtered on"| goT}}
-		</md-checkbox>
+		</md-checkbox>-->
 
 
 

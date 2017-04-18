@@ -1,36 +1,49 @@
 <div class="go-customfields-panel" flex>
-		<md-toolbar>
-			<div class="md-toolbar-tools">
-        <md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
-            <md-icon>chevron_left</md-icon>
-        </md-button>
-			
-				<span>
-					{{::modeRec.modelName | goT}}
-        </span>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button hide-gt-sm" ng-click="$state.go('^')">
+				<md-icon>chevron_left</md-icon>
+			</md-button>
 
-			</div>
-    </md-toolbar>
-	
-		<go-list store="fieldsetStore" virtual="false">
+			<span>
+				{{::modeRec.modelName| goT}}
+			</span>
+
+		</div>
+	</md-toolbar>
+
+	<go-list store="fieldsetStore" virtual="false" as-sortable="dragControlListeners" ng-model="fieldsetStore.items">
+
+		<item  ui-sref="customfields.fieldset.fields({fieldSetId: model.id})" as-sortable-item>
 			
-			<item  ui-sref="customfields.fieldset.fields({fieldSetId: model.id})">
-					<div class="md-list-item-text">
-							{{model.name}}
-					</div>
-			</item>
+			<div class="md-list-item-text">
+				{{model.name}}
+			</div>
+			
+			<go-list-edit-button on-edit="editFieldSet(model)" class="md-secondary"></go-list-edit-button>
+			<go-list-delete-button class="md-secondary"></go-list-delete-button>
+			
+			<md-button class="md-icon-button md-secondary"  as-sortable-item-handle>
+				<md-icon>
+					drag_handle
+				</md-icon>
+				<md-tooltip>
+					{{"Drag to reorder"| goT}}
+				</md-tooltip>
+			</md-button>
+		</item>
 
 		<empty-state>
-				<md-icon class="mdi-import"></md-icon>
-				<p>{{"No fieldset found"| goT}}</p>
-			</empty-state>
-			
-		</go-list>
+			<md-icon class="mdi-import"></md-icon>
+			<p>{{"No fieldset found"| goT}}</p>
+		</empty-state>
 
-		<md-button class="md-fab md-fab-bottom-right"  ng-click='editFieldSet(false)'>
-			<md-icon>add</md-icon>
-			<md-tooltip md-direction="left">{{"Add"| goT}}</md-tooltip>
-		</md-button>
+	</go-list>
+
+	<md-button class="md-fab md-fab-bottom-right"  ng-click='editFieldSet(false)'>
+		<md-icon>add</md-icon>
+		<md-tooltip md-direction="left">{{"Add"| goT}}</md-tooltip>
+	</md-button>
 </div>
 
 <div class="go-customfields-panel" ui-view flex layout="column"></div>

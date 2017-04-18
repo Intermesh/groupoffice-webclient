@@ -22,13 +22,11 @@ angular.module('GO.Core').directive('goDatePicker', [
 			scope: {
 				label: '@',
 //				ngModel: '=',
-//				required: '=?'
+				ngRequired: '=?',
 //				enabledFields: '@'
 				ngDisabled: '=?'
 			},
 			link: function (scope, element, attr, ngModel) {
-
-//				console.log(ngModel);
 
 				scope.ngModel = ngModel;
 
@@ -60,11 +58,17 @@ angular.module('GO.Core').directive('goDatePicker', [
 
 				scope.years = [];
 				var currentYear = new Date().getFullYear();
+				var maxYear = currentYear + 20;
 				var oldestYear = currentYear - 120;
-				for (var i = currentYear; i >= oldestYear; i--) {
+				for (var i = maxYear; i >= oldestYear; i--) {
 					scope.years.push(i);
 				}
 
+				scope.openYear = function() {
+					if(!scope.year) {
+						scope.year = currentYear;
+					}
+				};
 
 				scope.$watch('year', function (year) {
 

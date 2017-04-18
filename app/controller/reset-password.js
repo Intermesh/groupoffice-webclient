@@ -21,7 +21,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.ResetPasswordControl
 
 				if (response.data.success) {
 
-					$mdDialog.show($mdDialog.alert().textContent(Translate.t("Your password has been reset. Please continue to the login screen."))
+					$mdDialog.show($mdDialog.alert().textContent(Translate.t("Your password has been reset. Continue to the login screen."))
 									.ok(Translate.t('Continue'))).then(function () {
 						$state.go('login');
 					});

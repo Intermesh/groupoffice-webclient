@@ -100,5 +100,22 @@ table.styled {
     margin-left: -2px;
 	}
 	
+	tr {
+		&.deleted {
+			background-color: $color-danger-bg !important;
+		}
+	}
+
+	&.row-body {		
+		tbody{
+				tr {
+				&:nth-child(odd) {
+					td {
+						padding-bottom:0px;
+					}
+				}
+			}
+		}
+	}
 	
 }

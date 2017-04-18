@@ -225,6 +225,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 						}
 
 						deferred.resolve({model: this, response: response.data});
+						
+						$rootScope.$broadcast('modelupdate', this);
 					}
 				} else
 				{

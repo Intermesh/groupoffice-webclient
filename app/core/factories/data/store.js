@@ -722,6 +722,11 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 		 * @returns {array} The models found or false on failure
 		 */
 		Store.prototype.updateModel = function (updatedModel) {
+			
+			if(this.busy) {
+				return;
+			}
+			
 			var index = this.findIndexByAttribute('id', updatedModel.id);
 			if (index > -1) {
 				angular.extend(this.items[index], updatedModel);

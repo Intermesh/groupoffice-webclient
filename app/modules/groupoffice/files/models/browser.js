@@ -26,6 +26,17 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 		Browser.prototype.display = t.list;
 
 		Browser.prototype.goTo = function(model) {
+
+
+			if(!angular.isString(model)) { // mine, recent, etc
+				$state.go("files.storage", {drive:model.path});
+				if(angular.isNumber(model)) {
+					this.at = 'd'+model; //prefix for drives
+					this.store.load({directory:model});
+				}
+				return this;
+			}
+			
 			switch(model) {
 				case 'starred':
 				case 'recent':
@@ -39,35 +50,33 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 				case 'home':
 					delete this.store.$loadParams.filter;
 			}
-			if(angular.isString(model)) { // mine, recent, etc
-				this.store.load();
-				this.dirStack = [{name:specialFolders[model], id:null, at:model}];
-				$state.go("files.storage");
-			} else {
-				$state.go("files.storage", {drive:model.path});
-			}
-			
-			return this;
-		};
-		Browser.prototype.open = function(model) {
+			this.at = model;
+			this.dirStack = [{name:specialFolders[model], id:null, at:model}];
+
 			var self = this;
-			$state.go("files.storage.node");
-			if(model.isDirectory) {
-				console.log(model);
-				this.store.load({directory: model.id}).then(function(xhr){
-					var dir;
-					self.dirStack = [self.dirStack[0]];
+			this.store.load().then(function(xhr){
+				var dir;
+				self.dirStack = [self.dirStack[0]];
+				if(xhr.response.data.path && xhr.response.data.path.length) {
 					if(self.at === 'home') {
 						self.dirStack = [];
 					}
 					while(dir = xhr.response.data.path.pop()) {
 						self.dirStack.push(dir);
 					}
-					console.log(self.dirStack);
-					//self.dirStack.push(model);
-				});
+				}
+			});
+			$state.go("files.storage");
+			
+			return this;
+		};
+		Browser.prototype.open = function(model) {
+			
+			$state.go("files.storage.node");
+			if(model.isDirectory) {
+				this.goTo(model);
 			} else {
-				console.log('cant open file');
+				console.log('cant open a file');
 			}
 		};
 		Browser.prototype.depth = function() {
@@ -75,7 +84,7 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 		};
 
 		Browser.prototype.isAt = function(place) {
-			return this.currentDir().at == place;
+			return this.at == place;
 		};
 
 		Browser.prototype.up = function() {

@@ -14,7 +14,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 			};
 
 			$scope.save = function() {
-				$scope.model.save().then(function() {
+				$scope.drive.save().then(function() {
 					$mdDialog.hide();
 					$scope.driveStore.reload();
 				});

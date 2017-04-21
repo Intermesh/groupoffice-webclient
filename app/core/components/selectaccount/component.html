@@ -1,0 +1,6 @@
+
+<md-select name="account" ng-model="$ctrl.ngModel" required>
+	<md-option ng-repeat="account in $ctrl.store.items track by account.id" ng-value="account.id">
+		{{account.name}}
+	</md-option>
+</md-select>				

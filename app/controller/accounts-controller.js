@@ -12,7 +12,12 @@ angular.module('GO.Controllers').controller('GO.Controllers.AccountsController',
 
 		$scope.accountTypes = App.accountTypes;			
 		
-		$scope.store = new Account().getStore();
+		$scope.store = new Account().getStore({
+			q: [
+				["requirePermissionType", "changePermissions"]
+			]
+		});
+		
 		$scope.store.load();
 		
 		$scope.editAccount = function(coreAccount) {			

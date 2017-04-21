@@ -12,7 +12,10 @@ GO.module('GO.Core').component('goSelectAccount', {
 
 			this.$onInit = function() {
 				this.store = (new Account()).getStore({
-					capability: this.goCapability || ""
+					capability: this.goCapability || "",
+					q: [
+						['requirePermissionType', 'update']
+					]
 				});				
 				this.store.load();
 			};

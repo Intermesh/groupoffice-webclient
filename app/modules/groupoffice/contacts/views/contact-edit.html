@@ -35,7 +35,7 @@
 							
 							<md-input-container flex>
 								<label>{{::"Name"| goT}}</label>
-								<input ng-model="model.name" name="name" ng-change="changeFullName()" required go-autofocus>
+								<input ng-model="model.name" name="name" ng-change="changeFullName()" required>
 								<div ng-messages="contactForm.name.$error" role="alert">
 									<div ng-message="required">
 										{{::"This field is required"| goT}}

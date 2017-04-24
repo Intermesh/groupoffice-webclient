@@ -13,9 +13,11 @@
 
 		<go-list store="store" virtual="false" flex>
 
-			<item ng-click="editAccount(model)">
+			<item>
 				<md-icon>{{accountTypes[model.modelName].iconCls}}</md-icon>
 				<p>{{model.name}}</p>
+				<go-list-edit-button ng-click="editAccount(model)"></go-list-edit-button>
+				<!--<go-list-delete-button></go-list-delete-button>-->
 			</item>
 
 			<empty-state>

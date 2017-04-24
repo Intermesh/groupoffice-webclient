@@ -29,10 +29,15 @@ GO.module('GO.Modules.GroupOffice.Contacts', ['GO.Core']).run([
 		App.currentUser.whenAuthenticated().then(function () {
 			if (App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Contacts\\Module').then(function (module) {
 				App.addLauncher('Contacts', 'contacts', false, {icon: 'contacts'});
-
+				
+				
+				App.addAccountType('GO\\Modules\\GroupOffice\\Contacts\\Model\\Account', 'GO.Modules.GroupOffice.Contacts.Model.Account', 'contacts', {
+					templateUrl: 'modules/groupoffice/contacts/views/account-edit.html',
+					controller: 'GO.Modules.GroupOffice.Contacts.Controller.AccountEdit'			
+				});
+				
 
 				User.prototype.$returnProperties += ',contact';
-
 
 				//Extend task
 				Task.prototype.$returnProperties += ',contact';

@@ -14,7 +14,7 @@ GO.module('GO.Core').component('goSelectAccount', {
 				this.store = (new Account()).getStore({
 					capability: this.goCapability || "",
 					q: [
-						['requirePermissionType', 'update']
+						['requirePermissionType', 'writeContents']
 					]
 				});				
 				this.store.load();

@@ -40,7 +40,7 @@
 					</md-content>
 				</md-tab>
 
-				<md-tab label="Share" ng-if="drive.isNew || drive.permissions.changePermissions">
+				<md-tab label="Share" ng-if="drive.isNew || drive.permissions.manage">
 					<md-content class="md-padding">
 						<h5><md-icon>share</md-icon> Who has access</h5>
 						<go-share drive="drive" group-fk="driveId" permissions="[{key:'manage', name: 'Manage'},{key: 'write', name: 'Write'}]"></go-share>

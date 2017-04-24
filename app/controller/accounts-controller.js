@@ -14,7 +14,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.AccountsController',
 		
 		$scope.store = new Account().getStore({
 			q: [
-				["requirePermissionType", "changePermissions"]
+				["requirePermissionType", "manage"]
 			]
 		});
 		

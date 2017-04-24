@@ -116,6 +116,15 @@ angular.module('GO.Core').service('GO.Core.Services.Application', [
 			}
 		};
 		
+		/**
+		 * 
+		 * @param {type} serverModelName The server model for the account eg. 'GO\\Modules\\GroupOffice\\Imap\\Model\\Account' //Used to identify the account from the server
+		 * @param {type} clientModelName The client tmodel name eg. 'GO.Modules.GroupOffice.Imap.Model.Account' Used to load the account data from the server
+		 * @param {type} iconCls The material icons icon name
+		 * @param {type} editDialogConfig
+		 * @param {type} createDialogConfig Optional, if different from editDialogConfig
+		 * @returns {undefined}
+		 */
 		App.prototype.addAccountType = function(serverModelName, clientModelName, iconCls, editDialogConfig, createDialogConfig) {			
 			this.accountTypes[serverModelName] = {
 				editDialogConfig: editDialogConfig,

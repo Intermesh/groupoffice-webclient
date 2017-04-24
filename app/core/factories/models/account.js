@@ -19,7 +19,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.Models.Account', [
 			
 			this.touchAttribute('modelName');//always send this
 			
-			this.$parent.save.call(this, arguments); 
+			return this.$parent.save.call(this, arguments); 
 		};
 
 		return Account;

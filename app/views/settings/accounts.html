@@ -13,11 +13,14 @@
 
 		<go-list store="store" virtual="false" flex>
 
-			<item>
+			<item class="md-2-line">
 				<md-icon>{{accountTypes[model.modelName].iconCls}}</md-icon>
-				<p>{{model.name}}</p>
+				<div class="md-list-item-text">
+					<h3>{{model.name}}</h3>
+					<p>{{model.modelName | goT}}</p>
+				</div>
 				<go-list-edit-button ng-click="editAccount(model)"></go-list-edit-button>
-				<!--<go-list-delete-button></go-list-delete-button>-->
+				<go-list-delete-button></go-list-delete-button>
 			</item>
 
 			<empty-state>

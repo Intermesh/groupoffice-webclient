@@ -1,4 +1,4 @@
-<form layout="column" name="accountForm" go-submit="save()" go-server-errors="model.validationErrors">
+<form layout="column" name="accountForm" go-submit="save()" go-server-errors="model.adaptor.validationErrors">
 
 
 	<md-toolbar>
@@ -15,32 +15,27 @@
 				<md-icon>check</md-icon>
 			</md-button>
 
-			<md-menu md-position-mode="target-right target">
-				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-					<md-icon md-menu-origin>more_vert</md-icon>
-				</md-button>
-				<md-menu-content>
-					<md-menu-item>
-						<md-button ng-click="deleteAccount()">{{::"Delete"| goT}}</md-button>
-					</md-menu-item>
-				</md-menu-content>
-			</md-menu>
+		
 		</div>
 	</md-toolbar>
 
 	<md-content flex>
 		<fieldset>
 
-			<legend>{{::"Incoming server"| goT}} (IMAP)</legend>
+			<h3>{{::"Incoming server"| goT}} (IMAP)</h3>
 
 			<div layout="row">
 				<md-input-container flex>
 					<md-icon>computer</md-icon>
 					<label>{{::"Hostname"| goT}}</label>
-					<input type="text" name="hostname" ng-model="model.hostname" required go-autofocus />
-					<div ng-messages="accountForm.name.$error" role="alert">
+					<input type="text" name="hostname" ng-model="model.adaptor.hostname" required go-autofocus />
+					<div ng-messages="accountForm.hostname.$error" role="alert">
 						<div ng-message="required">
 							{{::"This field is required"| goT}}
+						</div>
+						
+						<div ng-message="9">
+							{{::"Could not connect to server"| goT}}
 						</div>
 					</div>
 				</md-input-container>
@@ -48,7 +43,7 @@
 				<md-input-container style="width:100px">
 					<label>{{::"Encryption"| goT}}</label>
 
-					<md-select ng-model="model.encryption">
+					<md-select ng-model="model.adaptor.encryption">
 						<md-option value="tls" >TLS</md-option>
 						<md-option value="ssl" >SSL</md-option>
 						<md-option ng-value="null" >{{::"None"| goT}}</md-option>
@@ -57,7 +52,7 @@
 
 				<md-input-container style="width:100px">
 					<label>{{::"Port"| goT}}</label>
-					<input name="port" ng-model="model.port" required go-number />					
+					<input name="port" ng-model="model.adaptor.port" required go-number />					
 				</md-input-container>
 			</div>
 
@@ -66,12 +61,12 @@
 				<md-input-container flex>
 					<md-icon>person</md-icon>
 					<label>{{::"Username"| goT}}</label>
-					<input type="text" name="username" ng-model="model.username" required autocomplete="off" />					
+					<input type="text" name="username" ng-model="model.adaptor.username" required autocomplete="off" />					
 				</md-input-container>
 
 				<md-input-container flex>
 					<label>{{::"Password"| goT}}</label>
-					<input type="password" name="password" ng-model="model.password" ng-required="model.isNew()" autocomplete="off"/>
+					<input type="password" name="password" ng-model="model.adaptor.password" ng-required="model.adaptor.isNew()" autocomplete="off"/>
 				</md-input-container>
 			</div>
 
@@ -80,20 +75,25 @@
 
 		<fieldset>
 
-			<legend>{{::"Outgoing server"| goT}} (SMTP)</legend>
+			<h3>{{::"Outgoing server"| goT}} (SMTP)</h3>
+			<md-input-container class="md-icon-left">
+				<md-icon>send</md-icon>
+				<label>{{::'SMTP account' | goT}}</label>
+				<go-select-account go-capability="GO\Core\Email\Model\Message" ng-model="model.adaptor.smtpAccountId"></go-select-account>
+			</md-input-container>
 
-			<md-input-container class='md-block'>
+<!--			<md-input-container class='md-block'>
 				<md-icon>email</md-icon>
 				<label>{{::"E-mail address"| goT}}</label>
 
-				<input type="email" name="fromEmail" ng-model="model.smtpAccount.fromEmail" required />
+				<input type="email" name="fromEmail" ng-model="model.adaptor.smtpAccount.fromEmail" required />
 
 			</md-input-container>
 
 			<md-input-container class='md-block'>
 				<md-icon>person</md-icon>
 				<label>{{::"Sender name"| goT}}</label>
-				<input type="input"  name="fromName" ng-model="model.smtpAccount.fromName" required />
+				<input type="input"  name="fromName" ng-model="model.adaptor.smtpAccount.fromName" required />
 
 			</md-input-container>
 
@@ -101,13 +101,13 @@
 				<md-input-container flex>
 					<md-icon>computer</md-icon>
 					<label>{{::"Hostname"| goT}}</label>
-					<input type="text" name="smtphostname" ng-model="model.smtpAccount.hostname" required />
+					<input type="text" name="smtphostname" ng-model="model.adaptor.smtpAccount.hostname" required />
 
 				</md-input-container>
 
 				<md-input-container style="width:100px">
 					<label>{{::"Encryption"| goT}}</label>
-					<md-select ng-model="model.smtpAccount.encryption">
+					<md-select ng-model="model.adaptor.smtpAccount.encryption">
 						<md-option value="tls" >TLS</md-option>
 						<md-option value="ssl" >SSL</md-option>
 						<md-option ng-value="null" >{{::"None"| goT}}</md-option>
@@ -116,7 +116,7 @@
 
 				<md-input-container style="width:100px">
 					<label>{{::"Port"| goT}}</label>
-					<input name="smtpport" ng-model="model.smtpAccount.port" required go-number />					
+					<input name="smtpport" ng-model="model.adaptor.smtpAccount.port" required go-number />					
 				</md-input-container>
 			</div>
 
@@ -124,23 +124,23 @@
 				<md-input-container flex>
 					<md-icon>person</md-icon>
 					<label>{{::"Username"| goT}}</label>
-					<input type="text" name="smtpusername" ng-model="model.smtpAccount.username" required autocomplete="off" />
+					<input type="text" name="smtpusername" ng-model="model.adaptor.smtpAccount.username" required autocomplete="off" />
 				</md-input-container>
 
 				<md-input-container flex>
 					<label>{{::"Password"| goT}}</label>
-					<input type="password" name="smtppassword" ng-model="model.smtpAccount.password" ng-required="model.isNew()" autocomplete="off"/>
+					<input type="password" name="smtppassword" ng-model="model.adaptor.smtpAccount.password" ng-required="model.adaptor.isNew()" autocomplete="off"/>
 				</md-input-container>
-			</div>
+			</div>-->
 		</fieldset>
 
 
 		<fieldset>
-			<go-multiple title="Signatures" go-models="model.signatures" go-add-model="{}">
+			<go-multiple title="Signatures" go-models="model.adaptor.signatures" go-add-model="{}">
 				<div layout="column" flex style="margin-bottom:32px">
 					<md-input-container>						
 						<label>{{::"Name"| goT}}</label>
-						<input type="text"  ng-model="model.name" go-autofocus="$index > 0 && !model.id">
+						<input type="text"  ng-model="model.name" go-autofocus="$index > 0 && !model.adaptor.id">
 					</md-input-container>					
 					<go-wysiwyg ng-model="model.signature" on-image-paste="viewScope.onImagePaste(dataURL, editor)"></go-wysiwyg>			
 

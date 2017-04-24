@@ -5,17 +5,19 @@ angular.module('GO.Controllers').controller('GO.Controllers.CreateAccountControl
 	'GO.Core.Services.Application',
 	'GO.Core.Services.Dialog',
 	'close',
-	'$injector',
+	'GO.Core.Factories.Models.Account',
 	'accountStore',
-	function ($scope, App, Dialog, close, $injector, accountStore) {
+	function ($scope, App, Dialog, close, Account, accountStore) {
 
 		$scope.close = close;
 		
 		$scope.accountTypes = App.accountTypes;
 		
 		$scope.createAccount = function (accountType) {
-			var model = $injector.get(accountType.clientModelName);
-			accountType.createDialogConfig.editModel = new model;
+
+			accountType.createDialogConfig.editModel = new Account;
+			
+			accountType.createDialogConfig.editModel.read("0", {modelName: accountType.serverModelName});
 			close();
 
 			accountType.createDialogConfig.inputs = accountType.createDialogConfig.inputs || {};

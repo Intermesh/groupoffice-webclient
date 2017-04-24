@@ -130,7 +130,8 @@ angular.module('GO.Core').service('GO.Core.Services.Application', [
 				editDialogConfig: editDialogConfig,
 				createDialogConfig: createDialogConfig || angular.copy(editDialogConfig),
 				iconCls: iconCls,
-				clientModelName: clientModelName
+				clientModelName: clientModelName,
+				serverModelName: serverModelName
 			};
 		};
 		

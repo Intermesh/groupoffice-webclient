@@ -5,6 +5,7 @@ GO.module('GO.Core').component('goSelectAccount', {
 		goCapability: '@',
 		ngModel: '='
 	},
+	replace: true,
 	controller: [
 		'$scope',
 		'GO.Core.Factories.Models.Account',

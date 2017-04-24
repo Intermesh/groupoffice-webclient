@@ -9,8 +9,17 @@ angular.module('GO.Core').factory('GO.Core.Factories.Models.Account', [
 			this.$parent.constructor.call(this, arguments);
 		});
 		
+		Account.prototype.$returnProperties = '*,groups';
+		
 		Account.prototype.getStoreRoute = function() {
 			return 'accounts';
+		};
+		
+		Account.prototype.save = function (getParams) {
+			
+			this.touchAttribute('modelName');//always send this
+			
+			this.$parent.save.call(this, arguments); 
 		};
 
 		return Account;

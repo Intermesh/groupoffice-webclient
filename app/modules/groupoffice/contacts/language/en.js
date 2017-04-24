@@ -3,6 +3,7 @@ angular.module("GO.Core")
 						TranslateProvider.addTranslations("en",  {
 							"GO\\Modules\\GroupOffice\\Contacts\\Module": 'Contacts',
 							"GO\\Modules\\GroupOffice\\Contacts\\Model\\Contact":'Contact',
+							"GO\\Modules\\GroupOffice\\Contacts\\Model\\Account": 'GroupOffice Contacts',
 							"AgeFilter-min" : "Set minimum age",
 							"AgeFilter-max" : "Set maximum age",
 							"contactUpdate" : "was <strong>updated</strong> by {{creator.contact.name}} at {{createdAt | date:'short'}}",

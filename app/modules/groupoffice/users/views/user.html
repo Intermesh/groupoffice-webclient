@@ -30,7 +30,7 @@
 						<md-button ng-click="editContact(user)">{{::"Edit contact"| goT}}</md-button>
 					</md-menu-item>
 					<md-menu-item>
-						<md-button ng-click="user.delete()" ng-disabled="!user.permissions.update">{{::"Delete"| goT}}</md-button>
+						<md-button ng-click="user.delete()" ng-disabled="!user.permissions.write">{{::"Delete"| goT}}</md-button>
 					</md-menu-item>
 				</md-menu-content>
 			</md-menu>
@@ -64,7 +64,7 @@
 			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2 flex>Info</h2>
-					<md-button class="md-icon-button" ng-disabled="!user.permissions.update" ng-click="edit(user)">
+					<md-button class="md-icon-button" ng-disabled="!user.permissions.write" ng-click="edit(user)">
 						<md-tooltip>
 							{{::"Edit"| goT}}					
 						</md-tooltip>

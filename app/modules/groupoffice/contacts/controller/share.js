@@ -58,7 +58,7 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 				$scope.groupSearchText = "";
 
 				var groupAccess = angular.copy(ownerRecord);
-				groupAccess.permissions.update = groupAccess.permissions.update = true;
+				groupAccess.permissions.write = groupAccess.permissions.write = true;
 				groupAccess.group = $scope.selectedGroup;				
 				groupAccess.groupId = $scope.selectedGroup.id;
 				$scope.model.groups.push(groupAccess);

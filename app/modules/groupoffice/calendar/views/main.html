@@ -4,7 +4,7 @@
 			<md-list-item>
 				<md-icon>account_circle</md-icon>
 				<p>{{account.name}}</p>
-				<md-button class="md-secondary md-icon-button" ng-if="account.permissions.update || account.userId == userId" ng-click="editAccount(account)"><md-icon>edit</md-icon></md-button>
+				<md-button class="md-secondary md-icon-button" ng-if="account.permissions.write || account.userId == userId" ng-click="editAccount(account)"><md-icon>edit</md-icon></md-button>
 			</md-list-item>
 			<md-list-item ng-repeat="cal in account.calendars">
 				<md-icon style="color: #{{cal.color}}">event</md-icon>

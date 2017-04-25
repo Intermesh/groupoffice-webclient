@@ -112,7 +112,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				$scope.editAccount($scope.currentAccount);
 			};
 
-			$scope.openEventDialog = function (eventId, startAt, groupId, defaults) {
+			$scope.openEventDialog = function (eventId, recurrenceId, groupId, defaults) {
 				function open() {
 					$mdDialog.show({
 						controller: 'GO.Modules.GroupOffice.Calendar.EventForm',
@@ -143,8 +143,8 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 					}).then(open);
 				} else {
 					var p = {};
-					if(startAt) {
-						p = {recurrenceId: startAt.toIntermeshApiFormat()};
+					if(recurrenceId) {
+						p = {recurrenceId: recurrenceId.toIntermeshApiFormat()};
 					}
 					$scope.model.read({'eventId':eventId,'groupId':groupId}, p).then(open);
 				}

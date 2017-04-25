@@ -108,8 +108,8 @@
 			<div style="margin-top:16px;"><md-icon>people</md-icon></div>
 			<div flex>
 				<div layout="row" layout-align="start center" flex 
-					  ng-if="attendee.groupId != model.groupId && model.event.attendees.length > 0""
-					  ng-repeat="attendee in model.event.attendees | filter:{ markDeleted: false }">
+					  ng-if="model.event.hasAttendees"
+					  ng-repeat="attendee in model.event.attendees | filter:{ markDeleted: '!true' }">
 
 					<md-input-container md-no-float flex>
 						<input ng-readonly="!model.canWrite" type="email" ng-model="attendee.email" ng-mode="attendees.email" placeholder="Invite people" />
@@ -152,7 +152,7 @@
 				flow-file-success="uploadSuccess($file, $message)"
 				flow-drop>
 
-				<div style="min-height:47px" layout="row" layout-align="start center" ng-repeat="attachment in model.event.attachments | filter:{ markDeleted: false }">
+				<div style="min-height:47px" layout="row" layout-align="start center" ng-repeat="attachment in model.event.attachments | filter:{ markDeleted: '!true' }">
 					<span flex>{{attachment.name}}</span>
 					<md-icon class="cancel" ng-click="removeAttachment($index)">close</md-icon>
 				</div>
@@ -164,7 +164,7 @@
 					<go-progress value="file.progress()" max="1"></go-progress>
 				</div>
 
-				<md-button flow-btn><md-icon>file_upload</md-icon> Attach a file</md-button>
+				<md-button flow-btn class="md-no-focus">Attach a file</md-button>
 			</div>
 		</div>
 
@@ -173,7 +173,7 @@
 		</md-list>
 
 	</md-content>
-	<md-dialog-actions layout="row" ng-if="model.hasMoreAttendees() && model.canWrite">
+	<md-dialog-actions layout="row" ng-if="!model.isOrganizer">
 		<div style="margin-right:16px;"><md-icon>drafts</md-icon></div>
 		Kom je ook?
       <span flex></span>

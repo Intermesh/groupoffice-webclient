@@ -26,7 +26,6 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		};
 
 		$scope.save = function() {
-			console.log($scope.model.event);
 			if(!$scope.model.event.isRecurring) {
 				return internalSave();
 			}

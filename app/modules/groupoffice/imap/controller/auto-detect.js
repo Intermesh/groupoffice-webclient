@@ -20,16 +20,16 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 		$scope.close = close;
 
 		$scope.save = function () {
-			$scope.extra.password = $scope.autodetect.password;
+//			$scope.extra.password = $scope.autodetect.password;
 			return Mask.watchPromise($scope.autodetect.save().then(function (result) {
 
-				if (!$scope.autodetect.authenticated) {
-					$scope.extra.password = '';
-				}
+//				if (!$scope.autodetect.authenticated) {
+//					$scope.extra.password = '';
+//				}
 
 //								$scope.autodetect.smtpAccount.fromName = $scope.autodetect.fromName;
 //								delete $scope.autodetect.fromName;
-				$scope.autodetect.password = $scope.extra.password;
+//				$scope.autodetect.password = $scope.extra.password;
 //				angular.extend($scope.autodetect.smtpAccount, $scope.extra);
 
 //				$scope.autodetect.smtpAccount.fromEmail = $scope.autodetect.email;

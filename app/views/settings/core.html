@@ -14,14 +14,17 @@
 			
 			<md-tab-body>
 				<fieldset>
-					<md-input-container>
+					<md-input-container class="md-icon-left">
 						<md-icon>send</md-icon>
 						<label>{{::"SMTP Account"| goT}}</label>
-						<md-select ng-model="model.smtpAccount" ng-model-options="{trackBy: '$value.id'}">
+						
+						<go-select-account ng-model="model.smtpAccountId" go-capability="GO\Core\Email\Model\Message" go-on-add="addSmtpAccount()"></go-select-account>
+						
+<!--						<md-select ng-model="model.smtpAccount" ng-model-options="{trackBy: '$value.id'}">
 							<md-option ng-value="account" ng-repeat="account in smtpAccountStore.items">{{account.name}}</md-option>	
 
 							<md-option ng-click="addSmtpAccount()" ng-value=""><md-icon>add</md-icon> {{"Add"| goT}}</md-option>
-						</md-select>					
+						</md-select>					-->
 					</md-input-container>
 
 					<md-button ng-disabled="model.smtpAccount === null" ng-click="sendTestMessage();">{{::"Send test message"| goT}}</md-button>

@@ -3,7 +3,8 @@
 GO.module('GO.Core').component('goSelectAccount', {
 	bindings: {
 		goCapability: '@',
-		ngModel: '='
+		ngModel: '=',
+		goOnAdd: '&?'
 	},
 	replace: true,
 	controller: [
@@ -19,6 +20,14 @@ GO.module('GO.Core').component('goSelectAccount', {
 					]
 				});				
 				this.store.load();
+			};
+			var me = this;
+			this.add = function() {
+				me.goOnAdd().then(function(account) {
+					if(account) {
+						me.ngModel = account.id;
+					}
+				});
 			};
 			
 //			this.onOpen = function() {

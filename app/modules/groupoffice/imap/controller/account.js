@@ -53,33 +53,24 @@ angular.module('GO.Modules.GroupOffice.Imap')
 							editor.composer.commands.exec("insertImage", {src: dataURL, alt: "Pasted image"});
 
 						};
-
-
-//						var smtpAccount = new Resource('smtp/accounts');
-//						$scope.smtpAccountStore = smtpAccount.getStore();
-//						$scope.smtpAccountStore.load();
-//
-//
-//						$scope.addSmtpAccount = function () {
-//							var model = angular.copy(smtpAccount);
-//							model.read("0").then(function() {
-//								model.adaptor.fromEmail = $scope.model.adaptor.email;
-//								model.adaptor.username = $scope.model.adaptor.username;
-//								model.adaptor.password = $scope.model.adaptor.password;
-//								model.adaptor.hostname = $scope.model.adaptor.hostname;
-//							});
-//
-//							Dialog.show({
-//								editModel: model,
-//								templateUrl: 'modules/groupoffice/smtp/views/account.html',
-//								controller: 'GO.Modules.GroupOffice.Smtp.Controller.Account'
-//							}).then(function (dialog) {
-//								dialog.close.then(function (account) {
-//									if (account) {
-//										$scope.model.smtpAccount = account;
-//									}
-//								});
-//							});
-//						};
+						
+						
+						$scope.addSmtpAccount = function() {
+							var model = new Account;
+							model.read("0", {modelName: "GO\\Core\\Smtp\\Model\\Account"}).then(function() {
+								model.adaptor.fromEmail = $scope.model.adaptor.email;
+								model.adaptor.username = $scope.model.adaptor.username;
+								model.adaptor.password = $scope.model.adaptor.password;
+								model.adaptor.hostname = $scope.model.adaptor.hostname;
+							});
+							
+							return Dialog.show({
+								editModel: model,
+								templateUrl: 'modules/groupoffice/smtp/views/account.html',
+								controller: 'GO.Modules.GroupOffice.Smtp.Controller.Account'
+							}).then(function (dialog) {
+								return dialog.close;
+							});
+						};
 
 					}]);

@@ -79,7 +79,7 @@
 			<md-input-container class="md-icon-left">
 				<md-icon>send</md-icon>
 				<label>{{::'SMTP account' | goT}}</label>
-				<go-select-account go-capability="GO\Core\Email\Model\Message" ng-model="model.adaptor.smtpAccountId"></go-select-account>
+				<go-select-account go-on-add="addSmtpAccount()" go-capability="GO\Core\Email\Model\Message" ng-model="model.adaptor.smtpAccountId"></go-select-account>
 			</md-input-container>
 
 <!--			<md-input-container class='md-block'>

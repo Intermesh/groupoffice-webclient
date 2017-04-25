@@ -4,6 +4,7 @@ angular.module("GO.Core")
 					{
     "Contacts": "Contactpersonen",
     "GO\\Modules\\GroupOffice\\Contacts\\Module": "Contactpersonen",
+		"GO\\Modules\\GroupOffice\\Contacts\\Model\\Account": 'GroupOffice Contactpersonen',
     "First name": "Voornaam",
     "Middle name": "Tussenvoegsel",
     "Last name": "Achternaam",

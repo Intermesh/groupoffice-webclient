@@ -1,7 +1,7 @@
 angular.module('GO.Core').directive('goListDeleteButton', [
 	function ( ) {
 		return {
-			template: '<md-button ng-if="!model.deleted" class="md-icon-button md-secondary" ng-disabled="model.permissions && !model.permissions.update" ng-click="model.delete()">\
+			template: '<md-button ng-if="!model.deleted" class="md-icon-button md-secondary" ng-disabled="model.permissions && !model.permissions.write" ng-click="model.delete()">\
 				<md-tooltip>{{::"Delete"| goT}}</md-tooltip>\
 				<md-icon>delete</md-icon>\
 			</md-button>\

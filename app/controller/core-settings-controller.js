@@ -8,12 +8,9 @@ angular.module('GO.Controllers').controller('GO.Controllers.CoreSettingsControll
 	'$mdToast',
 	'GO.Core.Services.Dialog',
 	'GO.Core.Services.Application',
-	function ($scope, Resource, $http, ServerAPI, $mdToast, Dialog, App) {
+	'GO.Core.Factories.Models.Account',
+	function ($scope, Resource, $http, ServerAPI, $mdToast, Dialog, App, Account) {
 		
-		var smtpAccount = new Resource('smtp/accounts');
-
-		$scope.smtpAccountStore = smtpAccount.getStore();
-		$scope.smtpAccountStore.load();
 		
 		$scope.model = new Resource('settings', '*', []);
 		$scope.model.read();
@@ -22,6 +19,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.CoreSettingsControll
 			$scope.model.save();
 		}, true);
 		
+		$scope.user = App.currentUser;		
 		
 //		App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Webclient\\Module').then(function (module) {		
 			$scope.webclientModel = new Resource('webclient/settings', '*', []);
@@ -36,18 +34,15 @@ angular.module('GO.Controllers').controller('GO.Controllers.CoreSettingsControll
 		};
 		
 		$scope.addSmtpAccount = function() {
-			var model = angular.copy(smtpAccount);
+			var model = new Account;
+			model.read("0", {modelName: "GO\\Core\\Smtp\\Model\\Account"});
 			
-			Dialog.show({
+			return Dialog.show({
 				editModel: model,
 				templateUrl: 'modules/groupoffice/smtp/views/account.html',
 				controller: 'GO.Modules.GroupOffice.Smtp.Controller.Account'
 			}).then(function (dialog) {
-				dialog.close.then(function (account) {
-					if (account) {						
-						$scope.model.smtpAccount = account;
-					}
-				});
+				return dialog.close;
 			});
 		};
 		

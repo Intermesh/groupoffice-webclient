@@ -9,7 +9,11 @@
 					<md-icon>close</md-icon>
 				</md-button>
 
-				<span flex></span>
+				<span flex>
+					
+					<go-select-account go-capability="GO\Modules\GroupOffice\Contacts\Model\Contact" ng-model="model.accountId"></go-select-account>
+					
+				</span>
 				<md-button type="submit" class="md-icon-button">
 					<md-tooltip>{{::"Save"| goT}}</md-tooltip>
 					<md-icon>check</md-icon>
@@ -26,9 +30,12 @@
 					<div flex>
 
 						<div layout flex>
+							
+							
+							
 							<md-input-container flex>
 								<label>{{::"Name"| goT}}</label>
-								<input ng-model="model.name" name="name" ng-change="changeFullName()" required go-autofocus>
+								<input ng-model="model.name" name="name" ng-change="changeFullName()" required>
 								<div ng-messages="contactForm.name.$error" role="alert">
 									<div ng-message="required">
 										{{::"This field is required"| goT}}

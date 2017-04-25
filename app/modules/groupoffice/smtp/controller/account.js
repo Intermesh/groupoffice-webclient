@@ -11,17 +11,17 @@ angular.module('GO.Modules.GroupOffice.Smtp')
 				
 				read.then(function(){					
 					//reset password to prevent auto complete in browser
-					$timeout(function() {						
-						$scope.model.reset('username');
-						$scope.model.reset('password');
-					}, 1000);
+//					$timeout(function() {						
+//						$scope.model.reset('username');
+//						$scope.model.reset('password');
+//					}, 1000);
 				});
+				var origSave = $scope.save;
 				
-				$scope.deleteAccount = function() {
-					
-					$scope.model.delete().then(function() {
-						close();
-					});
+				$scope.save = function() {					
+					$scope.model.name = $scope.model.adaptor.fromEmail;					
+					return origSave();
 				};
+
 			
 			}]);

@@ -14,7 +14,7 @@ angular.module("GO.Core")
     "E-mail address": "E-mail adres",
     "Sender name": "Naam verzender",
     "Signatures": "Handtekeningen",
-    "createImapAccountText": "createImapAccountText",
+   
     "Invalid e-mail address": "Ongeldig e-mail adres"
 }
 				);

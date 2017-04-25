@@ -1,44 +1,35 @@
-<div flex layout="column" style="min-height:340px; min-width: 300px;">
+<div class="go-share">
 
 
-		<table class="styled">
-			<tr>
-				<th style="min-width: 160px">
-					{{"Group" | goT}}
-				</th>
+	<table class="styled">
+		<tr>
+			<th style="min-width: 160px">
+				{{"Group"| goT}}
+			</th>
 
-				<th ng-repeat="permission in permissions" flex="20" class="center">
-					{{permission.name}}
-				</th>
-				<th flex="20" class="center">
+			<th ng-repeat="permission in permissions" flex="20" class="center">
+				{{permission.name}}
+			</th>
+			<th flex="20" class="center">
 
-				</th>
-			</tr>
+			</th>
+		</tr>
 
-			<tr ng-repeat="item in model.groups track by item.groupId" ng-if="!item.markDeleted">
-				<td>{{item.group.name}}</td>
-				<td class="center" ng-repeat="permission in permissions"><md-checkbox ng-model="item[permission.key]" ng-change="model.save()" ng-disabled="!item.permissions.update"></md-checkbox></td>
-				<td class="center">
-					<md-button ng-click="deleteRecord(item)" class="md-icon-button" ng-disabled="!item.permissions.update">
-						<md-icon>delete</md-icon>
-						<md-tooltip>{{::"Delete" | goT}}</md-tooltip>
-					</md-button>
-				</td>
-			</tr>
+		<tr ng-repeat="item in model.groups track by item.groupId" ng-if="!item.markDeleted">
+			<td>{{item.group.name}}</td>
+			<td class="center" ng-repeat="permission in permissions"><md-checkbox ng-model="item[permission.key]" ng-change="model.save()" ng-disabled="!item.permissions.write"></md-checkbox></td>
+			<td class="center">
+				<md-button ng-click="deleteRecord(item)" class="md-icon-button" ng-disabled="!item.permissions.write">
+					<md-icon>delete</md-icon>
+					<md-tooltip>{{::"Delete"| goT}}</md-tooltip>
+				</md-button>
+			</td>
+		</tr>
 
-<!--			<tr ng-if="store.items.length==0">
-				<td colspan="4" class="center">
-					<div class="empty-state">
-						<md-icon>group</md-icon>
-						<p>{{::"Add groups to share" | goT}}</p>
-					</div>
-				</td>
-			</tr>-->
+		<tr>
+			<td colspan="2" class="add-group-persmission-ac">
 
-<tr>
-					<td colspan="2" class="add-group-persmission-ac">
-
-								<md-autocomplete
+		<md-autocomplete
 			md-delay="500"
 			md-no-cache="1"
 			md-selected-item="selectedGroup"
@@ -48,17 +39,17 @@
 			md-item-text="group.name"
 			md-selected-item-change="addGroup()"
 			md-floating-label="Add person or group"
-										 >
+			>
 			<md-item-template>
 				<span md-highlight-text="groupSearchText" md-highlight-flags="^i">{{group.name}}</span>
 			</md-item-template>
 		</md-autocomplete>
 
 
-					</td>
-					<td colspan="2"></td>
-				</tr>
+		</td>
+		<td colspan="2"></td>
+		</tr>
 
-		</table>
+	</table>
 
 </div>

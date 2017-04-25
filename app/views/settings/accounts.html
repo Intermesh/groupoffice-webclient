@@ -1,4 +1,5 @@
-<md-card class="go-settings-card-panel" layout="column" flex-gt-md="50">
+<div  flex flex-gt-md="50" layout="column" >
+<md-card class="go-settings-card-panel" layout="column" flex>
 	
 		<go-list-toolbar store="store">
 			<go-tools class="md-toolbar-tools">
@@ -7,15 +8,20 @@
 				</md-button>
 
 				<h3 flex>{{::"Accounts" | goT}}</h3>
-
+			</go-tools>
 		</go-list-toolbar>
 
 
-		<go-list store="store" virtual="false" flex>
+		<go-list store="store" virtual="false" flex layout="column">
 
-			<item ng-click="editAccount(model)">
+			<item class="md-2-line">
 				<md-icon>{{accountTypes[model.modelName].iconCls}}</md-icon>
-				<p>{{model.name}}</p>
+				<div class="md-list-item-text">
+					<h3>{{model.name}}</h3>
+					<p>{{model.modelName | goT}}</p>
+				</div>
+				<go-list-edit-button class="md-secondary" on-edit="editAccount(model)"></go-list-edit-button>
+				<go-list-delete-button class="md-secondary"></go-list-delete-button>
 			</item>
 
 			<empty-state>
@@ -29,3 +35,4 @@
 		<md-button class="md-accent" ng-click='createAccount()'>{{"Add" | goT}}</md-button>
 	</md-card-actions>
 </md-card>
+	</div>

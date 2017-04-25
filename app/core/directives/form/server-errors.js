@@ -79,9 +79,9 @@ angular.module('GO.Core').directive('goServerErrors', ['$mdToast', 'GO.Core.Prov
 						console.error("Server validation error for '" + key + "' can't be displayed as there's no form field for it in "+form.name);
 						continue;
 					}
-					form[key].$setValidity(e[key].code, false);			
+					form[key].$setValidity(e[key].code+"", false);			//code must be string for Angular.
 					form[key].$setTouched();
-					serverErrors.push([key, e[key].code]);					
+					serverErrors.push([key, e[key].code+""]);					
 					
 				}
 				

@@ -20,9 +20,9 @@ angular.module('GO.Core').factory('GO.Modules.GroupOffice.Messages.Models.Accoun
 		};
 		
 		Account.prototype.getAccountModel = function() {
-			var clientModelClass = $injector.get(mappings[this.accountRecord.className]);
+			var clientModelClass = $injector.get(mappings[this.adaptor.className]);
 			var account = new clientModelClass;									
-			account.loadData(this.accountRecord);			
+			account.loadData(this.adaptor);			
 			return account;
 		};
 

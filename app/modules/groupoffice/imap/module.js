@@ -15,10 +15,13 @@ GO.module('GO.Modules.GroupOffice.Imap', ['GO.Core', 'GO.Modules.GroupOffice.Mes
 					inputs: {
 						autodetect: null //Create account dialog passes an autodetect model. We must declare it here too for the Dep inject.
 					}
-				}, {
+				}
+				
+				,{
 					templateUrl: 'modules/groupoffice/imap/views/auto-detect.html',
 					controller: 'GO.Modules.GroupOffice.Imap.Controller.AutoDetect'
-				});
+				}
+								);
 			});
 		});
 	}]).config([

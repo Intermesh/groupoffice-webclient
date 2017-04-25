@@ -6,20 +6,21 @@ angular.module('GO.Controllers').controller('GO.Controllers.AccountsController',
 	'$state',
 	'GO.Core.Factories.Models.Account',
 	'GO.Core.Services.Application',
-	'$injector',
-	'GO.Core.Services.AccountSync',
-	function ($scope, Dialog, $state, Account, App, $injector,AccountSync) {
+	function ($scope, Dialog, $state, Account, App) {
 
 		$scope.accountTypes = App.accountTypes;			
 		
-		$scope.store = new Account().getStore();
+		$scope.store = new Account().getStore({
+			q: [
+				["requirePermissionType", "manage"]
+			]
+		});
+		
 		$scope.store.load();
 		
 		$scope.editAccount = function(coreAccount) {			
 			var accountType = $scope.accountTypes[coreAccount.modelName];
-								
-			var model = $injector.get(accountType.clientModelName);
-			accountType.editDialogConfig.editModel = new model;
+			accountType.editDialogConfig.editModel = new Account;
 			
 			accountType.editDialogConfig.editModel.read(coreAccount.id).then(function(){
 				Dialog.show(accountType.editDialogConfig).then(function(dialog) {

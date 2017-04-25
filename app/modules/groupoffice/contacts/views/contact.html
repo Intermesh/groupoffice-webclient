@@ -35,11 +35,11 @@
 						<md-button flow-btn>{{::"Import"| goT}}</md-button>
 					</md-menu-item>-->
 <!--					<md-menu-item>						
-						<md-button ng-disabled="!contact.permissions.changePermissions" ng-click="share(contact)">{{::"Share"| goT}}</md-button>
+						<md-button ng-disabled="!contact.permissions.manage" ng-click="share(contact)">{{::"Share"| goT}}</md-button>
 					</md-menu-item>-->
 					<md-divider></md-divider>
 					<md-menu-item>
-						<md-button ng-disabled="!contact.permissions.update" ng-click="contact.delete()">{{::"Delete"| goT}}</md-button>
+						<md-button ng-disabled="!contact.permissions.write" ng-click="contact.delete()">{{::"Delete"| goT}}</md-button>
 					</md-menu-item>
 				</md-menu-content>
 			</md-menu>
@@ -73,7 +73,7 @@
 			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2 flex>Info</h2>
-					<md-button class="md-icon-button" ng-disabled="!contact.permissions.update" ng-click="edit({contact: contact})">
+					<md-button class="md-icon-button" ng-disabled="!contact.permissions.write" ng-click="edit({contact: contact})">
 						<md-tooltip>
 							{{::"Edit"| goT}}					
 						</md-tooltip>

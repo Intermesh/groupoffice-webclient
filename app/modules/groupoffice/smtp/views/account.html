@@ -1,4 +1,4 @@
-<form layout="column" name="accountForm" go-submit="save()" go-server-errors="model.validationErrors">
+<form layout="column" name="accountForm" go-submit="save()" go-server-errors="model.adaptor.validationErrors">
 
 
 	<md-toolbar>
@@ -14,16 +14,7 @@
 				<md-icon>check</md-icon>
 			</md-button>
 		
-			<md-menu md-position-mode="target-right target">
-				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-					<md-icon md-menu-origin>more_vert</md-icon>
-				</md-button>
-				<md-menu-content>
-					<md-menu-item>
-						<md-button ng-click="deleteAccount()">{{::"Delete"| goT}}</md-button>
-					</md-menu-item>
-				</md-menu-content>
-			</md-menu>
+		
 		</div>
 	</md-toolbar>
 
@@ -35,14 +26,14 @@
 			<md-icon>email</md-icon>
 			<label>{{::"E-mail address"| goT}}</label>
 
-			<input type="email" name="fromEmail" ng-model="model.fromEmail" required go-autofocus />
+			<input type="email" name="fromEmail" ng-model="model.adaptor.fromEmail" required go-autofocus />
 
 		</md-input-container>
 
 		<md-input-container class="md-block">
 			<md-icon>person</md-icon>
 			<label>{{::"Sender name"| goT}}</label>
-			<input type="input"  name="fromName" ng-model="model.fromName" required />
+			<input type="input"  name="fromName" ng-model="model.adaptor.fromName" required />
 
 		</md-input-container>
 
@@ -50,13 +41,13 @@
 			<md-input-container class="md-block" flex>
 				<md-icon>computer</md-icon>
 				<label>{{::"Hostname"| goT}}</label>
-				<input type="text" name="smtphostname" ng-model="model.hostname" required />
+				<input type="text" name="smtphostname" ng-model="model.adaptor.hostname" required />
 
 			</md-input-container>
 
 			<md-input-container class="md-block" flex="20">
 				<label>{{::"Encryption"| goT}}</label>
-				<md-select ng-model="model.encryption">
+				<md-select ng-model="model.adaptor.encryption">
 					<md-option value="tls" >TLS</md-option>
 					<md-option value="ssl" >SSL</md-option>
 					<md-option ng-value="null" >{{::"None"| goT}}</md-option>
@@ -65,20 +56,20 @@
 
 			<md-input-container class="md-block" flex="20">
 				<label>{{::"Port"| goT}}</label>
-				<input name="smtpport" ng-model="model.port" required go-number />					
+				<input name="smtpport" ng-model="model.adaptor.port" required go-number />					
 			</md-input-container>
 		</div>
 
 		<md-input-container class="md-block">
 			<md-icon>person</md-icon>
 			<label>{{::"Username"| goT}}</label>
-			<input type="text" name="smtpusername" ng-model="model.username" autocomplete="off" />
+			<input type="text" name="smtpusername" ng-model="model.adaptor.username" autocomplete="off" />
 		</md-input-container>
 
 		<md-input-container class="md-block">
 			<md-icon>lock</md-icon>
 			<label>{{::"Password"| goT}}</label>
-			<input type="password" name="smtppassword" ng-model="model.password"  ng-required="model.username != '' && account.isNew()" autocomplete="off"/>
+			<input type="password" name="smtppassword" ng-model="model.adaptor.password"  ng-required="model.adaptor.username != '' && account.isNew()" autocomplete="off"/>
 		</md-input-container>
 	</md-content>
 

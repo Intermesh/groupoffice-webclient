@@ -73,7 +73,7 @@
 			</div>
 
 			<md-divider></md-divider>
-			<div ng-if="current.permissions.changePermissions" layout="row" layout-align="start start">
+			<div ng-if="current.permissions.manage" layout="row" layout-align="start start">
 				<div style="margin-top:16px;"><md-icon>share</md-icon></div>
 				<div flex>
 					<go-share model="current" group-fk="calendarId" permissions="[{key:'read', name: 'Read'},{key: 'write', name: 'Write'}]"></go-share>

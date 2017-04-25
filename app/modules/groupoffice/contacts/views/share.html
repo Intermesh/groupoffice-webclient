@@ -38,10 +38,10 @@
 
 				<tr ng-repeat="item in model.groups track by item.groupId" ng-if="!item.markDeleted">
 					<td>{{item.group.name}}</td>
-					<td class="center"><md-checkbox ng-model="item.write" ng-change="model.save()" ng-disabled="!item.permissions.update"></md-checkbox></td>
-					<td class="center"><md-checkbox ng-model="item.delete" ng-change="model.save()" ng-disabled="!item.permissions.update"></md-checkbox></td>
+					<td class="center"><md-checkbox ng-model="item.write" ng-change="model.save()" ng-disabled="!item.permissions.write"></md-checkbox></td>
+					<td class="center"><md-checkbox ng-model="item.delete" ng-change="model.save()" ng-disabled="!item.permissions.write"></md-checkbox></td>
 					<td class="center">
-						<md-button ng-click="deleteRecord(item)" class="md-icon-button" ng-disabled="!item.permissions.update">
+						<md-button ng-click="deleteRecord(item)" class="md-icon-button" ng-disabled="!item.permissions.write">
 							<md-icon>delete</md-icon>
 							<md-tooltip>{{::"Delete" | goT}}</md-tooltip>
 						</md-button>

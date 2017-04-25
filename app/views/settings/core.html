@@ -18,7 +18,8 @@
 						<md-icon>send</md-icon>
 						<label>{{::"SMTP Account"| goT}}</label>
 						
-						<go-select-account ng-model="model.smtpAccountId" go-capability="GO\Core\Email\Model\Message" go-on-add="addSmtpAccount()"></go-select-account>
+						
+						<go-select-account q="[['where',{ownedBy: user.id}]]" ng-model="model.smtpAccountId" go-capability="GO\Core\Email\Model\Message" go-on-add="addSmtpAccount()"></go-select-account>
 						
 <!--						<md-select ng-model="model.smtpAccount" ng-model-options="{trackBy: '$value.id'}">
 							<md-option ng-value="account" ng-repeat="account in smtpAccountStore.items">{{account.name}}</md-option>	

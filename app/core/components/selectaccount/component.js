@@ -4,7 +4,8 @@ GO.module('GO.Core').component('goSelectAccount', {
 	bindings: {
 		goCapability: '@',
 		ngModel: '=',
-		goOnAdd: '&?'
+		goOnAdd: '&?',
+		q: '<?'
 	},
 	replace: true,
 	controller: [
@@ -13,11 +14,18 @@ GO.module('GO.Core').component('goSelectAccount', {
 		function ($scope, Account) {
 
 			this.$onInit = function() {
+				
+				var q = [
+					['requirePermissionType', 'writeContents']
+				];
+
+				if(this.q){
+					q = q.concat(this.q);
+				}
+				
 				this.store = (new Account()).getStore({
 					capability: this.goCapability || "",
-					q: [
-						['requirePermissionType', 'writeContents']
-					]
+					q: q
 				});				
 				this.store.load();
 			};
@@ -29,10 +37,7 @@ GO.module('GO.Core').component('goSelectAccount', {
 					}
 				});
 			};
-			
-//			this.onOpen = function() {
-//				return this.store.load();
-//			};
+		
 
 		}],
 	templateUrl: 'core/components/selectaccount/component.html'

@@ -19,6 +19,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.CoreSettingsControll
 			$scope.model.save();
 		}, true);
 		
+		$scope.user = App.currentUser;		
 		
 //		App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Webclient\\Module').then(function (module) {		
 			$scope.webclientModel = new Resource('webclient/settings', '*', []);

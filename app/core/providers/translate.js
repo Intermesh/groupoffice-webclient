@@ -77,7 +77,6 @@ angular.module('GO.Core').provider('GO.Core.Providers.Translate', [
 					language: language,
 					translations: translations,
 					setLanguage: function (lang) {
-						console.log("setLanguage("+lang+")");
 						this.language = lang.toLowerCase();
 					},
 					/**

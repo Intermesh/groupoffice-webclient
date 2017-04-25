@@ -11,10 +11,6 @@ GO.module('GO.Modules.Tutorial.Bands', ['GO.Core'])
 				App.serverModules.fetchModule('UX\\Modules\\Bands\\Module').then(function (module) {
 					App.addLauncher('Bands','bands');
 					App.addSettingsOption('settings.bands', 'Bands', 'mdi-music-note');
-				}).catch(function(e){
-					console.log(e);
-					console.log("TODO this error should not be reported");
-					
 				});
 			});
 

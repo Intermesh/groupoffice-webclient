@@ -21,8 +21,6 @@ angular.module("GO.Core")
     "Import": "Importieren",
     "Chamber of Commerce": "Industrie und Handelskammer",
     "Debtor number": "Nummer Debiteur",
-    "Invalid e-mail address": "Ung\u00fcltige E-Mail-Adresse",
-    "Open side navigation": "offene  Navigationleiste",
     "Organization": "Organisation",
     "Organizations": "Organisationen",
     "Persons": "Personen",
@@ -34,7 +32,6 @@ angular.module("GO.Core")
     "Street": "Strasse",
     "Middle name": "Einf\u00fcgung",
     "URL's": "URLs",
-    "Add groups to share": "F\u00fcgen Sie Gruppen zum Teilen hinzu",
     "First name": "Vorname"
 }
 				);

@@ -79,7 +79,11 @@ GO.module('GO.Core').component('goCustomFilters', {
 							
 							$scope.properties = properties;							
 
-							$scope.model = {field: Object.keys(properties)[0], query: [], comparator: '=', label: null};
+							$scope.model = {field: Object.keys(properties)[0], query: null, comparator: '=', label: null};
+							
+							$scope.$watch('model.field', function(newValue) {
+								$scope.model.query = properties[newValue].defaultValue || null;
+							});
 
 							$scope.save = function () {
 								

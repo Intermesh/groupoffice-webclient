@@ -10,7 +10,8 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 	'$mdDialog',
 	
 	'$timeout',
-	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog, $timeout) {
+	'GO.Modules.CustomFields.Services.CustomFields',
+	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog, $timeout, CustomFields) {
 		//Will be used in child scope. We define it here so we can access
 		//the properties if needed in the future.
 		//Child scopes automatically inherit properties of the parents but
@@ -55,9 +56,12 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 			"addresses.country" :
 			{
 				label: "Address country",
-				editorTpl: "core/components/custom-filters/editors/chips.html"
+				editorTpl: "core/components/custom-filters/editors/chips.html",
+				defaultValue: []
 			}
 		};
+		
+		CustomFields.loadFilterOptions("GO\\Modules\\GroupOffice\\Contacts\\Model\\CustomFields", $scope.filterProperties);
 
 
 		$scope.filters = {

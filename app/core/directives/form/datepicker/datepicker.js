@@ -51,18 +51,21 @@ angular.module('GO.Core').directive('goDatePicker', [
 
 
 
-				scope.days = [];
+				var days = [];
 				for (var i = 1; i < 32; i++) {
-					scope.days.push(i);
+					days.push(i);
 				}
 
-				scope.years = [];
+				var years = [];
 				var currentYear = new Date().getFullYear();
 				var maxYear = currentYear + 20;
 				var oldestYear = currentYear - 120;
 				for (var i = maxYear; i >= oldestYear; i--) {
-					scope.years.push(i);
+					years.push(i);
 				}
+				
+				scope.years = years;
+				scope.days = days;
 
 				scope.openYear = function() {
 					if(!scope.year) {

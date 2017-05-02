@@ -11,7 +11,7 @@
  * @param {string} serverModel
  * 
  * @example
- * <go-custom-fields-detail ng-model="contact.customfields" server-model="GO\Modules\GroupOffice\Contacts\Model\ContactCustomFields"></go-custom-fields-detail>
+ * <go-custom-fields-detail ng-model="contact.customFields" server-model="GO\Modules\GroupOffice\Contacts\Model\ContactCustomFields"></go-custom-fields-detail>
  */
 angular.module('GO.Core')
 				.directive('goCustomFieldsDetail', ['$templateCache', function ($templateCache) {

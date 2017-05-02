@@ -11,7 +11,7 @@ angular.module('GO.Modules.Tutorial.Bands').
 							this.$parent.constructor.call(this, arguments);
 
 							this.$baseParams = {
-								returnProperties: "*,albums,customfields"
+								returnProperties: "*,albums,customFields"
 							};
 
 						});

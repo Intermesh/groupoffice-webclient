@@ -8,7 +8,7 @@
  * Prints custom fields form fieldsets.
  * 
  * 
- * @param {string} ngModel The customfields model property of the model the customFields belong to
+ * @param {string} ngModel The customFields model property of the model the customFields belong to
  * @param {string} serverModel The custom fields server model.
  * 
  * @example

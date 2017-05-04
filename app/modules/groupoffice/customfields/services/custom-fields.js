@@ -31,7 +31,7 @@ angular.module('GO.Core').service('GO.Modules.CustomFields.Services.CustomFields
 			angular.forEach(fieldset.fields, function(field) {
 				
 
-				filterOptions['customfields.'+field.databaseName] = {
+				filterOptions['customFields.'+field.databaseName] = {
 					label: field.name,
 					editorTpl: "core/components/custom-filters/editors/text.html"
 				};

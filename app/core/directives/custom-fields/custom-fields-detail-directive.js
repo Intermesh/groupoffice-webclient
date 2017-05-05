@@ -18,22 +18,22 @@ angular.module('GO.Core')
 
 						$templateCache.put('customfield-text-detail.html',
 										'<h3>{{goModel[field.databaseName]}}</h3>\
-								<p>{{field.name}}</p>');
+								<p>{{field.name | goT}}</p>');
 
 						$templateCache.put('customfield-textarea-detail.html',
 										'<h3>{{goModel[field.databaseName]}}</h3>\
-							<p>{{field.name}}</p>');
+							<p>{{field.name | goT}}</p>');
 
 						$templateCache.put('customfield-select-detail.html',
-										'<h3>{{goModel[field.databaseName]}}</h3>\
-							<p>{{field.name}}</p>');
+										'<h3>{{goModel[field.databaseName]  | goT}}</h3>\
+							<p>{{field.name | goT}}</p>');
 
 						$templateCache.put('customfield-checkbox-detail.html',
-										'<h3><md-icon>{{goModel[field.databaseName] ? "check_box" : "check_box_outline_blank"}}</md-icon> {{field.name}}</h3>');
+										'<h3><md-icon>{{goModel[field.databaseName] ? "check_box" : "check_box_outline_blank"}}</md-icon> {{field.name | goT}}</h3>');
 
 						$templateCache.put('customfield-date-detail.html',
 										'<h3>{{goModel[field.databaseName] | date:\'longDate\'}}</h3>\
-							<p>{{field.name}}</p>');
+							<p>{{field.name | goT}}</p>');
 
 						$templateCache.put('customfield-datetime.html',
 										'TODO!');
@@ -41,7 +41,7 @@ angular.module('GO.Core')
 
 						$templateCache.put('customfield-number-detail.html',
 										'<h3>{{goModel[field.databaseName] | number}}</h3>\
-							<p>{{field.name}}</p>');
+							<p>{{field.name | goT}}</p>');
 
 						return {
 							restrict: 'E',

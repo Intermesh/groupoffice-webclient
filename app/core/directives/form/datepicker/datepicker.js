@@ -44,7 +44,7 @@ angular.module('GO.Core').directive('goDatePicker', [
 
 				function update() {
 					scope.year = ngModel.$viewValue.getFullYear();
-					scope.month = ngModel.$viewValue.getMonth();
+					scope.month = ngModel.$viewValue.getMonth() + 1; //md-select doesn't accept 0 as a value so we incremnt to 1-12
 					scope.day = ngModel.$viewValue.getDate();
 				}
 
@@ -99,7 +99,7 @@ angular.module('GO.Core').directive('goDatePicker', [
 					}
 
 					var date = ngModel.$viewValue ? ngModel.$viewValue : new Date();
-					date.setMonth(month);
+					date.setMonth(month - 1);
 
 					ngModel.$setViewValue(date);
 					update();

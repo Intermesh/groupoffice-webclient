@@ -102,7 +102,7 @@ GO.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOffice.
 					}
 
 					//force a sync
-					$http.get(ServerAPI.url('accounts/' + closeResult.thread.accountId + '/sync'));
+//					$http.get(ServerAPI.url('accounts/' + closeResult.thread.accountId + '/sync'));
 				}
 			});
 		};

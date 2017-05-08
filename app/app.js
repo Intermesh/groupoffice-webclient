@@ -153,5 +153,7 @@ angular.module('GO', GO.appModules.concat([
  }]).config(['$qProvider', function ($qProvider) {
 	 
 		//Avoid unhandled rejections error: http://stackoverflow.com/questions/41063947/angular-1-6-0-possibly-unhandled-rejection-error
-    $qProvider.errorOnUnhandledRejections(false);
+		//
+		//This also hides error within angular.forEach
+//    $qProvider.errorOnUnhandledRejections(false);
 }]);

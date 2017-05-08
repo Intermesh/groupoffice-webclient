@@ -11,14 +11,15 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 		});
 
 		Attendee.prototype.$returnProperties = "*,alarms,calendarId,event[*,attendees,recurrenceRule,attachments]";
-		Attendee.prototype.$keys = ['eventId','groupId'];
+		Attendee.prototype.$keys = ['eventId'];
 
 		Attendee.prototype.getStoreRoute = function () {
-			return 'event';
+			return 'event/' + this.calendarId;
 		};
 
-		Attendee.prototype.isOrganizer = function() {
-			this.event.attendees < 2;
+
+		Attendee.prototype.canWrite = function () {
+			return this.isOrganizer && (this.permissions.write || this.permissions.manage);
 		};
 
 		Attendee.prototype.hasMoreAttendees = function() {

@@ -16,15 +16,15 @@ angular.module('GO.Modules.GroupOffice.Calendar').
 				var i,data = {}, self = this;
 	
 				angular.forEach(this.items, function (calEvent) {
-					i = new Date(calEvent.event.startAt);
-					for(i.setHours(0,0,0,0); i <= calEvent.event.endAt; i.addDays(1)) {
+					i = new Date(calEvent.startAt);
+					for(i.setHours(0,0,0,0); i <= calEvent.endAt; i.addDays(1)) {
 						if(!calEvent.groupId || !self.selected[calEvent.calendarId]) {
 							continue;
 						}
 						if (!data[i.getYmd()]) {
 							data[i.getYmd()] = [];
 						}
-						if(calEvent.event.startAt.getYmd() < calEvent.event.endAt.getYmd())
+						if(calEvent.startAt.getYmd() < calEvent.endAt.getYmd())
 							data[i.getYmd()].unshift(calEvent);
 						else { // From previous day
 							data[i.getYmd()].push(calEvent);

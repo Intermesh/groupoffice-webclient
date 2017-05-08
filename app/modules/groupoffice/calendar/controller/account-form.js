@@ -25,7 +25,6 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 						model.setAttributes(calendar);
 					//});
 				}
-				model.ownedBy = $scope.currentAccount.id;
 				$scope.current = model;
 				$mdSidenav('calendar').toggle();
 			};

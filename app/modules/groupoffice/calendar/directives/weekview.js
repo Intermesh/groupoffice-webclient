@@ -22,13 +22,13 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 					};
 					$scope.hourToPx = 43;// one hour is x pixels heigh
 					$scope.edit = function (calEvent) {
-						$scope.$parent.openEventDialog(calEvent.eventId,calEvent.event.startAt,calEvent.groupId);
+						$scope.$parent.openEventDialog(calEvent);
 					};
 					$scope.add = function(begin) {
 						var start = new Date(+begin),
 							end = new Date(+begin);
 						end.setHours(start.getHours() + 1);
-						$scope.$parent.openEventDialog(null,null,null, {startAt: start, endAt: end});
+						$scope.$parent.openEventDialog(null, {startAt: start, endAt: end});
 					};
 					$scope.calcStyle = function (event, d) {
 						var height = ((event.endAt.getTime() - event.startAt.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),
@@ -43,10 +43,10 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 					};
 					$scope.classFor = function (calEvent,day) {
 						var cls = [];
-						if(calEvent.event.startAt.getYmd() !== calEvent.event.endAt.getYmd()) {
-							if(calEvent.event.startAt.getYmd() === day){
+						if(calEvent.startAt.getYmd() !== calEvent.endAt.getYmd()) {
+							if(calEvent.startAt.getYmd() === day){
 								cls.push('start');
-							} else if(calEvent.event.endAt.getYmd() === day){
+							} else if(calEvent.endAt.getYmd() === day){
 								cls.push('end');
 							} else {
 								cls.push('mid');
@@ -170,8 +170,8 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						previousCols = [],
 						startEndQuarters = function(event) {
 							return {
-								start: event.event.startAt.getHours() * 60 + event.event.startAt.getMinutes(),
-								end: event.event.endAt.getHours() * 60 + event.event.endAt.getMinutes()
+								start: event.startAt.getHours() * 60 + event.startAt.getMinutes(),
+								end: event.endAt.getHours() * 60 + event.endAt.getMinutes()
 							};
 
 						};

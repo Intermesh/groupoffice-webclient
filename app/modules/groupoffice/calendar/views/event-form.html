@@ -4,9 +4,9 @@
 			<md-button type="button" class="md-icon-button" ng-click="cancel()">
 				<md-icon>close</md-icon>
 			</md-button>
-			<input ng-readonly="!model.canWrite" flex ng-model="model.event.title" placeholder="Geef een titel" md-autofocus required>
+			<input ng-readonly="!model.canWrite()" flex ng-model="model.event.title" placeholder="Geef een titel" md-autofocus required>
 			
-			<md-button type="submit">{{"Save" | goT}}</md-button>
+			<md-button ng-if="model.permissions.write || model.permission.manage" type="submit">{{"Save" | goT}}</md-button>
 			<md-menu md-position-mode="target-right target">
 				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 					<md-icon md-menu-origin>more_vert</md-icon>
@@ -31,7 +31,7 @@
 
 	<md-content ng-if="hasCalendars()" style="min-width: 390px;" flex>
 		<md-list class="form-dialog">
-			<div layout="row" layout-align="start center" ng-if="model.canWrite">
+			<div layout="row" layout-align="start center" ng-if="model.canWrite()">
 				<md-icon>event</md-icon>
 				<md-select ng-model="model.calendarId" style="min-width:130px">
 					<md-option ng-repeat="calendar in $parent.userCalendars[model.groupId]" ng-value="calendar.id">{{calendar.name}}</md-option>
@@ -44,51 +44,51 @@
 				</md-select>
 			</div>
 
-			<md-divider ng-if="model.canWrite"></md-divider>
+			<md-divider ng-if="model.canWrite()"></md-divider>
 			
 			<div layout="row" layout-align="start start">
 				<div style="margin-top:16px;"><md-icon>schedule</md-icon></div>
 				<div flex>
 					<div layout="row" layout-align="start center" style="margin: 9px 0;">
 						<label style="width:158px">&nbsp;{{"All-day"| goT}}</label>
-						<md-switch ng-model="model.event.allDay" ng-disabled="!model.canWrite"></md-switch>
+						<md-switch ng-model="model.event.allDay" ng-disabled="!model.canWrite()"></md-switch>
 					</div>
 					<div layout="row" layout-align="start center">
-						<md-datepicker ng-disabled="!model.canWrite" ng-change="changeStartTime();" md-open-on-focus md-hide-icons="all" ng-model="model.event.startAt"></md-datepicker>
+						<md-datepicker ng-model="model.startAt" ng-disabled="!model.canWrite()" ng-change="changeStartTime();" md-open-on-focus md-hide-icons="calendar" ></md-datepicker>
 						<span style="width: 32px;"></span>
-						<mdp-time-picker mdp-disabled="!model.canWrite"
+						<mdp-time-picker mdp-disabled="!model.canWrite()"
 							mdp-format="HH:mm" mdp-open-on-click mdp-auto-switch="true"
-							ng-model="model.event.startAt" ng-show="!model.event.allDay"></mdp-time-picker>
+							ng-model="model.startAt" ng-show="!model.event.allDay"></mdp-time-picker>
 					</div>
 					
 					<div layout="row" layout-align="start center">
-						<md-datepicker ng-disabled="!model.canWrite" ng-change="changeEndTime();" md-open-on-focus md-hide-icons="calendar" ng-model="model.event.endAt"></md-datepicker>
+						<md-datepicker ng-model="model.endAt" ng-disabled="!model.canWrite()" ng-change="changeEndTime();" md-open-on-focus md-hide-icons="calendar"></md-datepicker>
 						<span style="width: 32px;"></span>
-						<mdp-time-picker mdp-disabled="!model.canWrite"
+						<mdp-time-picker mdp-disabled="!model.canWrite()"
 							mdp-format="HH:mm" mdp-open-on-click mdp-auto-switch="true"
-							ng-model="model.event.endAt" ng-show="!model.event.allDay"></mdp-time-picker>
+							ng-model="model.endAt" ng-show="!model.event.allDay"></mdp-time-picker>
 					</div>
 				</div>
 			</div>
 
 		<md-divider></md-divider>
 
-		<div ng-if="model.canWrite || !!model.event.recurrenceRule.frequency"
+		<div ng-if="model.isOrganizer || !!model.event.recurrenceRule.frequency"
 			  ng-include="'modules/groupoffice/calendar/views/recurrence-form.html'"
 			  ng-controller="GO.Modules.GroupOffice.Calendar.RecurrenceForm"></div>
 
-		<md-divider ng-if="model.canWrite || !!model.event.recurrenceRule.frequency" ></md-divider>
+		<md-divider ng-if="model.isOrganizer || !!model.event.recurrenceRule.frequency" ></md-divider>
 
-		<div layout="row" layout-align="start center" ng-if="model.canWrite || !!model.event.location">
+		<div layout="row" layout-align="start center" ng-if="model.isOrganizer || !!model.event.location">
 			<md-icon>location_on</md-icon>
 			<md-input-container md-no-float flex>
-				<input ng-readonly="!model.canWrite" ng-model="model.event.location" placeholder="Locatie toevoegen" >
+				<input ng-readonly="!model.isOrganizer" ng-model="model.event.location" placeholder="Locatie toevoegen" >
 			</md-input-container>
 		</div>
 
-		<md-divider ng-if="model.canWrite || !!model.event.location"></md-divider>
+		<md-divider ng-if="model.canWrite() || !!model.event.location"></md-divider>
 
-		<div layout="row" layout-align="start start" ng-if="model.canWrite">
+		<div layout="row" layout-align="start start" ng-if="model.permissions.write">
 			<div style="margin-top:16px;"><md-icon>notifications</md-icon></div>
 			<div style="min-height:47px" flex>
 				<md-select id="cal-event-alarms" aria-expanded="$last" ng-model="alarm.trigger" ng-change="selectAlarm(alarm, $index)" ng-repeat="alarm in model.alarms">
@@ -101,10 +101,21 @@
 				<md-button ng-click="addAlarm($event)">Add an alarm</md-button>
 			</div>
 		</div>
+		
+		<md-divider ng-if="model.canWrite() || !!model.event.description"></md-divider>
 
-		<md-divider ng-if="model.canWrite"></md-divider>
+		<div layout="row" layout-align="start start" ng-if="model.permissions.write">
+			<div style="margin-top:16px;"><md-icon>comment</md-icon></div>
+			<div style="min-height:47px" flex>
+				<md-input-container md-no-float flex>
+					<textarea ng-model="model.event.description" placeholder="Description"></textarea>
+				</md-input-container>
+			</div>
+		</div>
 
-		<div ng-if="model.canWrite" layout="row" layout-align="start start">
+		<md-divider ng-if="model.canWrite()"></md-divider>
+
+		<div ng-if="model.isOrganizer" layout="row" layout-align="start start">
 			<div style="margin-top:16px;"><md-icon>people</md-icon></div>
 			<div flex>
 				<div layout="row" layout-align="start center" flex 
@@ -112,14 +123,14 @@
 					  ng-repeat="attendee in model.event.attendees | filter:{ markDeleted: '!true' }">
 
 					<md-input-container md-no-float flex>
-						<input ng-readonly="!model.canWrite" type="email" ng-model="attendee.email" ng-mode="attendees.email" placeholder="Invite people" />
+						<input ng-readonly="!model.isOrganizer" type="email" ng-model="attendee.email" ng-mode="attendees.email" placeholder="Invite people" />
 					</md-input-container>
-					<md-select ng-disabled="!model.canWrite" ng-model="attendee.role" style="width:120px">
+					<md-select ng-disabled="!model.isOrganizer" ng-model="attendee.role" style="width:120px">
 						<md-option ng-value="1"><md-icon>person</md-icon>Required</md-option>
 						<md-option ng-value="2"><md-icon>person_outline</md-icon>Optional</md-option>
 						<md-option ng-value="3"><md-icon>record_voice_over</md-icon>Chairman</md-option>
 					</md-select>
-					<md-button ng-if="model.canWrite" type="button" class="md-icon-button" ng-click="removeAttendee(attendee.email)">
+					<md-button ng-if="model.isOrganizer" type="button" class="md-icon-button" ng-click="removeAttendee(attendee.email)">
 						<md-tooltip>{{"Remove" | goT}}</md-tooltip>
 						<md-icon>close</md-icon>
 					</md-button>
@@ -127,7 +138,7 @@
 					<md-autocomplete
 					md-floating-label="Invite people"
 					md-no-float flex
-					ng-if="model.canWrite"
+					ng-if="model.isOrganizer"
 					md-delay="600"
 					md-selected-item="selectedItem"
 					md-search-text="searchText"
@@ -143,9 +154,9 @@
 			</div>
 		</div>
 
-		<md-divider ng-if="model.canWrite"></md-divider>
+		<md-divider ng-if="model.isOrganizer"></md-divider>
 
-		<div ng-if="model.canWrite" style="min-height:47px" layout="row" layout-align="start start">
+		<div ng-if="model.isOrganizer" style="min-height:47px" layout="row" layout-align="start start">
 			<div style="margin-top:16px;"><md-icon>attachment</md-icon></div>
 			<div flex flow-init="flowInit"
 				flow-files-submitted="$flow.upload()"
@@ -168,7 +179,7 @@
 			</div>
 		</div>
 
-		<md-divider ng-if="model.canWrite"></md-divider>
+		<md-divider ng-if="model.isOrganizer"></md-divider>
 		
 		</md-list>
 

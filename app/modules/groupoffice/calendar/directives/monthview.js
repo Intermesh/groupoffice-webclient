@@ -17,15 +17,15 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 						return cal && GO.Calendar.util.color(cal.color, (event.responseStatus == 1) /*NEEDS-ACTION*/);
 					};
 					$scope.edit = function (calEvent, $event) {
-						$scope.$parent.openEventDialog(calEvent.eventId,calEvent.event.startAt,calEvent.groupId);
+						$scope.$parent.openEventDialog(calEvent, {});
 						$event.stopPropagation(); // do not bubble
 					};
 					$scope.classFor = function (calEvent,day) {
 						var cls = [];
-						if(calEvent.event.startAt.getYmd() !== calEvent.event.endAt.getYmd()) {
-							if(calEvent.event.startAt.getYmd() === day){
+						if(calEvent.startAt.getYmd() !== calEvent.endAt.getYmd()) {
+							if(calEvent.startAt.getYmd() === day){
 								cls.push('start');
-							} else if(calEvent.event.endAt.getYmd() === day){
+							} else if(calEvent.endAt.getYmd() === day){
 								cls.push('end');
 							} else {
 								cls.push('mid');
@@ -52,7 +52,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 						begin.setHours(13);
 						var end = new Date(+begin);
 						end.setHours(begin.getHours() + 1);
-						$scope.$parent.openEventDialog(null,null,null, {startAt: begin, endAt: end});
+						$scope.$parent.openEventDialog(null, {startAt: begin, endAt: end});
 					};
 				}
 			],
@@ -119,7 +119,7 @@ ng-click="edit(e, $event)">\n\
 <md-icon ng-if="e.hasAlarms">notifications</md-icon>\
  {{e.event.title}}\
 <span ng-if="!e.event.allDay">\
-{{e.event.startAt.getTimeString()}} &ndash; {{e.event.endAt.getTimeString()}}\
+{{e.startAt.getTimeString()}} &ndash; {{e.endAt.getTimeString()}}\
 <md-icon ng-if="e.event.isRecurring">refresh</md-icon></span>\
 </div>';
 					str += '</div></td>';

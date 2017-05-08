@@ -18,7 +18,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 			});
 		}
 		function internalDelete(p) {
-			$scope.model.delete(p || {}).then(function() {
+			$scope.model.delete(p || {calendarId:$scope.model.calendarId}).then(function() {
 				$mdDialog.cancel();
 				$scope.eventStore.reload();
 			});
@@ -30,7 +30,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				return internalSave();
 			}
 			var p = {
-				recurrenceId: $scope.model.event.recurrenceId.toIntermeshApiFormat()
+				recurrenceId: $scope.model.recurrenceId.toIntermeshApiFormat()
 			};
 			if($scope.model.event.isException) {
 				p.single = true;
@@ -57,7 +57,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				return internalDelete();
 			}
 			var p = {
-				recurrenceId: $scope.model.event.recurrenceId.toIntermeshApiFormat()
+				recurrenceId: $scope.model.recurrenceId.toIntermeshApiFormat()
 			};
 			if($scope.model.event.isException) {
 				p.single = true;

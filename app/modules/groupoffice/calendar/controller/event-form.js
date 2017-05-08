@@ -107,10 +107,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		$scope.hasCalendars = function() {
 			if(!$scope.model.groupId)
 				return false;
-			if(!$scope.userCalendars[$scope.model.groupId]){
-				return false;
-			}
-			return $scope.userCalendars[$scope.model.groupId].length > 0;
+			return $scope.writableCalendars.length > 0;
 		};
 		$scope.addAlarm = function(event) {
 			var target = event.target;

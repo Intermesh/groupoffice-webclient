@@ -50,7 +50,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 
 			$scope.selectedCalendars = {}; // checkboxed in de sidepanel
 			$scope.calendars = {};
-			$scope.userCalendars = {}; // writeable calendars for a user
+			$scope.writableCalendars = []; // writeable calendars for a user
 
 			$scope.eventStore = new PeriodStore('/event');
 			$scope.eventStore.$modelProto = $scope.model;
@@ -66,12 +66,13 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 					if(account.id == App.currentUser.group.id) {
 						$scope.currentAccount = account;
 					}
-					$scope.userCalendars[account.id] = [];
 					for(var c in account.calendars) {
 						var cal = account.calendars[c];
 						$scope.calendars[cal.id] = cal;
 						$scope.selectedCalendars[cal.id] = true; // select all
-						$scope.userCalendars[account.id].push(cal);
+						if (cal.permissions.write) {
+							$scope.writableCalendars.push(cal);
+						}
 					}
 				}
 			};
@@ -130,7 +131,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				}
 
 				if (!calEvent) {
-					var calendarId = $scope.userCalendars[$scope.currentAccount.id][0].id;
+					var calendarId = $scope.writableCalendars[0].id;
 					$scope.model = new Attendee(); // is CalendarEvent
 					$scope.model.read({calendarId:calendarId,eventId:0}).then(function () {
 						if (defaults) {

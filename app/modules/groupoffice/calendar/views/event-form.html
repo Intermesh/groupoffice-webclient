@@ -34,7 +34,7 @@
 			<div layout="row" layout-align="start center" ng-if="model.canWrite()">
 				<md-icon>event</md-icon>
 				<md-select ng-model="model.calendarId" style="min-width:130px">
-					<md-option ng-repeat="calendar in $parent.userCalendars[model.groupId]" ng-value="calendar.id">{{calendar.name}}</md-option>
+					<md-option ng-repeat="calendar in $parent.writableCalendars" ng-value="calendar.id">{{calendar.name}}</md-option>
 				</md-select>
 				<span flex></span>
 				<md-select ng-model="model.event.visibility">

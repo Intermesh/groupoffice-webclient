@@ -49,11 +49,11 @@ angular.module('GO.Core').
 				};
 				
 				ServerAPI.prototype.setDebug = function(enabled) {
-					this.headers.common['X-Debug'] = enabled ? "1" : "0";
+					this.headers['X-Debug'] = enabled ? "1" : "0";
 				};
 				
 				ServerAPI.prototype.debugEnabled = function() {
-					return this.headers.common['X-Debug'] === "1";
+					return this.headers['X-Debug'] === "1";
 				};
 				
 				ServerAPI.prototype.getFlowInit = function(options){

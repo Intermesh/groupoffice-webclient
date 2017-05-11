@@ -71,14 +71,13 @@ angular.module('GO.Core').provider('GO.Core.Providers.Translate', [
 
 		};
 
-		this.$get = ['$interpolate', function ($interpolate) {
+		this.$get = ['$interpolate', 'GO.Core.Services.ServerAPI', function ($interpolate, ServerAPI) {
 
 				return {
 					language: language,
 					translations: translations,
-					setLanguage: function (lang) {
-						console.log("setLanguage("+lang+")");
-						this.language = lang.toLowerCase();
+					setLanguage: function (lang) {						
+						this.language = ServerAPI.headers['Accept-Language'] =  lang.toLowerCase();
 					},
 					/**
 					 * @ngdoc method

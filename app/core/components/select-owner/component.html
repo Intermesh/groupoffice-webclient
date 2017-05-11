@@ -1,0 +1,15 @@
+<md-autocomplete
+	flex
+	md-delay="500"
+	md-no-cache="1"
+	md-selected-item="$ctrl.ngModel"
+	md-min-length="0"
+	md-search-text="$ctrl.groupSearchText"
+	md-items="group in $ctrl.getGroups($ctrl.groupSearchText)"
+	md-item-text="group.name"			
+	md-floating-label="{{::'Owner' | goT}}"
+	>
+	<md-item-template>
+		<span md-highlight-text="$ctrl.groupSearchText" md-highlight-flags="^i">{{group.name}}</span>
+	</md-item-template>
+</md-autocomplete>

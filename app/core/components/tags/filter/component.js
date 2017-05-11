@@ -16,9 +16,7 @@ GO.module('GO.Core').component('goTagFilter', {
 			var me = this;
 
 			this.$onInit = function () {
-				
-				console.log(me);
-				
+			
 				me.store = (new Tag()).getStore({
 					limit: 0,
 					recordClassName: me.recordClassName
@@ -40,8 +38,6 @@ GO.module('GO.Core').component('goTagFilter', {
 				
 				
 				me.$onChanges = function(changesObj){
-				
-					console.log(changesObj);
 					
 					if(changesObj.storeRoute) {
 						me.store.$storeRoute = changesObj.storeRoute.currentValue;

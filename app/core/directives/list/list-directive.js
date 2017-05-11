@@ -46,10 +46,10 @@ angular.module('GO.Core').directive('goList', [
 				var ngCls = itemEl.attr('ng-class');
 
 				if (!ngCls) {
-					ngCls = '{\'deleted\': model.deleted, \'selected\': model.$selected}';
+					ngCls = '{\'deleted\': model.deleted || model.markDeleted, \'selected\': model.$selected}';
 				} else
 				{
-					ngCls = ngCls.substring(0, ngCls.length - 1) + ', \'deleted\': model.deleted, \'selected\': model.$selected}';
+					ngCls = ngCls.substring(0, ngCls.length - 1) + ', \'deleted\': model.deleted || model.markDeleted, \'selected\': model.$selected}';
 				}
 
 				if (tAttr.virtual == 'false') {

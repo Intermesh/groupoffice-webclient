@@ -88,7 +88,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 		};
 
 
-		$scope.forgotPassword = function () {
+		$scope.forgotPassword = function () {			
 			var prompt = $mdDialog.prompt()
 							.title(Translate.t('Reset your password'))
 							.textContent(Translate.t('Please enter your registered e-mail address to receive a link to reset your password.'))
@@ -103,7 +103,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 //									'andWhere', ['>',{'goUserId': 0}]
 //							];
 
-								var link = $state.href('resetpassword', {}, {absolute: true}) + '?token={{token}}&userId={{user.id}}';
+								var link = document.location.origin + document.location.pathname + $state.href('resetpassword') + '?token={{token}}&userId={{user.id}}';
 								
 								var body = Translate.t("Hi {{user.username}},\n\nYou've requested a link to reset your password. Please click the link below: {link}\n\nIf you didn't request this link then please discard this e-mail and notify your system adminstrator.").replace('{link}', link);
 

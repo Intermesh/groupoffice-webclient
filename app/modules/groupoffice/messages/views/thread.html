@@ -126,6 +126,29 @@
 											</li>
 										</ul>
 									</div>
+									
+									<div class="to" ng-if="::message.cc.length">
+										{{::"Cc"| goT}}:&nbsp;
+										<ul class="go-comma-list">
+											<li ng-repeat="address in ::message.cc">
+												<a ng-click="openContact(address.address, address.personal)">
+													{{::address.personal|| address.address}}
+													<md-tooltip>{{address.address}}</md-tooltip>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="to" ng-if="::message.bcc.length">
+										{{::"Bcc"| goT}}:&nbsp;
+										<ul class="go-comma-list">
+											<li ng-repeat="address in ::message.bcc">
+												<a ng-click="openContact(address.address, address.personal)">
+													{{::address.personal|| address.address}}
+													<md-tooltip>{{address.address}}</md-tooltip>
+												</a>
+											</li>
+										</ul>
+									</div>
 						</div>
 
 						

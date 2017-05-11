@@ -47,7 +47,7 @@ angular.module('GO.Modules.GroupOffice.Imap').factory('GO.Modules.GroupOffice.Im
 
 
 		Account.prototype.reply = function (lastMessage, all) {
-//console.log(lastMessage);
+
 			var attributes = {
 				thread: {id: lastMessage.threadId},
 
@@ -81,7 +81,7 @@ angular.module('GO.Modules.GroupOffice.Imap').factory('GO.Modules.GroupOffice.Im
 			}
 
 			if (all) {
-				angular.forEach(lastMessage.to, function (recipient) {
+				angular.forEach(lastMessage.to, function (recipient) {					
 					if (recipient.address !== this.smtpAccount.fromEmail) {
 						attributes.to.push({
 							//full: recipient.personal ? '"' + recipient.personal + '" <' + recipient.address + '>' : recipient.address,
@@ -92,7 +92,7 @@ angular.module('GO.Modules.GroupOffice.Imap').factory('GO.Modules.GroupOffice.Im
 				}.bind(this));
 
 
-				if (this.cc) {
+				if (lastMessage.cc) {
 
 					attributes.cc = [];
 					angular.forEach(lastMessage.cc, function (recipient) {
@@ -105,6 +105,8 @@ angular.module('GO.Modules.GroupOffice.Imap').factory('GO.Modules.GroupOffice.Im
 					}.bind(this));
 				}
 			}
+			
+			console.log(attributes);
 			
 			var message = new Message();
 			message.$baseParams.accountId = this.id;

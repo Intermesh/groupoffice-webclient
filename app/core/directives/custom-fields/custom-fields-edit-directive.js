@@ -8,11 +8,11 @@
  * Prints custom fields form fieldsets.
  * 
  * 
- * @param {string} ngModel The customfields model property of the model the customfields belong to
+ * @param {string} ngModel The customFields model property of the model the customFields belong to
  * @param {string} serverModel The custom fields server model.
  * 
  * @example
- * <go-custom-fields-edit ng-model="contact.customfields" server-model="GO\Modules\GroupOffice\Contacts\Model\ContactCustomFields"></go-custom-fields-edit>				
+ * <go-custom-fields-edit ng-model="contact.customFields" server-model="GO\Modules\GroupOffice\Contacts\Model\ContactCustomFields"></go-custom-fields-edit>				
  */
 angular.module('GO.Core').directive('goCustomFieldsEdit', [
 	'$templateCache',
@@ -78,7 +78,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 								<md-select name="' + field.databaseName + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '">';
 
 				for (var i = 0, l = field.data.options.length; i < l; i++) {
-					tpl += '<md-option value="' + field.data.options[i] + '">' + field.data.options[i] + '</md-option>';
+					tpl += '<md-option value="' + field.data.options[i] + '">{{::"' + field.data.options[i] + '" | goT}}</md-option>';
 				}
 
 				tpl += '</md-select>\

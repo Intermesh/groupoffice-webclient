@@ -44,6 +44,7 @@ angular.module('GO.Modules.GroupOffice.Imap')
 						var origSave = $scope.save;
 
 						$scope.save = function () {
+							delete $scope.model.adaptor.smtpAccount;
 							$scope.model.name = $scope.model.adaptor.username;
 							return origSave();
 						};

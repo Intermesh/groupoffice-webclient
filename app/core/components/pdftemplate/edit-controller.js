@@ -11,7 +11,7 @@ GO.module('GO.Core').controller('GO.Core.Components.PdfTemplate.EditController',
 		
 		$scope.preview = function() {
 			$scope.model.save().then(function() {
-				window.open(ServerAPI.url('templates/pdf/'+encodeURIComponent($scope.model.$moduleClassName)+'/'+$scope.model.id+'/preview'),'pdfpreview');
+				window.open(ServerAPI.url('templates/pdf/'+encodeURIComponent($scope.model.$moduleClassName)+'/'+$scope.model.id+'/preview', {XSRFToken: ServerAPI.getXSRFToken()}),'pdfpreview');
 			});
 		};
 

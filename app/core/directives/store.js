@@ -9,9 +9,12 @@ angular.module('GO.Core').
 							link: function (scope, element, attr) {
 								//				//this automatically updates the store when a model is updated.
 
-								var store = $parse(attr.store)(scope);
+								
 
 								scope.$on('modelupdate', function (event, updatedModel) {
+									
+									var store = $parse(attr.store)(scope);
+									
 									if (updatedModel.getStoreRoute() === store.$storeRoute) {
 										store.updateModel(updatedModel);
 									}

@@ -25,6 +25,7 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 		
 		
 		read.then(function () {
+			
 				
 			$scope.model.setAttributes(attributes);			
 			$scope.model.accountId = account.id;	

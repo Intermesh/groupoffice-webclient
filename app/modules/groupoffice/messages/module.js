@@ -5,8 +5,9 @@
 GO.module('GO.Modules.GroupOffice.Messages', ['GO.Core']).run([
 	'GO.Core.Services.Application',
 	
-	'GO.Modules.GroupOffice.Messages.Services.AccountStore',
-	function (App, AccountStore) {
+	'GO.Modules.GroupOffice.Messages.Services.Composer',
+	
+	function (App, Composer) {
 
 		App.currentUser.whenAuthenticated().then(function () {
 			App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Messages\\Module').then(function (module) {
@@ -17,13 +18,12 @@ GO.module('GO.Modules.GroupOffice.Messages', ['GO.Core']).run([
 				
 //				console.log(ctrlLocals.$scope.compose);
 					ctrlLocals.$scope.compose = function(config) {
-						AccountStore.load().then(function(){
-							AccountStore.items[0].getAccountModel().compose({to:[{
+						Composer.open({to:[{
 									address: config.to,
 									personal: config.displayName
 								}]
 							});
-						});
+						
 					};
 				}]);
 				

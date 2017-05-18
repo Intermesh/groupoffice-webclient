@@ -66,7 +66,7 @@
 								</md-button>
 							</md-menu-item>
 							
-							<md-menu-item ng-repeat="signature in account.signatures">
+							<md-menu-item ng-repeat="signature in signatures">
 								<md-button ng-click="settings.signatureIndex=$index;$event.stopPropagation();">
 									<md-radio-button value="{{$index}}">{{::signature.name}}</md-radio-button>													 
 								</md-button>

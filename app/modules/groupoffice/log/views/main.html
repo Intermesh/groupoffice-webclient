@@ -54,7 +54,7 @@
 						<tr>
 							<th style="width:180px">{{"Time"| goT}}</th>							
 							<th>{{"Record"| goT}}</th>
-							<th>{{"GO\\Core\\Modules\\Users\\Model\\User"| goT}}</th>
+							<th>{{"GO\\Core\\Users\\Model\\User"| goT}}</th>
 							<th>{{"Type"| goT}}</th>
 							<th>{{"Description"| goT}}</th>				
 						</tr>
@@ -70,9 +70,7 @@
 								{{::model.createdBy}}
 								<md-icon>devices</md-icon>
 								<md-tooltip>
-									IP: {{::model.remoteIpAddress}}<br />
-									Browser: {{::model.browser}}<br />
-									Platform: {{::model.platform}}
+									IP: {{::model.remoteIpAddress}} - {{::model.browser}} - {{::model.platform}}
 								</md-tooltip>	
 							</td>
 							<td>{{model.type| goT}}</td>

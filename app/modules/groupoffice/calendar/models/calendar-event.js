@@ -1,28 +1,28 @@
 'use strict';
 
 /* Controllers */
-angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffice.Calendar.Attendee', [
+angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffice.Calendar.CalendarEvent', [
 	'GO.Core.Factories.Data.Model',
 	'GO.Core.Services.ServerAPI',
 	function (Model, ServerAPI) {
 
-		var Attendee = GO.extend(Model, function () {
+		var CalendarEvent = GO.extend(Model, function () {
 			this.$parent.constructor.call(this, arguments);
 		});
 
-		Attendee.prototype.$returnProperties = "*,alarms,calendarId,event[*,attendees,recurrenceRule,attachments]";
-		Attendee.prototype.$keys = ['eventId'];
+		CalendarEvent.prototype.$returnProperties = "*,alarms,calendarId,event[*,attendees,recurrenceRule,attachments]";
+		CalendarEvent.prototype.$keys = ['eventId'];
 
-		Attendee.prototype.getStoreRoute = function () {
+		CalendarEvent.prototype.getStoreRoute = function () {
 			return 'event/' + this.calendarId;
 		};
 
 
-		Attendee.prototype.canWrite = function () {
+		CalendarEvent.prototype.canWrite = function () {
 			return this.isOrganizer && (this.permissions.write || this.permissions.manage);
 		};
 
-		Attendee.prototype.hasMoreAttendees = function() {
+		CalendarEvent.prototype.hasMoreAttendees = function() {
 			var attendees = 0;
 			if(!this.event) {
 				return false;
@@ -34,9 +34,9 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 			});
 			return attendees > 1;
 		};
-		Attendee.prototype.download = function() {
+		CalendarEvent.prototype.download = function() {
 			window.open(ServerAPI.url('event/download/'+this.event.id));
 		};
 //
-		return Attendee;
+		return CalendarEvent;
 	}]);

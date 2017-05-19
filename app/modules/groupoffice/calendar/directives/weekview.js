@@ -30,11 +30,11 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 						end.setHours(start.getHours() + 1);
 						$scope.$parent.openEventDialog(null, {startAt: start, endAt: end});
 					};
-					$scope.calcStyle = function (event, d) {
-						var height = ((event.endAt.getTime() - event.startAt.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),
-							top = (event.startAt.getTime() - +d) / 1000 / 60 / 60 * $scope.hourToPx,
-							width = 100 / event.overlap.max * event.overlap.span,
-							left = event.overlap.col * 100 / event.overlap.max;
+					$scope.calcStyle = function (calEvent, d) {
+						var height = ((calEvent.endAt.getTime() - calEvent.startAt.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),
+							top = (calEvent.startAt.getTime() - +d) / 1000 / 60 / 60 * $scope.hourToPx,
+							width = 100 / calEvent.overlap.max * calEvent.overlap.span,
+							left = calEvent.overlap.col * 100 / calEvent.overlap.max;
 						height = Math.min(height, 24*$scope.hourToPx-top);
 						left++;
 						height--;
@@ -134,8 +134,8 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 						str += '<hr class="now" style="top:'+(hours*scope.hourToPx)+'px" />';
 					}
 					str += '<div ng-repeat="e in events[\'' + ymd + '\'] | filter:{event:{allDay: false}}" ng-click="edit(e)" ng-mousedown="$event.stopPropagation()" \
-ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyle(e.event, ' + d.getTime() + ')}}">\
-						<md-icon ng-if="e..eventhasFiles">attachment</md-icon>\
+ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyle(e, ' + d.getTime() + ')}}">\
+						<md-icon ng-if="e.event.hasFiles">attachment</md-icon>\
 						<md-icon ng-if="e.hasAlarms">notifications</md-icon>\
 						{{e.event.title}}\
 <md-icon style="float:right" ng-if="e.event.isRecurring">refresh</md-icon>\
@@ -155,7 +155,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 					$timeout(function(){
 						element[0].lastChild.style.top = element[0].firstChild.offsetHeight+'px';
 						element[0].lastChild.scrollTop = 240; // scroll down to 5:00
-					},200);
+					},240);
 					
 				};
 
@@ -254,7 +254,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						prevMax = max;
 
 						// Set to the item object
-						items[i].event.overlap = cfg[id];
+						items[i].overlap = cfg[id];
 //						items[i].clearModified();
 					}
 					return items;

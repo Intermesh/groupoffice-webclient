@@ -34,17 +34,17 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 	controller('GO.Modules.GroupOffice.Calendar.Main', [
 		'$scope',
 		'$mdDialog',
-		'GO.Modules.GroupOffice.Calendar.Attendee',
+		'GO.Modules.GroupOffice.Calendar.CalendarEvent',
 		'GO.Modules.GroupOffice.Calendar.PeriodStore',
 		'GO.Modules.GroupOffice.Calendar.CurrentDate',
 		'GO.Core.Factories.Data.Store',
 		'$state',
 		'$mdSidenav',
 		'GO.Core.Services.Application',
-		function ($scope, $mdDialog, Attendee, PeriodStore, CurrentDate, Store, $state, $mdSidenav, App) {
+		function ($scope, $mdDialog, CalendarEvent, PeriodStore, CurrentDate, Store, $state, $mdSidenav, App) {
 			// The date that is currently viewed
 			$scope.$mdSidenav = $mdSidenav;
-			$scope.model = new Attendee;
+			$scope.model = new CalendarEvent;
 
 			$scope.searchStore = new Store('/event');
 
@@ -61,6 +61,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 			$scope.accountStore = new Store('/account', {returnProperties:"*,calendars[*,groups,defaultAlarms]"});
 			$scope.accountStore.onLoad = function(data){
 				//todo select all
+				$scope.writableCalendars = [];
 				for(var a in this.items) {
 					var account = this.items[a];
 					if(account.id == App.currentUser.group.id) {
@@ -132,7 +133,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 
 				if (!calEvent) {
 					var calendarId = $scope.writableCalendars[0].id;
-					$scope.model = new Attendee(); // is CalendarEvent
+					$scope.model = new CalendarEvent(); 
 					$scope.model.read({calendarId:calendarId,eventId:0}).then(function () {
 						if (defaults) {
 							for(var d in defaults) {

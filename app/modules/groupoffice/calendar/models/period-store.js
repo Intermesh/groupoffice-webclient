@@ -30,9 +30,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').
 							data[i.getYmd()].push(calEvent);
 						}
 					}
-
 				});
-				console.log(data);
 				return data;
 			};
 

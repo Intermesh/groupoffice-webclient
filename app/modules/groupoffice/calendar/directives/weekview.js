@@ -16,45 +16,43 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 			controller: [
 				'$scope',
 				function ($scope) {
-					$scope.color = function(event) {
-						var cal = $scope.calendars[event.calendarId];
-						return cal && GO.Calendar.util.color(cal.color, (event.responseStatus == 1));
+					$scope.color = function(calEvent) {
+						var cal = $scope.calendars[calEvent.calendarId];
+						return cal && GO.Calendar.util.color(cal.color, (calEvent.responseStatus == '1'));
 					};
 					$scope.hourToPx = 43;// one hour is x pixels heigh
-					$scope.edit = function (event) {
-						$scope.$parent.openEventDialog(event.id,event.startAt,event.groupId);
+					$scope.edit = function (calEvent) {
+						$scope.$parent.openEventDialog(calEvent);
 					};
 					$scope.add = function(begin) {
-						console.log(+begin);
 						var start = new Date(+begin),
 							end = new Date(+begin);
-						console.log(start);
 						end.setHours(start.getHours() + 1);
-						$scope.$parent.openEventDialog(null,null,null, {startAt: start, endAt: end});
+						$scope.$parent.openEventDialog(null, {startAt: start, endAt: end});
 					};
-					$scope.calcStyle = function (event, d) {
-						var height = ((event.endAt.getTime() - event.startAt.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),
-							top = (event.startAt.getTime() - +d) / 1000 / 60 / 60 * $scope.hourToPx,
-							width = 100 / event.overlap.max * event.overlap.span,
-							left = event.overlap.col * 100 / event.overlap.max;
+					$scope.calcStyle = function (calEvent, d) {
+						var height = ((calEvent.endAt.getTime() - calEvent.startAt.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),
+							top = (calEvent.startAt.getTime() - +d) / 1000 / 60 / 60 * $scope.hourToPx,
+							width = 100 / calEvent.overlap.max * calEvent.overlap.span,
+							left = calEvent.overlap.col * 100 / calEvent.overlap.max;
 						height = Math.min(height, 24*$scope.hourToPx-top);
 						left++;
 						height--;
 						width--;
 						return "height:" + height+ "px; top:" + top + "px; width: "+width+"%; left: "+left+"%";
 					};
-					$scope.classFor = function (event,day) {
+					$scope.classFor = function (calEvent,day) {
 						var cls = [];
-						if(event.startAt.getYmd() !== event.endAt.getYmd()) {
-							if(event.startAt.getYmd() === day){
+						if(calEvent.startAt.getYmd() !== calEvent.endAt.getYmd()) {
+							if(calEvent.startAt.getYmd() === day){
 								cls.push('start');
-							} else if(event.endAt.getYmd() === day){
+							} else if(calEvent.endAt.getYmd() === day){
 								cls.push('end');
 							} else {
 								cls.push('mid');
 							}
 						}
-						switch(event.responseStatus) {
+						switch(calEvent.responseStatus) {
 							case 1: /* NEEDS-ACTION*/
 								cls.push('new');
 								break;
@@ -86,13 +84,13 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 						cls = (now > dd) ? ' class="past"' : (+now === +dd) ? ' class="current"' : '';
 						str += '<th' + cls + '><small>' + dd.getDayName().substring(0,3) + '</small><br />\
 						<strong>' + dd.getDate() + '</strong><div class="events">\
-						<div ng-repeat="e in events[\'' + dd.getYmd() + '\'] | filter:{allDay: true }" \
+						<div ng-repeat="e in events[\'' + dd.getYmd() + '\'] | filter:{event:{allDay: true}}" \
 						ng-style="color(e)" \
 						ng-class="classFor(e,\''+dd.getYmd() +'\')" \
 						ng-click="edit(e)" >\
-						<md-icon ng-if="e.hasFiles">attachment</md-icon>\
+						<md-icon ng-if="e.event.hasFiles">attachment</md-icon>\
 						<md-icon ng-if="e.hasAlarms">notifications</md-icon>\
-						{{e.title}}</div>\
+						{{e.event.title}}</div>\
 						</div></th>';
 						dd.setDate(dd.getDate() + 1); // ++
 					}
@@ -135,13 +133,13 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 							hours = (just.getHours() + just.getMinutes()/60);
 						str += '<hr class="now" style="top:'+(hours*scope.hourToPx)+'px" />';
 					}
-					str += '<div ng-repeat="e in events[\'' + ymd + '\'] | filter:{allDay: false }" ng-click="edit(e)" ng-mousedown="$event.stopPropagation()" \
+					str += '<div ng-repeat="e in events[\'' + ymd + '\'] | filter:{event:{allDay: false}}" ng-click="edit(e)" ng-mousedown="$event.stopPropagation()" \
 ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyle(e, ' + d.getTime() + ')}}">\
-						<md-icon ng-if="e.hasFiles">attachment</md-icon>\
+						<md-icon ng-if="e.event.hasFiles">attachment</md-icon>\
 						<md-icon ng-if="e.hasAlarms">notifications</md-icon>\
-						{{e.title}}\
-<md-icon style="float:right" ng-if="e.isRecurring">refresh</md-icon>\
-<br><span>{{e.location}}</span></div>';
+						{{e.event.title}}\
+<md-icon style="float:right" ng-if="e.event.isRecurring">refresh</md-icon>\
+<br><span>{{e.event.location}}</span></div>';
 
 					return str;
 				}
@@ -157,7 +155,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 					$timeout(function(){
 						element[0].lastChild.style.top = element[0].firstChild.offsetHeight+'px';
 						element[0].lastChild.scrollTop = 240; // scroll down to 5:00
-					});
+					},240);
 					
 				};
 
@@ -182,7 +180,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						if(items[i].allDay) {
 							continue;
 						}
-						id = items[i].id;
+						id = items[i].eventId;
 						cfg[id] = {
 							start:startEndQuarters(items[i]).start,
 							end:startEndQuarters(items[i]).end,
@@ -192,15 +190,15 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 							if(!rows[it]) {
 								rows[it] = {};
 							}
-							rows[it][id]=items[i];
+							rows[it][id]=items[i].event;
 						}
 					}
 					// calc max event at the same time
 					for(i in items) {
-						if(items[i].allDay) {
+						if(items[i].event.allDay) {
 							continue;
 						}
-						id = items[i].id;
+						id = items[i].eventId;
 						max = 1;
 						for(it=cfg[id].start; it<cfg[id].end; it++) { // loop quarters
 							max = Math.max(max, Object.keys(rows[it]).length);
@@ -210,10 +208,10 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 
 					// last loop to detect collisions
 					for(i in items) {
-						if(items[i].allDay) {
+						if(items[i].event.allDay) {
 							continue;
 						}
-						id = items[i].id;
+						id = items[i].eventId;
 
 						var col = position % prevMax,
 							max = cfg[id].max;
@@ -252,7 +250,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						cfg[id].max = max;
 						cfg[id].col = col;
 
-						previousCols[col] = items[i];
+						previousCols[col] = items[i].event;
 						prevMax = max;
 
 						// Set to the item object

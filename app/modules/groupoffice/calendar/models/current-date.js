@@ -8,6 +8,8 @@ angular.
 				this.store = store;
 				this.date = new Date();
 			}
+			CurrentDate.prototype.from = new Date();
+			CurrentDate.prototype.till = new Date();
 
 			CurrentDate.prototype.nextWeek = function () {
 				this.date.setDate(this.date.getDate() + 7);
@@ -94,7 +96,11 @@ angular.
 						till.setDate(31);
 						break;
 				}
-				this.store.load({from: from.getYmd(), until:till.getYmd()});
+				if(this.from.getYmd() != from.getYmd() | this.till.getYmd() != till.getYmd()) {
+					this.from = from;
+					this.till = till;
+					this.store.load({from: from.getYmd(), until:till.getYmd()});
+				}
 			};
 
 			return CurrentDate;

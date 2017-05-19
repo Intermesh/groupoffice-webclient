@@ -16,22 +16,22 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 					$scope.color= function(cal, event) {
 						return cal && GO.Calendar.util.color(cal.color, (event.responseStatus == 1) /*NEEDS-ACTION*/);
 					};
-					$scope.edit = function (event, $event) {
-						$scope.$parent.openEventDialog(event.id,event.startAt,event.groupId);
+					$scope.edit = function (calEvent, $event) {
+						$scope.$parent.openEventDialog(calEvent, {});
 						$event.stopPropagation(); // do not bubble
 					};
-					$scope.classFor = function (event,day) {
+					$scope.classFor = function (calEvent,day) {
 						var cls = [];
-						if(event.startAt.getYmd() !== event.endAt.getYmd()) {
-							if(event.startAt.getYmd() === day){
+						if(calEvent.event.startAt.getYmd() !== calEvent.event.endAt.getYmd()) {
+							if(calEvent.event.startAt.getYmd() === day){
 								cls.push('start');
-							} else if(event.endAt.getYmd() === day){
+							} else if(calEvent.event.endAt.getYmd() === day){
 								cls.push('end');
 							} else {
 								cls.push('mid');
 							}
 						}
-						switch(event.responseStatus) {
+						switch(calEvent.responseStatus) {
 							case 1: /* NEEDS-ACTION*/
 								cls.push('new');
 								break;
@@ -52,7 +52,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 						begin.setHours(13);
 						var end = new Date(+begin);
 						end.setHours(begin.getHours() + 1);
-						$scope.$parent.openEventDialog(null,null,null, {startAt: begin, endAt: end});
+						$scope.$parent.openEventDialog(null, {startAt: begin, endAt: end});
 					};
 				}
 			],
@@ -115,12 +115,12 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 					str = '<td' + cls + ' md-ink-ripple="#000000" ng-click="add(\''+ymd+'\')"><span>' + day + '</span><div class="events">';
 					str += '<div ng-mousedown="$event.stopPropagation()" ng-repeat="e in events[\'' + ymd + '\']" ng-style="color(calendars[e.calendarId], e)" ng-class="classFor(e,\''+ymd+'\')" \n\
 ng-click="edit(e, $event)">\n\
-<md-icon ng-if="e.hasFiles">attachment</md-icon>\
+<md-icon ng-if="e.event.hasFiles">attachment</md-icon>\
 <md-icon ng-if="e.hasAlarms">notifications</md-icon>\
- {{e.title}}\
-<span ng-if="!e.allDay">\
-{{e.startAt.getTimeString()}} &ndash; {{e.endAt.getTimeString()}}\
-<md-icon ng-if="e.isRecurring">refresh</md-icon></span>\
+ {{e.event.title}}\
+<span ng-if="!e.event.allDay">\
+{{e.event.startAt.getTimeString()}} &ndash; {{e.event.endAt.getTimeString()}}\
+<md-icon ng-if="e.event.isRecurring">refresh</md-icon></span>\
 </div>';
 					str += '</div></td>';
 

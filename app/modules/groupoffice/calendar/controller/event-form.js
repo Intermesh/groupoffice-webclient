@@ -18,7 +18,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 			});
 		}
 		function internalDelete(p) {
-			$scope.model.delete(p || {}).then(function() {
+			$scope.model.delete(p || {calendarId:$scope.model.calendarId}).then(function() {
 				$mdDialog.cancel();
 				$scope.eventStore.reload();
 			});
@@ -26,12 +26,11 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		};
 
 		$scope.save = function() {
-			console.log($scope.model.event);
 			if(!$scope.model.event.isRecurring) {
 				return internalSave();
 			}
 			var p = {
-				recurrenceId: $scope.model.event.recurrenceId.toIntermeshApiFormat()
+				recurrenceId: $scope.model.recurrenceId.toIntermeshApiFormat()
 			};
 			if($scope.model.event.isException) {
 				p.single = true;
@@ -58,7 +57,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				return internalDelete();
 			}
 			var p = {
-				recurrenceId: $scope.model.event.recurrenceId.toIntermeshApiFormat()
+				recurrenceId: $scope.model.recurrenceId.toIntermeshApiFormat()
 			};
 			if($scope.model.event.isException) {
 				p.single = true;
@@ -108,10 +107,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		$scope.hasCalendars = function() {
 			if(!$scope.model.groupId)
 				return false;
-			if(!$scope.userCalendars[$scope.model.groupId]){
-				return false;
-			}
-			return $scope.userCalendars[$scope.model.groupId].length > 0;
+			return $scope.writableCalendars.length > 0;
 		};
 		$scope.addAlarm = function(event) {
 			var target = event.target;

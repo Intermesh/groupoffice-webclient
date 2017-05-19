@@ -34,23 +34,23 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 	controller('GO.Modules.GroupOffice.Calendar.Main', [
 		'$scope',
 		'$mdDialog',
-		'GO.Modules.GroupOffice.Calendar.Attendee',
+		'GO.Modules.GroupOffice.Calendar.CalendarEvent',
 		'GO.Modules.GroupOffice.Calendar.PeriodStore',
 		'GO.Modules.GroupOffice.Calendar.CurrentDate',
 		'GO.Core.Factories.Data.Store',
 		'$state',
 		'$mdSidenav',
 		'GO.Core.Services.Application',
-		function ($scope, $mdDialog, Attendee, PeriodStore, CurrentDate, Store, $state, $mdSidenav, App) {
+		function ($scope, $mdDialog, CalendarEvent, PeriodStore, CurrentDate, Store, $state, $mdSidenav, App) {
 			// The date that is currently viewed
 			$scope.$mdSidenav = $mdSidenav;
-			$scope.model = new Attendee;
+			$scope.model = new CalendarEvent;
 
 			$scope.searchStore = new Store('/event');
 
 			$scope.selectedCalendars = {}; // checkboxed in de sidepanel
 			$scope.calendars = {};
-			$scope.userCalendars = {}; // writeable calendars for a user
+			$scope.writableCalendars = []; // writeable calendars for a user
 
 			$scope.eventStore = new PeriodStore('/event');
 			$scope.eventStore.$modelProto = $scope.model;
@@ -61,17 +61,19 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 			$scope.accountStore = new Store('/account', {returnProperties:"*,calendars[*,groups,defaultAlarms]"});
 			$scope.accountStore.onLoad = function(data){
 				//todo select all
+				$scope.writableCalendars = [];
 				for(var a in this.items) {
 					var account = this.items[a];
 					if(account.id == App.currentUser.group.id) {
 						$scope.currentAccount = account;
 					}
-					$scope.userCalendars[account.id] = [];
 					for(var c in account.calendars) {
 						var cal = account.calendars[c];
 						$scope.calendars[cal.id] = cal;
 						$scope.selectedCalendars[cal.id] = true; // select all
-						$scope.userCalendars[account.id].push(cal);
+						if (cal.permissions.write) {
+							$scope.writableCalendars.push(cal);
+						}
 					}
 				}
 			};
@@ -112,7 +114,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				$scope.editAccount($scope.currentAccount);
 			};
 
-			$scope.openEventDialog = function (eventId, startAt, groupId, defaults) {
+			$scope.openEventDialog = function (calEvent, defaults) {
 				function open() {
 					$mdDialog.show({
 						controller: 'GO.Modules.GroupOffice.Calendar.EventForm',
@@ -121,7 +123,6 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 						scope: $scope.$new(),
 						hasBackdrop: false,
 						clickOutsideToClose:true
-						//fullscreen: useFullScreen
 					})
 					.then(function(answer) {
 //						if(eventId) {
@@ -130,23 +131,25 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 					});
 				}
 
-				if (!eventId) {
-					$scope.model = new Attendee(); // is attendens of event
-					$scope.model.read({eventId:0}).then(function () {
+				if (!calEvent) {
+					var calendarId = $scope.writableCalendars[0].id;
+					$scope.model = new CalendarEvent(); 
+					$scope.model.read({calendarId:calendarId,eventId:0}).then(function () {
 						if (defaults) {
 							for(var d in defaults) {
-								$scope.model.event[d] = defaults[d];
+								if(d == 'startAt' || d == 'endAt') {
+									$scope.model.event[d] = defaults[d];
+								}
+								$scope.model[d] = defaults[d];
 							}
-							//model.clearModified();
-							// this will not post the attributes I set
 						}
 					}).then(open);
 				} else {
 					var p = {};
-					if(startAt) {
-						p = {recurrenceId: startAt.toIntermeshApiFormat()};
+					if(calEvent.recurrenceId) {
+						p.recurrenceId = calEvent.recurrenceId.toIntermeshApiFormat();
 					}
-					$scope.model.read({'eventId':eventId,'groupId':groupId}, p).then(open);
+					$scope.model.read({calendarId: calEvent.calendarId, eventId: calEvent.eventId}, p).then(open);
 				}
 			};
 

@@ -26,17 +26,17 @@ md-input-container.md-input-invalid .md-input.ng-invalid {
 	md-icon { margin-right:12px; }
 	md-switch { margin:0 }
 	md-datepicker { margin-top: 15px; margin-bottom:15px;}
-	& md-input-container {
+	md-input-container {
 		margin: 9px 0;
 	}
-	& md-input-container > .md-input, & > md-select > .md-select-value {
+	md-input-container .md-input, 
+	> md-select > .md-select-value {
 	    border-width: 0 !important;
-		
 	}
 	.md-errors-spacer { display:none; }
 }
 .form-dialog div {
-	& > md-select {
+	> md-select{
 		margin: 9px 0;
 		& > .md-select-value {
 			border-width: 0 !important;

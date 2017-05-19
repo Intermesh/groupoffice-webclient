@@ -14,7 +14,9 @@ GO.module('GO.Core').component('goPdfTemplates', {
 		function ($scope, PdfTemplate, Dialog, $state, $http, ServerAPI) {
 
 			this.$onInit = function() {
-				this.store = (new PdfTemplate(this.goModuleName)).getStore();
+				this.store = (new PdfTemplate(this.goModuleName)).getStore({					
+					limit: 0
+				});
 				this.store.load();
 			};
 			

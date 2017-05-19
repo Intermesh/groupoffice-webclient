@@ -53,8 +53,9 @@ angular.module('GO', GO.appModules.concat([
 	'$timeout',	
 	'$location', 
 	'$anchorScroll', 
+	'$transitions',
 
-	function (ServerAPI, $rootScope, Config, $state, $timeout, $location, $anchorScroll) {
+	function (ServerAPI, $rootScope, Config, $state, $timeout, $location, $anchorScroll, $transitions) {
 		$rootScope.GO = GO;
 		$rootScope.showMask = false;
 
@@ -69,10 +70,15 @@ angular.module('GO', GO.appModules.concat([
 		
 		
 		
-		var authListener = $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+		var authListener = $transitions.onStart({}, function ($transition) {
+			
+			var toState = $transition.$to();
+//			console.log(toState);
 			if (!$rootScope.loggedIn && (!toState.data || !toState.data.noAuth)) {
 				
 				event.preventDefault();
+				
+				$transition.abort();
 				
 				$rootScope.stateBeforeAuth = $location.url();				
 				$state.go('login');
@@ -82,6 +88,8 @@ angular.module('GO', GO.appModules.concat([
 				authListener();
 			}
 		});		
+		
+		
 		
 		//for full screen loading mask
 		$rootScope.showMask = false;

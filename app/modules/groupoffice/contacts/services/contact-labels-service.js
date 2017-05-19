@@ -11,10 +11,10 @@ angular.module('GO.Modules.GroupOffice.Contacts').
 								'other': Translate.t('Other')
 							},
 							phoneNumberOptions: {
-								'work,voice': Translate.t('Phone') + ' ' + Translate.t('Work'),
-								'work,cell': Translate.t('Mobile') + ' ' + Translate.t('Work'),			
-								'home,voice': Translate.t('Phone') + ' ' + Translate.t('Home'),			
-								'home,cell': Translate.t('Mobile') + ' ' + Translate.t('Home')
+								'cell': Translate.t('Mobile'),			
+								'work': Translate.t('Work'),								
+								'home': Translate.t('Home')
+							
 							},
 							dateOptions: {
 								'birthday': Translate.t('Birthday'),

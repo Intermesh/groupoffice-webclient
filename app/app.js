@@ -14,7 +14,8 @@ angular.module('GO', GO.appModules.concat([
 		// Now set up the states
 		$stateProvider.state('404', {
 			url: "/404",
-			templateUrl: "views/404.html"
+			templateUrl: "views/404.html",
+			data: {noAuth: true} // <-- Added so there is no login needed			
 		}).state('login', {
 			url: "/login",
 			templateUrl: "views/login.html",

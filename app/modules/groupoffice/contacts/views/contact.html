@@ -94,7 +94,7 @@
 							<md-list-item class="md-2-line" ng-repeat="emailAddress in contact.emailAddresses">
 								<md-icon ng-if="$index === 0">email</md-icon>
 								<div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
-									<h3><a href="mailto:{{emailAddress.email}}">{{ emailAddress.email}}</a></h3>
+									<h3><go-mail-to to="{{emailAddress.email}}"></go-mail-to></h3>
 									<p>{{contactLabels.emailAddressOptions[emailAddress.type]|| emailAddress.type}}</p>
 								</div>
 							</md-list-item>

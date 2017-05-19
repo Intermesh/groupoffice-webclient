@@ -21,10 +21,13 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 		$scope.model.accountId = account.id;					
 		$scope.accountStore = accountStore;
 		
+		$scope.signatures = account.signatures;
+		
 		$scope.accountStore.loadIf();
 		
 		
 		read.then(function () {
+			
 				
 			$scope.model.setAttributes(attributes);			
 			$scope.model.accountId = account.id;	
@@ -39,9 +42,9 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 				$scope.model.thread = {accountId: $scope.accountId};
 			}
 			
-			if($scope.model.isNew()) {
+//			if($scope.model.isNew()) {
 				updateSignature($scope.settings.signatureIndex);
-			}
+//			}
 
 //			$scope.model.clearModified();
 		});
@@ -96,10 +99,16 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 		};
 
 		function updateSignature(index, oldIndex) {
+			
+			
 
-			if (!$scope.model.message) {
-				return;
-			}			
+//			if (!$scope.model.message) {
+//				return;
+//			}			
+
+			if(!$scope.model.body) {
+				$scope.model.body = "";
+			}
 
 			var oldSignature = oldIndex !== null && oldIndex > -1 ? account.signatures[oldIndex].signature : "";
 			var newSignature = index !== null && index > -1 ? account.signatures[index].signature : "";
@@ -110,6 +119,8 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 			{
 				$scope.model.body = newSignature + $scope.model.body;
 			}
+			
+			
 		}
 
 		

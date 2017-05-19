@@ -4,7 +4,9 @@ angular.module('GO.Modules.GroupOffice.Messages').service('GO.Modules.GroupOffic
 	'GO.Modules.GroupOffice.Messages.Models.Account',
 	function (Account) {
 		
-		var accounts = (new Account()).getStore();		
+		var accounts = (new Account()).getStore({
+			returnProperties: '*'
+		});		
 		
 			
 		return accounts;	

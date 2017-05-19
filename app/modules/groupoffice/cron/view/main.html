@@ -27,6 +27,7 @@
 				<p>
 					<span ng-if="model.nextRun">{{model.nextRun | date: 'medium'}}</span>
 					<span ng-if="model.runningSince">{{"Running" | goT}}</span>
+					<span ng-if="model.lastError" style="color:red">{{model.lastError}}</span>
 				</p>
 			</div>
 			

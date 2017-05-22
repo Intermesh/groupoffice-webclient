@@ -4,11 +4,10 @@
 GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tasks.Controllers.ContactTasks', [
 	'$scope',
 	'GO.Modules.GroupOffice.Tasks.Model.Task',
-	'GO.Core.Services.ServerModules',
 	'GO.Core.Services.Dialog',
 	'$state',
 	'$stateParams',
-	function ($scope, Task, ServerModules, Dialog, $state, $stateParams) {
+	function ($scope, Task, Dialog, $state, $stateParams) {
 		//Will be used in child scope. We define it here so we can access
 		//the properties if needed in the future.
 		//Child scopes automatically inherit properties of the parents but

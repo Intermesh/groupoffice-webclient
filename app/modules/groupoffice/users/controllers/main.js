@@ -13,9 +13,10 @@ GO.module('GO.Modules.GroupOffice.Users').controller('GO.Modules.GroupOffice.Use
 	'GO.Core.Services.Application',
 	function ($scope, $http, ServerAPI, User, Contact, $state, ContactEditor, Modal, App) {
 		
-		App.serverModules.fetchModule('GO\\Core\\Users\\Module').then(function(module) {
+		var module = App.currentUser.getServerModule('GO\\Core\\Users\\Module');
+		if(module) {					
 			$scope.usersModule = module;
-		});
+		};
 
 		$scope.user = new User();
 		$scope.store = $scope.user.getStore({

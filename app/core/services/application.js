@@ -1,15 +1,13 @@
 'use strict';
 
 angular.module('GO.Core').service('GO.Core.Services.Application', [
-	'GO.Core.Services.ServerModules',	
 	'GO.Core.Services.CurrentUser',
-	function(ServerModules, CurrentUser){
+	function(CurrentUser){
 		
 
 		
 
 		function App() {
-			this.serverModules = ServerModules;
 			this.currentUser = CurrentUser;
 			
 			this.launchers = [];

@@ -21,11 +21,9 @@ angular.module('GO.Controllers').controller('GO.Controllers.CoreSettingsControll
 		
 		$scope.user = App.currentUser;		
 		
-//		App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Webclient\\Module').then(function (module) {		
-			$scope.webclientModel = new Resource('webclient/settings', '*', []);
-			$scope.webclientModel.read();
-//		});
-		
+		$scope.webclientModel = new Resource('webclient/settings', '*', []);
+		$scope.webclientModel.read();
+
 		
 		$scope.sendTestMessage = function() {
 			$http.post(ServerAPI.url('settings/testSmtp')).then(function(result) {

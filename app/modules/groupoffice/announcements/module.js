@@ -8,10 +8,9 @@ angular.module('GO.Modules.GroupOffice.Announcements', ['GO.Core'])
 		function (App) {
 			
 			App.currentUser.whenAuthenticated().then(function(){
-				App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Announcements\\Module').then(function (module) {
-					
+				if(App.currentUser.getServerModule('GO\\Modules\\GroupOffice\\Announcements\\Module')) {					
 					App.addLauncher('Announcements', 'announcements');
-				});
+				}
 			});
 
 		}])

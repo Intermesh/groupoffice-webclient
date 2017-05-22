@@ -8,21 +8,21 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'$http',
 		'$mdDialog',
 		'GO.Modules.GroupOffice.Notifications.Services.Notifications',
-		'GO.Core.Services.ServerModules',
+		'GO.Core.Services.CurrentUser',
 		'GO.Core.Services.ServerAPI',
 		'GO.Core.Factories.Data.Store',
 		'GO.Modules.GroupOffice.Files.Model.Browser',
 		'GO.Modules.GroupOffice.Files.Model.Clipboard',
 		'GO.Modules.GroupOffice.Files.Model.Node',
 		'GO.Modules.GroupOffice.Files.Model.Drive',
-		function ($scope, $state, $http, $mdDialog,Notifications, ServerModules, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
+		function ($scope, $state, $http, $mdDialog,Notifications, CurrentUser, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
 			// The date that is currently viewed
 			//$scope.$mdSidenav = $mdSidenav;
 			$scope.flowInit = ServerAPI.getFlowInit();
 
-			ServerModules.fetchModule('GO\\Modules\\GroupOffice\\Files\\Module').then(function (module) {
-				$scope.permissions = module.permissions;
-			});
+			var filesModule = CurrentUser.getServerModule('GO\\Modules\\GroupOffice\\Files\\Module');		
+			$scope.permissions = filesModule.permissions;
+
 			
 			$scope.model = new Node('files', '*');
 			$scope.nodeStore = $scope.model.getStore();

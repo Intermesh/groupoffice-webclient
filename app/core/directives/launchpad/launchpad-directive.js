@@ -12,7 +12,8 @@ angular.module('GO.Core').directive('goLaunchpad', [
 	'$state',
 	'GO.Core.Services.ServerAPI',
 	'$mdToast',
-	function (App, Translate, $rootScope, Config, $timeout, $state, ServerAPI, $mdToast) {
+	'$transitions',
+	function (App, Translate, $rootScope, Config, $timeout, $state, ServerAPI, $mdToast, $transitions) {
 	return {
 		restrict: 'E',
 		scope: {
@@ -69,28 +70,6 @@ angular.module('GO.Core').directive('goLaunchpad', [
 						}	
 				});
 				
-//				/**
-//				 * Listen to the moduleInstalled event
-//				 * When triggered, update the launchers in the launcher.
-//				 */
-//				$rootScope.$on('moduleInstalled', function(){
-//					ClientModules.reload();
-//					ClientModules.fetchLaunchers().then(function(launchers) {
-//							scope.launchers = launchers;
-//						});
-//				});
-//				
-//				/**
-//				 * Listen to the moduleUninstalled event
-//				 * When triggered, update the launchers in the launcher.
-//				 */
-//				$rootScope.$on('moduleUninstalled', function(){
-//					ClientModules.reload();
-//					ClientModules.fetchLaunchers().then(function(launchers) {
-//							scope.launchers = launchers;
-//						});
-//				});
-				
 				var updateTitle = function(stateName){
 					var launcher = App.fetchLauncherByState(stateName);
 					if(launcher) {
@@ -102,14 +81,19 @@ angular.module('GO.Core').directive('goLaunchpad', [
 					}
 				};
 				
+				//Updates page title
+				$transitions.onFinish({}, function ($transition) {
+					var toState = $transition.$to();					
+					updateTitle(toState.name);
+				});
+				
+				
 				//get launchers when logged in
+				
 				var loggedInWatch = $rootScope.$watch('loggedIn', function (newValue, oldValue) {
-					if (newValue) {		
-						
-						updateTitle($state.current.name);
-						//Updates page title
-						$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-							updateTitle(toState.name);
+					if (newValue) {								
+						$timeout(function(){
+							updateTitle($state.current.name);
 						});
 
 						scope.launchers = App.launchers;

@@ -61,9 +61,9 @@ angular.module('GO.Core').provider('GO.Core.Providers.Translate', [
 				translations[lang] = {};
 			
 			for (var key in newTranslations) {
-				if (translations[lang][key]) {
-					console.warn(lang + " translation for " + key + " is already defined");
-				}
+//				if (translations[lang][key]) {
+//					console.warn(lang + " translation for " + key + " is already defined");
+//				}
 
 				translations[lang][key] = newTranslations[key];
 			}

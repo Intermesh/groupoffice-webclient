@@ -47,6 +47,8 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 				{
 					$scope.checkingAuth = false;
 				}
+			}).catch(function() {
+				$state.go('install');
 			});
 		}
 

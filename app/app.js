@@ -16,7 +16,16 @@ angular.module('GO', GO.appModules.concat([
 			url: "/404",
 			templateUrl: "views/404.html",
 			data: {noAuth: true} // <-- Added so there is no login needed			
-		}).state('login', {
+		}).state('install', {
+			url: '/install',
+			templateUrl: 'views/install.html',
+			controller: 'GO.Controllers.Install',
+			data: {noAuth: true} // <-- Added so there is no login needed			
+		})
+						
+					
+					
+					.state('login', {
 			url: "/login",
 			templateUrl: "views/login.html",
 			controller: 'GO.Controllers.LoginController',

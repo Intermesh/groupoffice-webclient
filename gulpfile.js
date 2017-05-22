@@ -90,14 +90,14 @@ gulp.task('usemin', ['clean', 'template-cache', 'index', 'sass-build'], function
 //	rimraf('./build/', cb);
 //});
 
-gulp.task('clean', function (cb) {
+gulp.task('clean', function () {
   del([
     'build/**/*'    
-  ], cb);
+  ]);
 });
 
 gulp.task('sass-build', ['clean'], function() {
-	gulp.src('./app/scss/app.scss')
+	return gulp.src('./app/scss/app.scss')
 					.pipe(sassGlob())
 					.pipe(sass().on('error', sass.logError))
 					.pipe(gulp.dest('./app/css'));

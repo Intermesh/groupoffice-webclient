@@ -583,6 +583,19 @@ go-listview {
 	}
 }
 
+.go-search-events {
+	md-list-item > a {
+			@extend %event;
+			@extend %taggable;
+			margin:0px 4px 8px 76px;
+			padding: 8px 8px;
+			span { //time
+				font-weight:100;
+				font-size: .8em;
+			}
+		}
+}
+
 go-dateslider {
 	width:100%;
     position: absolute;

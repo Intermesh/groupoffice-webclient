@@ -58,7 +58,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goListviewBody',['$
 		controller: ['$scope',function($scope) {
 			$scope.color= function(cal) {return cal && GO.Calendar.util.color(cal.color);};
 			$scope.selectEvent = function (event) {
-				$state.go("calendar.list.event", {id: event.eventId, groupId:event.groupId});
+				$state.go("calendar.list.event", {eventId: event.eventId, calendarId:event.calendarId});
 			};
 			$scope.classFor = function(event) {
 				var cls = [event.event.tag];

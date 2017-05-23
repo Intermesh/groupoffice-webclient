@@ -1,6 +1,6 @@
-<div class="go-cards-sm" flex layout="row" style="top:0;bottom:0;left:0;right:0;overflow-y: scroll;">
+<div class="go-cards-sm" flex layout="row" style="top:0;bottom:0;left:0;right:0;position:absolute;">
 
-	<div class="go-card go-listview" layout="column" ng-class="{'go-active' : $state.is('events')}">
+	<div class="go-card go-list" layout="column" ng-class="{'go-active' : $state.is('events')}">
 		<go-list-toolbar class="md-hue-1" store="searchStore">
 			<go-tools class="md-toolbar-tools">
 			<span flex></span>
@@ -9,19 +9,18 @@
 
 		</go-list-toolbar>
 
-		<go-list store="searchStore">
+		<md-list store="searchStore" class="go-search-events">
 
-			<item  ng-class="model.tag" ng-click="selectEvent(model,true)" ng-style="color($parent.selectedCalendars[model.organizer.calendarId])" index="title">
-					{{model.title}}<br>
-				<span ng-if="!model.allDay">{{model.startAt.getTimeString()}} &mdash; {{model.endAt.getTimeString()}}</span>
-				<span ng-if="model.location">at {{model.location}}</span>
-			</item>
+			<md-list-item ng-repeat="e in searchStore.items" class="md-2-line"
+							  ng-class="classFor(e)" ng-click="selectEvent(e,true)" ng-style="color(calendars[e.calendarId])">
+				<div class="md-list-item-text" layout="column">
+				<h3><md-icon ng-if="e.event.isRecurring">refresh</md-icon> {{e.event.title}}</h3>
+				<h4><span ng-if="!e.event.allDay">{{e.event.startAt.getTimeString()}} &mdash; {{e.event.endAt.getTimeString()}}</span>
+					<span ng-if="e.event.location">at {{e.event.location}}</span></h4>
+				</div>
+			</md-list-item>
 
-			<empty-state>
-				<md-icon class="mdi-calendar-multiple"></md-icon>
-				<p>{{::"No events found"| goT}}</p>
-			</empty-state>
-		</go-list>
+		</md-list>
 
 
 

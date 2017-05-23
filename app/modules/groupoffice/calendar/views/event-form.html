@@ -1,6 +1,6 @@
 <form layout="column" name="eventForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
 	<md-toolbar  ng-style="color(calendars[model.calendarId].color)">
-		<div ng-if="hasCalendars()" class="md-toolbar-tools">
+		<div class="md-toolbar-tools">
 			<md-button type="button" class="md-icon-button" ng-click="cancel()">
 				<md-icon>close</md-icon>
 			</md-button>
@@ -23,13 +23,7 @@
 		</div>
 	</md-toolbar>
 
-	<md-content ng-if="!hasCalendars()" class="md-padding">
-		<p>There are no calendars, create one first</p>
-
-		<md-button class="md-raised md-primary" ng-click="cancel(); $parent.addCalendar();">Calendars</md-button>
-	</md-content>
-
-	<md-content ng-if="hasCalendars()" style="min-width: 390px;" flex>
+	<md-content style="min-width: 390px;" flex>
 		<md-list class="form-dialog">
 			<div layout="row" layout-align="start center" ng-if="model.canWrite()">
 				<md-icon>event</md-icon>

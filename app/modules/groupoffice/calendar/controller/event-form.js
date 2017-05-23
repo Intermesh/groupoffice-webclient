@@ -104,11 +104,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				}
 			}
 		};
-		$scope.hasCalendars = function() {
-			if(!$scope.model.groupId)
-				return false;
-			return $scope.writableCalendars.length > 0;
-		};
+
 		$scope.addAlarm = function(event) {
 			var target = event.target;
 			if(target.tagName == 'SPAN')

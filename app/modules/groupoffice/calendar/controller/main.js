@@ -87,9 +87,9 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 
 			$scope.selectEvent = function (event, search) {
 				if(search) {
-					$state.go("calendar.search.event", {id: event.id});
+					$state.go("calendar.search.event", {eventId: event.eventId, calendarId: event.calendarId});
 				} else {
-					$state.go("calendar.list.event", {id: event.id});
+					$state.go("calendar.list.event", {eventId: event.eventId, calendarId: event.calendarId});
 				}
 			};
 
@@ -114,6 +114,20 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				$scope.editAccount($scope.currentAccount);
 			};
 
+			var showNoCalendars = function(ev) {
+				$mdDialog.show(
+					$mdDialog.confirm()
+					  .clickOutsideToClose(true)
+					  .title('Create a calendar')
+					  .textContent('There are no calendars, create one first')
+					  .ariaLabel('Alert Dialog Demo')
+					  .ok('Open calendars')
+					  .targetEvent(ev)
+				).then(function() {
+					$scope.addCalendar();
+				});
+			};
+
 			$scope.openEventDialog = function (calEvent, defaults) {
 				function open() {
 					$mdDialog.show({
@@ -132,6 +146,9 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				}
 
 				if (!calEvent) {
+					if(!$scope.writableCalendars[0]) {
+						showNoCalendars();
+					}
 					var calendarId = $scope.writableCalendars[0].id;
 					$scope.model = new CalendarEvent(); 
 					$scope.model.read({calendarId:calendarId,eventId:0}).then(function () {

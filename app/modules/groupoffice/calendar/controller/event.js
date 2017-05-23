@@ -7,8 +7,14 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 		'GO.Core.Services.ServerAPI',
 		function ($scope, $stateParams, ServerAPI) {
 			$scope.color = GO.Calendar.util.color;
-			$scope.$parent.$parent.model.readIf({'eventId':$stateParams.id,'groupId':$stateParams.groupId} );
-
+			$scope.$parent.$parent.model.readIf({'eventId':$stateParams.eventId,'calendarId':$stateParams.calendarId} );
+			$scope.classFor = function(event) {
+				var cls = [event.event.tag];
+				if(event.responseStatus == 1) {
+					cls.push('new');
+				}
+				return cls;
+			};
 			$scope.attachmentDownload = function(blobId) {
 				console.log('mopmop.... '+blobId);
 				ServerAPI.download(blobId);

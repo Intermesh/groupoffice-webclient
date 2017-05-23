@@ -37,6 +37,12 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 		CalendarEvent.prototype.download = function() {
 			window.open(ServerAPI.url('event/download/'+this.event.id));
 		};
+
+		CalendarEvent.prototype.save = function() {
+			this.event.startAt = this.startAt;
+			this.event.endAt = this.endAt;
+			return this.$parent.save.call(this, arguments);
+		};
 //
 		return CalendarEvent;
 	}]);

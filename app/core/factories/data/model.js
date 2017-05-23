@@ -542,8 +542,6 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 				angular.extend(params, getParams);
 			}
 
-
-
 			var method, url;
 							
 			if(this.isNew()){

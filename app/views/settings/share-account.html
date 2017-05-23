@@ -1,0 +1,19 @@
+<md-dialog style="min-height: 50%;min-width:50%">
+	<md-dialog-content flex="auto" layout="column">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" ng-click="hide()">
+					<md-icon>close</md-icon>
+					<md-tooltip>{{::"Close"| goT}}</md-tooltip>
+				</md-button>
+				<div flex>{{::"Share account '{name}'"| goT : model}}</div>
+
+			</div>
+		</md-toolbar>
+
+		<md-content flex="auto" layout="column" class="md-padding">
+			<go-share model="model" group-fk="accountId" permissions="[{key: 'write', name: 'Write'}]"></go-share>
+		</md-content>
+
+	</md-dialog-content>
+</md-dialog>

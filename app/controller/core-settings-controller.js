@@ -21,8 +21,10 @@ angular.module('GO.Controllers').controller('GO.Controllers.CoreSettingsControll
 		
 		$scope.user = App.currentUser;		
 		
-		$scope.webclientModel = new Resource('webclient/settings', '*', []);
-		$scope.webclientModel.read();
+		if(App.currentUser.hasServerModule('GO\\Modules\\GroupOffice\\Webclient\\Module')) {
+			$scope.webclientModel = new Resource('webclient/settings', '*', []);
+			$scope.webclientModel.read();
+		}
 
 		
 		$scope.sendTestMessage = function() {

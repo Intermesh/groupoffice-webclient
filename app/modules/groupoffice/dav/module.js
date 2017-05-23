@@ -9,12 +9,13 @@ GO.module('GO.Modules.GroupOffice.Dav', ['GO.Core']).run([
 
 
 		App.currentUser.whenAuthenticated().then(function () {
-			App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Dav\\Module').then(function (module) {
+			if (App.currentUser.getServerModule('GO\\Modules\\GroupOffice\\Dav\\Module')) {
 				App.addAccountType('GO\\Modules\\GroupOffice\\Dav\\Model\\Account', 'Nietmeernodig', 'contacts', {
 					templateUrl: 'modules/groupoffice/dav/views/account-edit.html',
 					controller: 'GO.Modules.GroupOffice.Dav.Controller.AccountEdit'
 				});
-			});
+			}
+			;
 		});
 
 	}]);

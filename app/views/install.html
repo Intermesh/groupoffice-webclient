@@ -1,0 +1,50 @@
+<div id="login-form" ng-if="!checkingAuth" layout="column">
+	<md-toolbar class="md-tall go-login-header">
+		<div class="go-logo" layout="row" layout-align="left center">
+			<img alt="{{title}}"  style='' ng-src="{{::logo}}" />
+		</div>	
+	</md-toolbar>
+
+
+	<md-content flex >  
+
+	<form name="loginForm" go-submit="install()" role="form" novalidate="" layout="row" layout-align="center center"  go-server-errors="user.validationErrors">
+		
+		<md-card class="go-login-card">
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline">{{::"Installation"| goT}}</span>
+					<span class="md-subhead">{{::"Please review the system check"| goT}}</span>			
+				</md-card-title-text>
+			</md-card-title>	
+			<md-card-contents class="md-padding">	
+				
+				<p ng-if="!system.success" class="go-error">
+					Errors were found. Please fix them and reload this page.
+				</p>
+
+				
+				
+				<md-list>
+					<md-list-item ng-repeat="check in system.checks" class="md-2-line">
+						<md-icon ng-if="check.success">check</md-icon>
+						<md-icon ng-if="!check.success" class="md-warn">warning</md-icon>
+						<div class="md-list-item-text">
+							<h3>{{check.name}}</h3>
+							<p>{{check.message}}</p>
+						</div>
+					</md-list-item>
+				</md-list>
+			
+			
+			</md-card-contents>
+			<md-card-actions layout="row">
+				<span flex></span>				
+				<md-button ng-disabled="!system.success" class="md-accent md-raised" type="submit">{{system.databaseInstalled ? 'Upgrade' : 'Install'| goT}}</md-button>
+			</md-card-actions>
+		</md-card>
+			
+			
+	</form>
+</md-content>
+</div>

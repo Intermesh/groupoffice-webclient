@@ -8,9 +8,9 @@ GO.module('GO.Modules.GroupOffice.Calendar', ['GO.Core'])
 		function (App) {
 
 			App.currentUser.whenAuthenticated().then(function(){
-				App.serverModules.fetchModule('GO\\Modules\\GroupOffice\\Calendar\\Module').then(function (module) {
+				if(App.currentUser.getServerModule('GO\\Modules\\GroupOffice\\Calendar\\Module')) {					
 					App.addLauncher('Calendar','calendar',false,{icon:'event'});
-				});
+				}
 			});
 
 		}])

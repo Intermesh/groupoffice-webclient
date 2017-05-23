@@ -8,10 +8,10 @@ GO.module('GO.Modules.Tutorial.Bands', ['GO.Core'])
 		function (App) {
 
 			App.currentUser.whenAuthenticated().then(function(){
-				App.serverModules.fetchModule('UX\\Modules\\Bands\\Module').then(function (module) {
+				if(App.currentUser.getServerModule('UX\\Modules\\Bands\\Module')) {									
 					App.addLauncher('Bands','bands');
 					App.addSettingsOption('settings.bands', 'Bands', 'mdi-music-note');
-				});
+				};
 			});
 
 		}])

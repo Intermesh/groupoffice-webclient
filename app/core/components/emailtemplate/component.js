@@ -14,7 +14,9 @@ GO.module('GO.Core').component('goEmailTemplates', {
 		function ($scope, EmailTemplate, Dialog, $state, $http, ServerAPI) {
 
 			this.$onInit = function() {
-				this.store = (new EmailTemplate(this.goModuleName)).getStore();
+				this.store = (new EmailTemplate(this.goModuleName)).getStore({					
+					limit: 0
+				});
 				this.store.load();
 			};
 			

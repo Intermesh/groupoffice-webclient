@@ -4,14 +4,14 @@
 GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.Contacts.MainController', [
 	'$scope',
 	'GO.Modules.GroupOffice.Contacts.Model.Contact',
-	'GO.Core.Services.ServerModules',
+	'GO.Core.Services.CurrentUser',
 	'GO.Modules.GroupOffice.Contacts.ContactEditor',
 	'$state',
 	'$mdDialog',
 	
 	'$timeout',
 	'GO.Modules.CustomFields.Services.CustomFields',
-	function ($scope, Contact, ServerModules, ContactEditor, $state, $mdDialog, $timeout, CustomFields) {
+	function ($scope, Contact, CurrentUser, ContactEditor, $state, $mdDialog, $timeout, CustomFields) {
 		//Will be used in child scope. We define it here so we can access
 		//the properties if needed in the future.
 		//Child scopes automatically inherit properties of the parents but
@@ -29,9 +29,9 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 		};
 
 		//Check if the user may create new contacts
-		ServerModules.fetchModule('GO\\Modules\\GroupOffice\\Contacts\\Module').then(function (module) {
+		if(CurrentUser.hasServerModule('GO\\Modules\\GroupOffice\\Contacts\\Module')) {
 			$scope.canCreate = module.permissions.createContacts;
-		});
+		};
 
 
 		$scope.edit = function (config) {

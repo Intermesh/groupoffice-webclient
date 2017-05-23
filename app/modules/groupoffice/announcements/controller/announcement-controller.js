@@ -2,16 +2,13 @@
 
 /* Controllers */
 GO.module('GO.Modules.GroupOffice.Announcements').
-				controller('GO.Modules.GroupOffice.Announcements.AnnouncementController', ['$scope', '$http', 'GO.Core.Services.ServerAPI', 'GO.Modules.GroupOffice.Announcements.Announcement', 'GO.Core.Services.ServerModules', 'GO.Modules.GroupOffice.Announcements.AnnouncementEditor', function ($scope, $http, ServerAPI, Announcement, Modules, AnnouncementEditor) {
+				controller('GO.Modules.GroupOffice.Announcements.AnnouncementController', ['$scope', '$http', 'GO.Core.Services.ServerAPI', 'GO.Modules.GroupOffice.Announcements.Announcement', 'GO.Modules.GroupOffice.Announcements.AnnouncementEditor', function ($scope, $http, ServerAPI, Announcement, AnnouncementEditor) {
 
 						var announcement = new Announcement();
 						
 						$scope.store = announcement.getStore({returnProperties: '*,owner[username]'});
 						$scope.store.load();
 
-						Modules.getModule('GO\\Modules\\GroupOffice\\Announcements\\Module').then(function (module) {
-							$scope.announcementsModule = module;
-						});
 
 
 						$scope.edit = function (config) {

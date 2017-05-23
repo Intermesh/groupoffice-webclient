@@ -3,15 +3,12 @@
 // Declare app level module which depends on views, and components
 GO.module('GO.Modules.GroupOffice.Users', ['GO.Core']).run([
 	'GO.Core.Services.Application',
-	function (App) {		
+	function (App) {
 
 		App.currentUser.whenAuthenticated().then(function () {
-			App.serverModules.fetchModule('GO\\Core\\Users\\Module').then(function (module) {
-				if (module.permissions.read) {
-					App.addLauncher('Users', 'users',false,{icon:'people'});
-				}
-			});
-
+			if (App.currentUser.getServerModule('GO\\Core\\Users\\Module')) {
+				App.addLauncher('Users', 'users', false, {icon: 'people'});				
+			}
 
 			App.addSettingsOption('settings.change-password', 'Change password', 'lock');
 

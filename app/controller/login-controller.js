@@ -17,22 +17,18 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 		
 		
 		function afterLogin() {
-			Application.serverModules.fetchModules().then(function() {
-				
-				$rootScope.loggedIn = true;
-				if ($rootScope.stateBeforeAuth) {
-					$location.url($rootScope.stateBeforeAuth);
-					delete $rootScope.stateBeforeAuth;
-				} else
-				{
-					var s = CurrentUser.getDefaultState();
-					if(!s)  {
-						s = 'dashboard';
-					}
-					$state.go(s);
+			$rootScope.loggedIn = true;
+			if ($rootScope.stateBeforeAuth) {
+				$location.url($rootScope.stateBeforeAuth);
+				delete $rootScope.stateBeforeAuth;
+			} else
+			{
+				var s = CurrentUser.getDefaultState();
+				if(!s)  {
+					s = 'dashboard';
 				}
-				
-			});
+				$state.go(s);
+			}
 		}
 
 		if (!$rootScope.loggedIn) {
@@ -51,6 +47,8 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 				{
 					$scope.checkingAuth = false;
 				}
+			}).catch(function() {
+				$state.go('install');
 			});
 		}
 

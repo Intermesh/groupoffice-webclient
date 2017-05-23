@@ -24,6 +24,8 @@ GO.module('GO.Modules.GroupOffice.Modules').
 							$scope.module.save().then(function () {
 								// Trigger the "moduleInstalled" event in the rootScope
 								$rootScope.$broadcast('moduleInstalled');
+								
+								$scope.permissionStore.load();														
 							});
 						};
 

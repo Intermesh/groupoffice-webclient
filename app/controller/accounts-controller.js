@@ -3,10 +3,10 @@
 angular.module('GO.Controllers').controller('GO.Controllers.AccountsController', [
 	'$scope',
 	'GO.Core.Services.Dialog',
-	'$state',
+	'$mdDialog',
 	'GO.Core.Factories.Models.Account',
 	'GO.Core.Services.Application',
-	function ($scope, Dialog, $state, Account, App) {
+	function ($scope, Dialog, $mdDialog, Account, App) {
 
 		$scope.accountTypes = App.accountTypes;			
 		
@@ -31,6 +31,34 @@ angular.module('GO.Controllers').controller('GO.Controllers.AccountsController',
 			});
 
 		};
+		
+		
+		$scope.share = function (coreAccount) {
+			$mdDialog.show({
+					locals: {						
+						coreAccount: coreAccount
+					},
+					controller: [
+						'$scope', 
+						'$mdDialog', 
+						'coreAccount', 
+						function ($scope, $mdDialog, coreAccount) {
+							$scope.hide = function () {
+								$mdDialog.hide();
+							};					
+							
+							
+							$scope.model = coreAccount;
+							$scope.model.read();
+					
+						
+						}],
+					templateUrl: 'views/settings/share-account.html',
+					clickOutsideToClose: true
+					
+				});
+		};
+		
 
 		$scope.createAccount = function () {
 			Dialog.show({

@@ -21,6 +21,10 @@
 					<p>{{model.modelName | goT}}</p>
 				</div>
 				<go-list-edit-button class="md-secondary" on-edit="editAccount(model)"></go-list-edit-button>
+				<md-button class="md-icon-button md-secondary" ng-click="share(model)">
+					<md-icon>share</md-icon>
+					<md-tooltip>{{"Share" | goT}}</md-tooltip>
+				</md-button>
 				<go-list-delete-button class="md-secondary"></go-list-delete-button>
 			</item>
 

@@ -7,7 +7,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 	function (Model, ServerAPI) {
 
 		var CalendarEvent = GO.extend(Model, function () {
-			this.$parent.constructor.call(this, arguments);
+			this.$parent.constructor.apply(this, arguments);
 		});
 
 		CalendarEvent.prototype.$returnProperties = "*,alarms,calendarId,event[*,attendees,recurrenceRule,attachments]";
@@ -41,7 +41,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 		CalendarEvent.prototype.save = function() {
 			this.event.startAt = this.startAt;
 			this.event.endAt = this.endAt;
-			return this.$parent.save.call(this, arguments);
+			return this.$parent.save.apply(this, arguments);
 		};
 //
 		return CalendarEvent;

@@ -142,6 +142,14 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 			}
 		};
 
+		$scope.attachmentDownload = function(blobId) {
+			ServerAPI.download(blobId);
+		};
+		$scope.attachmentThumb = function(blobId) {
+			return ServerAPI.thumbUrl(blobId, {w:132, h:88});
+		};
+
+
 		$scope.uploadSuccess = function($file, $message) {
 			var response = angular.fromJson($message);
 			var att = {blobId:response.data.blobId, name: response.data.name, markDeleted:false};

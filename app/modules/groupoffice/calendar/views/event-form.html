@@ -156,10 +156,17 @@
 				flow-files-submitted="$flow.upload()"
 				flow-file-success="uploadSuccess($file, $message)"
 				flow-drop>
-
-				<div style="min-height:47px" layout="row" layout-align="start center" ng-repeat="attachment in model.event.attachments | filter:{ markDeleted: '!true' }">
-					<span flex>{{attachment.name}}</span>
-					<md-icon class="cancel" ng-click="removeAttachment($index)">close</md-icon>
+				
+				<div class="gf" ng-repeat="attachment in model.event.attachments | filter:{ markDeleted: '!true' }"  ng-click="attachmentDownload(attachment.blobId);" title="{{attachment.name}}">
+					
+					<div class="text">
+						<md-icon class="cancel" ng-click="removeAttachment($index)">close</md-icon>
+						<!--<md-icon alt="{{attachment.type}}">insert_drive_file</md-icon>-->
+						<h3 >{{attachment.name}}</h3>
+						
+					</div>
+					<div ng-if="attachment.type == 'Image'" class="thumb" style="background-image: url('{{attachmentThumb(attachment.blobId)}}')"></div>
+					
 				</div>
 
 				<div style="min-height:47px" layout="row" layout-align="start center" ng-repeat="file in $flow.files" class="attachment" ng-if="file.isUploading()">

@@ -70,13 +70,13 @@ md-input-container.md-input-invalid .md-input.ng-invalid {
 
 }
 
-// files grid in the event display view
+// grid file in the event display view
 .gf {
 	@extend %flex;
 	margin:8px 8px 8px 0;
     background: rgba(0,0,0,.03);
     border-radius: 2px;
-    height: 88px;
+    min-height: 148px;
     position: relative;
     width: 132px;
     -webkit-transition: background-color .15s cubic-bezier(.4,0,.2,1),box-shadow .15s cubic-bezier(.4,0,.2,1);
@@ -101,7 +101,34 @@ md-input-container.md-input-invalid .md-input.ng-invalid {
 	}
 	> .thumb {
 		position:absolute;
+		background-position: center center;
+		background-size: cover;
 		top:0;left:0;right:0;bottom:0;
+	}
+	> .text {
+		position: absolute;
+		bottom: 0;
+		left:0;
+		width: 100%;
+		overflow:hidden;
+		height: 32px;
+		z-index:1;
+		padding: 8px;
+		md-icon {
+
+			float:left;
+		}
+		h3 {
+			float:left;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 80px;
+			margin:0;
+		}
+		+ .thumb {
+			bottom: 32px;
+		}
 	}
 	&:hover {
 		box-shadow: 0 0 2px rgba(0,0,0,.13),0 2px 4px rgba(0,0,0,.26);

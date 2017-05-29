@@ -98,16 +98,16 @@
 		
 		<md-divider ng-if="model.canWrite() || !!model.event.description"></md-divider>
 
-		<div layout="row" layout-align="start start" ng-if="model.permissions.write">
+		<div layout="row" layout-align="start start" ng-if="model.canWrite() || !!model.event.description">
 			<div style="margin-top:16px;"><md-icon>comment</md-icon></div>
 			<div style="min-height:47px" flex>
 				<md-input-container md-no-float flex>
-					<textarea ng-model="model.event.description" placeholder="Description"></textarea>
+					<textarea ng-model="model.event.description" ng-readonly="!model.canWrite()" placeholder="Description"></textarea>
 				</md-input-container>
 			</div>
 		</div>
 
-		<md-divider ng-if="model.canWrite()"></md-divider>
+		<md-divider ng-if="model.isOrganizer || model.hasMoreAttendees()"></md-divider>
 
 		<div ng-if="model.isOrganizer || model.hasMoreAttendees()" layout="row" layout-align="start start">
 			<div style="margin-top:16px;"><md-icon>people</md-icon></div>

@@ -109,11 +109,11 @@
 
 		<md-divider ng-if="model.canWrite()"></md-divider>
 
-		<div ng-if="model.isOrganizer" layout="row" layout-align="start start">
+		<div ng-if="model.isOrganizer || model.hasMoreAttendees()" layout="row" layout-align="start start">
 			<div style="margin-top:16px;"><md-icon>people</md-icon></div>
 			<div flex>
 				<div layout="row" layout-align="start center" flex 
-					  ng-if="model.event.hasAttendees"
+					  ng-if="model.hasMoreAttendees()"
 					  ng-repeat="attendee in model.event.attendees | filter:{ markDeleted: '!true' }">
 
 					<md-input-container md-no-float flex>
@@ -148,7 +148,7 @@
 			</div>
 		</div>
 
-		<md-divider ng-if="model.isOrganizer"></md-divider>
+		<md-divider ng-if="model.isOrganizer || model.hasMoreAttendees()"></md-divider>
 
 		<div ng-if="model.isOrganizer" style="min-height:47px" layout="row" layout-align="start start">
 			<div style="margin-top:16px;"><md-icon>attachment</md-icon></div>

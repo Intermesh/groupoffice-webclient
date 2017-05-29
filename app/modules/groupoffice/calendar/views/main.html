@@ -22,26 +22,27 @@
 				<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="$mdSidenav('left').toggle();" hide-gt-md class="md-icon-button">
 					<md-icon>menu</md-icon>
 				</md-button>
+
+			<md-icon ng-click="nav.prevYear()">chevron_left</md-icon>
 			<md-nav-item md-nav-click="nav.view('calendar.year')" name="year">
-				<md-icon ng-click="nav.prevYear()">chevron_left</md-icon>
 				<md-icon>view_comfy</md-icon>
 				<span>{{nav.date.getFullYear()}}</span>
-				<md-icon ng-click="nav.nextYear()">chevron_right</md-icon>
 			</md-nav-item>
+			<md-icon ng-click="nav.nextYear()">chevron_right</md-icon>
 
+			<md-icon ng-click="nav.prevMonth()">chevron_left</md-icon>
 			<md-nav-item md-nav-click="nav.view('calendar.month')" name="month">
-				<md-icon ng-click="nav.prevMonth()">chevron_left</md-icon>
 				<md-icon>event</md-icon>
 				<span style="display:inline-block;width:70px;">{{nav.date.getMonthName()}}</span>
-				<md-icon ng-click="nav.nextMonth()">chevron_right</md-icon>
 			</md-nav-item>
+			<md-icon ng-click="nav.nextMonth()">chevron_right</md-icon>
 
+			<md-icon ng-click="nav.prevWeek()">chevron_left</md-icon>
 			<md-nav-item md-nav-click="nav.view('calendar.week')" name="week">
-				<md-icon ng-click="nav.prevWeek()">chevron_left</md-icon>
 				<md-icon>view_week</md-icon>
 				<span>Week {{nav.date.getWeek()}}</span>
-				<md-icon  ng-click="nav.nextWeek()">chevron_right</md-icon>
 			</md-nav-item>
+			<md-icon  ng-click="nav.nextWeek()">chevron_right</md-icon>
 
 			<md-nav-item md-nav-sref="calendar.list" name="list">
 				<md-icon>view_agenda</md-icon>

@@ -45,7 +45,7 @@
 				<div flex>
 					<div layout="row" layout-align="start center" style="margin: 9px 0;">
 						<label style="width:158px">&nbsp;{{"All-day"| goT}}</label>
-						<md-switch ng-model="model.event.allDay" ng-disabled="!model.canWrite()"></md-switch>
+						<md-switch ng-model="model.event.allDay" ng-disabled="!model.canWrite() || model.recurrenceId"></md-switch>
 					</div>
 					<div layout="row" layout-align="start center">
 						<md-datepicker ng-model="model.startAt" ng-disabled="!model.canWrite()" ng-change="changeStartTime();" md-open-on-focus md-hide-icons="calendar" ></md-datepicker>
@@ -109,11 +109,11 @@
 
 		<md-divider ng-if="model.canWrite()"></md-divider>
 
-		<div ng-if="model.isOrganizer" layout="row" layout-align="start start">
+		<div ng-if="model.isOrganizer || model.hasMoreAttendees()" layout="row" layout-align="start start">
 			<div style="margin-top:16px;"><md-icon>people</md-icon></div>
 			<div flex>
 				<div layout="row" layout-align="start center" flex 
-					  ng-if="model.event.hasAttendees"
+					  ng-if="model.hasMoreAttendees()"
 					  ng-repeat="attendee in model.event.attendees | filter:{ markDeleted: '!true' }">
 
 					<md-input-container md-no-float flex>
@@ -148,7 +148,7 @@
 			</div>
 		</div>
 
-		<md-divider ng-if="model.isOrganizer"></md-divider>
+		<md-divider ng-if="model.isOrganizer || model.hasMoreAttendees()"></md-divider>
 
 		<div ng-if="model.isOrganizer" style="min-height:47px" layout="row" layout-align="start start">
 			<div style="margin-top:16px;"><md-icon>attachment</md-icon></div>
@@ -156,10 +156,17 @@
 				flow-files-submitted="$flow.upload()"
 				flow-file-success="uploadSuccess($file, $message)"
 				flow-drop>
-
-				<div style="min-height:47px" layout="row" layout-align="start center" ng-repeat="attachment in model.event.attachments | filter:{ markDeleted: '!true' }">
-					<span flex>{{attachment.name}}</span>
-					<md-icon class="cancel" ng-click="removeAttachment($index)">close</md-icon>
+				
+				<div class="gf" ng-repeat="attachment in model.event.attachments | filter:{ markDeleted: '!true' }"  ng-click="attachmentDownload(attachment.blobId);" title="{{attachment.name}}">
+					
+					<div class="text">
+						<md-icon class="cancel" ng-click="removeAttachment($index)">close</md-icon>
+						<!--<md-icon alt="{{attachment.type}}">insert_drive_file</md-icon>-->
+						<h3 >{{attachment.name}}</h3>
+						
+					</div>
+					<div ng-if="attachment.type == 'Image'" class="thumb" style="background-image: url('{{attachmentThumb(attachment.blobId)}}')"></div>
+					
 				</div>
 
 				<div style="min-height:47px" layout="row" layout-align="start center" ng-repeat="file in $flow.files" class="attachment" ng-if="file.isUploading()">

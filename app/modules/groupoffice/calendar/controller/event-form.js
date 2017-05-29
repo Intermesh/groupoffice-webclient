@@ -92,7 +92,14 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		};
 		$scope.addAttendee = function(ev) {
 			if(ev.keyCode == 13) {
-				$scope.model.event.attendees.push({email:ev.target.value, role:1,markDeleted: false});
+				var exists = false;
+				angular.forEach($scope.model.event.attendees, function(value, key) {
+					if(value.email == ev.target.value)
+						exists = true;
+				});
+				if(!exists) {
+					$scope.model.event.attendees.push({email:ev.target.value, role:1,markDeleted: false});
+				}
 				ev.preventDefault();
 				ev.target.value = '';
 			}
@@ -141,6 +148,14 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				$scope.model.event.startAt = new Date(+end);
 			}
 		};
+
+		$scope.attachmentDownload = function(blobId) {
+			ServerAPI.download(blobId);
+		};
+		$scope.attachmentThumb = function(blobId) {
+			return ServerAPI.thumbUrl(blobId, {w:132, h:88});
+		};
+
 
 		$scope.uploadSuccess = function($file, $message) {
 			var response = angular.fromJson($message);

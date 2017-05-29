@@ -85,7 +85,7 @@ angular.module('GO', GO.appModules.concat([
 //			console.log(toState);
 			if (!$rootScope.loggedIn && (!toState.data || !toState.data.noAuth)) {
 				
-				event.preventDefault();
+//				event.preventDefault();
 				
 				$transition.abort();
 				

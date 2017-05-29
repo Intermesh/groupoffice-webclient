@@ -45,7 +45,7 @@
 				<div flex>
 					<div layout="row" layout-align="start center" style="margin: 9px 0;">
 						<label style="width:158px">&nbsp;{{"All-day"| goT}}</label>
-						<md-switch ng-model="model.event.allDay" ng-disabled="!model.canWrite()"></md-switch>
+						<md-switch ng-model="model.event.allDay" ng-disabled="!model.canWrite() || model.recurrenceId"></md-switch>
 					</div>
 					<div layout="row" layout-align="start center">
 						<md-datepicker ng-model="model.startAt" ng-disabled="!model.canWrite()" ng-change="changeStartTime();" md-open-on-focus md-hide-icons="calendar" ></md-datepicker>

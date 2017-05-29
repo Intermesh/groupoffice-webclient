@@ -14,6 +14,17 @@ GO.module('GO.Modules.GroupOffice.Messages', ['GO.Core']).run([
 
 				App.addLauncher('Messages', 'messages', 'messages', {icon: 'message'});
 
+				var onNotificationClick = function (notification, $state) {
+				
+					$state.go('messages.thread', {threadId: notification.data.message.threadId, type: 'outbox'});
+				};
+
+				App.addNotificationTemplate(
+								"GO\\Modules\\GroupOffice\\Messages\\Model\\Message", {
+									"error": {template: "<go-notification-standard on-open='open(model)' on-dismiss='dismiss(model)' model='model'>{{'Error while sending message {data.message.subject}: {data.error}' | goT: model}}</go-notification-standard>", onClick: onNotificationClick}
+								}
+
+				);
 
 				GO.hooks.overrideController('GO.Core.Controller.MailTo', ["ctrlLocals", function (ctrlLocals) {
 
@@ -34,7 +45,8 @@ GO.module('GO.Modules.GroupOffice.Messages', ['GO.Core']).run([
 		$stateProvider.state('messages', {
 			templateUrl: 'modules/groupoffice/messages/views/main.html',
 			controller: 'GO.Modules.GroupOffice.Messages.Controller.Main',
-			url: "/messages"
+			url: "/messages?type",
+			reloadOnSearch: false, //needed for query params in main state
 		}).state('messages-setup', {
 			templateUrl: 'modules/groupoffice/messages/views/setup.html',
 			url: "/messages/setup"

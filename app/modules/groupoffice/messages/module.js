@@ -46,7 +46,7 @@ GO.module('GO.Modules.GroupOffice.Messages', ['GO.Core']).run([
 			templateUrl: 'modules/groupoffice/messages/views/main.html',
 			controller: 'GO.Modules.GroupOffice.Messages.Controller.Main',
 			url: "/messages?type",
-			reloadOnSearch: false, //needed for query params in main state
+			reloadOnSearch: false //needed for query params in main state
 		}).state('messages-setup', {
 			templateUrl: 'modules/groupoffice/messages/views/setup.html',
 			url: "/messages/setup"

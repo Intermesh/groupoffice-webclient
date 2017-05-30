@@ -96,11 +96,11 @@ angular.
 						till.setDate(31);
 						break;
 				}
-				if(this.from.getYmd() != from.getYmd() | this.till.getYmd() != till.getYmd()) {
+				//if(this.from.getYmd() != from.getYmd() | this.till.getYmd() != till.getYmd()) {
 					this.from = from;
 					this.till = till;
 					this.store.load({from: from.getYmd(), until:till.getYmd()});
-				}
+				//}
 			};
 
 			return CurrentDate;

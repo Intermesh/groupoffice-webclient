@@ -39,7 +39,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 
 
 			$scope.editDrive = function(path) {
-				$scope.drive.read({id:path}).then(function() {
+				function openDialog() {
 					$mdDialog.show({
 						controller: 'GO.Modules.GroupOffice.Files.DriveForm',
 						templateUrl: 'modules/groupoffice/files/views/drive-form.html',
@@ -48,8 +48,15 @@ GO.module('GO.Modules.GroupOffice.Files').
 						clickOutsideToClose:true
 						//fullscreen: useFullScreen
 					});
-				});
-				
+				};
+				if(!path) {
+					$scope.drive = new Drive();
+					openDialog();
+				} else {
+					$scope.drive.read({id:path}).then(function() {
+						openDialog();
+					});
+				}
 			};
 
 			$scope.openMenu = function($mdMenu, ev) {

@@ -11,19 +11,32 @@ angular.module('GO.Modules.GroupOffice.Files')
 		var Drive = GO.extend(Model, function () {
 			this.$parent.constructor.call(this, arguments);
 		});
+		var units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
 		Drive.prototype.$returnProperties = "*,groups";
 
 		Drive.prototype.usage = 0;
 		Drive.prototype.quota = 0;
 
+		Drive.prototype.save = function() {
+			var multiplier = units.indexOf(this.quotaUnit);
+			this.quota = this.quotaText * Math.pow(1024, multiplier);
+			delete this.quotaText;
+			delete this.quotaUnit;
+			return this.$parent.save.apply(this, arguments);
+		};
+
+		Drive.prototype.loadData = function(data, clearModified) {
+			this.$parent.loadData.apply(this, arguments);
+			var multiplier = Math.floor(Math.log(this.quota) / Math.log(1024));
+			this.quotaText = (this.quota / Math.pow(1024, Math.floor(multiplier))).toFixed(1);
+			this.quotaUnit = units[multiplier];
+		};
+
 		Drive.prototype.getStoreRoute = function() {
 			return 'drives';
 		};
 
-		Drive.prototype.save = function() {
-			return this.$parent.save.call(this, arguments);
-		};
 
 		Drive.prototype.percentage = function() {
 			return Math.round((100/this.quota)*this.usage);

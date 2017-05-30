@@ -25,12 +25,9 @@
 						</div>
 						Group-Office online storage
 						<div layout="row" flex>
-							<input ng-model="drive.quota" placeholder="Disk space" >
+							<input ng-model="drive.quotaText" placeholder="Disk space" >
 							<md-select ng-model="drive.quotaUnit">
-								<md-option value="KB">KB</md-option>
-								<md-option value="MB">MB</md-option>
-								<md-option selected value="GB">GB</md-option>
-								<md-option value="TB">TB</md-option>
+								<md-option ng-repeat="unit in ['KB','MB','GB','TB']" ng-value="unit">{{ unit }}</md-option>
 							</md-select>
 						</div>
 						<md-divider></md-divider>

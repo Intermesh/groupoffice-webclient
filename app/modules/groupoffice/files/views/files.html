@@ -41,22 +41,9 @@
 				<md-button ng-if="browser.isList()" ng-click="browser.setDisplay('grid')" class="md-icon-button">
 					<md-icon>view_module</md-icon>
 				</md-button>
-
-				<md-menu md-position-mode="target-right target">
-					<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-						<md-icon md-menu-origin>more_vert</md-icon>
-					</md-button>
-					<md-menu-content>
-						<md-menu-item>
-							<md-button ng-click="toggleInfo()" >
-								<md-icon ng-style="!showInfo ? {color:'grey'}:{}">info</md-icon>{{"Info panel"| goT}}
-							</md-button>
-						</md-menu-item>
-						<md-menu-item>
-							<md-button ng-click="nodeStore.reload()"><md-icon>refresh</md-icon> {{"Refresh"| goT}}</md-button>
-						</md-menu-item>
-					</md-menu-content>
-				</md-menu>
+				<md-button class="md-icon-button" title="{{'Refresh'| goT}}" ng-click="nodeStore.reload()">
+					<md-icon>refresh</md-icon>
+				</md-button>
 
 			</div>
 
@@ -105,6 +92,9 @@
 	</md-content>
 	<div>
 	<md-content ng-show="showInfo" ui-view layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
-		No file selected
+		<div class="empty-state">
+			<md-icon>insert_drive_file</md-icon>
+			<p>No file selected</p>
+		</div>
 	</md-content>
 	</div>

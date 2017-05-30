@@ -52,6 +52,10 @@ factory('GO.Modules.GroupOffice.Files.Model.Node', [
 		Node.prototype.getBlob = function() {
 			return ServerAPI.url('download/'+this.blobId);
 		};
+
+		Node.prototype.download = function() {
+			window.open(this.getBlob());
+		};
 		
 		Node.prototype.getIcon = function() {
 			switch(this.type) {

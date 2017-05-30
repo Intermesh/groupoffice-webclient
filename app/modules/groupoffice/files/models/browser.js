@@ -60,6 +60,8 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 				if(xhr.response.data.path && xhr.response.data.path.length) {
 					if(self.at === 'home') {
 						self.dirStack = [];
+					} else {
+						xhr.response.data.path.unshift();
 					}
 					while(dir = xhr.response.data.path.pop()) {
 						self.dirStack.push(dir);

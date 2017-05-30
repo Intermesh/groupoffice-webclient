@@ -24,15 +24,6 @@ angular.module('GO.Modules.GroupOffice.Files').
 			selectNode($scope.model);
 		});
 
-		$scope.share = function() {
-			$mdDialog.show({
-				templateUrl: 'modules/groupoffice/files/views/share.html',
-				scope: $scope.$new(),
-				clickOutsideToClose: true,
-				escapeToClose: true
-			});
-		};
-
 		$scope.deleteNode = function(node) {
 			var p = {};
 			console.log($scope.browser.currentDir() );

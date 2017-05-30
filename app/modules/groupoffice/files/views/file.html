@@ -6,22 +6,35 @@
 	<md-toolbar class="md-hue-1">
 		<div class="md-toolbar-tools">
 
-
+			<md-button class="md-icon-button" ng-click="showInfo = false"><md-icon>close</md-icon></md-button>
 			<md-icon class="md-avatar">{{model.getIcon()}}</md-icon>
 			<p flex layout="row" >
 				<input flex type="text" name="name" ng-model="model.name" />
 			</p>
 			<md-button ng-click="model.save()">Save</md-button>
-			<md-button class="md-icon-button" ng-click="showInfo = false"><md-icon>close</md-icon></md-button>
+
+			<md-menu>
+				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdMenu.open($event)">
+					<md-icon md-menu-origin>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="model.download()">Download</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="deleteNode(model)" class="md-warn">Delete</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
 
 		</div>
 
 	</md-toolbar>
 
 	<div id="file-preview" ng-if="model.isDisplayable()">
-		<div ng-if="model.isImage()" class="image" ng-style="{'background-image': 'url(\'{{model.getBlob()}}\')'}" >
+		<div ng-if="model.isImage()" class="image" ng-style="{'background-image': 'url( '+model.getBlob() +')'}" >
 		</div>
-		<!-- todo: <iframe ng-if="model.isDocument()" ng-src="{{model.getBlob()}}">
+<!--		<iframe ng-if="model.isDocument()" ng-src="{{model.getBlob()}}">
 				</iframe>-->
 		<div ng-if="model.isPlayable()">
 			<video id="files-video" onclick="getElementById('files-video').pause();" ng-src="{{model.getBlob()}}" controls ></video>
@@ -41,6 +54,12 @@
 		<h5>Info</h5>
 		<md-list-item class="md-2-line">
 			<div class="md-list-item-text">
+            <h3>File size</h3>
+            <p>{{model.size | bytes}}</p>
+			</div>
+		</md-list-item>
+		<md-list-item class="md-2-line">
+			<div class="md-list-item-text">
             <h3>Location</h3>
             <p>{{model.path}}</p>
 			</div>
@@ -48,7 +67,7 @@
 		<md-list-item class="md-2-line">
 			<div class="md-list-item-text">
             <h3>Last Modified</h3>
-            <p>{{model.modifiedAt| date}}</p>
+            <p>{{model.modifiedAt | date}}</p>
 			</div>
 		</md-list-item>
 
@@ -56,5 +75,4 @@
 		
 
 	</md-list>
-	<md-button ng-click="deleteNode(model)" class="md-warn">Delete</md-button>
 </go-hook>

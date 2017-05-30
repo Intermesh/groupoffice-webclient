@@ -31,7 +31,6 @@ GO.module('GO.Modules.GroupOffice.Files').
 			$scope.mountStore.load();
 
 			$scope.browser = new Browser($scope.nodeStore);
-			$scope.browser.goTo('home');
 			$scope.clipboard = new Clipboard();
 
 			$scope.showInfo = true;
@@ -71,10 +70,6 @@ GO.module('GO.Modules.GroupOffice.Files').
 				folder.save().then(function() {
 					$scope.nodeStore.reload();
 				});
-			};
-
-			$scope.toggleInfo = function() {
-				$scope.showInfo = !$scope.showInfo;
 			};
 
 			$scope.uploadStack = [];
@@ -125,6 +120,9 @@ GO.module('GO.Modules.GroupOffice.Files').
 //			if($state.is('files')) {
 //				$state.go('files.storage');
 //			}
+			if($state.is('files')) {
+				$scope.browser.goTo('home');
+			}
 
 
 		}]);

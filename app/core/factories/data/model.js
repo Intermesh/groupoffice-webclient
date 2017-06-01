@@ -270,61 +270,65 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 		 * @returns {string}
 		 */
 		Model.prototype._convertDateToString = function (attributes) {
+			return attributes;
 
-			var attr = {};
-			var l;
-
-			for (var attrName in attributes) {
-				if (attributes[attrName] instanceof Date) {
-
-					attr[attrName] = attributes[attrName].toIntermeshApiFormat();
-				} else if (angular.isObject(attributes[attrName])) {// && attributes[attrName].className){ //All models return className from API	
-
-					var subAttr = attributes[attrName].getAttributes ? attributes[attrName].getAttributes() : attributes[attrName];
-
-					attr[attrName] = this._convertDateToString(subAttr);
-				} else if (angular.isArray(attributes[attrName]) && (l = attributes[attrName].length)) {// && attributes[attrName][0].className){				
-					attr[attrName] = [];
-					for (var i = 0, l; i < l; i++) {
-//									var fixed = this.convertDateToString(attributes[attrName][i]);			
-						var subAttr = attributes[attrName][i].getAttributes ? attributes[attrName][i].getAttributes() : attributes[attrName][i];
-						attr[attrName].push(this._convertDateToString(subAttr));
-					}
-				} else
-				{
-					attr[attrName] = attributes[attrName];
-				}
-			}
-
-			return attr;
+//			var attr = {};
+//			var l;
+//
+//			for (var attrName in attributes) {
+//				if (attributes[attrName] instanceof Date) {
+//
+//					attr[attrName] = attributes[attrName].toIntermeshApiFormat();
+//				} else if (angular.isObject(attributes[attrName])) {// && attributes[attrName].className){ //All models return className from API
+//
+//					var subAttr = attributes[attrName].getAttributes ? attributes[attrName].getAttributes() : attributes[attrName];
+//
+//					attr[attrName] = this._convertDateToString(subAttr);
+//				} else if (angular.isArray(attributes[attrName]) && (l = attributes[attrName].length)) {// && attributes[attrName][0].className){
+//					attr[attrName] = [];
+//					for (var i = 0, l; i < l; i++) {
+////									var fixed = this.convertDateToString(attributes[attrName][i]);
+//						var subAttr = attributes[attrName][i].getAttributes ? attributes[attrName][i].getAttributes() : attributes[attrName][i];
+//						attr[attrName].push(this._convertDateToString(subAttr));
+//					}
+//				} else
+//				{
+//					attr[attrName] = attributes[attrName];
+//				}
+//			}
+//
+//			return attr;
 		};
 
 
 
 		Model.prototype._convertDateStringsToDates = function (input) {
-			for (var key in input) {
-//						if (!input.hasOwnProperty(key))
-//							continue;
-
-				// Check for string properties which look like dates.
-				if (typeof input[key] === "string") {
-
-					var value = Date.fromIntermeshApiFormat(input[key]);
-					if (value !== false) {
-						input[key] = value;
-					}
-
-				} else if (typeof input[key] === "object") {
-					// Recurse into object
-					this._convertDateStringsToDates(input[key]);
-				} else if (angular.isArray(input[key])) {
-					angular.forEach(input[key], function (item, index) {
-						input[key][index] = this._convertDateStringsToDates(item);
-					});
-				}
-			}
 
 			return input;
+
+//			for (var key in input) {
+////						if (!input.hasOwnProperty(key))
+////							continue;
+//
+//				// Check for string properties which look like dates.
+//				if (typeof input[key] === "string") {
+//
+//					var value = Date.fromIntermeshApiFormat(input[key]);
+//					if (value !== false) {
+//						input[key] = value;
+//					}
+//
+//				} else if (typeof input[key] === "object") {
+//					// Recurse into object
+//					this._convertDateStringsToDates(input[key]);
+//				} else if (angular.isArray(input[key])) {
+//					angular.forEach(input[key], function (item, index) {
+//						input[key][index] = this._convertDateStringsToDates(item);
+//					});
+//				}
+//			}
+//
+//			return input;
 		};
 
 

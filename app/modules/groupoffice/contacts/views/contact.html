@@ -157,6 +157,14 @@
 									<p>{{::"Debtor number"| goT}}</p>
 								</div>
 							</md-list-item>
+							
+							<md-list-item class="md-2-line" ng-if="contact.vatNo">
+								<md-icon>domain</md-icon>
+								<div class="md-list-item-text">
+									<h3>{{contact.vatNo}}</h3>
+									<p>{{::"VAT number"| goT}}</p>
+								</div>
+							</md-list-item>
 
 							<md-list-item class="md-2-line" ng-if="contact.registrationNumber">
 								<md-icon>domain</md-icon>

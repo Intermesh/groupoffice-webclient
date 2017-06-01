@@ -9,6 +9,10 @@ angular.module('GO.Core').factory('GO.Core.Factories.HttpStatusInterceptor', [
 	'GO.Core.Services.ServerAPI',
 	function ($injector, $q, $rootScope, $timeout, ServerAPI) {
 		function debugLog(response) {
+			
+			//disable for perfomance test in FF
+			return;
+			
 			var contentType = response.headers('Content-Type');
 			if (contentType && contentType.indexOf('application/json') > -1 && response.data) {
 
@@ -66,13 +70,17 @@ angular.module('GO.Core').factory('GO.Core.Factories.HttpStatusInterceptor', [
 				busy--;				
 				if(busy === 0) {
 					$rootScope.showMask = false;
+					
+					if(lastTimeout) {
+						$timeout.cancel(lastTimeout);
+					}
 				}
 
 				return response;
 			},
 			responseError: function (response) {
 				
-				busy--;				
+				busy--;
 				if(busy === 0) {
 					$rootScope.showMask = false;
 				}

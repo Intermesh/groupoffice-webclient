@@ -32,20 +32,22 @@ angular.module('GO.Core').directive('goDatePicker', [
 
 //				scope.ngModel = scope.ngModel || new Date();
 
-				ngModel.$render = function () {
+//				var date;
 
-					if (ngModel.$viewValue) {
-						update();
+				ngModel.$render = update;
+
+				function update() {					
+					
+					
+					var date; ;
+					if(ngModel.$viewValue && (date = new Date(ngModel.$viewValue))) {
+						scope.year = date.getFullYear();
+						scope.month = date.getMonth() + 1; //md-select doesn't accept 0 as a value so we incremnt to 1-12
+						scope.day = date.getDate();
 					} else
 					{
 						scope.year = scope.month = scope.day = "";
 					}
-				};
-
-				function update() {
-					scope.year = ngModel.$viewValue.getFullYear();
-					scope.month = ngModel.$viewValue.getMonth() + 1; //md-select doesn't accept 0 as a value so we incremnt to 1-12
-					scope.day = ngModel.$viewValue.getDate();
 				}
 
 
@@ -82,9 +84,9 @@ angular.module('GO.Core').directive('goDatePicker', [
 						return;
 					}
 
-					var date = ngModel.$viewValue ? ngModel.$viewValue : new Date();
+					var date = ngModel.$viewValue ? new Date(ngModel.$viewValue) : new Date();
 					date.setFullYear(year);
-					ngModel.$setViewValue(date);
+					ngModel.$setViewValue(date.toIntermeshApiFormat());
 					update();
 					
 					ngModel.$setTouched();
@@ -98,10 +100,10 @@ angular.module('GO.Core').directive('goDatePicker', [
 						return;
 					}
 
-					var date = ngModel.$viewValue ? ngModel.$viewValue : new Date();
+					var date = ngModel.$viewValue ? new Date(ngModel.$viewValue) : new Date();
 					date.setMonth(month - 1);
 
-					ngModel.$setViewValue(date);
+					ngModel.$setViewValue(date.toIntermeshApiFormat());
 					update();
 					
 					ngModel.$setTouched();
@@ -114,10 +116,10 @@ angular.module('GO.Core').directive('goDatePicker', [
 						return;
 					}
 
-					var date = ngModel.$viewValue ? ngModel.$viewValue : new Date();
+					var date = ngModel.$viewValue ? new Date(ngModel.$viewValue) : new Date();
 					date.setDate(day);
 
-					ngModel.$setViewValue(date);
+					ngModel.$setViewValue(date.toIntermeshApiFormat());
 					update();
 					
 					ngModel.$setTouched();

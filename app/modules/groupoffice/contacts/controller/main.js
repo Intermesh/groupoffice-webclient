@@ -29,7 +29,8 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 		};
 
 		//Check if the user may create new contacts
-		if(CurrentUser.hasServerModule('GO\\Modules\\GroupOffice\\Contacts\\Module')) {
+		var module = CurrentUser.getServerModule('GO\\Modules\\GroupOffice\\Contacts\\Module');
+		if(module) {
 			$scope.canCreate = module.permissions.createContacts;
 		};
 

@@ -103,7 +103,11 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 
 								var link = document.location.origin + document.location.pathname + $state.href('resetpassword') + '?token={{token}}&userId={{user.id}}';
 								
-								var body = Translate.t("Hi {{user.username}},\n\nYou've requested a link to reset your password. Please click the link below: {link}\n\nIf you didn't request this link then please discard this e-mail and notify your system adminstrator.").replace('{link}', link);
+								var body = Translate.t("Dear {{user.username}},\n\nWe received a request to reset your {title} password. "+
+												"To reset your password, click on the link below (or copy and paste the URL into your browser).\n\n{link}\n\n"+
+												"If you didn't make this request yourself, ignore this e-mail and contact your administrator.")
+												.replace('{link}', link)
+												.replace('{title}', $rootScope.title);
 
 								$http.post(ServerAPI.url('auth/forgotpassword/' + email), {
 									subject: Translate.t("Reset your password"),

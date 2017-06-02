@@ -17,12 +17,11 @@ GO.module('GO.Modules.GroupOffice.Files', []).run([
 											controller: 'GO.Modules.GroupOffice.Files.Main',
 											url: "/files" //?{path:[^/]*}
 										})
-										.state('files.storage', {
+										.state('files.list', {
 											templateUrl: 'modules/groupoffice/files/views/files.html',
-											//controller: 'GO.Modules.GroupOffice.Files.Main',
-											url: "/home" // /{drive:[a-z]*}
+											url: "/list"
 										})
-										.state('files.storage.node', {
+										.state('files.list.node', {
 											templateUrl: 'modules/groupoffice/files/views/file.html',
 											controller: 'GO.Modules.GroupOffice.Files.File',
 											url: "/{id:[0-9]*}"

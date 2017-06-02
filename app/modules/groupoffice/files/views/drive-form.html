@@ -16,23 +16,27 @@
 			<md-tabs md-stretch-tabs="always" md-dynamic-height md-border-bottom>
 				<md-tab label="Home">
 					<md-content class="md-padding">
-						<div layout="row" layout-align="start center">
-							<md-icon>storage</md-icon>
-							<md-input-container md-no-float flex>
-								<input ng-readonly="!drive.isNew && !drive.permissions.write" ng-model="drive.name" placeholder="Drive naam" >
-							</md-input-container>
-							
+						<div layout="row" layout-align="start start">
+							<div style="margin-top:16px;"><md-icon>storage</md-icon></div>
+							<div flex>
+								<md-input-container md-no-float>
+									<input ng-readonly="!drive.isNew && !drive.permissions.write" ng-model="drive.name" placeholder="Drive naam" >
+								</md-input-container>
+							</div>
 						</div>
-						Group-Office online storage
-						<div layout="row" flex>
-							<input ng-model="drive.quotaText" placeholder="Disk space" >
-							<md-select ng-model="drive.quotaUnit">
-								<md-option ng-repeat="unit in ['KB','MB','GB','TB']" ng-value="unit">{{ unit }}</md-option>
-							</md-select>
-						</div>
-						<md-divider></md-divider>
-						<md-progress-circular md-diameter="96" md-mode="determinate" value="drive.percentage()"></md-progress-circular>
+						<div layout="row">
+							<md-progress-linear md-mode="determinate" value="{{drive.percentage()}}"></md-progress-linear>
 
+						</div>
+						<div layout="row">
+						<md-input-container layout="row" style="width:80px;" >
+							<input type="number" ng-model="drive.quotaText" placeholder="Disk space" >
+						</md-input-container>
+						<md-select ng-model="drive.quotaUnit">
+							<md-option ng-repeat="unit in ['KB','MB','GB','TB']" ng-value="unit">{{ unit }}</md-option>
+						</md-select>
+						</div>
+						
 						<md-button ng-if="!drive.isNew && drive.permissions.write" flex ng-click="drive.delete()" class="md-warn">Delete</md-button>
 					</md-content>
 				</md-tab>

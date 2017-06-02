@@ -1,53 +1,63 @@
 <md-content flex layout="column" ng-cloak>
-	<md-toolbar store="nodeStore">
+	
+	<md-nav-bar nav-bar-aria-label="navigation links">
 
-		<div class="md-toolbar-tools">
-
-			<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
+			<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md>
 				<md-icon>menu</md-icon>
 			</md-button>
-			<md-button ng-disabled="!browser.depth()" class="md-icon-button" ng-click="browser.up()">
+			<md-button ng-disabled="!browser.depth()" ng-click="browser.up()">
 				<md-icon>arrow_upward</md-icon>
 			</md-button>
-			<span flex>
 
-				<md-tabs class="md-primary">
-					<md-tab ng-repeat="dir in browser.dirStack" ng-style="$last?{'font-weight':'bold'}:{}" ng-click="browser.open(dir)">
-						<md-tab-label><md-icon style="margin: 0 20px 0 -20px;" ng-if="!$first">keyboard_arrow_right</md-icon>{{dir.name}}</md-tab-label>
-					</md-tab>
-				</md-tabs>
+			<md-nav-item 
+				ng-repeat="dir in browser.dirStack"
+				ng-style="$last?{'font-weight':'bold'}:{}"
+				md-nav-sref="files.list.node"
+				ng-click="browser.goTo(dir)">
+					<span>{{dir.name}}</span>
+					<md-icon ng-if="!$last">keyboard_arrow_right</md-icon>
+			</md-nav-item>
 
-			</span>
+			<span flex></span>
 			<md-menu>
-				<md-button ng-click="openMenu($mdMenu, $event)"><md-icon>create_new_folder</md-icon> {{"New folder"| goT}}</md-button>
+				<md-button ng-click="openMenu($mdMenu, $event)">
+					<md-icon>create_new_folder</md-icon> {{"New folder"| goT}}
+				</md-button>
 				<md-menu-content width="4" style="padding: 0 8px; overflow: hidden;" layout="row">
 					<md-input-container style="top:12px; margin:0;" flex>
 						<input type="text" ng-model="newFolder" placeholder="Folder name" />
 					</md-input-container>
-					<md-button style="width:38px;" ng-click="addFolder(newFolder)"><md-icon>forward</md-icon></md-button>
+					<md-button style="width:38px;" ng-click="addFolder(newFolder)"><md-icon>create_new_folder</md-icon></md-button>
 				</md-menu-content>
 			</md-menu>
 				|
-			<md-button class="md-icon-button" ng-click="clipboard.cut(model)" title="{{'Cut' | goT}}"><md-icon>content_cut</md-icon></md-button>
-			<md-button class="md-icon-button" ng-click="clipboard.copy(model)" title="{{'Copy' | goT}}"><md-icon>content_copy</md-icon></md-button>
-			<md-button class="md-icon-button" ng-disabled="clipboard.isEmpty()" ng-click="clipboard.paste(model)" title="{{'Paste' | goT}}"><md-icon>content_paste</md-icon></md-button>
+			<md-button ng-click="clipboard.cut(model)" title="{{'Cut' | goT}}">
+				<md-icon>content_cut</md-icon>
+			</md-button>
+			<md-button ng-click="clipboard.copy(model)" title="{{'Copy' | goT}}">
+				<md-icon>content_copy</md-icon>
+			</md-button>
+			<md-button ng-disabled="clipboard.isEmpty()" ng-click="clipboard.paste(model)" title="{{'Paste' | goT}}">
+				<md-icon>content_paste</md-icon>
+			</md-button>
+
 			|
-				<md-button class="md-icon-button">
-					<md-icon>search</md-icon>
-				</md-button>
-				<md-button ng-if="browser.isGrid()" ng-click="browser.setDisplay('list')" class="md-icon-button">
-					<md-icon>view_list</md-icon>
-				</md-button>
-				<md-button ng-if="browser.isList()" ng-click="browser.setDisplay('grid')" class="md-icon-button">
-					<md-icon>view_module</md-icon>
-				</md-button>
-				<md-button class="md-icon-button" title="{{'Refresh'| goT}}" ng-click="nodeStore.reload()">
-					<md-icon>refresh</md-icon>
-				</md-button>
+			
+			<md-button>
+				<md-icon>search</md-icon>
+			</md-button>
+			<md-button ng-if="browser.isGrid()" ng-click="browser.setDisplay('list')" >
+				<md-icon>view_list</md-icon>
+			</md-button>
+			<md-button ng-if="browser.isList()" ng-click="browser.setDisplay('grid')">
+				<md-icon>view_module</md-icon>
+			</md-button>
+			<md-button title="{{'Refresh'| goT}}" ng-click="nodeStore.reload()">
+				<md-icon>refresh</md-icon>
+			</md-button>
 
-			</div>
 
-		</md-toolbar>
+		</md-nav-bar
 
 
 		<div flex class="go-cards-sm" layout="row"
@@ -91,7 +101,7 @@
 
 	</md-content>
 	<div>
-	<md-content ng-show="showInfo" ui-view layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
+	<md-content ui-view layout="column" md-whiteframe="1" class="go-info-panel" style="width:390px;">
 		<div class="empty-state">
 			<md-icon>insert_drive_file</md-icon>
 			<p>No file selected</p>

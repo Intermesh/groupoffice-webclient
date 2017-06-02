@@ -20,67 +20,56 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			shared: 'Shared',
 			locations: 'Locations'
 		};
-		Browser.prototype.at = 'home';
+		Browser.prototype.home = null;
 		Browser.prototype.store = null;
-		Browser.prototype.dirStack = [{name:'Home', id:'home', at:'home'}];
+		Browser.prototype.dirStack = [];
 		Browser.prototype.display = t.list;
 
-		Browser.prototype.goTo = function(model) {
-
-
-			if(!angular.isString(model)) { // mine, recent, etc
-				$state.go("files.storage", {drive:model.path});
-				if(angular.isNumber(model)) {
-					this.at = 'd'+model; //prefix for drives
-					this.store.load({directory:model});
-				}
-				return this;
-			}
-			
-			switch(model) {
+		Browser.prototype.filter = function(name) {
+			$state.go("files.list");
+			switch(name) {
 				case 'starred':
 				case 'recent':
 				case 'trash':
-				case 'shared':
-				case 'locations':
 					var filter = {};
-					filter[model] = true;
+					filter[name] = true;
 					this.store.$loadParams.filter = filter;
 					break;
-				case 'home':
+				case '':
 					delete this.store.$loadParams.filter;
 			}
-			this.at = model;
-			this.dirStack = [{name:specialFolders[model], id:null, at:model}];
+			this.store.load();
+			this.dirStack = [{id:1,name: specialFolders[name] || 'Home'}];
+			return this;
+		};
+
+		Browser.prototype.goTo = function(model) {
 
 			var self = this;
-			this.store.load().then(function(xhr){
-				var dir;
-				self.dirStack = [self.dirStack[0]];
-				if(xhr.response.data.path && xhr.response.data.path.length) {
-					if(self.at === 'home') {
-						self.dirStack = [];
-					} else {
-						xhr.response.data.path.unshift();
-					}
-					while(dir = xhr.response.data.path.pop()) {
-						self.dirStack.push(dir);
-					}
+			if(angular.isNumber(model)) {
+				model = {id:model, isDirectory: true};
+			}
+			var dir = (model.isDirectory || !model.parentId) ? model.id : model.parentId;
+
+			if(model.isDirectory) {
+				$state.go('files.list.node',{id: dir});
+				if(this.dirStack.length===0 || model.parentId === this.dirStack[this.dirStack.length-1].id) {
+					this.dirStack.push(model);
 				}
+			}
+			this.store.$loadParams.directory = dir;
+			this.store.load().then(function(xhr) {
+				console.log(xhr.response.data.path);
+				xhr.response.data.path.reverse();
+				//if(self.dirStack.length === 0) { // roaming
+					self.dirStack = xhr.response.data.path;
+				//}
+				console.log(self.dirStack);
 			});
-			$state.go("files.storage");
 			
 			return this;
 		};
-		Browser.prototype.open = function(model) {
-			
-			$state.go("files.storage.node");
-			if(model.isDirectory) {
-				this.goTo(model);
-			} else {
-				console.log('cant open a file');
-			}
-		};
+
 		Browser.prototype.depth = function() {
 			return this.dirStack.length-1;
 		};
@@ -90,10 +79,11 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 		};
 
 		Browser.prototype.up = function() {
-			console.log('dir up');
-			var dir = (this.dirStack.length > 1) ? this.dirStack.pop() : this.dirStack[0];
-			var params = dir.parentId ? {directory:dir.parentId} : {};
-			this.store.load(params);
+			if(this.dirStack.length > 1) {
+				this.dirStack.pop();
+			}
+			var dir = this.dirStack[this.dirStack.length-1];
+			this.goTo(dir.id);
 		};
 
 		Browser.prototype.currentDir = function() {

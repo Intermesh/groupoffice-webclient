@@ -10,9 +10,7 @@ angular.module('GO.Modules.GroupOffice.Files').
 
 		var selectNode = function (model) {
 				$scope.model = model;
-				if(model.isDirectory && $scope.browser.currentDir().at !== 'trash') {
-					$scope.browser.open(model);
-				}
+				$scope.browser.goTo(model);
 			};
 
 

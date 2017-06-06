@@ -142,7 +142,6 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				$scope.model.event.start.setDate(end.getDate());
 				$scope.model.event.start.setMonth(end.getMonth());
 				$scope.model.event.start.setFullYear(end.getFullYear());
-				console.log($scope.model.event.start);
 			}
 			if($scope.model.event.start > end) {
 				$scope.model.event.start = new Date(+end);

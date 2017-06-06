@@ -90,7 +90,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 				var node = new Node();
 				node.name = $file.name;
 				node.relativePath = $file.relativePath;
-				node.parentId = $scope.browser.currentDir().id;
+				node.parentId = $scope.browser.currentDir;
 				node.blobId = response.data.blobId;
 				$scope.uploadStack.push(node.getAttributes());
 			};
@@ -99,14 +99,14 @@ GO.module('GO.Modules.GroupOffice.Files').
 				for(var f in $files) {
 					console.log($files[f]);
 					Notifications.add({
-						template: '<div>Uploading {{name}}</div>',
-						locals: $files[f]
+						template: '<div><md-icon>file_upload</md-icon><h2>File transfer &bull; {{ file.progress()*100 | number:0}}%</h2>\
+						<h3>{{file.name}}<sub>{{file.progress()==1?"Done":file.timeRemaining()+ " seconds left"}}</sub></h3>\
+						<md-progress-linear value="{{file.progress()*100}}"></md-progress-linear> </div>',
+						locals: {file:$files[f]}
 	//					controller: 'GO.'
 					});
 				}
-				$timeout(function() {
-					Notifications.showPanel();
-				});
+				Notifications.showPanel();
 			};
 			$scope.onFileProgress = function($file, $flow) {
 				console.log($file);

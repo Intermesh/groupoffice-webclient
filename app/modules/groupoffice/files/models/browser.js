@@ -62,13 +62,11 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			}
 			this.store.$loadParams.directory = dir;
 			this.store.load().then(function(xhr) {
-				console.log(xhr.response.data.path);
 				xhr.response.data.path.reverse();
 				if(self.dirStack.length === 0) { // roaming
 					self.dirStack = xhr.response.data.path;
 				}
 				self.currentDir = dir;
-				console.log(self.dirStack);
 			});
 			
 			return this;
@@ -88,10 +86,6 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			}
 			var dir = this.dirStack[this.dirStack.length-1];
 			this.goTo(dir.id);
-		};
-
-		Browser.prototype.currentDir = function() {
-			return this.dirStack[this.depth()];
 		};
 
 		Browser.prototype.isGrid = function() {

@@ -50,17 +50,17 @@
 						<div layout layout-sm="column" ng-if="!model.isOrganization" class="animate-show-height" style="height:60px;" ng-show="showNameParts">
 							<md-input-container flex>
 								<label>{{::"First name"| goT}}</label>
-								<input ng-model="model.firstName" required>
+								<input ng-model="model.firstName" ng-change="updateNameParts()">
 							</md-input-container>
 
 							<md-input-container flex>
 								<label>{{::"Middle name"| goT}}</label>
-								<input ng-model="model.middleName">
+								<input ng-model="model.middleName" ng-change="updateNameParts()">
 							</md-input-container>
 
 							<md-input-container flex>
 								<label>{{::"Last name"| goT}}</label>
-								<input ng-model="model.lastName">
+								<input ng-model="model.lastName" ng-change="updateNameParts()">
 							</md-input-container>
 						</div>
 

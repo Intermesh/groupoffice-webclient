@@ -33,17 +33,8 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 //							if ($state.is('contacts.createOrganization')) {
 //								$scope.contact.isOrganization = true;
 //							}
-
-			if (!$scope.model.isOrganization) {
-				$scope.model.name = $scope.model.firstName;
-
-				if ($scope.model.middleName !== "") {
-					$scope.model.name += " " + $scope.model.middleName;
-				}
-
-				if ($scope.model.lastName !== "") {
-					$scope.model.name += " " + $scope.model.lastName;
-				}
+			if(!$scope.model.isOrganization) {
+				$scope.updateNameParts();
 			}
 
 			if (config.attributes) {
@@ -73,6 +64,20 @@ GO.module('GO.Modules.GroupOffice.Contacts').controller('GO.Modules.GroupOffice.
 		};
 		/* End multiple fields */
 
+
+		$scope.updateNameParts = function () {
+				
+			$scope.model.name = $scope.model.firstName;
+
+			if ($scope.model.middleName) {
+				$scope.model.name += " " + $scope.model.middleName;
+			}
+
+			if ($scope.model.lastName) {
+				$scope.model.name += " " + $scope.model.lastName;
+			}
+			
+		};
 
 
 

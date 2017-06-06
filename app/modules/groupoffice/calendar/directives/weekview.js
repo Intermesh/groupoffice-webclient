@@ -180,7 +180,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						if(items[i].allDay) {
 							continue;
 						}
-						id = items[i].eventId;
+						id = items[i].eventId+'-'+items[i].calendarId;
 						cfg[id] = {
 							start:startEndQuarters(items[i]).start,
 							end:startEndQuarters(items[i]).end,
@@ -198,7 +198,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						if(items[i].event.allDay) {
 							continue;
 						}
-						id = items[i].eventId;
+						id = items[i].eventId+'-'+items[i].calendarId;
 						max = 1;
 						for(it=cfg[id].start; it<cfg[id].end; it++) { // loop quarters
 							max = Math.max(max, Object.keys(rows[it]).length);
@@ -211,7 +211,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						if(items[i].event.allDay) {
 							continue;
 						}
-						id = items[i].eventId;
+						id = items[i].eventId+'-'+items[i].calendarId;
 
 						var col = position % prevMax,
 							max = cfg[id].max;
@@ -228,14 +228,14 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 								pcol = ppos % prevMax;
 								continue;
 							}
-							previous = cfg[previousCols[pcol].id];
+							previous = cfg[previousCols[pcol].eventId+'-'+previousCols[pcol].calendarId];
 							//collision detection
 							if(previous.end > cfg[id].start && pcol === col) {
 								//push
 								position++;
 								col = position % prevMax;
 								max = Math.max(max, previous.max);
-								cfg[previousCols[pcol].id].max = max;
+								cfg[previousCols[pcol].eventId+'-'+previousCols[pcol].calendarId].max = max;
 							} else if (previous.end > cfg[id].start) {
 								//shrink
 								max = Math.max(max, previous.max);
@@ -250,7 +250,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						cfg[id].max = max;
 						cfg[id].col = col;
 
-						previousCols[col] = items[i].event;
+						previousCols[col] = items[i];
 						prevMax = max;
 
 						// Set to the item object

@@ -2,16 +2,16 @@
 	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 		
 		<md-list>
-			<md-list-item ng-class="{'selected' : browser.isAt('home')}" ng-disabled="!browser.home" ng-click="browser.goTo(browser.home.rootId).filter('')">
+			<md-list-item ng-class="{'selected' : browser.isAt('home')}" ng-disabled="!browser.home" ui-sref="files.list({filter:'home'})">
 				<md-icon>home</md-icon>
 				<p>Home</p>
 				<md-button class="md-secondary md-icon-button" ng-click="editDrive('home')"><md-icon>settings</md-icon></md-button>
 			</md-list-item>
-			<md-list-item ng-class="{'selected' : browser.isAt('starred')}" ng-click="browser.filter('starred')">
+			<md-list-item ng-class="{'selected' : browser.isAt('starred')}" ui-sref="files.list({filter:'starred'})">
 				<md-icon>star_rate</md-icon>
 				<p>Starred</p>
 			</md-list-item>
-			<md-list-item ng-class="{'selected' : browser.isAt('recent')}" ng-click="browser.filter('recent')">
+			<md-list-item ng-class="{'selected' : browser.isAt('recent')}" ui-sref="files.list({filter:'recent'})">
 				<md-icon>access_time</md-icon>
 				<p>Recent</p>
 			</md-list-item>
@@ -29,7 +29,7 @@
 				<p>Media</p>
 			</md-list-item>
 -->
-			<md-list-item ng-class="{'selected' : browser.isAt('trash')}" ng-click="browser.filter('trash')">
+			<md-list-item ng-class="{'selected' : browser.isAt('trash')}" ui-sref="files.list({filter:'trash'})">
 				<md-icon>delete</md-icon>
 				<p>Trash</p>
 			</md-list-item>

@@ -24,9 +24,9 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 		Browser.prototype.store = null;
 		Browser.prototype.dirStack = [];
 		Browser.prototype.display = t.list;
+		Browser.prototype.currentDir = null;
 
 		Browser.prototype.filter = function(name) {
-			$state.go("files.list");
 			switch(name) {
 				case 'starred':
 				case 'recent':
@@ -35,10 +35,13 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 					filter[name] = true;
 					this.store.$loadParams.filter = filter;
 					break;
-				case '':
+				case 'home':
 					delete this.store.$loadParams.filter;
 			}
-			this.store.load();
+			if(this.home) {
+				this.store.$loadParams.directory = this.home.rootId;
+				this.store.load();
+			}
 			this.dirStack = [{id:1,name: specialFolders[name] || 'Home'}];
 			return this;
 		};
@@ -61,9 +64,10 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			this.store.load().then(function(xhr) {
 				console.log(xhr.response.data.path);
 				xhr.response.data.path.reverse();
-				//if(self.dirStack.length === 0) { // roaming
+				if(self.dirStack.length === 0) { // roaming
 					self.dirStack = xhr.response.data.path;
-				//}
+				}
+				self.currentDir = dir;
 				console.log(self.dirStack);
 			});
 			

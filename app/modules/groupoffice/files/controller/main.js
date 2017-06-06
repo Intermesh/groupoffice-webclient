@@ -5,6 +5,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 	controller('GO.Modules.GroupOffice.Files.Main', [
 		'$scope',
 		'$state',
+		'$stateParams',
 		'$http',
 		'$timeout',
 		'$mdDialog',
@@ -16,7 +17,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'GO.Modules.GroupOffice.Files.Model.Clipboard',
 		'GO.Modules.GroupOffice.Files.Model.Node',
 		'GO.Modules.GroupOffice.Files.Model.Drive',
-		function ($scope, $state, $http,$timeout, $mdDialog,Notifications, CurrentUser, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
+		function ($scope, $state,$stateParams, $http,$timeout, $mdDialog,Notifications, CurrentUser, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
 			// The date that is currently viewed
 			//$scope.$mdSidenav = $mdSidenav;
 			$scope.flowInit = ServerAPI.getFlowInit();
@@ -34,6 +35,9 @@ GO.module('GO.Modules.GroupOffice.Files').
 			$scope.mountStore.load().then(function(xhr) {
 				var index = xhr.store.findIndexByAttribute('id', xhr.response.data.home);
 				$scope.browser.home = xhr.store.items[index];
+				if($state.is('files')) {
+					$state.go('files.list', {filter:'home'});
+				}
 			});
 
 			$scope.clipboard = new Clipboard();
@@ -128,8 +132,5 @@ GO.module('GO.Modules.GroupOffice.Files').
 //			if($state.is('files')) {
 //				$state.go('files.storage');
 //			}
-			if($state.is('files')) {
-				$state.go('files.list');
-			}
-	
+
 		}]);

@@ -1,27 +1,17 @@
 <md-content flex layout="column">
-	<md-toolbar store="driveStore">
+	<md-nav-bar>
 
-		<div class="md-toolbar-tools">
-
-			<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
+			<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md >
 				<md-icon>menu</md-icon>
 			</md-button>
-			<md-button ng-disabled="!browser.depth()" class="md-icon-button" ng-click="browser.up()">
-				<md-icon>arrow_upward</md-icon>
-			</md-button>
-			<span flex >
 
+			<md-nav-item md-nav-sref="files.locations">
+			  <span>Locations</span>
+			</md-nav-item>
 
-				 <md-tabs class="md-primary">
-					 <md-tab>
-						<md-tab-label>Locations</md-tab-label>
-					 </md-tab>
-				 </md-tabs>
+			<span flex></span>
 
-
-			</span>
-
-			<md-button class="md-icon-button">
+			<md-button>
 				<md-icon>search</md-icon>
 			</md-button>
 <!--			<md-button ng-if="browser.isGrid()" ng-click="browser.setDisplay('list')" class="md-icon-button">
@@ -30,12 +20,9 @@
 			<md-button ng-if="browser.isList()" ng-click="browser.setDisplay('grid')" class="md-icon-button">
 				<md-icon>view_module</md-icon>
 			</md-button>-->
-			<md-button ng-click="toggleInfo()" ><md-icon ng-style="!showInfo ? {color:'grey'}:{}">info</md-icon>{{"Info panel"| goT}}</md-button>
 			<md-button ng-click="driveStore.reload()"><md-icon>refresh</md-icon> {{"Refresh" | goT}}</md-button>
 
-		</div>
-
-	</md-toolbar>
+	</md-nav-bar>
 
 	<div flex class="go-cards-sm" layout="row">
 		<div flex class="go-card go-listview" go-infinite-scroll="driveStore.nextPage()" layout="column" style="top:0;bottom:0;left:0;right:0;position:absolute; overflow-y:scroll;">

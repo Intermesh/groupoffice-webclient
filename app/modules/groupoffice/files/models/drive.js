@@ -29,14 +29,14 @@ angular.module('GO.Modules.GroupOffice.Files')
 		Drive.prototype.loadData = function(data, clearModified) {
 			this.$parent.loadData.apply(this, arguments);
 			var multiplier = Math.floor(Math.log(this.quota) / Math.log(1024));
-			this.quotaText = (this.quota / Math.pow(1024, Math.floor(multiplier))).toFixed(1);
+			this.quotaText = Math.round(this.quota / Math.pow(1024, Math.floor(multiplier)));
 			this.quotaUnit = units[multiplier];
+			console.log(this.quotaUnit);
 		};
 
 		Drive.prototype.getStoreRoute = function() {
 			return 'drives';
 		};
-
 
 		Drive.prototype.percentage = function() {
 			return Math.round((100/this.quota)*this.usage);

@@ -6,6 +6,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'$scope',
 		'$state',
 		'$http',
+		'$timeout',
 		'$mdDialog',
 		'GO.Modules.GroupOffice.Notifications.Services.Notifications',
 		'GO.Core.Services.CurrentUser',
@@ -15,7 +16,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'GO.Modules.GroupOffice.Files.Model.Clipboard',
 		'GO.Modules.GroupOffice.Files.Model.Node',
 		'GO.Modules.GroupOffice.Files.Model.Drive',
-		function ($scope, $state, $http, $mdDialog,Notifications, CurrentUser, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
+		function ($scope, $state, $http,$timeout, $mdDialog,Notifications, CurrentUser, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
 			// The date that is currently viewed
 			//$scope.$mdSidenav = $mdSidenav;
 			$scope.flowInit = ServerAPI.getFlowInit();
@@ -27,10 +28,14 @@ GO.module('GO.Modules.GroupOffice.Files').
 			$scope.model = new Node('files', '*');
 			$scope.nodeStore = $scope.model.getStore();
 
-			$scope.mountStore = new Store('mounts');
-			$scope.mountStore.load();
-
 			$scope.browser = new Browser($scope.nodeStore);
+
+			$scope.mountStore = new Store('mounts');
+			$scope.mountStore.load().then(function(xhr) {
+				var index = xhr.store.findIndexByAttribute('id', xhr.response.data.home);
+				$scope.browser.home = xhr.store.items[index];
+			});
+
 			$scope.clipboard = new Clipboard();
 
 			$scope.showInfo = true;
@@ -67,8 +72,9 @@ GO.module('GO.Modules.GroupOffice.Files').
 				folder.name = newFolder;
 				folder.isDirectory = true;
 				folder.parentId = $scope.browser.currentDir().id;
-				folder.save().then(function() {
-					$scope.nodeStore.reload();
+				folder.save().then(function(resp) {
+					console.log(resp);
+					$scope.browser.goTo(resp.model.id);
 				});
 			};
 
@@ -94,7 +100,9 @@ GO.module('GO.Modules.GroupOffice.Files').
 	//					controller: 'GO.'
 					});
 				}
-				Notifications.showPanel();
+				$timeout(function() {
+					Notifications.showPanel();
+				});
 			};
 			$scope.onFileProgress = function($file, $flow) {
 				console.log($file);
@@ -121,8 +129,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 //				$state.go('files.storage');
 //			}
 			if($state.is('files')) {
-				$scope.browser.goTo('home');
+				$state.go('files.list');
 			}
-
-
+	
 		}]);

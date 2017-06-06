@@ -154,7 +154,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 					$scope.model.read({calendarId:calendarId,eventId:0}).then(function () {
 						if (defaults) {
 							for(var d in defaults) {
-								if(d == 'startAt' || d == 'endAt') {
+								if(d == 'start' || d == 'end') {
 									$scope.model.event[d] = defaults[d];
 								}
 								$scope.model[d] = defaults[d];

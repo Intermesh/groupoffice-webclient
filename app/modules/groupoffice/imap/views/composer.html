@@ -43,35 +43,43 @@
 					</md-button>
 					<md-menu-content>
 						<md-menu-item>
-							<!-- md-checkbox in menu doesn;t work in firefox. So we do this ngClick action -->
-							<md-button ng-click="settings.showCc = !settings.showCc;$event.stopPropagation();">
-								<md-checkbox ng-model="settings.showCc">Cc</md-checkbox>													 
+							<md-button ng-click="settings.showCc = !settings.showCc;">
+								<md-icon ng-if="settings.showCc">check_box</md-icon>
+								<md-icon ng-if="!settings.showCc">check_box_outline_blank</md-icon> 
+								Cc
 							</md-button>
 						</md-menu-item>
 
 						<md-menu-item>
 							<!-- md-checkbox in menu doesn;t work in firefox. So we do this ngClick action -->
-							<md-button ng-click="settings.showBcc = !settings.showBcc;$event.stopPropagation();">
-								<md-checkbox ng-model="settings.showBcc">Bcc</md-checkbox>													 
+							<md-button ng-click="settings.showBcc = !settings.showBcc;">
+								<md-icon ng-if="settings.showBcc">check_box</md-icon>
+								<md-icon ng-if="!settings.showBcc">check_box_outline_blank</md-icon> 												 
+								Bcc
 							</md-button>
 						</md-menu-item>
 
 						<md-divider></md-divider>
 
-						<md-radio-group ng-model="settings.signatureIndex">
 							
 							<md-menu-item>
-								<md-button ng-click="settings.signatureIndex=null;$event.stopPropagation();">
-									<md-radio-button ng-value="null"> {{"None" | goT}}</md-radio-button>													 
+								<md-button ng-click="settings.signatureIndex = null;">
+									<md-icon ng-if="settings.signatureIndex == null">radio_button_checked</md-icon>
+									<md-icon ng-if="settings.signatureIndex != null">radio_button_unchecked</md-icon>
+									
+									{{"None" | goT}}													 
 								</md-button>
 							</md-menu-item>
 							
 							<md-menu-item ng-repeat="signature in signatures">
-								<md-button ng-click="settings.signatureIndex=$index;$event.stopPropagation();">
-									<md-radio-button value="{{$index}}">{{::signature.name}}</md-radio-button>													 
+								<md-button ng-click="settings.signatureIndex = $index;">
+									
+									<md-icon ng-if="settings.signatureIndex == $index">radio_button_checked</md-icon>
+									<md-icon ng-if="settings.signatureIndex != $index">radio_button_unchecked</md-icon>
+									{{::signature.name}}
 								</md-button>
 							</md-menu-item>
-						</md-radio-group>
+
 						<!--						<md-menu-item>
 													<md-button ng-click="archiveIncoming()">{{::"Archive all incoming"| goT}}</md-button>
 												</md-menu-item>-->

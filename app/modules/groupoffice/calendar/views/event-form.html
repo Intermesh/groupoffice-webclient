@@ -48,19 +48,19 @@
 						<md-switch ng-model="model.event.allDay" ng-disabled="!model.canWrite() || model.recurrenceId"></md-switch>
 					</div>
 					<div layout="row" layout-align="start center">
-						<md-datepicker ng-model="model.startAt" ng-disabled="!model.canWrite()" ng-change="changeStartTime();" md-open-on-focus md-hide-icons="calendar" ></md-datepicker>
+						<md-datepicker ng-model="model.start" ng-disabled="!model.canWrite()" ng-change="changeStartTime();" md-open-on-focus md-hide-icons="calendar" ></md-datepicker>
 						<span style="width: 32px;"></span>
 						<mdp-time-picker mdp-disabled="!model.canWrite()"
 							mdp-format="HH:mm" mdp-open-on-click mdp-auto-switch="true"
-							ng-model="model.startAt" ng-show="!model.event.allDay"></mdp-time-picker>
+							ng-model="model.start" ng-show="!model.event.allDay"></mdp-time-picker>
 					</div>
 					
 					<div layout="row" layout-align="start center">
-						<md-datepicker ng-model="model.endAt" ng-disabled="!model.canWrite()" ng-change="changeEndTime();" md-open-on-focus md-hide-icons="calendar"></md-datepicker>
+						<md-datepicker ng-model="model.end" ng-disabled="!model.canWrite()" ng-change="changeEndTime();" md-open-on-focus md-hide-icons="calendar"></md-datepicker>
 						<span style="width: 32px;"></span>
 						<mdp-time-picker mdp-disabled="!model.canWrite()"
 							mdp-format="HH:mm" mdp-open-on-click mdp-auto-switch="true"
-							ng-model="model.endAt" ng-show="!model.event.allDay"></mdp-time-picker>
+							ng-model="model.end" ng-show="!model.event.allDay"></mdp-time-picker>
 					</div>
 				</div>
 			</div>

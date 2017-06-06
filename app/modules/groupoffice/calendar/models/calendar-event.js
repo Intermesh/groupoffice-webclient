@@ -10,6 +10,9 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 			this.$parent.constructor.apply(this, arguments);
 		});
 
+		CalendarEvent.prototype.start;
+		CalendarEvent.prototype.end;
+
 		CalendarEvent.prototype.$returnProperties = "*,alarms,calendarId,event[*,attendees,recurrenceRule,attachments]";
 		CalendarEvent.prototype.$keys = ['eventId'];
 
@@ -39,10 +42,18 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 		};
 
 		CalendarEvent.prototype.save = function() {
-			this.event.startAt = this.startAt;
-			this.event.endAt = this.endAt;
+			this.event.startAt = this.start.toISOString();
+			this.event.endAt = this.end.toISOString();
+			delete this.start;
+			delete this.end;
 			return this.$parent.save.apply(this, arguments);
 		};
-//
+		CalendarEvent.prototype.loadData = function(data, clearModified) {
+			this.$parent.loadData.apply(this, arguments);
+			this.start = new Date(this.startAt);
+			this.end = new Date(this.endAt);
+			
+		};
+
 		return CalendarEvent;
 	}]);

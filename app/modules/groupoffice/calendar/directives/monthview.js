@@ -22,10 +22,10 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 					};
 					$scope.classFor = function (calEvent,day) {
 						var cls = [];
-						if(calEvent.event.startAt.getYmd() !== calEvent.event.endAt.getYmd()) {
-							if(calEvent.event.startAt.getYmd() === day){
+						if(calEvent.start.getYmd() !== calEvent.end.getYmd()) {
+							if(calEvent.start.getYmd() === day){
 								cls.push('start');
-							} else if(calEvent.event.endAt.getYmd() === day){
+							} else if(calEvent.end.getYmd() === day){
 								cls.push('end');
 							} else {
 								cls.push('mid');
@@ -119,7 +119,7 @@ ng-click="edit(e, $event)">\n\
 <md-icon ng-if="e.hasAlarms">notifications</md-icon>\
  {{e.event.title}}\
 <span ng-if="!e.event.allDay">\
-{{e.event.startAt.getTimeString()}} &ndash; {{e.event.endAt.getTimeString()}}\
+{{e.start.getTimeString()}} &ndash; {{e.end.getTimeString()}}\
 <md-icon ng-if="e.event.isRecurring">refresh</md-icon></span>\
 </div>';
 					str += '</div></td>';

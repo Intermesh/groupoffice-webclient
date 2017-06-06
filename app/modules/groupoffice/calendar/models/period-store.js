@@ -13,18 +13,19 @@ angular.module('GO.Modules.GroupOffice.Calendar').
 			PeriodStore.prototype.selected = {};
 
 			PeriodStore.prototype.itemsByDay = function() {
-				var i,data = {}, self = this;
+				var i,end,start,data = {}, self = this;
 	
 				angular.forEach(this.items, function (calEvent) {
+					
 					i = new Date(calEvent.startAt);
-					for(i.setHours(0,0,0,0); i <= calEvent.endAt; i.addDays(1)) {
+					for(i.setHours(0,0,0,0); i <= calEvent.end; i.addDays(1)) {
 						if(!calEvent.groupId || !self.selected[calEvent.calendarId]) {
 							continue;
 						}
 						if (!data[i.getYmd()]) {
 							data[i.getYmd()] = [];
 						}
-						if(calEvent.startAt.getYmd() < calEvent.endAt.getYmd())
+						if(calEvent.start.getYmd() < calEvent.end.getYmd())
 							data[i.getYmd()].unshift(calEvent);
 						else { // From previous day
 							data[i.getYmd()].push(calEvent);

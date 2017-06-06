@@ -164,7 +164,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				} else {
 					var p = {};
 					if(calEvent.recurrenceId) {
-						p.recurrenceId = calEvent.recurrenceId.toIntermeshApiFormat();
+						p.recurrenceId = calEvent.recurrenceId;
 					}
 					$scope.model.read({calendarId: calEvent.calendarId, eventId: calEvent.eventId}, p).then(open);
 				}

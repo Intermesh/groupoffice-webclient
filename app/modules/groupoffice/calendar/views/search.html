@@ -15,7 +15,7 @@
 							  ng-class="classFor(e)" ng-click="selectEvent(e,true)" ng-style="color(calendars[e.calendarId])">
 				<div class="md-list-item-text" layout="column">
 				<h3><md-icon ng-if="e.event.isRecurring">refresh</md-icon> {{e.event.title}}</h3>
-				<h4><span ng-if="!e.event.allDay">{{e.event.startAt.getTimeString()}} &mdash; {{e.event.endAt.getTimeString()}}</span>
+				<h4><span ng-if="!e.event.allDay">{{e.event.start.getTimeString()}} &mdash; {{e.event.end.getTimeString()}}</span>
 					<span ng-if="e.event.location">at {{e.event.location}}</span></h4>
 				</div>
 			</md-list-item>

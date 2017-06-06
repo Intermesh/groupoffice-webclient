@@ -56,7 +56,9 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goListviewBody',['$
 		require: ['^^goListview','goListviewBody'],
 		scope: { offset: '=', calendars: '=' },
 		controller: ['$scope',function($scope) {
-			$scope.color= function(cal) {return cal && GO.Calendar.util.color(cal.color);};
+			$scope.color= function(cal,e) {
+				return cal && GO.Calendar.util.color(cal.color, (e.responseStatus == 1));
+			};
 			$scope.selectEvent = function (event) {
 				$state.go("calendar.list.event", {eventId: event.eventId, calendarId:event.calendarId});
 			};
@@ -105,9 +107,9 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goListviewBody',['$
 				var cls = (now > d) ? ' class="past"' : (+now === +d) ? ' class="current"' : '',
 					nowBar = (+now === +d) ? '<hr class="now" />' : '';
 				var str = '<time'+cls+' ng-if="events[\'' + d.getYmd() + '\'].length > 0"><h4>'+ d.getDate() +'<small>' + Date.days[d.getDay()].substring(0,3) +'</small></h4></time>\
-					<div ng-repeat="e in events[\'' + d.getYmd() + '\']" ng-class="classFor(e)" ng-click="selectEvent(e)" ng-style="color(calendars[e.calendarId])" >\
+					<div ng-repeat="e in events[\'' + d.getYmd() + '\']" ng-class="classFor(e)" ng-click="selectEvent(e)" ng-style="color(calendars[e.calendarId],e)" >\
 					<md-icon ng-if="e.event.isRecurring">refresh</md-icon> {{e.event.title}}<br>\
-				<span ng-if="!e.event.allDay">{{e.event.startAt.getTimeString()}} &mdash; {{e.event.endAt.getTimeString()}}</span>\n\
+				<span ng-if="!e.event.allDay">{{e.start.getTimeString()}} &mdash; {{e.end.getTimeString()}}</span>\n\
 				<span ng-if="e.event.location">at {{e.event.location}}</span></div>'+nowBar;
 				return str;
 			}

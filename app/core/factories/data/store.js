@@ -186,13 +186,9 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 				limit: this.defaultLimit,
 				offset: 0
 			};
-
-			angular.extend(defaultParams, this.$loadParams, params);
+			angular.extend(defaultParams, this.$loadParams, params);			
 
 			this.$lastLoadParams = angular.copy(defaultParams);
-
-
-
 
 			this.promise = $http.get(ServerAPI.url(this.$storeRoute, defaultParams))
 							.then(function (response) {

@@ -52,7 +52,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 						begin.setHours(13);
 						var end = new Date(+begin);
 						end.setHours(begin.getHours() + 1);
-						$scope.$parent.openEventDialog(null, {startAt: begin, endAt: end});
+						$scope.$parent.openEventDialog(null, {start: begin, end: end});
 					};
 				}
 			],

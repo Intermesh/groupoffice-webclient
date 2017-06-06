@@ -28,7 +28,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 						var start = new Date(+begin),
 							end = new Date(+begin);
 						end.setHours(start.getHours() + 1);
-						$scope.$parent.openEventDialog(null, {startAt: start, endAt: end});
+						$scope.$parent.openEventDialog(null, {start: start, end: end});
 					};
 					$scope.calcStyle = function (calEvent, d) {
 						var height = ((calEvent.end.getTime() - calEvent.start.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),

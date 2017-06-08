@@ -57,13 +57,13 @@
 						<md-icon>menu</md-icon>
 					</md-button>
 					<go-search-button></go-search-button>				
-					<!--<go-order-button columns="{ 't.firstName': 'First name', 't.lastName': 'Last name', 't.modifiedAt': 'Modified at'}"></go-order-button>-->
+					<go-order-button columns="{ 't.dueAt': 'Due at', 't.modifiedAt': 'Modified at'}"></go-order-button>
 				</go-tools>					
 
 			</go-list-toolbar>
 
 
-			<go-list store="store" group="dueAt | date: 'longDate'"  flex>
+			<go-list store="store" group="dueAt ? (dueAt | date: 'longDate') : 'No due date' | goT"  flex>
 
 				<item class="md-2-line" ui-sref="tasks.task({taskId: model.id})">
 
@@ -73,7 +73,7 @@
 
 					<div class="md-list-item-text">
 						<h3>{{model.description}}</h3>
-						<p ng-if="!model.dueAt">{{model.dueAt|| "No dueTime" | goT}}</p>
+						<p ng-if="!model.dueAt">{{model.dueAt|| "No due date" | goT}}</p>
 						<p ng-if="model.dueAt">{{model.dueAt| date:"longDate"}}</p>
 					</div>
 				</item>

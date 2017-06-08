@@ -16,7 +16,8 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 
 
 		$scope.store = $scope.task.getStore({
-			orderColumn: 'dueAt',
+			orderColumn: 't.dueAt',
+			orderDirection: 'ASC',
 			returnProperties: "id,description,dueAt,deleted,completedAt"
 		});
 		

@@ -54,18 +54,16 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			}
 			var dir = (model.isDirectory || !model.parentId) ? model.id : model.parentId;
 
-			if(model.isDirectory) {
-				$state.go('files.list.node',{id: dir});
-				if(this.dirStack.length===0 || model.parentId === this.dirStack[this.dirStack.length-1].id) {
-					this.dirStack.push(model);
-				}
-			}
+//			if(model.isDirectory) {
+//				$state.go('files.list.node',{id: dir});
+//				if(this.dirStack.length===0 || model.parentId === this.dirStack[this.dirStack.length-1].id) {
+//					this.dirStack.push(model);
+//				}
+//			}
 			this.store.$loadParams.directory = dir;
 			this.store.load().then(function(xhr) {
 				xhr.response.data.path.reverse();
-				if(self.dirStack.length === 0) { // roaming
-					self.dirStack = xhr.response.data.path;
-				}
+				self.dirStack = xhr.response.data.path;
 				self.currentDir = dir;
 			});
 			

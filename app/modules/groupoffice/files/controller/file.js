@@ -9,10 +9,9 @@ angular.module('GO.Modules.GroupOffice.Files').
 	function($scope, $state, $stateParams, $mdSidenav, $mdDialog, Node) {
 
 		var selectNode = function (model) {
-				$scope.model = model;
-				$scope.browser.goTo(model);
-			};
-
+			$scope.model = model;
+			$scope.browser.goTo(model);
+		};
 
 		$scope.model.$baseParams = {
 			returnProperties: "*"
@@ -23,18 +22,12 @@ angular.module('GO.Modules.GroupOffice.Files').
 		});
 
 		$scope.deleteNode = function(node) {
-			var p = {};
-			console.log($scope.browser.currentDir() );
-			if($scope.browser.currentDir().at == 'trash') {
-				p.hard = true;
-			}
-			node.delete(p).then(function() {
+
+			node.delete().then(function() {
 				if(node.isDirectory) {
 					$scope.$parent.browser.up();
 				} 
-				if(p.hard) {
-					$scope.nodeStore.reload();
-				}
+				$scope.nodeStore.reload();
 				$scope.model = null;
 			});
 		};

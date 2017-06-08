@@ -21,12 +21,15 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			locations: 'Locations'
 		};
 		Browser.prototype.home = null;
+		Browser.prototype.at = null;
 		Browser.prototype.store = null;
 		Browser.prototype.dirStack = [];
 		Browser.prototype.display = t.list;
 		Browser.prototype.currentDir = null;
 
 		Browser.prototype.filter = function(name) {
+			delete this.store.$loadParams.filter;
+			
 			switch(name) {
 				case 'starred':
 				case 'recent':
@@ -34,9 +37,10 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 					var filter = {};
 					filter[name] = true;
 					this.store.$loadParams.filter = filter;
+					this.at = name;
 					break;
 				case 'home':
-					delete this.store.$loadParams.filter;
+					
 			}
 			if(this.home) {
 				this.store.$loadParams.directory = this.home.rootId;
@@ -54,21 +58,21 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			}
 			var dir = (model.isDirectory || !model.parentId) ? model.id : model.parentId;
 
-			if(model.isDirectory) {
-				$state.go('files.list.node',{id: dir});
-				if(this.dirStack.length===0 || model.parentId === this.dirStack[this.dirStack.length-1].id) {
-					this.dirStack.push(model);
-				}
-			}
+			//if(model.driveId != this.home.driveId) {
+				this.at = 'd'+model.driveId;
+			//}
+//			if(model.isDirectory) {
+//				$state.go('files.list.node',{id: dir});
+//				if(this.dirStack.length===0 || model.parentId === this.dirStack[this.dirStack.length-1].id) {
+//					this.dirStack.push(model);
+//				}
+//			}
 			this.store.$loadParams.directory = dir;
 			this.store.load().then(function(xhr) {
 				xhr.response.data.path.reverse();
-				if(self.dirStack.length === 0) { // roaming
-					self.dirStack = xhr.response.data.path;
-				}
+				self.dirStack = xhr.response.data.path;
 				self.currentDir = dir;
 			});
-			
 			return this;
 		};
 
@@ -84,8 +88,8 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			if(this.dirStack.length > 1) {
 				this.dirStack.pop();
 			}
-			var dir = this.dirStack[this.dirStack.length-1];
-			this.goTo(dir.id);
+			this.currentDir = this.dirStack[this.dirStack.length-1];
+			$state.go('files.list.node',{id:this.currentDir.id});
 		};
 
 		Browser.prototype.isGrid = function() {

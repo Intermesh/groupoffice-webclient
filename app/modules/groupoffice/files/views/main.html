@@ -2,16 +2,16 @@
 	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 		
 		<md-list>
-			<md-list-item ng-class="{'selected' : browser.isAt('home')}" ng-disabled="!browser.home" ui-sref="files.list({filter:'home'})">
+			<md-list-item ng-class="{'selected' : browser.isAt('d'+browser.home.id)}" ng-disabled="!browser.home" ui-sref="files.list.node({filter:'home', id:browser.home.id})">
 				<md-icon>home</md-icon>
 				<p>Home</p>
 				<md-button class="md-secondary md-icon-button" ng-click="editDrive('home')"><md-icon>settings</md-icon></md-button>
 			</md-list-item>
-			<md-list-item ng-class="{'selected' : browser.isAt('starred')}" ui-sref="files.list({filter:'starred'})">
+			<md-list-item ng-class="{'selected' : browser.at == 'starred'}" ui-sref="files.list({filter:'starred'})">
 				<md-icon>star_rate</md-icon>
 				<p>Starred</p>
 			</md-list-item>
-			<md-list-item ng-class="{'selected' : browser.isAt('recent')}" ui-sref="files.list({filter:'recent'})">
+			<md-list-item ng-class="{'selected' : browser.at == 'recent'}" ui-sref="files.list({filter:'recent'})">
 				<md-icon>access_time</md-icon>
 				<p>Recent</p>
 			</md-list-item>
@@ -29,21 +29,19 @@
 				<p>Media</p>
 			</md-list-item>
 -->
-			<md-list-item ng-class="{'selected' : browser.isAt('trash')}" ui-sref="files.list({filter:'trash'})">
+			<md-list-item ng-class="{'selected' : browser.at == 'trash'}" ui-sref="files.list({filter:'trash'})">
 				<md-icon>delete</md-icon>
 				<p>Trash</p>
 			</md-list-item>
 
 			<md-divider></md-divider>
 
-			<md-list-item ng-class="{'selected' : browser.isAt('d'+drive.rootId)}" 
+			<md-list-item ng-class="{'selected' : browser.isAt('d'+drive.id)}"
 				ng-repeat="drive in mountStore.items| filter: { rootId: '!'+browser.home.rootId }"
-				ng-click="browser.goTo(drive.rootId)">
+				ui-sref="files.list.node({id:drive.rootId, filter:'home'})">
 				<md-icon>folder_shared</md-icon>
 				<p>{{drive.name}}</p>
 			</md-list-item>
-
-
 
 			<md-list-item ng-if="::permissions.mountDrives" ng-class="{'selected' : browser.isAt('locations')}" ui-sref="files.locations" ng-click="browser.at = 'locations'">
 				<md-icon>add</md-icon>

@@ -7,7 +7,6 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'$state',
 		'$stateParams',
 		'$http',
-		'$timeout',
 		'$mdDialog',
 		'GO.Modules.GroupOffice.Notifications.Services.Notifications',
 		'GO.Core.Services.CurrentUser',
@@ -17,7 +16,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'GO.Modules.GroupOffice.Files.Model.Clipboard',
 		'GO.Modules.GroupOffice.Files.Model.Node',
 		'GO.Modules.GroupOffice.Files.Model.Drive',
-		function ($scope, $state,$stateParams, $http,$timeout, $mdDialog,Notifications, CurrentUser, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
+		function ($scope, $state,$stateParams, $http,$mdDialog,Notifications, CurrentUser, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
 			// The date that is currently viewed
 			//$scope.$mdSidenav = $mdSidenav;
 			$scope.flowInit = ServerAPI.getFlowInit();
@@ -30,6 +29,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 			$scope.nodeStore = $scope.model.getStore();
 
 			$scope.browser = new Browser($scope.nodeStore);
+			$scope.clipboard = new Clipboard($scope.nodeStore);
 
 			$scope.mountStore = new Store('mounts');
 			$scope.mountStore.load().then(function(xhr) {
@@ -39,12 +39,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 					$state.go('files.list', {filter:'home'});
 				}
 			});
-
-			$scope.clipboard = new Clipboard();
-
-			$scope.showInfo = true;
 			$scope.drive = new Drive();
-
 
 			$scope.editDrive = function(path) {
 				function openDialog() {
@@ -71,16 +66,6 @@ GO.module('GO.Modules.GroupOffice.Files').
 				//originatorEv = ev;
 				$mdMenu.open(ev);
 			 };
-			$scope.addFolder = function(newFolder) {
-				var folder = new Node();
-				folder.name = newFolder;
-				folder.isDirectory = true;
-				folder.parentId = $scope.browser.currentDir().id;
-				folder.save().then(function(resp) {
-					console.log(resp);
-					$scope.browser.goTo(resp.model.id);
-				});
-			};
 
 			$scope.uploadStack = [];
 

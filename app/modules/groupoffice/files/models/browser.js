@@ -82,8 +82,8 @@ angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.F
 			if(this.dirStack.length > 1) {
 				this.dirStack.pop();
 			}
-			var dir = this.dirStack[this.dirStack.length-1];
-			this.goTo(dir.id);
+			this.currentDir = this.dirStack[this.dirStack.length-1];
+			$state.go('files.list.node',{id:this.currentDir.id});
 		};
 
 		Browser.prototype.isGrid = function() {

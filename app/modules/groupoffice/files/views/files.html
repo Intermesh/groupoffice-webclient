@@ -12,9 +12,8 @@
 			<md-nav-item 
 				ng-repeat="dir in browser.dirStack"
 				ng-style="$last?{'font-weight':'bold'}:{}"
-				md-nav-sref="files.list.node"
-				name="{{dir.id}}"
-				ng-click="browser.goTo(dir)">
+				md-nav-sref="files.list.node({id:{{dir.id}}})"
+				name="{{dir.id}}">
 					<span>{{dir.name}}</span>
 					<md-icon ng-if="!$last">keyboard_arrow_right</md-icon>
 			</md-nav-item>

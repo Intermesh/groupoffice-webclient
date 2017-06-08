@@ -20,7 +20,7 @@ GO.module('GO.Modules.GroupOffice.Files', []).run([
 				.state('files.list', {
 					templateUrl: 'modules/groupoffice/files/views/files.html',
 					controller: 'GO.Modules.GroupOffice.Files.Files',
-					url: "/{filter}"
+					url: "/{filter:[a-z]*}"
 				})
 				.state('files.list.node', {
 					templateUrl: 'modules/groupoffice/files/views/file.html',

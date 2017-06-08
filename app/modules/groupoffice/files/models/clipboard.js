@@ -1,43 +1,45 @@
 angular.module('GO.Modules.GroupOffice.Files').factory('GO.Modules.GroupOffice.Files.Model.Clipboard', [
-	function () {
-		function Clipboard() {
+	'$http',
+	'GO.Core.Services.ServerAPI',
+	function ($http, ServerAPI) {
+		function Clipboard(store) {
+			this.store = store;
 		}
 
-		Clipboard.prototype.items = [];
+		Clipboard.prototype.store = null;
+
+		Clipboard.prototype.itemIds = [];
 		Clipboard.prototype.isMoving = null; // copy is false
 
 		Clipboard.prototype.clear = function() {
-			this.items = [];
+			this.itemIds = [];
 		};
 
 		Clipboard.prototype.isEmpty = function() {
-			return (this.items.length === 0);
+			return (this.itemIds.length === 0);
 		};
 
-		Clipboard.prototype.cut = function(items) {
+		Clipboard.prototype.cut = function(item) {
 			this.isMoving = true;
-			this.items.push(items);
+			this.itemIds.push(item.id);
 		};
 
-		Clipboard.prototype.copy = function(items) {
+		Clipboard.prototype.copy = function(item) {
 			this.isMoving = false;
-			this.items.push(items);
-			console.log(this.items);
+			this.itemIds.push(item.id);
 		};
 
 		Clipboard.prototype.paste = function(to) {
-			for(var i = 0; i < this.items.length; i++) {
-				var item;
-				if(!this.isMoving) {
-					item = angular.copy(this.items[i]);
-					delete item.id;
-					item.parentId = to.id;
-				} else {
-					item = this.items[i];
-					item.parentId = to.id;
+			var self = this;
+			console.log(this.itemIds);
+			var url = ServerAPI.url('files/'+to.id, {copy:!this.isMoving});
+			$http.post(url, {ids:this.itemIds}).then(function(resp) {
+				if(resp.data.success) {
+					self.clear();
+					self.store.reload();
 				}
-				item.save(); // Todo save all in 1 request
-			}
+			});
+
 		};
 
 		return Clipboard;

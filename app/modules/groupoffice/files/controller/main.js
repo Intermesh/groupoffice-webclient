@@ -5,6 +5,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 	controller('GO.Modules.GroupOffice.Files.Main', [
 		'$scope',
 		'$state',
+		'$stateParams',
 		'$http',
 		'$timeout',
 		'$mdDialog',
@@ -16,7 +17,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 		'GO.Modules.GroupOffice.Files.Model.Clipboard',
 		'GO.Modules.GroupOffice.Files.Model.Node',
 		'GO.Modules.GroupOffice.Files.Model.Drive',
-		function ($scope, $state, $http,$timeout, $mdDialog,Notifications, CurrentUser, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
+		function ($scope, $state,$stateParams, $http,$timeout, $mdDialog,Notifications, CurrentUser, ServerAPI, Store, Browser,Clipboard, Node, Drive) {
 			// The date that is currently viewed
 			//$scope.$mdSidenav = $mdSidenav;
 			$scope.flowInit = ServerAPI.getFlowInit();
@@ -34,6 +35,9 @@ GO.module('GO.Modules.GroupOffice.Files').
 			$scope.mountStore.load().then(function(xhr) {
 				var index = xhr.store.findIndexByAttribute('id', xhr.response.data.home);
 				$scope.browser.home = xhr.store.items[index];
+				if($state.is('files')) {
+					$state.go('files.list', {filter:'home'});
+				}
 			});
 
 			$scope.clipboard = new Clipboard();
@@ -86,7 +90,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 				var node = new Node();
 				node.name = $file.name;
 				node.relativePath = $file.relativePath;
-				node.parentId = $scope.browser.currentDir().id;
+				node.parentId = $scope.browser.currentDir;
 				node.blobId = response.data.blobId;
 				$scope.uploadStack.push(node.getAttributes());
 			};
@@ -95,14 +99,14 @@ GO.module('GO.Modules.GroupOffice.Files').
 				for(var f in $files) {
 					console.log($files[f]);
 					Notifications.add({
-						template: '<div>Uploading {{name}}</div>',
-						locals: $files[f]
+						template: '<div><md-icon>file_upload</md-icon><h2>File transfer &bull; {{ file.progress()*100 | number:0}}%</h2>\
+						<h3>{{file.name}}<sub>{{file.progress()==1?"Done":file.timeRemaining()+ " seconds left"}}</sub></h3>\
+						<md-progress-linear value="{{file.progress()*100}}"></md-progress-linear> </div>',
+						locals: {file:$files[f]}
 	//					controller: 'GO.'
 					});
 				}
-				$timeout(function() {
-					Notifications.showPanel();
-				});
+				Notifications.showPanel();
 			};
 			$scope.onFileProgress = function($file, $flow) {
 				console.log($file);
@@ -128,8 +132,5 @@ GO.module('GO.Modules.GroupOffice.Files').
 //			if($state.is('files')) {
 //				$state.go('files.storage');
 //			}
-			if($state.is('files')) {
-				$state.go('files.list');
-			}
-	
+
 		}]);

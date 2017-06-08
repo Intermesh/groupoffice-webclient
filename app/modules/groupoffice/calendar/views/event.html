@@ -33,9 +33,9 @@
 				<md-list-item class="md-2-line">
 					<md-icon>schedule</md-icon>
 					<div class="md-list-item-text">
-						<h3>{{model.event.startAt.getDateString()}}</h3>
+						<h3>{{model.event.start.getDateString()}}</h3>
 						<p>
-							<span ng-if="!model.event.allDay">{{model.event.startAt.getTimeString()}} &mdash; {{model.event.endAt.getTimeString()}}</span>
+							<span ng-if="!model.event.allDay">{{model.event.start.getTimeString()}} &mdash; {{model.event.end.getTimeString()}}</span>
 							<span ng-if="model.event.allDay">{{"All day" | goT}}</span>
 						</p>
 					</div>

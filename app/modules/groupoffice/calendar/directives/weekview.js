@@ -28,11 +28,11 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 						var start = new Date(+begin),
 							end = new Date(+begin);
 						end.setHours(start.getHours() + 1);
-						$scope.$parent.openEventDialog(null, {startAt: start, endAt: end});
+						$scope.$parent.openEventDialog(null, {start: start, end: end});
 					};
 					$scope.calcStyle = function (calEvent, d) {
-						var height = ((calEvent.endAt.getTime() - calEvent.startAt.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),
-							top = (calEvent.startAt.getTime() - +d) / 1000 / 60 / 60 * $scope.hourToPx,
+						var height = ((calEvent.end.getTime() - calEvent.start.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),
+							top = (calEvent.start.getTime() - +d) / 1000 / 60 / 60 * $scope.hourToPx,
 							width = 100 / calEvent.overlap.max * calEvent.overlap.span,
 							left = calEvent.overlap.col * 100 / calEvent.overlap.max;
 						height = Math.min(height, 24*$scope.hourToPx-top);
@@ -43,10 +43,10 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 					};
 					$scope.classFor = function (calEvent,day) {
 						var cls = [];
-						if(calEvent.startAt.getYmd() !== calEvent.endAt.getYmd()) {
-							if(calEvent.startAt.getYmd() === day){
+						if(calEvent.start.getYmd() !== calEvent.end.getYmd()) {
+							if(calEvent.start.getYmd() === day){
 								cls.push('start');
-							} else if(calEvent.endAt.getYmd() === day){
+							} else if(calEvent.end.getYmd() === day){
 								cls.push('end');
 							} else {
 								cls.push('mid');
@@ -170,8 +170,8 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						previousCols = [],
 						startEndQuarters = function(event) {
 							return {
-								start: event.startAt.getHours() * 60 + event.startAt.getMinutes(),
-								end: event.endAt.getHours() * 60 + event.endAt.getMinutes()
+								start: event.start.getHours() * 60 + event.start.getMinutes(),
+								end: event.end.getHours() * 60 + event.end.getMinutes()
 							};
 
 						};
@@ -180,7 +180,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						if(items[i].allDay) {
 							continue;
 						}
-						id = items[i].eventId;
+						id = items[i].eventId+'-'+items[i].calendarId;
 						cfg[id] = {
 							start:startEndQuarters(items[i]).start,
 							end:startEndQuarters(items[i]).end,
@@ -198,7 +198,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						if(items[i].event.allDay) {
 							continue;
 						}
-						id = items[i].eventId;
+						id = items[i].eventId+'-'+items[i].calendarId;
 						max = 1;
 						for(it=cfg[id].start; it<cfg[id].end; it++) { // loop quarters
 							max = Math.max(max, Object.keys(rows[it]).length);
@@ -211,7 +211,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						if(items[i].event.allDay) {
 							continue;
 						}
-						id = items[i].eventId;
+						id = items[i].eventId+'-'+items[i].calendarId;
 
 						var col = position % prevMax,
 							max = cfg[id].max;
@@ -228,14 +228,14 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 								pcol = ppos % prevMax;
 								continue;
 							}
-							previous = cfg[previousCols[pcol].id];
+							previous = cfg[previousCols[pcol].eventId+'-'+previousCols[pcol].calendarId];
 							//collision detection
 							if(previous.end > cfg[id].start && pcol === col) {
 								//push
 								position++;
 								col = position % prevMax;
 								max = Math.max(max, previous.max);
-								cfg[previousCols[pcol].id].max = max;
+								cfg[previousCols[pcol].eventId+'-'+previousCols[pcol].calendarId].max = max;
 							} else if (previous.end > cfg[id].start) {
 								//shrink
 								max = Math.max(max, previous.max);
@@ -250,7 +250,7 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						cfg[id].max = max;
 						cfg[id].col = col;
 
-						previousCols[col] = items[i].event;
+						previousCols[col] = items[i];
 						prevMax = max;
 
 						// Set to the item object

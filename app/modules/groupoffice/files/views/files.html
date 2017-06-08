@@ -1,6 +1,6 @@
 <md-content flex layout="column" ng-cloak>
 	
-	<md-nav-bar nav-bar-aria-label="navigation links">
+	<md-nav-bar nav-bar-aria-label="navigation links" md-selected-nav-item="browser.currentDir">
 
 			<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md>
 				<md-icon>menu</md-icon>
@@ -13,6 +13,7 @@
 				ng-repeat="dir in browser.dirStack"
 				ng-style="$last?{'font-weight':'bold'}:{}"
 				md-nav-sref="files.list.node"
+				name="{{dir.id}}"
 				ng-click="browser.goTo(dir)">
 					<span>{{dir.name}}</span>
 					<md-icon ng-if="!$last">keyboard_arrow_right</md-icon>
@@ -57,7 +58,7 @@
 			</md-button>
 
 
-		</md-nav-bar
+	</md-nav-bar>
 
 
 		<div flex class="go-cards-sm" layout="row"

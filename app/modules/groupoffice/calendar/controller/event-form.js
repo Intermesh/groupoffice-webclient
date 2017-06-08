@@ -30,7 +30,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				return internalSave();
 			}
 			var p = {
-				recurrenceId: $scope.model.recurrenceId.toIntermeshApiFormat()
+				recurrenceId: $scope.model.recurrenceId
 			};
 			if($scope.model.event.isException) {
 				p.single = true;
@@ -57,7 +57,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 				return internalDelete();
 			}
 			var p = {
-				recurrenceId: $scope.model.recurrenceId.toIntermeshApiFormat()
+				recurrenceId: $scope.model.recurrenceId
 			};
 			if($scope.model.event.isException) {
 				p.single = true;
@@ -132,20 +132,19 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		};
 
 		$scope.changeStartTime = function() {
-			if($scope.model.event.startAt > $scope.model.event.endAt)
-				$scope.model.event.endAt = $scope.model.event.startAt;
+			if($scope.model.event.start > $scope.model.event.end)
+				$scope.model.event.endAt = $scope.model.event.start;
 		};
 
 		$scope.changeEndTime = function() {
-			var end = $scope.model.event.endAt;
-			if($scope.model.event.startAt > end) {
-				$scope.model.event.startAt.setDate(end.getDate());
-				$scope.model.event.startAt.setMonth(end.getMonth());
-				$scope.model.event.startAt.setFullYear(end.getFullYear());
-				console.log($scope.model.event.startAt);
+			var end = $scope.model.event.end;
+			if($scope.model.event.start > end) {
+				$scope.model.event.start.setDate(end.getDate());
+				$scope.model.event.start.setMonth(end.getMonth());
+				$scope.model.event.start.setFullYear(end.getFullYear());
 			}
-			if($scope.model.event.startAt > end) {
-				$scope.model.event.startAt = new Date(+end);
+			if($scope.model.event.start > end) {
+				$scope.model.event.start = new Date(+end);
 			}
 		};
 

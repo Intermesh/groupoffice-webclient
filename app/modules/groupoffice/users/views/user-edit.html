@@ -98,26 +98,36 @@
 			</div>
 		</md-input-container>
 
-		<h2>{{::"Groups" | goT}}</h2>
+		<div layout="row">
+			<md-icon class="go-icon-spacer">group</md-icon>
+			<h2 flex>{{::"Groups" | goT}}</h2>
+		</div>
 		
-		<md-chips ng-model="model.groups" md-require-match="false" md-transform-chip="transformChip($chip)">
+		<div layout="row">
+
 			
-			<md-autocomplete			
-				md-delay="500"
-				md-selected-item="selectedItem"
-				md-search-text="searchText"
-				md-items="item in getGroups(searchText)"
-				md-item-text="item.name"
-				md-autoselect="true"
-				placeholder="Enter a group..">
-				<md-item-template>
-					<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
-				</md-item-template>
-			</md-autocomplete>
-			<md-chip-template>
-				{{$chip.name}}
-			</md-chip-template>
-		</md-chips>
+			<div class="go-icon-spacer"></div>
+		
+				<md-chips ng-model="model.groups" md-require-match="false" md-transform-chip="transformChip($chip)">
+
+					<md-autocomplete			
+						md-delay="500"
+						md-min-length="0"
+						md-selected-item="selectedItem"
+						md-search-text="searchText"
+						md-items="item in getGroups(searchText)"
+						md-item-text="item.name"
+						md-autoselect="true"
+						placeholder="Enter a group..">
+						<md-item-template>
+							<span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+						</md-item-template>
+					</md-autocomplete>
+					<md-chip-template>
+						{{$chip.name}}
+					</md-chip-template>
+				</md-chips>
+		</div>
 	</md-content>
 </form>
 

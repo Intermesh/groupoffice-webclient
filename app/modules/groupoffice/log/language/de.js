@@ -3,7 +3,7 @@ angular.module("GO.Core")
 				TranslateProvider.addTranslations("de", 
 					{
     "Action": "Aktion",
-    "GO\\\\Core\\\\Modules\\\\Users\\\\Model\\\\User": "GO\\\\Core\\\\Modules\\\\Users\\\\Model\\\\User",
+    "GO\\\\Core\\\\Modules\\\\Users\\\\Model\\\\User": "Benutzer",
     "Log": "Logbuch",
     "Record": "Aufnahme",
     "Time": "Zeit"

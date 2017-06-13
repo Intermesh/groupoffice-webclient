@@ -250,11 +250,14 @@ angular.module("GO.Core")
     "Forgot password?": "Wachtwoord vergeten?",
     "Reset your password": "Uw wachtwoord opnieuw instellen",
     "Please enter your registered e-mail address to receive a link to reset your password.": "Voer uw geregistreerde e-mail adres in om een link te ontvangen om uw wachtwoord opnieuw in te stellen.",
-    "Dear {{user.username}},\n\nWe received a request to reset your {title} password. To reset your password, click on the link below (or copy and paste the URL into your browser).\n\n{link}\n\nIf you didn't make this request yourself, ignore this e-mail and contact your administrator.": "Beste {{user.username}},\n\nWe hebben een verzoek ontvangen om uw {title} wachtwoord opnieuw in te stellen. Klik op onderstaande link (of kopiëer deze in de adresbalk van uw browser): {link}\n\nAls u dit verzoek niet zelf hebt gedaan, negeer dan deze e-mail en stel uw systeembeheerder op de hoogte.",
+    "Dear {{user.username}},\n\nWe received a request to reset your {title} password. To reset your password, click on the link below (or copy and paste the URL into your browser).\n\n{link}\n\nIf you didn't make this request yourself, ignore this e-mail and contact your administrator.": "Beste {{user.username}},\n\nWe hebben een verzoek ontvangen om uw {title} wachtwoord opnieuw in te stellen. Klik op onderstaande link (of kopi\u00eber deze in de adresbalk van uw browser): {link}\n\nAls u dit verzoek niet zelf hebt gedaan, negeer dan deze e-mail en stel uw systeembeheerder op de hoogte.",
     "The e-mail was sent to {email}.": "De e-mail is verstuurd naar {email}.",
     "An error occured": "Er is een fout opgetreden",
     "Please create a new password": "Maak een nieuw wachtwoord aan a.u.b.",
-    "Your password has been reset. Continue to the login screen.": "Uw wachtwoord is opnieuw ingesteld. Ga door naar het login scherm."
+    "Your password has been reset. Continue to the login screen.": "Uw wachtwoord is opnieuw ingesteld. Ga door naar het login scherm.",
+    "Owner": "Eigenaar",
+    "Search phrase": "Zoekterm",
+    "Like": "Like"
 }
 				);
 			}]);

@@ -6,7 +6,7 @@ angular.module("GO.Core")
     "Time": "Tijd",
     "Action": "Actie",
     "Record": "Record",
-    "GO\\\\Core\\\\Modules\\\\Users\\\\Model\\\\User": "GO\\\\Core\\\\Modules\\\\Users\\\\Model\\\\User"
+    "GO\\\\Core\\\\Users\\\\Model\\\\User": "Gebruiker"
 }
 				);
 			}]);

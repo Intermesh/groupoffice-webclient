@@ -17,7 +17,9 @@ GO.module('GO.Modules.GroupOffice.Messages').controller('GO.Modules.GroupOffice.
 		$scope.thread = new Thread();
 
 		$scope.store = $scope.thread.getStore({
-			returnProperties: "id,subject,from[address,personal],excerpt,answered,seen,forwarded,messageCount,lastMessageSentAt,hasAttachments,photoBlobId"
+			returnProperties: "id,subject,from[address,personal],excerpt,answered,seen,forwarded,messageCount,lastMessageSentAt,hasAttachments,photoBlobId",
+			orderColumn: 't.lastMessageSentAt',
+			orderDirection: 'DESC'
 		});
 
 		$scope.store.deleteSelected = function () {

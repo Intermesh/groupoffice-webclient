@@ -14,8 +14,9 @@ angular.module("GO.Core")
     "E-mail address": "E-mail adres",
     "Sender name": "Naam verzender",
     "Signatures": "Handtekeningen",
-   
-    "Invalid e-mail address": "Ongeldig e-mail adres"
+    "Invalid e-mail address": "Ongeldig e-mail adres",
+    "Could not connect to server": "Could not connect to server",
+    "SMTP account": "SMTP account"
 }
 				);
 			}]);

@@ -172,6 +172,8 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Store', [
 			if (!dontReset) {
 
 //						this.searchQuery = '';
+				this._lastGroup = null;
+				this._lastIndex = null;
 				this._allRecordsLoaded = false;
 				this.init = false;
 			}

@@ -1,0 +1,46 @@
+<go-hook name="contacts.account.edit">
+	<form layout="column" name="contactsAccountForm" class="contactsAccountForm" go-submit="save()" go-server-errors="model.validationErrors" novalidate>
+		<!--
+			<div style="height:100%" layout="column">-->
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button type="button" class="md-icon-button" ng-click="cancel()">
+					<md-tooltip>{{::"Close"| goT}}</md-tooltip>
+					<md-icon>close</md-icon>
+				</md-button>
+
+				<span flex>
+				</span>
+				
+				<md-button type="submit" class="md-icon-button">
+					<md-tooltip>{{::"Save"| goT}}</md-tooltip>
+					<md-icon>check</md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-content flex>
+
+			<fieldset>
+				<md-input-container flex>
+					<md-icon>description</md-icon>
+					<label>{{::"Name"| goT}}</label>
+					<input ng-model="model.name" name="name" required>
+					<div ng-messages="contactForm.name.$error" role="alert">
+						<div ng-message="required">
+							{{::"This field is required"| goT}}
+						</div>
+					</div>
+				</md-input-container>
+
+			</fieldset>
+			
+<!--			<fieldset>
+				<div layout="row"><md-icon class="go-icon-spacer">share</md-icon><h3 flex>{{"Share" | goT}}</h3></div>
+				<go-share class="go-offset-icon" model="model" group-fk="accountId" permissions="[{key: 'write', name: 'Edit contacts'}]"></go-share>
+			</fieldset>-->
+			
+		</md-content>
+	</form>
+</go-hook>
+

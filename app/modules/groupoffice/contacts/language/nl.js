@@ -4,7 +4,7 @@ angular.module("GO.Core")
 					{
     "Contacts": "Contactpersonen",
     "GO\\Modules\\GroupOffice\\Contacts\\Module": "Contactpersonen",
-		"GO\\Modules\\GroupOffice\\Contacts\\Model\\Account": 'GroupOffice Contactpersonen',
+    "GO\\Modules\\GroupOffice\\Contacts\\Model\\Account": "GroupOffice Contactpersonen",
     "First name": "Voornaam",
     "Middle name": "Tussenvoegsel",
     "Last name": "Achternaam",
@@ -33,7 +33,9 @@ angular.module("GO.Core")
     "Chamber of Commerce": "Kamer van Koophandel",
     "IBAN": "IBAN",
     "Business details": "Bedrijfsdetails",
-    "URL's": "URL's"
+    "URL's": "URL's",
+    "VAT number": "BTW nummer",
+    "Invalid e-mail address": "Ongeldig e-mail adres"
 }
 				);
 			}]);

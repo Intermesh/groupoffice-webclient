@@ -56,7 +56,7 @@ angular.module('GO.Core').directive('goFilter', ['$location', '$state', function
 						var searchParams = $location.search();
 						
 						if(this.type==='multiselect') {
-							if(!GO.isEmpty(v)) {
+//							if(!GO.isEmpty(v)) {
 								
 								var index = this.isMultiselected(v);
 								
@@ -67,7 +67,7 @@ angular.module('GO.Core').directive('goFilter', ['$location', '$state', function
 									$scope.goValue.splice(index, 1);
 								}
 								
-							}
+//							}
 							
 							searchParams[this.name] = $scope.goValue.join(',');
 						}else

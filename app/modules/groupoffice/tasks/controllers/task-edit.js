@@ -7,9 +7,9 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 	'GO.Core.Factories.Models.Tag',
 	function ($scope, close, read, Tag) {
 		
-		$scope.setAssignee = function(user) {			
-			$scope.model.assignee=user;
-		};
+//		$scope.setAssignee = function(user) {			
+//			$scope.model.assignee=user;
+//		};
 
 
 	}]);

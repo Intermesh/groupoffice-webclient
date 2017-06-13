@@ -3,8 +3,7 @@
 GO.module('GO.Modules.GroupOffice.Users').component('goSelectUser', {
 	bindings: {
 		label: '@',
-		user: '<',
-		onChange: '&'
+		ngModel: '='		
 	},
 	controller: [
 		'GO.Modules.GroupOffice.Users.Model.User',
@@ -26,9 +25,9 @@ GO.module('GO.Modules.GroupOffice.Users').component('goSelectUser', {
 				});
 			};
 			
-			this.update = function() {
-				this.onChange({user: this.user});
-			};
+//			this.update = function() {
+//				this.onChange({user: this.user});
+//			};
 //			
 //			this.$onChanges = function(changesObj) {	
 //				

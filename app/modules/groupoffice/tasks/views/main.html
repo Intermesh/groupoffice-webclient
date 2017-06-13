@@ -6,7 +6,7 @@
 
 			<go-option value="all">
 				<md-icon>star</md-icon>
-				<p>{{"All"| goT}}</p>
+				<p>{{"All statuses"| goT}}</p>
 			</go-option>
 
 			<go-option value="complete">
@@ -29,14 +29,20 @@
 		<md-divider></md-divider>
 		
 		<go-filter name="assigned" type="single" go-value="filters.assigned" on-change="updateFilter('assigned', value)">
-			<go-option value="mine">
-				<md-icon>person</md-icon>
-				<p>{{"My tasks"| goT}}</p>
+			
+			<go-option value="all">
+				<md-icon>star</md-icon>
+				<p>{{"All users"| goT}}</p>
 			</go-option>
 			
-			<go-option value="createdforothers">
+			<go-option value="NULL">
+				<md-icon>help</md-icon>
+				<p>{{"Unassigned"| goT}}</p>
+			</go-option>
+			
+			<go-option go-value="user.id" ng-repeat="user in assigneeStore.items">
 				<md-icon>people</md-icon>
-				<p>{{"Created for others"| goT}}</p>
+				<p>{{user.username}}</p>
 			</go-option>
 		</go-filter>
 		

@@ -7,7 +7,12 @@
 				<md-icon>close</md-icon>
 			</md-button>
 
-			<span flex></span>
+			<span flex>
+					
+				<go-select-account go-capability="GO\Modules\GroupOffice\Tasks\Model\Task" ng-model="model.accountId"></go-select-account>
+
+			</span>
+			
 			<md-button type="submit" class="md-icon-button">
 				<md-tooltip>{{::"Save"| goT}}</md-tooltip>
 				<md-icon>check</md-icon>
@@ -26,7 +31,7 @@
 			</div>
 		</md-input-container>
 
-		<go-select-user label="Assigned to" user="model.assignee" on-change='setAssignee(user)'></go-select-user>
+		<go-select-user label="Assigned to" ng-model="model.assignee"></go-select-user>
 		
 
 <!--		<md-input-container class="md-block">							

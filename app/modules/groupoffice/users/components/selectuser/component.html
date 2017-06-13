@@ -9,7 +9,7 @@
 		md-min-length="0"
 		md-select-on-focus="true"
 		md-selected-item-change='$ctrl.update()'
-		md-selected-item="$ctrl.user"
+		md-selected-item="$ctrl.ngModel"
 		md-search-text="$ctrl.userSearchText"
 		md-items="user in $ctrl.getUsers($ctrl.userSearchText)"
 		md-item-text="user.username"
@@ -19,4 +19,9 @@
 			<span md-highlight-text="ctrl.userSearchText" md-highlight-flags="^i">{{user.username}}</span>			
 		</md-item-template>
 	</md-autocomplete>
+	
+	<md-button class="md-icon-button" ng-click="$ctrl.ngModel = null;" style="margin: 15px 0;">
+		<md-icon>delete</md-icon>
+		<md-tooltip>{{"Clear" | goT}}</md-tooltip>
+	</md-button>
 </div>

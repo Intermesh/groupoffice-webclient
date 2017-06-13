@@ -7,12 +7,16 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 	'GO.Core.Services.Dialog',
 	'$state',
 	'GO.Core.Services.CurrentUser',
+	'GO.Core.Factories.Data.Resource',
 	'$stateParams',
 	'$timeout',
-	function ($scope, Task, Dialog, $state, CurrentUser, $stateParams, $timeout) {
+	function ($scope, Task, Dialog, $state, CurrentUser, Resource,  $stateParams, $timeout) {
 
 
 		$scope.task = new Task();
+		
+		$scope.assigneeStore = (new Resource('tasks/assignees')).getStore();
+		$scope.assigneeStore.load();
 
 
 		$scope.store = $scope.task.getStore({
@@ -24,13 +28,14 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 		
 		$scope.filters ={
 			status : 'incomplete',
-			assigned: 'mine',
+			assigned: CurrentUser.id,
 			tags: [],
 			custom: []
 		};
 		
 		
 		$scope.updateFilter = function(name, value) {
+			
 			$scope.filters[name] = value;			
 			
 			//wait for view to be rendered
@@ -59,16 +64,29 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 
 			$scope.store.$loadParams.q = angular.copy($scope.filters.custom);
 			
+//			if($scope.filters.assigned.length){
+//				
+//				if($scope.filters.assigned.indexOf("NULL") > -1) {					
+//					$scope.store.$loadParams.q.push(['whereGroup',[
+//						['andWhere', {assignedTo: $scope.filters.assigned}],
+//						['orWhere', {assignedTo: null}]
+//					], 'AND']);						
+//				}else
+//				{
+//					$scope.store.$loadParams.q.push(['andWhere',{assignedTo: $scope.filters.assigned}]);
+//				}		
+//			}
 			switch($scope.filters.assigned) {
-				case 'mine':
-					$scope.store.$loadParams.q.push(['andWhere',{'assignedTo': CurrentUser.id}]);						
+				case 'all':					
 					break;
 					
-				case 'createdforothers':
-					$scope.store.$loadParams.q.push(['andWhere',{'createdBy': CurrentUser.id}]);
-					$scope.store.$loadParams.q.push(['andWhere',['!=', {'assignedTo': CurrentUser.id}]]);
+				case 'NULL':
+					$scope.store.$loadParams.q.push(['andWhere', {'assignedTo': null}]);						
 					break;
-				
+					
+				default: 
+					$scope.store.$loadParams.q.push(['andWhere', {'assignedTo': $scope.filters.assigned}]);						
+					break;
 			}
 			
 			if($scope.filters.tags.length){

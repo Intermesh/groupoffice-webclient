@@ -29,6 +29,12 @@ GO.module('GO.Modules.GroupOffice.Tasks', ['GO.Core']).run([
 		var onNotificationClick = function (record, $state) {
 			$state.go('tasks.task', {taskId: record.recordId});
 		};
+		
+		
+		App.addAccountType('GO\\Modules\\GroupOffice\\Tasks\\Model\\Account', 'GO.Core.Factories.Models.Account', 'assignment', {
+					templateUrl: 'modules/groupoffice/tasks/views/account-edit.html',
+					controller: 'GO.Modules.GroupOffice.Tasks.Controller.AccountEdit'
+				});
 
 		App.addNotificationTemplate(
 						"GO\\Modules\\GroupOffice\\Tasks\\Model\\Task", {

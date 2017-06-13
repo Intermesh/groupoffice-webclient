@@ -8,10 +8,11 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 
 		var CalendarEvent = GO.extend(Model, function () {
 			this.$parent.constructor.apply(this, arguments);
+			
 		});
 
-		CalendarEvent.prototype.start;
-		CalendarEvent.prototype.end;
+//		CalendarEvent.prototype.start;
+//		CalendarEvent.prototype.end;
 
 		CalendarEvent.prototype.$returnProperties = "*,alarms,calendarId,event[*,attendees,recurrenceRule,attachments]";
 		CalendarEvent.prototype.$keys = ['eventId'];

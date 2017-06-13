@@ -130,6 +130,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 
 			$scope.openEventDialog = function (calEvent, defaults) {
 				function open() {
+				
 					$mdDialog.show({
 						controller: 'GO.Modules.GroupOffice.Calendar.EventForm',
 						templateUrl: 'modules/groupoffice/calendar/views/event-form.html',
@@ -154,9 +155,9 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 					$scope.model.read({calendarId:calendarId,eventId:0}).then(function () {
 						if (defaults) {
 							for(var d in defaults) {
-								if(d == 'start' || d == 'end') {
-									$scope.model.event[d] = defaults[d];
-								}
+//								if(d == 'start' || d == 'end') {
+//									$scope.model.event[d] = defaults[d];
+//								}
 								$scope.model[d] = defaults[d];
 							}
 						}

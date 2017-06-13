@@ -66,6 +66,7 @@ angular.module('GO.Core').
 							maxChunkRetries: 1,
 							chunkRetryInterval: 5000,
 							simultaneousUploads: 4,
+							allowDuplicateUploads: true,
 							headers: {
 								'X-XSRFToken' : this.getXSRFToken()
 							}

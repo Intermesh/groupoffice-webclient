@@ -2,7 +2,7 @@
 	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 		
 		<md-list>
-			<md-list-item ng-class="{'selected' : browser.isAt('d'+browser.home.id)}" ng-disabled="!browser.home" ui-sref="files.list.node({filter:'home', id:browser.home.id})">
+			<md-list-item ng-class="{'selected' : browser.isAt('d'+browser.home.id)}" ng-disabled="!browser.home" ui-sref="files.list.node({filter:'home', id:browser.home.rootId})">
 				<md-icon>home</md-icon>
 				<p>Home</p>
 				<md-button class="md-secondary md-icon-button" ng-click="editDrive('home')"><md-icon>settings</md-icon></md-button>

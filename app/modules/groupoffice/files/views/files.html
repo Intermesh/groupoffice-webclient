@@ -61,8 +61,7 @@
 
 
 		<div flex class="go-cards-sm" layout="row"
-			flow-files-submitted="$flow.upload()"
-			flow-file-progress="onFileProgress($file, $flow)"
+			flow-files-submitted="onFilesSubmitted($flow)"
 			flow-files-added="onAddFiles($files, $event, $flow)"
 			flow-file-success="uploadSuccess($file, $message)"
 			flow-complete="uploadCommit()"

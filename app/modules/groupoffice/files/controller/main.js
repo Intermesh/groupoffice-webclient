@@ -36,7 +36,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 				var index = xhr.store.findIndexByAttribute('id', xhr.response.data.home);
 				$scope.browser.home = xhr.store.items[index];
 				if($state.is('files')) {
-					$state.go('files.list', {filter:'home'});
+					$state.go('files.list', {filter:'home', id:$scope.browser.home.rootId});
 				}
 			});
 			$scope.drive = new Drive();
@@ -68,21 +68,22 @@ GO.module('GO.Modules.GroupOffice.Files').
 			 };
 
 			$scope.uploadStack = [];
-
-			$scope.uploadSuccess = function($file, $message) { //TODO
-				var response = angular.fromJson($message);
-				console.log(response);
-				var node = new Node();
-				node.name = $file.name;
-				node.relativePath = $file.relativePath;
-				node.parentId = $scope.browser.currentDir;
-				node.blobId = response.data.blobId;
-				$scope.uploadStack.push(node.getAttributes());
-			};
+			var overwriteFileNames = [];
 
 			$scope.onAddFiles = function($files, $event, $flow) {
+
+				for(var e in $files) { // check exists
+					for(var i in $scope.nodeStore.items) {
+						if($files[e].name == $scope.nodeStore.items[i].name) {
+							overwriteFileNames.push($scope.nodeStore.items[i].name);
+						}
+					}
+				}
+				if(overwriteFileNames) {
+
+				}
+
 				for(var f in $files) {
-					console.log($files[f]);
 					Notifications.add({
 						template: '<div><md-icon>file_upload</md-icon><h2>File transfer &bull; {{ file.progress()*100 | number:0}}%</h2>\
 						<h3>{{file.name}}<sub>{{file.progress()==1?"Done":file.timeRemaining()+ " seconds left"}}</sub></h3>\
@@ -93,29 +94,56 @@ GO.module('GO.Modules.GroupOffice.Files').
 				}
 				Notifications.showPanel();
 			};
-			$scope.onFileProgress = function($file, $flow) {
-				console.log($file);
+
+			$scope.onFilesSubmitted = function($flow) {
+				if(!overwriteFileNames) {
+					$flow.upload();
+				} else {
+					var confirm =$mdDialog.confirm()
+						.title('Bestand(en) met deze naam bestaan al')
+						.textContent("Wil u de bestanden overschrijven of overslaan?")
+						.ok('Overschrijven')
+						.cancel('Overslaan');
+					$mdDialog.show(confirm).then(function() {
+						$flow.upload();
+					},function() {
+						overwriteFileNames = [];
+						$flow.upload();
+			});
+				}
+			};
+
+			$scope.uploadSuccess = function($file, $message) { //TODO
+				var response = angular.fromJson($message);
+				var node = new Node();
+				node.name = $file.name;
+				node.relativePath = $file.relativePath;
+				node.parentId = $scope.browser.currentDir;
+				node.blobId = response.data.blobId;
+				$scope.uploadStack.push(node.getAttributes());
 			};
 
 			$scope.uploadCommit = function() { //all files are uploaded
-
-				$http.post(ServerAPI.url('files'), {data: $scope.uploadStack})
+				$http.post(ServerAPI.url('files'), {data: $scope.uploadStack, overwrites: overwriteFileNames})
 					.then(function (response) {
 						//var data = response.data.data;
+						$scope.uploadStack = [];
+						overwriteFileNames = [];
 						if (response.data.success) {
 							$scope.nodeStore.reload();
 						} else {
-							console.log('BAD');
+							console.log('Failed saving files');
 						}
 						Notifications.closePanel();
 					});
 			};
 
+			function saveNodes(data, overwrites) {
+
+			}
+
 			$scope.thumb = function(blobId) {
 				return ServerAPI.thumbUrl(blobId, {w:132, h:132});
 			};
-//			if($state.is('files')) {
-//				$state.go('files.storage');
-//			}
 
 		}]);

@@ -19,7 +19,7 @@ angular.module('GO.Core').directive('goListDeleteButton', [
 							model.markDeleted = false;
 						} else
 						{
-							model.delete();
+							model.unDelete();
 						}
 					};
 					

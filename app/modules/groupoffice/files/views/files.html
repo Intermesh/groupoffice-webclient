@@ -64,7 +64,7 @@
 			flow-files-submitted="onFilesSubmitted($flow)"
 			flow-files-added="onAddFiles($files, $event, $flow)"
 			flow-file-success="uploadSuccess($file, $message)"
-			flow-complete="uploadCommit()"
+			flow-complete="uploadComplete()"
 			flow-drop>
 
 			<div id="file-list-view" flex class="go-card go-list" ng-if="browser.isList()" ng-include="'modules/groupoffice/files/views/list-view.html'"></div>

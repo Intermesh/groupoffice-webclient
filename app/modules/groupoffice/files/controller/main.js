@@ -107,9 +107,19 @@ GO.module('GO.Modules.GroupOffice.Files').
 					$mdDialog.show(confirm).then(function() {
 						$flow.upload();
 					},function() {
-						overwriteFileNames = [];
-						$flow.upload();
-			});
+						for(var f in $flow.files) {
+							if(overwriteFileNames.indexOf($flow.files[f].name) > -1) {
+								$flow.files[f].cancel();
+								$flow.removeFile($flow.files[f]);
+							}
+						}
+						overwriteFileNames = []; //nothing may be overwritten
+						if($flow.files.length > 0) {
+							$flow.upload();
+						} else {
+							Notifications.closePanel();
+						}
+					});
 				}
 			};
 
@@ -123,19 +133,27 @@ GO.module('GO.Modules.GroupOffice.Files').
 				$scope.uploadStack.push(node.getAttributes());
 			};
 
-			$scope.uploadCommit = function() { //all files are uploaded
+			$scope.uploadComplete = function() { //all files are uploaded
+
+				if($scope.uploadStack.length === 0) {
+					Notifications.closePanel();
+					return true;
+				}
 				$http.post(ServerAPI.url('files'), {data: $scope.uploadStack, overwrites: overwriteFileNames})
 					.then(function (response) {
 						//var data = response.data.data;
-						$scope.uploadStack = [];
-						overwriteFileNames = [];
+						
 						if (response.data.success) {
 							$scope.nodeStore.reload();
 						} else {
 							console.log('Failed saving files');
 						}
 						Notifications.closePanel();
+					}).finally(function() {
+						$scope.uploadStack = [];
+						overwriteFileNames = [];
 					});
+				return true;
 			};
 
 			function saveNodes(data, overwrites) {

@@ -1,10 +1,25 @@
 'use strict';
 
+/**
+ * 
+ * @type type
+ * 
+ * @example
+ * <div layout="row">
+				<md-input-container class="md-icon-left">							
+					<md-icon>account_box</md-icon>
+				</md-input-container>
+				
+				<go-select-owner flex ng-model="model.owner"></go-select-owner>
+					
+			</div>
+ */
 GO.module('GO.Core').component('goSelectOwner', {
 	bindings: {
 		goCapability: '@',
 		ngModel: '=',
 		goOnAdd: '&?',
+		label: '@?',
 		q: '<?'
 	},
 	replace: true,

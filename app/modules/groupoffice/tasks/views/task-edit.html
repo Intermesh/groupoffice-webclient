@@ -31,7 +31,21 @@
 			</div>
 		</md-input-container>
 
-		<go-select-user label="Assigned to" ng-model="model.assignee"></go-select-user>
+		<!--<go-select-user label="Assigned to" ng-model="model.assignee"></go-select-user>-->
+		
+		
+		<div layout="row">
+				<md-input-container class="md-icon-left">							
+					<md-icon>account_box</md-icon>
+				</md-input-container>
+				
+				<go-select-owner flex ng-model="model.assignee"></go-select-owner>
+					
+				<md-button class="md-icon-button" ng-click="model.assignee = null;" style="margin: 15px 0;">
+					<md-icon>delete</md-icon>
+					<md-tooltip>{{"Clear" | goT}}</md-tooltip>
+				</md-button>
+			</div>
 		
 
 <!--		<md-input-container class="md-block">							

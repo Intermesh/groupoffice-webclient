@@ -51,7 +51,7 @@ angular.module('GO.Modules.GroupOffice.Imap').controller('GO.Modules.GroupOffice
 		
 		
 
-		var recipient = new Resource('messages/recipients', '*', ['address']);
+		var recipient = new Resource('recipients', '*', ['address']);
 		var recipientStore = recipient.getStore();
 		$scope.getRecipients = function (input) {
 

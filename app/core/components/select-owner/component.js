@@ -15,10 +15,8 @@
 			</div>
  */
 GO.module('GO.Core').component('goSelectOwner', {
-	bindings: {
-		goCapability: '@',
-		ngModel: '=',
-		goOnAdd: '&?',
+	bindings: {		
+		ngModel: '=',		
 		label: '@?',
 		q: '<?'
 	},
@@ -26,22 +24,16 @@ GO.module('GO.Core').component('goSelectOwner', {
 	controller: [
 		'$scope',
 		'GO.Modules.GroupOffice.Users.Model.Group',
-		function ($scope, Account) {
+		function ($scope, Group) {
 
 			this.$onInit = function () {
 
-				var q = [
-					['requirePermissionType', 'writeContents']
-				];
+				
 
-				if (this.q) {
-					q = q.concat(this.q);
-				}
-
-				this.store = (new Account()).getStore({
+				this.store = (new Group()).getStore({
 					returnProperties: "id,name",
 					limit: 20,
-					q: q
+					q: null
 				});
 
 			};
@@ -50,7 +42,11 @@ GO.module('GO.Core').component('goSelectOwner', {
 			this.getGroups = function (input) {
 				var params = {
 					searchQuery: input
-				};
+				};				
+
+				if (this.q) {
+					me.store.$loadParams.q = this.q;
+				}
 
 				return me.store.load(params).then(function (result) {
 					return result.store.items;

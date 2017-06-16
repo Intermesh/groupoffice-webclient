@@ -7,7 +7,7 @@
 	md-search-text="$ctrl.groupSearchText"
 	md-items="group in $ctrl.getGroups($ctrl.groupSearchText)"
 	md-item-text="group.name"			
-	md-floating-label="{{::label ? label : 'Owner' | goT}}"
+	md-floating-label="{{::$ctrl.label ? $ctrl.label : 'Owner' | goT}}"
 	>
 	<md-item-template>
 		<span md-highlight-text="$ctrl.groupSearchText" md-highlight-flags="^i">{{group.name}}</span>

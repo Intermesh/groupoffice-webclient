@@ -47,7 +47,7 @@
 		<md-list-item class="md-2-line" ng-click="model.nodeUser.starred = !model.nodeUser.starred">
 			<md-icon>star</md-icon>
 			<p>Met ster</p>
-			<md-switch class="md-secondary" ng-model="model.nodeUser.starred"></md-switch>
+			<md-switch class="md-secondary" ng-change="model.save()" ng-model="model.nodeUser.starred"></md-switch>
 		</md-list-item>
 
 		<md-divider></md-divider>

@@ -19,7 +19,7 @@
 			</md-nav-item>
 
 			<span flex></span>
-			<md-menu>
+			<md-menu layout-align="center center" layout="row">
 				<md-button ng-click="openMenu($mdMenu, $event)">
 					<md-icon>create_new_folder</md-icon> {{"New folder"| goT}}
 				</md-button>
@@ -30,7 +30,9 @@
 					<md-button style="width:38px;" ng-click="addFolder(newFolder)"><md-icon>create_new_folder</md-icon></md-button>
 				</md-menu-content>
 			</md-menu>
-				|
+
+			<div layout="row" layout-align="center center">|</div>
+
 			<md-button ng-click="clipboard.cut(model)" title="{{'Cut' | goT}}">
 				<md-icon>content_cut</md-icon>
 			</md-button>
@@ -41,7 +43,7 @@
 				<md-icon>content_paste</md-icon>
 			</md-button>
 
-			|
+			<div layout="row" layout-align="center center">|</div>
 			
 <!--			<md-button>
 				<md-icon>search</md-icon>

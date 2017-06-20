@@ -31,7 +31,6 @@ angular.module('GO.Modules.GroupOffice.Files')
 			var multiplier = Math.floor(Math.log(this.quota) / Math.log(1024));
 			this.quotaText = Math.round(this.quota / Math.pow(1024, Math.floor(multiplier)));
 			this.quotaUnit = units[multiplier];
-			console.log(this.quotaUnit);
 		};
 
 		Drive.prototype.getStoreRoute = function() {

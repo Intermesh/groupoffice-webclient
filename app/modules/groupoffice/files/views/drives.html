@@ -27,7 +27,7 @@
 	<div flex class="go-cards-sm" layout="row">
 		<div flex class="go-card go-listview" go-infinite-scroll="driveStore.nextPage()" layout="column" style="top:0;bottom:0;left:0;right:0;position:absolute; overflow-y:scroll;">
 		<md-list>
-			<div ng-repeat="model in driveStore.items">
+			<div ng-repeat="model in driveStore.items | filter: {id: '!'+browser.home.id}">
 
 				<md-list-item ng-click="selectDrive(model)">
 

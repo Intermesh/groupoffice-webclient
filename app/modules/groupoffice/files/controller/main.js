@@ -96,7 +96,7 @@ GO.module('GO.Modules.GroupOffice.Files').
 			};
 
 			$scope.onFilesSubmitted = function($flow) {
-				if(!overwriteFileNames) {
+				if(overwriteFileNames.length === 0) {
 					$flow.upload();
 				} else {
 					var confirm =$mdDialog.confirm()

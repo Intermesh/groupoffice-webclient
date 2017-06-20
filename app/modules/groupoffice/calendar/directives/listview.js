@@ -109,7 +109,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goListviewBody',['$
 				var str = '<time'+cls+' ng-if="events[\'' + d.getYmd() + '\'].length > 0"><h4>'+ d.getDate() +'<small>' + Date.days[d.getDay()].substring(0,3) +'</small></h4></time>\
 					<div ng-repeat="e in events[\'' + d.getYmd() + '\']" ng-class="classFor(e)" ng-click="selectEvent(e)" ng-style="color(calendars[e.calendarId],e)" >\
 					<md-icon ng-if="e.event.isRecurring">refresh</md-icon> {{e.event.title}}<br>\
-				<span ng-if="!e.event.allDay">{{e.start.getTimeString()}} &mdash; {{e.end.getTimeString()}}</span>\n\
+				<span ng-if="!e.event.allDay">{{e.$start.getTimeString()}} &mdash; {{e.$end.getTimeString()}}</span>\n\
 				<span ng-if="e.event.location">at {{e.event.location}}</span></div>'+nowBar;
 				return str;
 			}

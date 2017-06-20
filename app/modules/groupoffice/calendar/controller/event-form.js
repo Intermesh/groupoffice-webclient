@@ -132,28 +132,26 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		};
 
 		$scope.changeStartTime = function() {
-			var start = $scope.model.start;
-			console.log(start);
-			console.log($scope.model.end);
-			if(start > $scope.model.end) {
-				$scope.model.end.setFullYear(start.getFullYear());
-				$scope.model.end.setMonth(start.getMonth());
-				$scope.model.end.setDate(start.getDate());
+			var start = $scope.model.$start;
+			if(start > $scope.model.$end) {
+				$scope.model.$end.setFullYear(start.getFullYear());
+				$scope.model.$end.setMonth(start.getMonth());
+				$scope.model.$end.setDate(start.getDate());
 			}
-			if(start > $scope.model.end) {
-				$scope.model.end = new Date(+start);
+			if(start > $scope.model.$end) {
+				$scope.model.$end = new Date(+start);
 			}
 		};
 
 		$scope.changeEndTime = function() {
-			var end = $scope.model.end;
-			if($scope.model.start > end) {
-				$scope.model.start.setFullYear(end.getFullYear());
-				$scope.model.start.setMonth(end.getMonth());
-				$scope.model.start.setDate(end.getDate());
+			var end = $scope.model.$end;
+			if($scope.model.$start > end) {
+				$scope.model.$start.setFullYear(end.getFullYear());
+				$scope.model.$start.setMonth(end.getMonth());
+				$scope.model.$start.setDate(end.getDate());
 			}
-			if($scope.model.start > end) {
-				$scope.model.start = new Date(+end);
+			if($scope.model.$start > end) {
+				$scope.model.$start = new Date(+end);
 			}
 		};
 

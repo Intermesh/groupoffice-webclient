@@ -43,17 +43,14 @@ angular.module('GO.Modules.GroupOffice.Calendar').factory('GO.Modules.GroupOffic
 		};
 
 		CalendarEvent.prototype.save = function() {
-			this.event.startAt = this.start.toISOString();
-			this.event.endAt = this.end.toISOString();
-			delete this.start;
-			delete this.end;
-			//TODO when erro on save, values are gone. fix asap
+			this.event.startAt = this.$start.toISOString();
+			this.event.endAt = this.$end.toISOString();
 			return this.$parent.save.apply(this, arguments);
 		};
 		CalendarEvent.prototype.loadData = function(data, clearModified) {
 			this.$parent.loadData.apply(this, arguments);
-			this.start = new Date(this.startAt);
-			this.end = new Date(this.endAt);
+			this.$start = new Date(this.startAt);
+			this.$end = new Date(this.endAt);
 			
 		};
 

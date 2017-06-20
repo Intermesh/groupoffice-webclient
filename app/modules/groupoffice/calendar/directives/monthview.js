@@ -22,10 +22,10 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 					};
 					$scope.classFor = function (calEvent,day) {
 						var cls = [];
-						if(calEvent.start.getYmd() !== calEvent.end.getYmd()) {
-							if(calEvent.start.getYmd() === day){
+						if(calEvent.$start.getYmd() !== calEvent.$end.getYmd()) {
+							if(calEvent.$start.getYmd() === day){
 								cls.push('start');
-							} else if(calEvent.end.getYmd() === day){
+							} else if(calEvent.$end.getYmd() === day){
 								cls.push('end');
 							} else {
 								cls.push('mid');
@@ -52,7 +52,7 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goMonthview', ['$co
 						begin.setHours(13);
 						var end = new Date(+begin);
 						end.setHours(begin.getHours() + 1);
-						$scope.$parent.openEventDialog(null, {start: begin, end: end});
+						$scope.$parent.openEventDialog(null, {$start: begin, $end: end});
 					};
 				}
 			],
@@ -119,7 +119,7 @@ ng-click="edit(e, $event)">\n\
 <md-icon ng-if="e.hasAlarms">notifications</md-icon>\
  {{e.event.title}}\
 <span ng-if="!e.event.allDay">\
-{{e.start.getTimeString()}} &ndash; {{e.end.getTimeString()}}\
+{{e.$start.getTimeString()}} &ndash; {{e.$end.getTimeString()}}\
 <md-icon ng-if="e.event.isRecurring">refresh</md-icon></span>\
 </div>';
 					str += '</div></td>';

@@ -28,11 +28,11 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 						var start = new Date(+begin),
 							end = new Date(+begin);
 						end.setHours(start.getHours() + 1);
-						$scope.$parent.openEventDialog(null, {start: start, end: end});
+						$scope.$parent.openEventDialog(null, {$start: start, $end: end});
 					};
 					$scope.calcStyle = function (calEvent, d) {
-						var height = ((calEvent.end.getTime() - calEvent.start.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),
-							top = (calEvent.start.getTime() - +d) / 1000 / 60 / 60 * $scope.hourToPx,
+						var height = ((calEvent.$end.getTime() - calEvent.$start.getTime()) / 1000 / 60 / 60 * $scope.hourToPx),
+							top = (calEvent.$start.getTime() - +d) / 1000 / 60 / 60 * $scope.hourToPx,
 							width = 100 / calEvent.overlap.max * calEvent.overlap.span,
 							left = calEvent.overlap.col * 100 / calEvent.overlap.max;
 						height = Math.min(height, 24*$scope.hourToPx-top);
@@ -43,10 +43,10 @@ angular.module('GO.Modules.GroupOffice.Calendar').directive('goWeekview', [
 					};
 					$scope.classFor = function (calEvent,day) {
 						var cls = [];
-						if(calEvent.start.getYmd() !== calEvent.end.getYmd()) {
-							if(calEvent.start.getYmd() === day){
+						if(calEvent.$start.getYmd() !== calEvent.$end.getYmd()) {
+							if(calEvent.$start.getYmd() === day){
 								cls.push('start');
-							} else if(calEvent.end.getYmd() === day){
+							} else if(calEvent.$end.getYmd() === day){
 								cls.push('end');
 							} else {
 								cls.push('mid');
@@ -170,8 +170,8 @@ ng-style="color(e)" ng-class="classFor(e,\''+d.getYmd() +'\')" style="{{calcStyl
 						previousCols = [],
 						startEndQuarters = function(event) {
 							return {
-								start: event.start.getHours() * 60 + event.start.getMinutes(),
-								end: event.end.getHours() * 60 + event.end.getMinutes()
+								start: event.$start.getHours() * 60 + event.$start.getMinutes(),
+								end: event.$end.getHours() * 60 + event.$end.getMinutes()
 							};
 
 						};

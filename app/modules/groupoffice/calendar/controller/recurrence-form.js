@@ -31,7 +31,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 			$scope.moreOptions = function() {
 				$scope.more=true;
 				$scope.$parent.model.event.recurrenceRule.interval = 1;
-				$scope.weekdays = [$scope.model.start.getDay()];
+				$scope.weekdays = [$scope.model.$start.getDay()];
 			};
 
 			$scope.changeRange = function(range) {

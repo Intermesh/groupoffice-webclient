@@ -32,7 +32,7 @@
 			
 			<go-option value="all">
 				<md-icon>star</md-icon>
-				<p>{{"All users"| goT}}</p>
+				<p>{{"All assignees"| goT}}</p>
 			</go-option>
 			
 			<go-option value="NULL">
@@ -40,9 +40,9 @@
 				<p>{{"Unassigned"| goT}}</p>
 			</go-option>
 			
-			<go-option go-value="user.id" ng-repeat="user in assigneeStore.items">
+			<go-option go-value="group.id" ng-repeat="group in assigneeStore.items">
 				<md-icon>people</md-icon>
-				<p>{{user.username}}</p>
+				<p>{{group.name}}</p>
 			</go-option>
 		</go-filter>
 		

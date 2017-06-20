@@ -10,6 +10,8 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 //		$scope.setAssignee = function(user) {			
 //			$scope.model.assignee=user;
 //		};
-
+//		read.then(function() {
+//			$scope.assigneeQ = [['joinRelation', 'accountGroups'], ['where', {'accountGroups.accountId' : $scope.model.accountId}]];
+//		});
 
 	}]);

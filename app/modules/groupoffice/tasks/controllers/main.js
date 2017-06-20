@@ -28,7 +28,7 @@ GO.module('GO.Modules.GroupOffice.Tasks').controller('GO.Modules.GroupOffice.Tas
 		
 		$scope.filters ={
 			status : 'incomplete',
-			assigned: CurrentUser.id,
+			assigned: 'all', //CurrentUser.id,
 			tags: [],
 			custom: []
 		};

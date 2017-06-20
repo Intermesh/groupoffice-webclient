@@ -81,7 +81,7 @@ controller('GO.Modules.GroupOffice.Calendar.EventForm', [
 		$scope.selectedItem;
 		$scope.cancel = function() { $mdDialog.cancel(); };
 
-		var addressStore = (new Resource('messages/recipients', '*', ['address'])).getStore();
+		var addressStore = (new Resource('recipients', '*', ['address'])).getStore();
 		$scope.completeAttendees = function (input) {
 			var deferred = $q.defer();
 			addressStore.load({searchQuery: input}).then(function () {

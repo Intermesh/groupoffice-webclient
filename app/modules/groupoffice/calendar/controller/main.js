@@ -64,8 +64,8 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				$scope.writableCalendars = [];
 				for(var a in this.items) {
 					var account = this.items[a];
-					if(account.id == App.currentUser.group.id) {
-						$scope.currentAccount = account;
+					if(account.id == $scope.account.id) {
+						$scope.account = account;
 					}
 					for(var c in account.calendars) {
 						var cal = account.calendars[c];

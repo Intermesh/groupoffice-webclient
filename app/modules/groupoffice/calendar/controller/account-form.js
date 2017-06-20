@@ -32,6 +32,7 @@ GO.module('GO.Modules.GroupOffice.Calendar').
 				$scope.current.delete().then(function() {
 					$mdSidenav('calendar').close();
 					$scope.$parent.accountStore.reload();
+
 				});
 			};
 			$scope.escape = function() {

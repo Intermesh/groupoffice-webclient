@@ -13,7 +13,7 @@
     "gulp-angular-filesort": "^1.1.1",
     "gulp-angular-templatecache": "^1.6.0",
     "gulp-autoprefixer": "^2.3.0",
-    "gulp-clean-css": "^2.0.11",
+    "gulp-clean-css": "^2.4.0",
     "gulp-concat": "^2.5.2",
     "gulp-inject": "^1.2.0",
     "gulp-minify-html": "^1.0.2",
@@ -22,9 +22,9 @@
     "gulp-sass": "^2.0.1",
     "gulp-sass-glob": "^0.0.8",
     "gulp-shell": "^0.4.2",
-    "gulp-sourcemaps": "^1.5.2",
+    "gulp-sourcemaps": "^1.12.0",
     "gulp-uglify": "^1.2.0",
-    "gulp-usemin": "^0.3.11",
+    "gulp-usemin": "^0.3.28",
     "jsdoc": "^3.3.0-alpha11"
   },
   "scripts": {
@@ -32,6 +32,6 @@
   },
   "dependencies": {
     "chartist-plugin-legend": "^0.6.1",
-    "gulp-debug": "^3.0.0"
+    "gulp-debug": "^3.1.0"
   }
 }

@@ -35,6 +35,15 @@ md-tooltip .md-content {
 		margin: 2.5 * $baseline-grid 0;
 	}
 }
+
+go-multiple {
+	.layout-row:not(.md-input-container-wrapper) {
+		>md-input-container + .md-button {
+			margin: 8px 0;
+		}
+	}
+}
+
 .add-group-persmission-ac md-input-container {
 	margin:0;
 }

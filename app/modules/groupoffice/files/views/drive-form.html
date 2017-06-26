@@ -16,15 +16,12 @@
 			<md-tabs md-stretch-tabs="always" md-dynamic-height md-border-bottom>
 				<md-tab label="Home">
 					<md-content class="md-padding">
-						<div layout="row" layout-align="start start">
-							<div style="margin-top:16px;"><md-icon>storage</md-icon></div>
-							<div flex>
-								<md-input-container md-no-float>
-									<label>Name</label>
-									<input ng-readonly="!drive.isNew && !drive.permissions.write" ng-model="drive.name" placeholder="Drive naam" >
-								</md-input-container>
-							</div>
-						</div>
+						<md-input-container>
+							<md-icon>storage</md-icon>
+							<label>Drive naam</label>
+							<input ng-readonly="!drive.isNew && !drive.permissions.write" ng-model="drive.name" >
+						</md-input-container>
+
 						<div layout="row">
 							<md-progress-linear md-mode="determinate" value="{{drive.percentage()}}"></md-progress-linear>
 

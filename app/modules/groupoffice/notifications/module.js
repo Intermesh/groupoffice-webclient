@@ -7,6 +7,13 @@ GO.module('GO.Modules.GroupOffice.Notifications', ['GO.Core'])
 		function (App) {
 
 //			App.addLauncher('Notifications','notifications',false, {icon:'notifications'});
+
+			App.addNotificationTemplate(
+						"*", {
+							plain: {template: "<go-notification-standard on-open='open(model)' on-dismiss='dismiss(model)' model='model'>{{model.data}}</go-notification-standard>"}							
+						}
+
+		);
 			
 		}])
 	.config(['$stateProvider', function ($stateProvider) {

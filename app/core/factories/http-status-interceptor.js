@@ -92,7 +92,7 @@ angular.module('GO.Core').factory('GO.Core.Factories.HttpStatusInterceptor', [
 				if (status === 401) {
 					var $state = $injector.get('$state');
 					$state.go('login');
-				} else
+				} else if(status >= 500)
 				{
 					var msg = 'Oops, a server error occurred: ' + status;
 					if (response.data && response.data.errors) {

@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 /* Controllers */
 angular.module('GO.Modules.GroupOffice.Messages').factory('GO.Modules.GroupOffice.Messages.Model.Thread', [
 	'GO.Core.Factories.Data.Model', 

@@ -49,8 +49,9 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 				}
 			}).catch(function(response) {
 				
-				if(response.status == 503) {
-					$state.go('install');
+				if(response.status >= 500) {
+//					$state.go('install');
+					document.location = document.origin + document.pathname + 'groupoffice-installer/';
 				}
 				
 				$scope.checkingAuth = false;

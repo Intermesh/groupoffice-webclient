@@ -23,7 +23,7 @@ ob_start();
 
 
 		<link rel="shortcut icon" type="image/x-icon" ng-href="{{::shortCutIcon}}">
-		<!--<link href='//fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic' rel='stylesheet' type='text/css'>-->
+		<link href='//fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
 		<!-- build:css css/app.css -->
 		<!--<link href="../bower_components/angular-material/angular-material.css" rel="stylesheet" type="text/css"/>-->

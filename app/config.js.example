@@ -4,7 +4,7 @@ angular.module('GO')
 					//logo: 'resources/custom/some-logo.svg',
 					//shortCutIcon: 'resources/custom/icon.ico',
 					//language : 'en', //Don't set to use browser language
-					//title: 'Group Office'
+					title: 'Group Office'
 				});
 
 

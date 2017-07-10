@@ -59,7 +59,12 @@
 		<md-checkbox ng-if="model.type === 'text'" ng-model="model.data.multiline" >
 			{{"Text multiline"| goT}}
 		</md-checkbox>
-		
+
+		<md-input-container  class="md-block">
+			<label>{{"Hint text"| goT}}</label>
+			<input ng-model="model.hintText" name="hintText"  type="text" >
+		</md-input-container>
+
 		
 		<md-input-container  class="md-block" ng-if="model.type === 'text' && model.data.multiline === true">
 			<label>{{"Max length text or textarea"| goT}}</label>

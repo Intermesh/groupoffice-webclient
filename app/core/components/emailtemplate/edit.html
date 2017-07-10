@@ -40,6 +40,16 @@
 					</md-select>					
 				</md-input-container>
 
+				<md-input-container flex ng-if="model.$types">
+					<md-icon>type</md-icon>
+					<label>{{"Type"| goT}}</label>
+					<md-select name="type" ng-model="model.type" required>
+						<md-option ng-repeat="(key, name) in model.$types" value="{{::key}}">
+							{{::name | goT}}
+						</md-option>
+					</md-select>
+				</md-input-container>
+
 			</div>
 
 			<md-input-container flex>

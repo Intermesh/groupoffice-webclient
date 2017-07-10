@@ -54,6 +54,7 @@ ob_start();
 					<h1 ng-bind="appTitle"></h1>
 					<span flex></span>
 
+					<md-button ng-if="!!helpUrl" ng-click="openHelp()"><md-icon>help</md-icon></md-button>
 
 					<go-notifications-button></go-notifications-button>
 

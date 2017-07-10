@@ -2,7 +2,8 @@
 
 GO.module('GO.Core').component('goEmailTemplates', {
 	bindings: {
-		goModuleName: '@'
+		goModuleName: '@',
+		goTypes: '=' // key value object with id:name of selectable types
 	},
 	controller: [
 		'$scope',
@@ -14,7 +15,7 @@ GO.module('GO.Core').component('goEmailTemplates', {
 		function ($scope, EmailTemplate, Dialog, $state, $http, ServerAPI) {
 
 			this.$onInit = function() {
-				this.store = (new EmailTemplate(this.goModuleName)).getStore({					
+				this.store = (new EmailTemplate(this.goModuleName, this.goTypes)).getStore({
 					limit: 0
 				});
 				this.store.load();
@@ -33,10 +34,9 @@ GO.module('GO.Core').component('goEmailTemplates', {
 			this.edit = function (emailTemplate) {
 
 				if (!emailTemplate) {
-					emailTemplate = new EmailTemplate(this.goModuleName);		
+					emailTemplate = new EmailTemplate(this.goModuleName, this.goTypes);
 				}
-
-
+console.log(emailTemplate);
 				Dialog.show({
 					editModel: emailTemplate,
 					templateUrl: 'core/components/emailtemplate/edit.html',

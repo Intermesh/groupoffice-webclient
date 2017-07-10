@@ -76,6 +76,10 @@ angular.module('GO', GO.appModules.concat([
 
 		ServerAPI.setBaseUrl(Config.APIUrl);		
 		$rootScope.APIUrl = Config.APIUrl;
+		$rootScope.helpUrl = Config.helpUrl;
+		$rootScope.openHelp = function() {
+			window.open(Config.helpUrl);
+		};
 		
 		
 		

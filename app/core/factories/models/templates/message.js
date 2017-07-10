@@ -3,8 +3,8 @@
 angular.module('GO.Core').factory('GO.Core.Factories.Models.Templates.Message', [
 	'GO.Core.Factories.Data.Model',
 	function (Model) {
-		var Message = GO.extend(Model, function (moduleClassName) {
-			
+		var Message = GO.extend(Model, function (moduleClassName, types) {
+			this.$types = types;
 			this.$moduleClassName = moduleClassName;
 			
 			this.$parent.constructor.call(this, arguments);

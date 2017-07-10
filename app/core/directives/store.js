@@ -15,7 +15,8 @@ angular.module('GO.Core').
 									
 									var store = $parse(attr.store)(scope);
 									
-									if (updatedModel.getStoreRoute() === store.$storeRoute) {
+//								if (updatedModel.getStoreRoute() === store.$storeRoute) {
+									if (Object.getPrototypeOf(updatedModel) === store.$modelProto) {										
 										store.updateModel(updatedModel);
 									}
 								});

@@ -62,7 +62,8 @@ GO.module('GO.Core').component('goTagFilter', {
 
 			//this automatically updates the store when a model is updated.
 			$scope.$on('modelupdate', function (event, updatedModel) {
-				if (updatedModel.getStoreRoute() === this.store.$storeRoute) {
+//				if (updatedModel.getStoreRoute() === this.store.$storeRoute) {					
+				if (Object.getPrototypeOf(updatedModel) === this.store.$modelProto) {	
 					this.store.updateModel(updatedModel);
 				}
 			}.bind(this));

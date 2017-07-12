@@ -26,7 +26,15 @@ angular.module('GO.Modules.GroupOffice.Notifications').directive('goNotification
 						var config = scope.model;
 					}else
 					{
-						var config = App.notificationTemplates[scope.model.about.name] && App.notificationTemplates[scope.model.about.name][scope.model.type] ? App.notificationTemplates[scope.model.about.name][scope.model.type] : {template: 'missing tpl: {{model.about.name}} - {{model.type}}'};
+						var config = App.notificationTemplates[scope.model.about.name] && App.notificationTemplates[scope.model.about.name][scope.model.type] ? App.notificationTemplates[scope.model.about.name][scope.model.type] : null;
+						
+						if(!config) {
+							config = App.notificationTemplates["*"] && App.notificationTemplates["*"][scope.model.type] ? App.notificationTemplates["*"][scope.model.type] : null;
+						}
+						
+						if(!config) {
+							config = {template: 'missing tpl: {{model.about.name}} - {{model.type}}'};
+						}
 					}
 					
 					var tpl = '<div';

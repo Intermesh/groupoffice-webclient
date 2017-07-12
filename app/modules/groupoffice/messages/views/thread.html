@@ -99,7 +99,7 @@
 			<md-card-content>
 				<div class="date">{{::message.sentAt| date:"longDate"}} {{::message.sentAt| date:"shortTime"}}</div>
 
-				<div layout="row">
+				<div layout="row" layout-align="start center">
 					<div class="md-padding">												
 						<img ng-if="message.photoBlobId" alt="{{message.from.personal}}" ng-src="{{'thumb/'+message.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="go-avatar" style="width:50px;height:50px;" />
 						<img ng-if="!message.photoBlobId" alt="{{message.from.personal}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="go-avatar" style="width:50px;height:50px;" />
@@ -250,13 +250,21 @@
 					</a>
 
 				</div>
-				<div class="md-padding body" ng-bind-html='::message.body'></div>
-
-				<div class="md-padding quote" ng-if="::message.quote">
-
-					<div ng-if="message.showQuote" ng-bind-html='::message.quote'></div>
-					<a class="em-show-quote" ng-click="message.showQuote = !message.showQuote">{{::"..."| goT}}</a>
+				
+				<div layout="row" layout-align="start end">
+					<div class="md-padding body" flex>
+						<div ng-bind-html='::message.getBodyWithoutQuote()'></div>
+						<div ng-if="message.$showQuote" ng-bind-html='::message.getQuote()'></div>
+					</div>
+					<md-button ng-if="::message.getQuote()" class="md-icon-button md-accent" ng-click="message.$showQuote = !message.$showQuote">
+						<md-icon ng-if="!message.$showQuote">expand_more</md-icon>
+						<md-icon ng-if="message.$showQuote">expand_less</md-icon>
+						<md-tooltip>{{::"Toggle show quoted text" | goT}}</md-tooltip>							
+					</md-button>
+				
 				</div>
+
+			
 			</md-card-content>
 		</md-card>
 

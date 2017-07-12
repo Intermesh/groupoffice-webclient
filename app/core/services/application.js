@@ -29,7 +29,7 @@ angular.module('GO.Core').service('GO.Core.Services.Application', [
 		
 		/**
 		 * 
-		 * @param {string} ServerModelName
+		 * @param {string} ServerModelName or * for any
 		 * @param {object} config template or templateUrl and onClick
 		 * @returns {undefined}
 		 */

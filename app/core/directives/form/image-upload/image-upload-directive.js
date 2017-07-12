@@ -68,7 +68,7 @@ angular.module('GO.Core').directive('goImageUpload', [
 						scope.goDefaultUrl += '?dummy=1';
 					}
 				
-					scope.url = blob.blobId ? ServerAPI.url('thumb/' + blob.blobId, {dummy: "1"}) : scope.goDefaultUrl; //dummy param so we can add params in view easily
+					scope.url = blob && blob.blobId ? ServerAPI.url('thumb/' + blob.blobId, {dummy: "1"}) : scope.goDefaultUrl; //dummy param so we can add params in view easily
 				});
 
 			},

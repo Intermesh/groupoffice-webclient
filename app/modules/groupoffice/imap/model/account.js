@@ -106,8 +106,6 @@ angular.module('GO.Modules.GroupOffice.Imap').factory('GO.Modules.GroupOffice.Im
 				}
 			}
 			
-			console.log(attributes);
-			
 			var message = new Message();
 			message.$baseParams.accountId = this.id;
 

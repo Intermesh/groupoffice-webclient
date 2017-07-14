@@ -1,0 +1,41 @@
+angular.module("GO.Core")
+		.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
+				TranslateProvider.addTranslations("fr", 
+					{
+    "Contacts": "Personnes de contact",
+    "GO\\Modules\\GroupOffice\\Contacts\\Module": "Personnes de contact",
+    "GO\\Modules\\GroupOffice\\Contacts\\Model\\Account": "GroupOffice  Personnes de contact",
+    "First name": "Pr\u00e9nom",
+    "Middle name": "Deuxi\u00e8me pr\u00e9nom",
+    "Last name": "Nom de famille",
+    "Organization": "Organisation",
+    "Organizations": "Organisations",
+    "E-mail addresses": "Adresses e-mail",
+    "Dates": "Donn\u00e9es",
+    "No contacts found": "Pas trouv\u00e9 de contacts",
+    "Contact": "Contact",
+    "Edit profile": "Modifier profil",
+    "Activities": "Activit\u00e9s",
+    "No activities found": "Pas trouv\u00e9 d'activit\u00e9s",
+    "Street": "Rue",
+    "ZIP Code": "Code postal",
+    "State": "\u00c9tat",
+    "Add date": "Ajouter date",
+    "Gender unknown": "Sexe inconnu",
+    "Private": "Confidentiel",
+    "Share with group": "Partager avec groupe",
+    "Persons": "Personnes",
+    "Edit selection": "Modifier s\u00e9lection",
+    "Write": "\u00c9crire",
+    "Download": "T\u00e9l\u00e9charger",
+    "Import": "Importer",
+    "Debtor number": "Num\u00e9ro de d\u00e9biteur",
+    "Chamber of Commerce": "Chambre de Commerce",
+    "IBAN": "IBAN",
+    "Business details": "Donn\u00e9es de la soci\u00e9t\u00e9",
+    "URL's": "Adresses URL",
+    "VAT number": "Num\u00e9ro de TVA",
+    "Invalid e-mail address": "Adresse e-mail non valide "
+}
+				);
+			}]);

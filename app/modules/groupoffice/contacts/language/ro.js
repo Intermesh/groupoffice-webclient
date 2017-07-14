@@ -1,0 +1,41 @@
+angular.module("GO.Core")
+		.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
+				TranslateProvider.addTranslations("ro", 
+					{
+    "Contacts": "Contacte",
+    "GO\\Modules\\GroupOffice\\Contacts\\Module": "Persoane de contact",
+    "GO\\Modules\\GroupOffice\\Contacts\\Model\\Account": "Persoane de contact GroupOffice",
+    "First name": "Prenume",
+    "Middle name": "Al doilea prenume",
+    "Last name": "Nume",
+    "Organization": "Organiza\u021bia",
+    "Organizations": "Organiza\u021biile",
+    "E-mail addresses": "Adresele de e-mail",
+    "Dates": "Date",
+    "No contacts found": "Nu au fost g\u0103site contacte",
+    "Contact": "Contact",
+    "Edit profile": "Editare profil",
+    "Activities": "Activit\u0103\u021bi",
+    "No activities found": "Nicio activitate g\u0103sit\u0103",
+    "Street": "Strada",
+    "ZIP Code": "Codul po\u015ftal",
+    "State": "Statul",
+    "Add date": "Ad\u0103uga\u021bi data",
+    "Gender unknown": "Sex necunoscut",
+    "Private": "Privat",
+    "Share with group": "Distribui\u021bi \u00een grup",
+    "Persons": "Persoane",
+    "Edit selection": "Edita\u021bi selec\u021bia",
+    "Write": "Scriere",
+    "Download": "Desc\u0103rcare",
+    "Import": "Import",
+    "Debtor number": "Num\u0103r debitor",
+    "Chamber of Commerce": "Camera de Comer\u021b",
+    "IBAN": "IBAN",
+    "Business details": "Detalii de companie",
+    "URL's": "URL-uri",
+    "VAT number": "Num\u0103r TVA",
+    "Invalid e-mail address": "Adres\u0103 de e-mail nevalabil\u0103"
+}
+				);
+			}]);

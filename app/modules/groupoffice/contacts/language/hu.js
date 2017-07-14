@@ -1,0 +1,41 @@
+angular.module("GO.Core")
+		.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
+				TranslateProvider.addTranslations("hu", 
+					{
+    "Contacts": "Kapcsolat",
+    "GO\\Modules\\GroupOffice\\Contacts\\Module": "Kapcsolattart\u00f3",
+    "GO\\Modules\\GroupOffice\\Contacts\\Model\\Account": "Groupoffice Kapcsolattart\u00f3\n",
+    "First name": "Ut\u00f3n\u00e9v",
+    "Middle name": "K\u00f6z\u00e9ps\u0151 n\u00e9v",
+    "Last name": "Csal\u00e1dn\u00e9v",
+    "Organization": "Szervezet",
+    "Organizations": "Szervezetek",
+    "E-mail addresses": "E-mail c\u00edmek",
+    "Dates": "D\u00e1tumok",
+    "No contacts found": "Nem tal\u00e1lhat\u00f3 kapcsolat",
+    "Contact": "Kapcsolat",
+    "Edit profile": "Profil szerkeszt\u00e9se",
+    "Activities": "Tev\u00e9kenys\u00e9gek",
+    "No activities found": "Nem tal\u00e1lhat\u00f3k tev\u00e9kenys\u00e9gek",
+    "Street": "Utca",
+    "ZIP Code": "Ir\u00e1ny\u00edt\u00f3sz\u00e1m",
+    "State": "\u00c1llam",
+    "Add date": "D\u00e1tum hozz\u00e1ad\u00e1sa",
+    "Gender unknown": "Neme ismeretlen",
+    "Private": "Priv\u00e1t",
+    "Share with group": "Megoszt\u00e1s csoporttal",
+    "Persons": "Szem\u00e9lyek",
+    "Edit selection": "Kiv\u00e1lasztott szerkeszt\u00e9se",
+    "Write": "\u00cdr\u00e1s",
+    "Download": "Let\u00f6lt\u00e9s",
+    "Import": "Import\u00e1l\u00e1s",
+    "Debtor number": "K\u00f6telezett sz\u00e1ma",
+    "Chamber of Commerce": "Kereskedelmi Kamara",
+    "IBAN": "IBAN",
+    "Business details": "V\u00e1llalkoz\u00e1s adatai",
+    "URL's": "URL",
+    "VAT number": "Ad\u00f3sz\u00e1m",
+    "Invalid e-mail address": "\u00c9rv\u00e9nytelen e-mail c\u00edm."
+}
+				);
+			}]);

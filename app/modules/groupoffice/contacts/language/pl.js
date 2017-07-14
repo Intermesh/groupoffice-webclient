@@ -1,0 +1,41 @@
+angular.module("GO.Core")
+		.config(["GO.Core.Providers.TranslateProvider", function (TranslateProvider) {
+				TranslateProvider.addTranslations("pl", 
+					{
+    "Contacts": "Osoby do kontaktu",
+    "GO\\Modules\\GroupOffice\\Contacts\\Module": "Osoby do kontaktu",
+    "GO\\Modules\\GroupOffice\\Contacts\\Model\\Account": "Osoby do kontaktu GroupOffice",
+    "First name": "Imi\u0119",
+    "Middle name": "Przedrostek",
+    "Last name": "Nazwisko",
+    "Organization": "Organizacja",
+    "Organizations": "Organizacje",
+    "E-mail addresses": "Adresy e-mail",
+    "Dates": "Data",
+    "No contacts found": "Nie znaleziono kontakt\u00f3w",
+    "Contact": "Kontakty",
+    "Edit profile": "Edytuj profil",
+    "Activities": "Aktywno\u015bci",
+    "No activities found": "Nie znaleziono aktywno\u015bci",
+    "Street": "Ulica",
+    "ZIP Code": "Kod pocztowy",
+    "State": "Stan",
+    "Add date": "Dodaj dat\u0119",
+    "Gender unknown": "P\u0142e\u0107 nieznana",
+    "Private": "Prywatnie",
+    "Share with group": "Udost\u0119pnij w grupie",
+    "Persons": "Osoby",
+    "Edit selection": "Edytuj wybrane",
+    "Write": "Napisz",
+    "Download": "Pobierz",
+    "Import": "Importuj",
+    "Debtor number": "Numer d\u0142u\u017cnika",
+    "Chamber of Commerce": "Izba Handlowa",
+    "IBAN": "IBAN",
+    "Business details": "Szczeg\u00f3\u0142y firmy",
+    "URL's": "Adresy URL",
+    "VAT number": "Numer VAT",
+    "Invalid e-mail address": "Nieprawid\u0142owy adres e-mail"
+}
+				);
+			}]);

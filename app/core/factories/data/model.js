@@ -575,29 +575,31 @@ angular.module('GO.Core').factory('GO.Core.Factories.Data.Model', [
 								.then(function (response) {
 									var data = response.data.data;
 
-									if (!response.data.success) {
-										
+								
+
+									if (data) {
+										this.loadData(data); 											
+									}
+									$rootScope.$broadcast('modelupdate', this);
+
+									if(modifiedAttributes.tags) {
+										$rootScope.$broadcast('tagschange', this);
+									}
+
+									deferred.resolve({model: this, response: response, modifiedAttributes: modifiedAttributes});
+									
+
+								}.bind(this)).catch(function(response){
+									if(response.status === 422) {
+										var data = response.data.data;
 										if (data) {
 											//this.loadData(data, false);// do not load complete data because it may return partial data of has many relations. Only the submitted elements are returned.
 											this._loadValidationErrors(data);										
 										}
-										deferred.reject({model: this, response: response, validationErrors: data ? data.validationErrors : null});
+										//deferred.reject({model: this, response: response, validationErrors: data ? data.validationErrors : null});
 									} else {
-
-										if (data) {
-											this.loadData(data); 											
-										}
-										$rootScope.$broadcast('modelupdate', this);
-										
-										if(modifiedAttributes.tags) {
-											$rootScope.$broadcast('tagschange', this);
-										}
-
-										deferred.resolve({model: this, response: response, modifiedAttributes: modifiedAttributes});
+										deferred.reject({model: this, response: response, modifiedAttributes: modifiedAttributes});
 									}
-
-								}.bind(this)).catch(function(response){
-									deferred.reject({model: this, response: response, modifiedAttributes: modifiedAttributes});
 								}.bind(this)).finally(function(){
 									this.$busy = false;
 								}.bind(this));

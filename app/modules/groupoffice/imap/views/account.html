@@ -67,6 +67,11 @@
 				<md-input-container flex>
 					<label>{{::"Password"| goT}}</label>
 					<input type="password" name="password" ng-model="model.adaptor.password" ng-required="model.adaptor.isNew()" autocomplete="off"/>
+					
+					<div ng-messages="accountForm.password.$error" role="alert">
+					<div ng-message="required">{{"This field is required"| goT}}</div>
+					<div ng-message="10">{{"Authentication failed" | goT}}</div>					
+				</div>
 				</md-input-container>
 			</div>
 

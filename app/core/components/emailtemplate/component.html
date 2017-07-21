@@ -17,8 +17,8 @@
 			<img class="md-avatar" title="{{model.language}}" alt="{{model.language}}" ng-src="resources/flags/{{model.language}}.svg" width="20" /> 
 			
 			<div class="md-list-item-text">
-				<h3>{{model.name}}</h3>
-				<p>{{model.subject}}</p>
+				<h3>{{::model.name}} <span ng-if="::$ctrl.goTypes[model.type]">({{::$ctrl.goTypes[model.type] | goT}})</span></h3>
+				<p>{{::model.subject}}</p>
 			</div>
 			
 			<go-list-edit-button on-edit="$ctrl.edit(model)"></go-list-edit-button>

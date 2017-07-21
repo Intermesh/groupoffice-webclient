@@ -36,7 +36,6 @@ GO.module('GO.Core').component('goEmailTemplates', {
 				if (!emailTemplate) {
 					emailTemplate = new EmailTemplate(this.goModuleName, this.goTypes);
 				}
-console.log(emailTemplate);
 				Dialog.show({
 					editModel: emailTemplate,
 					templateUrl: 'core/components/emailtemplate/edit.html',

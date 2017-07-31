@@ -16,6 +16,10 @@ angular.module('GO.Core').
 					this.defaultParams = angular.fromJson(sessionStorage.defaultParams);
 					
 					this.headers = {};
+                                        
+                                        if(localStorage.accessToken) {
+                                            this.setAccessToken(localStorage.accessToken);
+                                        }
 				};
 				
 				var id =0;
@@ -73,37 +77,22 @@ angular.module('GO.Core').
 						}, options);
 				};
 				
-//				ServerAPI.prototype.setAccessToken = function(accessToken, remember) {
-//					
-//					if(accessToken) {
-//						$http.defaults.headers.common.Authorization = 'Bearer '+accessToken;		
-//					}else
-//					{
-//						delete $http.defaults.headers.common.Authorization;
-//					}
-//					
-//					$rootScope.oauth2AccessToken = sessionStorage.accessToken = accessToken;
-//
-//					if(remember) {
-//						localStorage.accessToken = data.access_token;
-//					}else
-//					{
-//						delete localStorage.accessToken;
-//					}
-//				};
+				ServerAPI.prototype.setAccessToken = function(accessToken) {					
+                                    this.headers['Authorization'] = localStorage.accessToken = 'Token '+accessToken;
+				};
 //				
-//				ServerAPI.prototype.getAccessToken = function(){					
-//					
+				ServerAPI.prototype.getAccessToken = function(){					
+					
 //					if(sessionStorage.accessToken) {
 //						return sessionStorage.accessToken;
 //					}
-//					
-//					if(localStorage.accessToken) {
-//						return localStorage.accessToken;
-//					}
-//					
-//					return null;
-//				};
+					
+					if(localStorage.accessToken) {
+						return localStorage.accessToken;
+					}
+					
+					return null;
+				};
 
 				/**
 				 * @ngdoc method

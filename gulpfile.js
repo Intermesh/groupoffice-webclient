@@ -73,8 +73,8 @@ gulp.task('template-cache', ['clean', 'sass-build'], function () {
 					.pipe(gulp.dest('app/core/'));
 });
 
-gulp.task('usemin', ['clean', 'template-cache', 'index', 'sass-build'], function () {
-	return gulp.src('app/build.html')
+gulp.task('usemin', ['clean', 'template-cache', 'index', 'copy-index', 'sass-build'], function () {
+	return gulp.src('app/index.html')
 					.pipe(usemin({
 						css: [minifyCss(), autoprefixer(), 'concat'],
 						html: [minifyHtml({empty: true})],
@@ -104,7 +104,7 @@ gulp.task('sass-build', ['clean'], function() {
 });
 
 
-gulp.task('copy-resources', ['clean', 'sass-build', "template-cache", 'index', "usemin", 'rename-index'], function () {
+gulp.task('copy-resources', ['clean', 'sass-build', "template-cache", 'index', "usemin", 'copy-index'], function () {
 
 	gulp.src(['app/**/resources/**/*.*', 'app/api.php', 'app/config.js.example'], {
 		base: 'app',
@@ -129,12 +129,12 @@ gulp.task('index', function () {
 		'./app/**/*.js'
 	], {read: false});
  
-  return target.pipe(inject(sources))
+  return target.pipe(inject(sources, {relative: true}))
     .pipe(gulp.dest('./app'));
 });
 
 
-gulp.task('removetemplates',  ['clean', 'sass-build', "template-cache", 'index', "usemin", 'rename-index', "copy-resources"], function (cb) {
+gulp.task('removetemplates',  ['clean', 'sass-build', "template-cache", 'index','copy-index', "usemin", "copy-resources"], function (cb) {
   del([
 		'app/build.html',
     'app/core/templates.js'
@@ -142,9 +142,8 @@ gulp.task('removetemplates',  ['clean', 'sass-build', "template-cache", 'index',
   ], cb);
 });
 
-gulp.task('rename-index', ['usemin'], function () {
-	gulp.src("./build/build.html")
-					.pipe(rename("index.html"))
+gulp.task('copy-index', ['index'], function () {
+	gulp.src("./app/index.html")
 					.pipe(gulp.dest("./build"));
 });
 
@@ -178,6 +177,6 @@ var gls = require('gulp-live-server');
   });
 
 
-gulp.task("build", ['clean', 'sass-build', "template-cache", 'index', "usemin", 'rename-index', "copy-resources", 'removetemplates']);
+gulp.task("build", ['clean', 'sass-build', "template-cache", 'index', "usemin", "copy-resources", 'removetemplates']);
 
 //scp -r build/* root@amadeiro.intermesh.nl:/home/govhosts/go7.group-office.com/groupoffice/

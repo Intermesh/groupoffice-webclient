@@ -72,6 +72,7 @@ angular.module('GO.Core').
 							simultaneousUploads: 4,
 							allowDuplicateUploads: true,
 							headers: {
+								"Authorization": this.getAccessToken(),
 								'X-XSRFToken' : this.getXSRFToken()
 							}
 						}, options);

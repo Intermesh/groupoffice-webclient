@@ -74,7 +74,8 @@ angular.module('GO.Core').
 				
 				ServerAPI.prototype.setAccessToken = function(accessToken) {					
 					document.cookie = "accessToken=" + accessToken + ';path=/';
-          this.headers['Authorization'] = localStorage.accessToken = 'Token '+accessToken;
+					localStorage.accessToken = accessToken;					
+          this.headers['Authorization'] = 'Token '+accessToken;
 				};
 //				
 				ServerAPI.prototype.getAccessToken = function(){					

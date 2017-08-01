@@ -40,6 +40,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 					
 					
 					CurrentUser.setProperties(response.data.data.user);
+					ServerAPI.setAccessToken(response.data.data.accessToken);
 					afterLogin();					
 
 				} else

@@ -44,13 +44,8 @@ angular.module('GO.Core').
 					return null;
 				};
 				
-				ServerAPI.prototype.setXSRFToken = function(t) {
-					this.headers['X-XSRFToken'] = t;
-				};
-				
-				ServerAPI.prototype.getXSRFToken = function() {
-					return this.headers['X-XSRFToken'];
-				};
+			
+			
 				
 				ServerAPI.prototype.setDebug = function(enabled) {
 					this.headers['X-Debug'] = enabled ? "1" : "0";
@@ -72,14 +67,14 @@ angular.module('GO.Core').
 							simultaneousUploads: 4,
 							allowDuplicateUploads: true,
 							headers: {
-								"Authorization": this.getAccessToken(),
-								'X-XSRFToken' : this.getXSRFToken()
+								"Authorization": this.getAccessToken()
 							}
 						}, options);
 				};
 				
 				ServerAPI.prototype.setAccessToken = function(accessToken) {					
-                                    this.headers['Authorization'] = localStorage.accessToken = 'Token '+accessToken;
+					document.cookie = "accessToken=" + accessToken + ';path=/';
+          this.headers['Authorization'] = localStorage.accessToken = 'Token '+accessToken;
 				};
 //				
 				ServerAPI.prototype.getAccessToken = function(){					

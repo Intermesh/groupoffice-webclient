@@ -37,8 +37,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 
 				if (response.data.success) {
 					
-					ServerAPI.setXSRFToken(response.data.data.XSRFToken);
-					$rootScope.XSRFToken = ServerAPI.getXSRFToken();
+					
 					
 					CurrentUser.setProperties(response.data.data.user);
 					afterLogin();					
@@ -75,9 +74,7 @@ angular.module('GO.Controllers').controller('GO.Controllers.LoginController', [
 
 			$http.post(url, {data: user}).then(function (response) {
 
-				ServerAPI.setXSRFToken(response.data.data.XSRFToken);
-                                ServerAPI.setAccessToken(response.data.data.accessToken);
-				$rootScope.XSRFToken = ServerAPI.getXSRFToken();
+				ServerAPI.setAccessToken(response.data.data.accessToken);
 				
 				CurrentUser.setProperties(response.data.data.user);
 				afterLogin();

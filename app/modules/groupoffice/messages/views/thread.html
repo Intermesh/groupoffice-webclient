@@ -245,7 +245,7 @@
 				</div>
 
 				<div ng-if="::message.attachments.length" class="md-padding em-attachments">
-					<a ng-if="::!attachment.contentId" ng-repeat="attachment in ::message.attachments" href="{{::attachment.url}}?XSRFToken={{XSRFToken}}" target="_blank">
+					<a ng-if="::!attachment.contentId" ng-repeat="attachment in ::message.attachments" href="{{::attachment.url}}" target="_blank">
 						<md-icon>attach_file</md-icon>&nbsp;{{attachment.name}}
 					</a>
 

@@ -41,7 +41,6 @@ angular.module('GO.Core').directive('goImageUpload', [
 
 				element.addClass('go-image-upload');
 
-				scope.XSRFToken = ServerAPI.getXSRFToken();
 
 				scope.uploadSuccess = function ($file, $message) {
 					var data = angular.fromJson($message);

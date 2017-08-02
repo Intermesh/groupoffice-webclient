@@ -21,6 +21,7 @@ angular.module('GO.Core').directive('goDatePicker', [
 			require: "ngModel",
 			scope: {
 				label: '@',
+				hint: '@',
 //				ngModel: '=',
 				ngRequired: '=?',
 //				enabledFields: '@'

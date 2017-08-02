@@ -7,6 +7,7 @@
 			<md-option ng-value="::null">{{::"Year"|goT}}</md-option>
 			<md-option ng-value="::yearoption" ng-repeat="yearoption in ::years">{{::yearoption}}</md-option>
 		</md-select>
+		
 	</md-input-container>
 
 	<md-input-container class="month">
@@ -31,9 +32,12 @@
 			<md-option ng-value="::null">{{::"Day"|goT}}</md-option>
 			<md-option ng-value="::dayoption" ng-repeat="dayoption in ::days">{{::dayoption}}</md-option>	
 		</md-select>
+		
 	</md-input-container>
 </div>
-<div class="md-errors-spacer" style="min-height: 18px;"></div>
+<div class="md-errors-spacer" style="min-height: 18px; padding-left: 36px;">
+	<md-hint ng-if="hint">{{::hint}}</md-hint>
+</div>
 <div class="ng-messages" ng-messages="ngModel.$error" role="alert">
 	<div ng-message="required">{{::"This field is required"| goT}}</div>
 </div>

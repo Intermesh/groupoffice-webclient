@@ -63,7 +63,8 @@ ob_start();
 						<md-tooltip>{{::"Settings"| goT}}</md-tooltip>
 					</md-button>
 
-					<md-button class="md-icon-button" ng-click="user.logout();">
+					<md-button ng-click="user.logout();">
+						{{user.username}}
 						<md-icon aria-label="Logout">exit_to_app</md-icon>
 						<md-tooltip>{{::"Logout"| goT}}</md-tooltip>
 					</md-button>

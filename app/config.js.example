@@ -1,6 +1,7 @@
 angular.module('GO')
 				.constant('GO.Config', {
 					APIUrl: 'groupoffice-server/public/index.php',
+				// helpUrl: 'http://www.group-office.com',
 					//logo: 'resources/custom/some-logo.svg',
 					//shortCutIcon: 'resources/custom/icon.ico',
 					//language : 'en', //Don't set to use browser language

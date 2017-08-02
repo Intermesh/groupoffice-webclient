@@ -105,8 +105,7 @@ angular.module('GO.Core').directive('goCustomFieldsEdit', [
 			},
 
 			date: function (field) {
-				return '<go-date-picker id="cf_{{field.id}}" name="dateOfBirth" label="' + field.name + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '"></go-date-picker>\
-					<md-hint>{{::"'+field.hintText+'" | goT}}</md-hint>';
+				return '<go-date-picker id="cf_{{field.id}}" name="dateOfBirth" hint="{{::\''+field.hintText+'\' | goT }}" label="' + field.name + '" ng-model="goModel[\'' + field.databaseName + '\']" ng-required="' + (field.required ? 'true' : 'false') + '"></go-date-picker>';
 			},
 			number: function (field) {
 				return '<md-input-container class="md-block">\

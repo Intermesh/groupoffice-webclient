@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-
+var inject = require('gulp-inject');
 
 //gulp.task('index', function () {
 //  var target = gulp.src('./app/index.html');
@@ -73,8 +73,8 @@ gulp.task('template-cache', ['clean', 'sass-build'], function () {
 					.pipe(gulp.dest('app/core/'));
 });
 
-gulp.task('usemin', ['clean', 'template-cache', 'index', 'sass-build'], function () {
-	return gulp.src('app/build.html')
+gulp.task('usemin', ['clean', 'template-cache', 'index', 'copy-index', 'sass-build'], function () {
+	return gulp.src('app/index.html')
 					.pipe(usemin({
 						css: [minifyCss(), autoprefixer(), 'concat'],
 						html: [minifyHtml({empty: true})],
@@ -104,7 +104,7 @@ gulp.task('sass-build', ['clean'], function() {
 });
 
 
-gulp.task('copy-resources', ['clean', 'sass-build', "template-cache", 'index', "usemin", 'rename-index'], function () {
+gulp.task('copy-resources', ['clean', 'sass-build', "template-cache", 'index', "usemin", 'copy-index'], function () {
 
 	gulp.src(['app/**/resources/**/*.*', 'app/api.php', 'app/config.js.example'], {
 		base: 'app',
@@ -113,12 +113,28 @@ gulp.task('copy-resources', ['clean', 'sass-build', "template-cache", 'index', "
 
 });
 
-gulp.task('index', ['template-cache'], shell.task([
-  'php app/index.php build'
-]));
+//gulp.task('index', ['template-cache'], shell.task([
+//  'php app/index.php build'
+//]));
 
 
-gulp.task('removetemplates',  ['clean', 'sass-build', "template-cache", 'index', "usemin", 'rename-index', "copy-resources"], function (cb) {
+ 
+gulp.task('index', function () {
+  var target = gulp.src('./app/index.html');
+  // It's not necessary to read the files (will speed up things), we're only after their paths: 
+  var sources = gulp.src([
+		'!./app/app.js',
+		'!./app/config.js',
+		'!./app/core/go.js',
+		'./app/**/*.js'
+	], {read: false});
+ 
+  return target.pipe(inject(sources, {relative: true}))
+    .pipe(gulp.dest('./app'));
+});
+
+
+gulp.task('removetemplates',  ['clean', 'sass-build', "template-cache", 'index','copy-index', "usemin", "copy-resources"], function (cb) {
   del([
 		'app/build.html',
     'app/core/templates.js'
@@ -126,13 +142,41 @@ gulp.task('removetemplates',  ['clean', 'sass-build', "template-cache", 'index',
   ], cb);
 });
 
-gulp.task('rename-index', ['usemin'], function () {
-	gulp.src("./build/build.html")
-					.pipe(rename("index.html"))
+gulp.task('copy-index', ['index'], function () {
+	gulp.src("./app/index.html")
 					.pipe(gulp.dest("./build"));
 });
 
 
-gulp.task("build", ['clean', 'sass-build', "template-cache", 'index', "usemin", 'rename-index', "copy-resources", 'removetemplates']);
+var gls = require('gulp-live-server');
+  gulp.task('serve', function() {
+    //1. serve with default settings 
+    var server = gls.static('.'); //equals to gls.static('public', 3000); 
+    server.start();
+		
+		
+		gulp.watch('./app/**/*.scss', function (file) {
+			
+			
+			gulp.src('./app/scss/app.scss')
+					.pipe(sassGlob())
+					.pipe(sass().on('error', sass.logError))
+					.pipe(gulp.dest('./app/css'))
+					.on('end', function(){
+						server.notify.apply(server, [file]);
+					});
+			
+			
+		});
+		
+  
+    //use gulp.watch to trigger server actions(notify, start or stop) 
+    gulp.watch(['app/**/*.js'], function (file) {
+      server.notify.apply(server, [file]);
+    });
+  });
+
+
+gulp.task("build", ['clean', 'sass-build', "template-cache", 'index', "usemin", "copy-resources", 'removetemplates']);
 
 //scp -r build/* root@amadeiro.intermesh.nl:/home/govhosts/go7.group-office.com/groupoffice/

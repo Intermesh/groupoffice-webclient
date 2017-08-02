@@ -16,6 +16,10 @@ angular.module('GO.Core').
 					this.defaultParams = angular.fromJson(sessionStorage.defaultParams);
 					
 					this.headers = {};
+                                        
+                                        if(localStorage.accessToken) {
+                                            this.setAccessToken(localStorage.accessToken);
+                                        }
 				};
 				
 				var id =0;
@@ -40,13 +44,8 @@ angular.module('GO.Core').
 					return null;
 				};
 				
-				ServerAPI.prototype.setXSRFToken = function(t) {
-					this.headers['X-XSRFToken'] = t;
-				};
-				
-				ServerAPI.prototype.getXSRFToken = function() {
-					return this.headers['X-XSRFToken'];
-				};
+			
+			
 				
 				ServerAPI.prototype.setDebug = function(enabled) {
 					this.headers['X-Debug'] = enabled ? "1" : "0";
@@ -68,42 +67,29 @@ angular.module('GO.Core').
 							simultaneousUploads: 4,
 							allowDuplicateUploads: true,
 							headers: {
-								'X-XSRFToken' : this.getXSRFToken()
+								"Authorization": this.getAccessToken()
 							}
 						}, options);
 				};
 				
-//				ServerAPI.prototype.setAccessToken = function(accessToken, remember) {
-//					
-//					if(accessToken) {
-//						$http.defaults.headers.common.Authorization = 'Bearer '+accessToken;		
-//					}else
-//					{
-//						delete $http.defaults.headers.common.Authorization;
-//					}
-//					
-//					$rootScope.oauth2AccessToken = sessionStorage.accessToken = accessToken;
-//
-//					if(remember) {
-//						localStorage.accessToken = data.access_token;
-//					}else
-//					{
-//						delete localStorage.accessToken;
-//					}
-//				};
+				ServerAPI.prototype.setAccessToken = function(accessToken) {					
+					document.cookie = "accessToken=" + accessToken + ';path=/';
+					localStorage.accessToken = accessToken;					
+          this.headers['Authorization'] = 'Token '+accessToken;
+				};
 //				
-//				ServerAPI.prototype.getAccessToken = function(){					
-//					
+				ServerAPI.prototype.getAccessToken = function(){					
+					
 //					if(sessionStorage.accessToken) {
 //						return sessionStorage.accessToken;
 //					}
-//					
-//					if(localStorage.accessToken) {
-//						return localStorage.accessToken;
-//					}
-//					
-//					return null;
-//				};
+					
+					if(localStorage.accessToken) {
+						return localStorage.accessToken;
+					}
+					
+					return null;
+				};
 
 				/**
 				 * @ngdoc method

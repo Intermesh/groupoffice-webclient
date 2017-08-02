@@ -9,7 +9,7 @@
 	<md-menu md-position-mode="target">
 		<md-button aria-label="{{::'More options'| goT}}" ng-click="$mdOpenMenu($event)">
 			<div md-menu-origin class="img-container" data-flow-drop style="width:{{thumbWidth}}px;height:{{thumbHeight}}px">			
-				<img ng-if="url" ng-src="{{url}}&amp;w={{thumbWidth}}&amp;h={{thumbHeight}}&amp;zoomCrop=1&amp;XSRFToken={{XSRFToken}}" style="width:{{thumbWidth}}px;height:{{thumbHeight}}px" />
+				<img ng-if="url" ng-src="{{url}}&amp;w={{thumbWidth}}&amp;h={{thumbHeight}}&amp;zoomCrop=1&amp" stXSRFyle="width:{{thumbWidth}}px;height:{{thumbHeight}}px" />
 			</div>
 
 			<md-progress-linear md-mode="determinate" ng-if="$flow.files[0]" value="$flow.files[0].progress()*100"></md-progress-linear>		

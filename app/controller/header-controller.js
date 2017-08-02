@@ -25,14 +25,6 @@ angular.module('GO.Controllers').controller('GO.Controllers.HeaderController', [
 	function ($scope, $rootScope, $http, ServerAPI, $state, $mdToast, $mdSidenav, $location, $anchorScroll, CurrentUser, Translate, Dispatcher, $filter, Config, AccountSync, $mdPanel, $timeout) {
 
 		
-//		var setXSRFToken = function () {
-//			var XSRFToken = ServerAPI.getXSRFToken();
-//
-//			if (XSRFToken) {
-//				$http.defaults.headers.common['X-XSRFToken'] = XSRFToken;
-//				$rootScope.XSRFToken = XSRFToken;
-//			}
-//		};
 
 		$scope.showLaunchpad = false;
 
@@ -43,7 +35,6 @@ angular.module('GO.Controllers').controller('GO.Controllers.HeaderController', [
 		$scope.user = CurrentUser;
 
 		
-//		setXSRFToken();
 
 		//Authenticate				
 		

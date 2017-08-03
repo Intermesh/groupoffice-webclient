@@ -46,6 +46,7 @@ var rename = require("gulp-rename");
 var sass = require('gulp-sass');
 var sassGlob = require('gulp-sass-glob');
 var sourcemaps = require('gulp-sourcemaps');
+var file = require('gulp-file');
 
 gulp.task('sass', function () {
 	gulp.src('./app/scss/app.scss')
@@ -135,9 +136,11 @@ gulp.task('index', ['template-cache'], function () {
 
 
 gulp.task('removetemplates',  ['clean', 'sass-build', "template-cache", 'index','copy-index', "usemin", "copy-resources"], function (cb) {
-  del([
-    'app/core/templates.js'		
-  ], cb);
+//  del([
+//    'app/core/templates.js'		
+//  ], cb);
+
+	file('templates.js', "//Used at build to cache html templates in js", { src: true }).pipe(gulp.dest('app/core/'));
 });
 
 gulp.task('copy-index', ['index'], function () {

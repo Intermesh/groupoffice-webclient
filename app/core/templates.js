@@ -1,0 +1,1 @@
+//Used at build to cache html templates in js

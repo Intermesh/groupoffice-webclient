@@ -119,7 +119,7 @@ gulp.task('copy-resources', ['clean', 'sass-build', "template-cache", 'index', "
 
 
  
-gulp.task('index', function () {
+gulp.task('index', ['template-cache'], function () {
   var target = gulp.src('./app/index.html');
   // It's not necessary to read the files (will speed up things), we're only after their paths: 
   var sources = gulp.src([
@@ -136,9 +136,7 @@ gulp.task('index', function () {
 
 gulp.task('removetemplates',  ['clean', 'sass-build', "template-cache", 'index','copy-index', "usemin", "copy-resources"], function (cb) {
   del([
-		'app/build.html',
-    'app/core/templates.js'
-		
+    'app/core/templates.js'		
   ], cb);
 });
 

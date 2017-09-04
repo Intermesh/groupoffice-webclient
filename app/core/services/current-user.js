@@ -13,7 +13,8 @@ angular.module('GO.Core').service('GO.Core.Services.CurrentUser', [
 	"GO.Core.Services.ServerAPI",
 	"$q",
 	"$http",
-	function (ServerAPI, $q, $http) {
+	"$rootScope",
+	function (ServerAPI, $q, $http, $rootScope) {
 
 		var CurrentUser = function () {
 			this.authenticated = $q.defer();
@@ -60,6 +61,23 @@ angular.module('GO.Core').service('GO.Core.Services.CurrentUser', [
 				//make sure page is cleared
 				document.location = "";
 			});
+		};
+		
+		CurrentUser.prototype.login = function(username, password) {
+				
+			//We set the base Group-Office URL given from the form.
+//			ServerAPI.setBaseUrl($scope.config.url);
+
+			var url = ServerAPI.url('auth', {returnProperties: '*,user[*]'});
+
+			return $http.post(url, {data: {username: username, password: password} }).then(function (result) {
+
+				$rootScope.loggedIn = true;
+				this.setProperties(result.data.data.user);
+				
+				ServerAPI.setAccessToken(result.data.data.accessToken);
+				return result;
+			}.bind(this));
 		};
 
 

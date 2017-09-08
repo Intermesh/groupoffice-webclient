@@ -15,7 +15,10 @@ angular.module("GO.Core")
     "Invalid e-mail address": "Ung\u00fcltige E-Mail-Adresse",
     "Port": "Tor",
     "Outgoing server": "Ausgangsserver",
-    "Send": "Versenden"
+    "Send": "Versenden",
+    "Could not connect to server": "Could not connect to server",
+    "Authentication failed": "Authentication failed",
+    "SMTP account": "SMTP account"
 }
 				);
 			}]);

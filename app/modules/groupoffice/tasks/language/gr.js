@@ -23,7 +23,11 @@ angular.module("GO.Core")
     "Address Country": "\u0394\u03b9\u03b5\u03cd\u03b8\u03c5\u03bd\u03c3\u03b7 \u03c7\u03ce\u03c1\u03b1\u03c2",
     "Debtor terms": "\u038c\u03c1\u03bf\u03b9 \u03bf\u03c6\u03b5\u03b9\u03bb\u03ad\u03c4\u03b7",
     "Query": "\u0395\u03c1\u03ce\u03c4\u03b7\u03bc\u03b1",
-    "Tasks": "\u0395\u03c1\u03b3\u03b1\u03c3\u03af\u03b5\u03c2"
+    "Tasks": "\u0395\u03c1\u03b3\u03b1\u03c3\u03af\u03b5\u03c2",
+    "All statuses": "All statuses",
+    "All assignees": "All assignees",
+    "Unassigned": "Unassigned",
+    "Clear": "Clear"
 }
 				);
 			}]);

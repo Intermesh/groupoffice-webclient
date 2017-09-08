@@ -20,7 +20,8 @@ angular.module("GO.Core")
     "Edit contact": "Edita\u0163i contactul",
     "logins": "autentific\u0103ri",
     "Login count": "Num\u0103r autentific\u0103ri",
-    "Users": "Utilizatori"
+    "Users": "Utilizatori",
+    "Clear": "Clear"
 }
 				);
 			}]);

@@ -16,7 +16,8 @@ angular.module("GO.Core")
     "Signatures": "Al\u00e1\u00edr\u00e1sok",
     "Invalid e-mail address": "\u00c9rv\u00e9nytelen e-mail c\u00edm.",
     "Could not connect to server": "Nem siker\u00fclt kapcsol\u00f3dni a szerverhez",
-    "SMTP account": "SMTP fi\u00f3k"
+    "SMTP account": "SMTP fi\u00f3k",
+    "Authentication failed": "Authentication failed"
 }
 				);
 			}]);

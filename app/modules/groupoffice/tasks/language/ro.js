@@ -23,7 +23,11 @@ angular.module("GO.Core")
     "Address Country": "\u021aara adresei",
     "Debtor terms": "Termeni debitor",
     "Query": "\u00centrebare",
-    "Tasks": "Sarcini"
+    "Tasks": "Sarcini",
+    "All statuses": "All statuses",
+    "All assignees": "All assignees",
+    "Unassigned": "Unassigned",
+    "Clear": "Clear"
 }
 				);
 			}]);

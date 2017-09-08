@@ -23,7 +23,11 @@ angular.module("GO.Core")
     "Address Country": "Kraj adresu",
     "Debtor terms": "Warunki d\u0142u\u017cnika",
     "Query": "Pytanie",
-    "Tasks": "Zadanie"
+    "Tasks": "Zadanie",
+    "All statuses": "All statuses",
+    "All assignees": "All assignees",
+    "Unassigned": "Unassigned",
+    "Clear": "Clear"
 }
 				);
 			}]);

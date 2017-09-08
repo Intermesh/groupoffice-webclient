@@ -20,7 +20,8 @@ angular.module("GO.Core")
     "Edit contact": "Modifier contact",
     "logins": "Connexions",
     "Login count": "Nombre de connexions",
-    "Users": "Utilisateurs"
+    "Users": "Utilisateurs",
+    "Clear": "Clear"
 }
 				);
 			}]);

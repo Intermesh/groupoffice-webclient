@@ -20,7 +20,8 @@ angular.module("GO.Core")
     "Edit contact": "Kapcsolattart\u00f3 szerkeszt\u00e9se",
     "logins": "bejelentkez\u00e9s",
     "Login count": "Bejelentkez\u00e9s-sz\u00e1ml\u00e1l\u00f3",
-    "Users": "Felhaszn\u00e1l\u00f3k"
+    "Users": "Felhaszn\u00e1l\u00f3k",
+    "Clear": "Clear"
 }
 				);
 			}]);

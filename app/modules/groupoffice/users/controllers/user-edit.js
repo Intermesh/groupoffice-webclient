@@ -11,7 +11,7 @@ GO.module('GO.Modules.GroupOffice.Users').controller('GO.Modules.GroupOffice.Use
 		$scope.save = function () {
 			GO.markArrayDeleted(['id'], $scope.model.$oldAttributes.groups, $scope.model.groups);
 			return origSave.call(this);
-		};
+		};		
 
 		var groupStore = new Group().getStore();
 
@@ -31,7 +31,4 @@ GO.module('GO.Modules.GroupOffice.Users').controller('GO.Modules.GroupOffice.Use
 			return chip;
 		};
 		
-		$scope.filterGroups = function(group) {
-			return group.id != 2;// && group.userId != $scope.model.id;
-		};
 	}]);

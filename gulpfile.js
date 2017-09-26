@@ -107,7 +107,7 @@ gulp.task('sass-build', ['clean'], function() {
 
 gulp.task('copy-resources', ['clean', 'sass-build', "template-cache", 'index', "usemin", 'copy-index'], function () {
 
-	gulp.src(['app/**/resources/**/*.*', 'app/config.js.example'], {
+	gulp.src(['app/**/resources/**/*.*', 'app/config.js.example', 'app/config.php'], {
 		base: 'app',
 		follow: true
 	}).pipe(gulp.dest('build/'));

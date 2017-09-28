@@ -20,7 +20,8 @@ angular.module("GO.Core")
     "Edit contact": "Edytuj kontakt",
     "logins": "logowania",
     "Login count": "Licznik logowa\u0144",
-    "Users": "U\u017cytkownicy"
+    "Users": "U\u017cytkownicy",
+    "Clear": "Clear"
 }
 				);
 			}]);

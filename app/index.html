@@ -118,11 +118,10 @@
   <script src="controller/settings-controller.js"></script>
   <script src="core/0-init.js"></script>
   <script src="core/templates.js"></script>
+  <script src="core/extensions/date-object.js"></script>
   <script src="core/directives/hook-directive.js"></script>
   <script src="core/directives/infinite-scroll-directive.js"></script>
   <script src="core/directives/store.js"></script>
-  <script src="core/extensions/date-object.js"></script>
-  <script src="core/factories/http-status-interceptor.js"></script>
   <script src="core/filters/age-filter.js"></script>
   <script src="core/filters/api-url.js"></script>
   <script src="core/filters/boolean-filter.js"></script>
@@ -131,6 +130,7 @@
   <script src="core/filters/encode-uri-component-filter.js"></script>
   <script src="core/filters/nl2br-filter.js"></script>
   <script src="core/filters/translate-filter.js"></script>
+  <script src="core/factories/http-status-interceptor.js"></script>
   <script src="core/language/de.js"></script>
   <script src="core/language/en.js"></script>
   <script src="core/language/fr.js"></script>
@@ -213,6 +213,7 @@
   <script src="modules/groupoffice/tasks/module.js"></script>
   <script src="modules/groupoffice/users/module.js"></script>
   <script src="modules/instructiefilm/elearning/module.js"></script>
+  <script src="modules/instructiefilm/visits/module.js"></script>
   <script src="modules/tutorial/bands/module.js"></script>
   <script src="modules/tutorial/contacts/hooks.js"></script>
   <script src="core/components/tags/display/component.js"></script>
@@ -226,11 +227,11 @@
   <script src="core/directives/form/multiple/multiple.js"></script>
   <script src="core/directives/form/number/number-directive.js"></script>
   <script src="core/directives/form/single-upload/single-upload-directive.js"></script>
+  <script src="core/directives/form/timepicker/timepicker-directive.js"></script>
   <script src="core/directives/form/wysiwyg/advanced_and_extended.js"></script>
   <script src="core/directives/form/wysiwyg/image-paster-service.js"></script>
   <script src="core/directives/form/wysiwyg/wysihtm5-override.js"></script>
   <script src="core/directives/form/wysiwyg/wysiwyg-directive.js"></script>
-  <script src="core/directives/form/timepicker/timepicker-directive.js"></script>
   <script src="core/factories/models/templates/message.js"></script>
   <script src="core/factories/models/templates/pdf.js"></script>
   <script src="modules/groupoffice/announcements/controller/announcement-controller.js"></script>
@@ -257,9 +258,6 @@
   <script src="modules/groupoffice/contacts/controller/main.js"></script>
   <script src="modules/groupoffice/contacts/controller/settings.js"></script>
   <script src="modules/groupoffice/contacts/controller/share.js"></script>
-  <script src="modules/groupoffice/contacts/model/account.js"></script>
-  <script src="modules/groupoffice/contacts/model/contact-group.js"></script>
-  <script src="modules/groupoffice/contacts/model/contact.js"></script>
   <script src="modules/groupoffice/contacts/language/de.js"></script>
   <script src="modules/groupoffice/contacts/language/en.js"></script>
   <script src="modules/groupoffice/contacts/language/fr.js"></script>
@@ -268,6 +266,9 @@
   <script src="modules/groupoffice/contacts/language/nl.js"></script>
   <script src="modules/groupoffice/contacts/language/pl.js"></script>
   <script src="modules/groupoffice/contacts/language/ro.js"></script>
+  <script src="modules/groupoffice/contacts/model/account.js"></script>
+  <script src="modules/groupoffice/contacts/model/contact-group.js"></script>
+  <script src="modules/groupoffice/contacts/model/contact.js"></script>
   <script src="modules/groupoffice/contacts/services/contact-editor-service.js"></script>
   <script src="modules/groupoffice/contacts/services/contact-labels-service.js"></script>
   <script src="modules/groupoffice/contacts/translate/en.js"></script>
@@ -425,6 +426,12 @@
   <script src="modules/instructiefilm/elearning/models/Section.js"></script>
   <script src="modules/instructiefilm/elearning/models/reminder-template.js"></script>
   <script src="modules/instructiefilm/elearning/services/elearning.js"></script>
+  <script src="modules/instructiefilm/visits/controllers/main.js"></script>
+  <script src="modules/instructiefilm/visits/controllers/scan-dialog.js"></script>
+  <script src="modules/instructiefilm/visits/controllers/send-visit.js"></script>
+  <script src="modules/instructiefilm/visits/controllers/visit-dialog.js"></script>
+  <script src="modules/instructiefilm/visits/controllers/visit.js"></script>
+  <script src="modules/instructiefilm/visits/models/Visit.js"></script>
   <script src="modules/tutorial/bands/controller/band-edit.js"></script>
   <script src="modules/tutorial/bands/controller/band.js"></script>
   <script src="modules/tutorial/bands/controller/main.js"></script>
@@ -479,13 +486,6 @@
   <script src="modules/instructiefilm/elearning/language/customfields/nl.js"></script>
   <script src="modules/instructiefilm/elearning/language/customfields/pl.js"></script>
   <script src="modules/instructiefilm/elearning/language/customfields/ro.js"></script>
-  <script src="modules/instructiefilm/visits/module.js" type="text/javascript"></script>
-  <script src="modules/instructiefilm/visits/controllers/scan-dialog.js" type="text/javascript"></script>
-  <script src="modules/instructiefilm/visits/controllers/visit-dialog.js" type="text/javascript"></script>
-  <script src="modules/instructiefilm/visits/controllers/visit.js" type="text/javascript"></script>
-  <script src="modules/instructiefilm/visits/controllers/send-visit.js" type="text/javascript"></script>
-  <script src="modules/instructiefilm/visits/models/Visit.js" type="text/javascript"></script>
-  <script src="modules/instructiefilm/visits/controllers/main.js" type="text/javascript"></script>
   <!-- endinject -->
 	
 	<script src="./app.js"></script>

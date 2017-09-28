@@ -20,7 +20,8 @@ angular.module("GO.Core")
     "Edit contact": "Bewerk contact",
     "logins": "logins",
     "Login count": "Login telling",
-    "Users": "Gebruikers"
+    "Users": "Gebruikers",
+    "Clear": "Clear"
 }
 				);
 			}]);

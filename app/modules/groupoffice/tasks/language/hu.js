@@ -23,7 +23,11 @@ angular.module("GO.Core")
     "Address Country": "C\u00edm (orsz\u00e1g)",
     "Debtor terms": "K\u00f6telezett felt\u00e9telei",
     "Query": "K\u00e9rd\u00e9s",
-    "Tasks": "Feladatok"
+    "Tasks": "Feladatok",
+    "All statuses": "All statuses",
+    "All assignees": "All assignees",
+    "Unassigned": "Unassigned",
+    "Clear": "Clear"
 }
 				);
 			}]);

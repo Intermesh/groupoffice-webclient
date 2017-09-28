@@ -16,7 +16,8 @@ angular.module("GO.Core")
     "Signatures": "Semn\u0103turi",
     "Invalid e-mail address": "Adres\u0103 de e-mail nevalabil\u0103",
     "Could not connect to server": "Nu s-a putut conecta la server",
-    "SMTP account": "Cont SMTP"
+    "SMTP account": "Cont SMTP",
+    "Authentication failed": "Authentication failed"
 }
 				);
 			}]);

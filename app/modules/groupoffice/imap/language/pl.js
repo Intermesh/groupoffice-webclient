@@ -16,7 +16,8 @@ angular.module("GO.Core")
     "Signatures": "Podpisy",
     "Invalid e-mail address": "Nieprawid\u0142owy adres e-mail",
     "Could not connect to server": "Could not connect to server",
-    "SMTP account": "SMTP account"
+    "SMTP account": "SMTP account",
+    "Authentication failed": "Authentication failed"
 }
 				);
 			}]);

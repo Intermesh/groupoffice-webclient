@@ -244,7 +244,10 @@ angular.module("GO.Core")
     "Y": "Y",
     "Saturday": "Samstag",
     "Search": "Suchen",
-    "Sunday": "Sonntag"
+    "Sunday": "Sonntag",
+    "Like": "Like",
+    "Search phrase": "Search phrase",
+    "A stupid question": "A stupid question"
 }
 				);
 			}]);

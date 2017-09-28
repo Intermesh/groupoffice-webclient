@@ -32,7 +32,9 @@ angular.module("GO.Core")
     "Street": "Strasse",
     "Middle name": "Einf\u00fcgung",
     "URL's": "URLs",
-    "First name": "Vorname"
+    "First name": "Vorname",
+    "Invalid e-mail address": "Invalid e-mail address",
+    "VAT number": "VAT number"
 }
 				);
 			}]);

@@ -23,7 +23,11 @@ angular.module("GO.Core")
     "Desciption": "Beschreibung",
     "Tasks": "Aufgabe",
     "Assigned to": "Zugewiesen an",
-    "Query": "Frage"
+    "Query": "Frage",
+    "All statuses": "All statuses",
+    "All assignees": "All assignees",
+    "Unassigned": "Unassigned",
+    "Clear": "Clear"
 }
 				);
 			}]);

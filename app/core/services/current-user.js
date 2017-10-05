@@ -26,11 +26,11 @@ angular.module('GO.Core').service('GO.Core.Services.CurrentUser', [
 
 
 		CurrentUser.prototype.hasServerModule = function(name) {
-			this.getServerModule(name) !== false;
+			return this.getServerModule(name) !== false;
 		};
 		
 		
-		CurrentUser.prototype.getServerModule = function(name) {
+		CurrentUser.prototype.getServerModule = function(name) {			
 			for(var i = 0, l = this.modules.length; i < l; i++) {
 				if(this.modules[i].name === name && (this.modules[i].permissions === null  || this.modules[i].permissions.read)) {
 					return this.modules[i];

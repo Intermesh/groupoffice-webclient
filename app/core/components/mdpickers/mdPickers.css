@@ -351,7 +351,7 @@ mdp-time-picker md-input-container.md-has-icon {
   padding-left: 40px;
 }
 mdp-time-picker .md-button.md-icon-button {
-  margin: 18px 0 0 0;
+  margin: 4px 0 0 0;
 }
 .mdp-timepicker-selected-time > span,
 .mdp-timepicker-selected-ampm > span {

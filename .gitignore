@@ -9,6 +9,8 @@ build/*
 /app/config.js
 /app/resources/custom/*
 
+/app/index.html
+
 # Ignore vendor folders except the standard one
 app/modules/*
 !app/modules/groupoffice

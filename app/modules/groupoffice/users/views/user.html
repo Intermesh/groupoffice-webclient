@@ -75,7 +75,15 @@
 
 			<md-card-content>
 
-				<md-list>
+				<md-list>		
+					<md-list-item class="md-2-line">
+						<md-icon>person</md-icon>
+						<div class="md-list-item-text">
+							<h3>{{user.displayName}}</h3>
+							<p>{{::"Display name"| goT}}</p>
+						</div>
+					</md-list-item>
+
 					<md-list-item class="md-2-line">
 						<md-icon>event</md-icon>
 						<div class="md-list-item-text">

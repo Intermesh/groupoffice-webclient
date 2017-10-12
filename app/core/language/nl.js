@@ -19,6 +19,7 @@ angular.module("GO.Core")
     "Search": "Zoeken",
     "Login": "Inloggen",
     "Username": "Gebruikersnaam",
+    "Display name": "Weergave naam",
     "Password": "Wachtwoord",
     "Login to GroupOffice": "Inloggen bij GroupOffice",
     "Access denied": "Geen toegang",

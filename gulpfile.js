@@ -121,6 +121,11 @@ gulp.task('copy-resources', ['clean', 'sass-build', "template-cache", 'index', "
 
  
 gulp.task('index', ['template-cache'], function () {
+	
+	gulp.src("./app/index.tpl.html")
+					.pipe(rename('index.html'))
+					.pipe(gulp.dest("./app"));
+	
   var target = gulp.src('./app/index.html');
   // It's not necessary to read the files (will speed up things), we're only after their paths: 
   var sources = gulp.src([

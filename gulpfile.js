@@ -120,7 +120,7 @@ gulp.task('copy-resources', ['clean', 'sass-build', "template-cache", 'index', "
 
 
  
-gulp.task('index', ['template-cache'], function () {
+gulp.task('index', function () {
 	
 	gulp.src("./app/index.tpl.html")
 					.pipe(rename('index.html'))
@@ -155,11 +155,10 @@ gulp.task('copy-index', ['index'], function () {
 
 
 var gls = require('gulp-live-server');
-  gulp.task('serve', function() {
+  gulp.task('serve', ['index'], function() {
     //1. serve with default settings 
     var server = gls.static('.'); //equals to gls.static('public', 3000); 
-    server.start();
-		
+    server.start();		
 		
 		gulp.watch('./app/**/*.scss', function (file) {
 			

@@ -5,7 +5,6 @@ angular.module('GO', GO.appModules.concat([
 ])).config(['$stateProvider', '$urlRouterProvider', '$uiViewScrollProvider', function ($stateProvider, $urlRouterProvider, $uiViewScrollProvider) {
 		// For any unmatched url, redirect to /state1
 		
-		
 		$uiViewScrollProvider.useAnchorScroll();
 
 		$urlRouterProvider.when('', '/login');

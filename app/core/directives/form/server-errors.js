@@ -34,7 +34,9 @@ angular.module('GO.Core').directive('goServerErrors', ['$mdToast', 'GO.Core.Prov
 					form[key].$setValidity(code, true);
 				}
 				serverErrors = [];
-				scope.goServerErrors = null;
+				if(scope.goServerErrors) {
+					scope.goServerErrors = null;
+				}
 			});
 			
 		

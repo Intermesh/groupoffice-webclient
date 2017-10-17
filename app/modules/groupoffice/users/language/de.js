@@ -21,7 +21,8 @@ angular.module("GO.Core")
     "logout": "Abgemeldet",
     "Change password": "Passwort \u00e4ndern",
     "Switch to": "Wechseln zu",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "Display name": "Display name"
 }
 				);
 			}]);

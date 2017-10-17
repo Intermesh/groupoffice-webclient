@@ -21,7 +21,8 @@ angular.module("GO.Core")
     "logins": "autentific\u0103ri",
     "Login count": "Num\u0103r autentific\u0103ri",
     "Users": "Utilizatori",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "Display name": "Display name"
 }
 				);
 			}]);

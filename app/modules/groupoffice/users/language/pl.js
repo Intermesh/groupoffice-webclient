@@ -21,7 +21,8 @@ angular.module("GO.Core")
     "logins": "logowania",
     "Login count": "Licznik logowa\u0144",
     "Users": "U\u017cytkownicy",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "Display name": "Display name"
 }
 				);
 			}]);

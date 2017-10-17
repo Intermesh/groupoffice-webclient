@@ -21,7 +21,8 @@ angular.module("GO.Core")
     "logins": "Connexions",
     "Login count": "Nombre de connexions",
     "Users": "Utilisateurs",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "Display name": "Display name"
 }
 				);
 			}]);

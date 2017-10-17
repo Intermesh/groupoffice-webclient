@@ -21,7 +21,8 @@ angular.module("GO.Core")
     "logins": "\u03c3\u03c5\u03bd\u03b4\u03ad\u03c3\u03b5\u03b9\u03c2",
     "Login count": "\u0391\u03c1\u03b9\u03b8\u03bc\u03cc\u03c2 \u03c3\u03c5\u03bd\u03b4\u03ad\u03c3\u03b5\u03c9\u03bd",
     "Users": "\u03a7\u03c1\u03ae\u03c3\u03c4\u03b5\u03c2",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "Display name": "Display name"
 }
 				);
 			}]);

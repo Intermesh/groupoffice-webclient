@@ -21,7 +21,8 @@ angular.module("GO.Core")
     "logins": "bejelentkez\u00e9s",
     "Login count": "Bejelentkez\u00e9s-sz\u00e1ml\u00e1l\u00f3",
     "Users": "Felhaszn\u00e1l\u00f3k",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "Display name": "Display name"
 }
 				);
 			}]);

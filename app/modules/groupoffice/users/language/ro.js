@@ -5,7 +5,7 @@ angular.module("GO.Core")
     "GO\\Core\\Users\\Model\\User": "Utilizator",
     "GO\\Core\\Users\\Module": "Utilizatori",
     "userLoggedIn": "userLoggedIn",
-    "login": "Autentificare",
+    "login": "autentificare",
     "logout": "delogare",
     "Change password": "Modificare parol\u0103",
     "No users found": "Niiciun utilizator g\u0103sit",

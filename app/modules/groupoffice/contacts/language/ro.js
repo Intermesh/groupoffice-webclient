@@ -18,7 +18,7 @@ angular.module("GO.Core")
     "Activities": "Activit\u0103\u021bi",
     "No activities found": "Nicio activitate g\u0103sit\u0103",
     "Street": "Strada",
-    "ZIP Code": "Codul po\u015ftal",
+    "ZIP Code": "Codul po\u0219tal",
     "State": "Statul",
     "Add date": "Ad\u0103uga\u021bi data",
     "Gender unknown": "Sex necunoscut",

@@ -5,7 +5,7 @@ angular.module("GO.Core")
     "GO\\Core\\Users\\Model\\User": "Felhaszn\u00e1l\u00f3",
     "GO\\Core\\Users\\Module": "Felhaszn\u00e1l\u00f3k",
     "userLoggedIn": "felhaszn\u00e1l\u00f3Bejelentkezve",
-    "login": "Bejelentkez\u00e9s",
+    "login": "bejelentkez\u00e9s",
     "logout": "kijelentkez\u00e9s",
     "Change password": "Jelsz\u00f3 m\u00f3dos\u00edt\u00e1sa",
     "No users found": "Nem tal\u00e1lhat\u00f3k felhaszn\u00e1l\u00f3k",

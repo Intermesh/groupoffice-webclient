@@ -7,7 +7,7 @@ angular.module("GO.Core")
     "Log": "Logbuch",
     "Record": "Aufnahme",
     "Time": "Zeit",
-    "GO\\\\Core\\\\Users\\\\Model\\\\User": "GO\\\\Core\\\\Users\\\\Model\\\\User"
+    "GO\\\\Core\\\\Users\\\\Model\\\\User": "Benutzer"
 }
 				);
 			}]);

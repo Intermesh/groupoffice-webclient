@@ -14,7 +14,7 @@ angular.module("GO.Core")
     "E-mail address": "Adresse e-mail",
     "Sender name": "Nom de l'exp\u00e9diteur",
     "Signatures": "Signatures",
-    "Invalid e-mail address": "Adresse e-mail non valide ",
+    "Invalid e-mail address": "Adresse e-mail non valide",
     "Could not connect to server": "Impossible de se connecter au serveur",
     "SMTP account": "Compte SMTP",
     "Authentication failed": "Authentication failed"

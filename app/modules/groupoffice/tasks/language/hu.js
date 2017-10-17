@@ -17,7 +17,7 @@ angular.module("GO.Core")
     "Completed on": "Befejez\u00e9s d\u00e1tuma",
     "Not yet completed": "M\u00e9g nincs befejezve",
     "Due time": "Esed\u00e9kess\u00e9g ideje",
-    "minutes": "Perc",
+    "minutes": "perc",
     "Duration": "Id\u0151tartam",
     "Completed at": "Befejez\u00e9s ideje",
     "Address Country": "C\u00edm (orsz\u00e1g)",

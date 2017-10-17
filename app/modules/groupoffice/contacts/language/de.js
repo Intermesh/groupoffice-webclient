@@ -33,8 +33,9 @@ angular.module("GO.Core")
     "Middle name": "Einf\u00fcgung",
     "URL's": "URLs",
     "First name": "Vorname",
-    "Invalid e-mail address": "Invalid e-mail address",
-    "VAT number": "VAT number"
+    "Invalid e-mail address": "Ung\u00fcltige E-Mail-Adresse",
+    "VAT number": "MWST nummer",
+    "GO\\Modules\\GroupOffice\\Contacts\\Model\\Account": "GroupOffice Kontakte"
 }
 				);
 			}]);

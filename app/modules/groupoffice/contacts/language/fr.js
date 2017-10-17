@@ -35,7 +35,7 @@ angular.module("GO.Core")
     "Business details": "Donn\u00e9es de la soci\u00e9t\u00e9",
     "URL's": "Adresses URL",
     "VAT number": "Num\u00e9ro de TVA",
-    "Invalid e-mail address": "Adresse e-mail non valide "
+    "Invalid e-mail address": "Adresses e-mail non valides"
 }
 				);
 			}]);

@@ -17,7 +17,7 @@ angular.module("GO.Core")
     "Completed on": "Zako\u0144czono dnia",
     "Not yet completed": "Jeszcze nie zako\u0144czono",
     "Due time": "Due time",
-    "minutes": "Minuty",
+    "minutes": "minuty",
     "Duration": "Czas trwania",
     "Completed at": "Zako\u0144czono dnia",
     "Address Country": "Kraj adresu",

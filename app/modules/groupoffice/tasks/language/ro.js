@@ -17,7 +17,7 @@ angular.module("GO.Core")
     "Completed on": "Completat la",
     "Not yet completed": "\u00cenc\u0103 necompletat",
     "Due time": "Timp scadent",
-    "minutes": "Minute",
+    "minutes": "minute",
     "Duration": "Durata",
     "Completed at": "Completat la",
     "Address Country": "\u021aara adresei",

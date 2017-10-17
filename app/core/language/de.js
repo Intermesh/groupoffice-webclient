@@ -246,8 +246,18 @@ angular.module("GO.Core")
     "Search": "Suchen",
     "Sunday": "Sonntag",
     "Like": "Like",
-    "Search phrase": "Search phrase",
-    "A stupid question": "A stupid question"
+    "Search phrase": "Stichwort",
+    "A stupid question": "Eine dumme Frage",
+    "Please enter your username and password": "Geben Sie bitte Ihren Benutzernamen und Passwort ein.",
+    "Forgot password?": "Passwort vergessen?",
+    "Reset your password": "Ihr Passwort zur\u00fccksetzen",
+    "Please enter your registered e-mail address to receive a link to reset your password.": "Geben Sie Ihre registrierte E-Mail-Adresse ein, um einen Link zu erhalten, damit Sie Ihr Passwort zur\u00fccksetzen k\u00f6nnen.",
+    "Dear {{user.username}},\n\nWe received a request to reset your {title} password. To reset your password, click on the link below (or copy and paste the URL into your browser).\n\n{link}\n\nIf you didn't make this request yourself, ignore this e-mail and contact your administrator.": "Sehr geehrter {{user.username}},               wir haben eine Anfrage erhalten, Ihr Passwort zur\u00fcckzusetzen {title}. Klicken Sie auf den unten stehenden Link (oder kopieren Sie ihn in die Adressleiste des Browsers): {link}\n\nWenn diese Anforderung nicht selbst eingereicht haben, ignorieren Sie diese E-Mail und teilen Sie es Ihrem Systemverwalter mit.",
+    "The e-mail was sent to {email}.": "Diese E-Mail wurde an {email} versendet.",
+    "An error occured": "Es ist ein Fehler aufgetreten",
+    "Please create a new password": "Erstellen Sie bitte ein neues Passwort",
+    "Your password has been reset. Continue to the login screen.": "Ihr Passwort wurde zur\u00fcckgesetzt. Gehen Sie auf den Login-Bildschirm.",
+    "Owner": "Eigent\u00fcmer"
 }
 				);
 			}]);

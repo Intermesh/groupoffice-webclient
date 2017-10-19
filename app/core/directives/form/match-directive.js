@@ -26,7 +26,7 @@ angular.module('GO.Core').directive('goMatch', function () {
 		},
 		link: function (scope, elem, attrs, ctrl) {
 			scope.$watch(function () {
-				return (ctrl.$pristine && angular.isUndefined(ctrl.$modelValue)) || scope.goMatch === ctrl.$modelValue;
+				return scope.goMatch === ctrl.$modelValue;
 			}, function (currentValue) {
 				ctrl.$setValidity('goMatch', currentValue);
 			});

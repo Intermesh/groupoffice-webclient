@@ -130,7 +130,7 @@ angular.module('GO.Modules.GroupOffice.Messages').factory('GO.Modules.GroupOffic
 
 		};
 
-		Message.prototype.$returnProperties = '*,from[id,address,personal],to[id,address,personal],cc[id,address,personal],attachments,thread';
+		Message.prototype.$returnProperties = '*,from[id,address,personal],to[id,address,personal],cc[id,address,personal],bcc[id,address,personal],attachments,thread';
 
 		Message.prototype.getStoreRoute = function () {
 			return 'messages/threads/' + this.threadId + '/messages';

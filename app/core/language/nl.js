@@ -231,7 +231,7 @@ angular.module("GO.Core")
     "Subject": "Onderwerp",
     "E-mail templates": "E-mail sjablonen",
     "No e-mail templates set": "Geen e-mail sjablonen ingesteld",
-    "Preview": "Voorvertoning",
+    "Preview": "Preview",
     "By default all blocks are drawn one by one, width is 100% and height is automatic. If you need an absolute position you can set the position and dimensions.": "Standaard worden alle blokken een voor een getekend. de breedte is 100% en de hoogte wordt automatisch bepaald. Als je iets absoluut moet positioneren dan kun je de positie en dimensies invullen.",
     "Positioning": "Positionering",
     "X": "X",

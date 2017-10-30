@@ -117,7 +117,7 @@
 			</md-chips>
 
 
-			<md-chips ng-if="settings.showCc" ng-model="cc" md-autocomplete-snap md-require-match="false" md-on-add='addRecipient("cc", $chip, $index)'>
+			<md-chips ng-if="settings.showCc" ng-model="model.cc" md-autocomplete-snap md-require-match="false" md-on-add='addRecipient("cc", $chip, $index)'>
 				<md-autocomplete					
 					md-delay="500"
 					md-selected-item="selectedItem"
@@ -137,7 +137,7 @@
 				</md-chip-template>
 			</md-chips>
 
-			<md-chips ng-if="settings.showBcc" ng-model="bcc" md-autocomplete-snap md-require-match="false" md-on-add='addRecipient("bcc", $chip, $index)'>
+			<md-chips ng-if="settings.showBcc" ng-model="model.bcc" md-autocomplete-snap md-require-match="false" md-on-add='addRecipient("bcc", $chip, $index)'>
 				<md-autocomplete
 					md-delay="500"
 					md-selected-item="selectedItem"

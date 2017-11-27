@@ -1,6 +1,49 @@
 <go-hook name="users">
-	<aside>		
-		<div go-filter-collection="auth/users/filters" go-store="store"></div>			
+	<aside>	
+		
+		<md-toolbar layout="row">
+			<div class="md-toolbar-tools">
+			<div flex>{{"Groups" | goT}}</div>
+			<md-button class="md-icon-button" ng-click="editGroup()">
+				<md-icon>add</md-icon>
+			</md-button>
+			</div>
+		</md-toolbar>
+
+		<go-filter name="group" type="multiselect" go-value="filters.groups" on-change="updateFilter('groups', value)">
+
+			<go-option go-value="group.id" ng-repeat="group in groupStore.items">
+				<md-icon>star</md-icon>
+				<p>{{group.name}}</p>
+
+
+
+				<md-menu md-position-mode="target-right target" class="md-secondary">
+					<md-button aria-label="{{::'Menu'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon md-menu-origin>more_vert</md-icon>		
+					</md-button>
+					<md-menu-content>
+						<md-menu-item>
+							<md-button ng-click="editGroup(group)">
+								<md-icon>edit</md-icon>
+								{{::"Edit"| goT}}
+							</md-button>
+						</md-menu-item>		
+						
+						<md-menu-item>
+							<md-button ng-click="deleteGroup(group)">
+								<md-icon>delete</md-icon>
+								{{::"Delete"| goT}}
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</go-option>
+
+		</go-filter>
+
+
+
 	</aside>
 
 	<div class="go-cards-sm">
@@ -13,7 +56,7 @@
 						<md-icon>menu</md-icon>
 					</md-button>
 
-		
+
 					<go-search-button></go-search-button>
 
 					<go-order-button columns="{'t.username':'Username','t.lastLogin':'Last login', 't.loginCount': 'Login count'}"></go-order-button>
@@ -25,11 +68,11 @@
 			<go-list store="store">
 
 				<item index="model.username" class="md-2-line" ng-click="selectUser(model)">					
-					<img ng-if="model.photoBlobId" alt="{{model.name}}" ng-src="{{'thumb/'+model.photoBlobId | apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
+					<img ng-if="model.photoBlobId" alt="{{model.name}}" ng-src="{{'thumb/' + model.photoBlobId| apiUrl : {w:50, h: 50, zoomCrop: 1} }}" class="md-avatar" />
 					<img ng-if="!model.photoBlobId" alt="{{model.name}}" src="modules/groupoffice/contacts/resources/default-photo.png" class="md-avatar" />
 					<div class="md-list-item-text">
 						<h3>{{model.username}}</h3>
-						<p>{{"Last login" | goT}} {{model.lastLogin | date}}</p>
+						<p>{{"Last login"| goT}} {{model.lastLogin| date}}</p>
 					</div>
 				</item>
 

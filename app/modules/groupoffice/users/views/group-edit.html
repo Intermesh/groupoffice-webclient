@@ -1,0 +1,39 @@
+<form layout="column" name="userForm" go-submit="save()" go-server-errors="model.validationErrors">
+	<!--
+		<div style="height:100%" layout="column">-->
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button type="button" class="md-icon-button" ng-click="cancel()">
+				<md-tooltip>{{::"Close"| goT}}</md-tooltip>
+				<md-icon>close</md-icon>
+			</md-button>
+
+			<span flex></span>
+			<md-button type="submit" class="md-icon-button">
+				<md-tooltip>{{::"Save"| goT}}</md-tooltip>
+				<md-icon>check</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-content class="md-padding" flex>
+
+		<md-input-container class="md-block">
+			<md-icon>person</md-icon>
+			<label>{{::"Name"| goT}}</label>
+			<input ng-model="model.name" name="name" required go-autofocus>
+			<div ng-messages="userForm.name.$error" role="alert">
+				<div ng-message="required">
+					{{::"This field is required"| goT}}
+				</div>
+				<div ng-message="unique">
+					{{::"Sorry, this username is already taken." | goT}}
+				</div>
+			</div>
+			
+		</md-input-container>
+	</md-content>
+</form>
+
+
+

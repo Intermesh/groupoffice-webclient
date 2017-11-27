@@ -16,7 +16,12 @@ angular.module("GO.Core")
     "Scheduled tasks": "Geplande taken",
     "Running": "Bezig",
     "Run now": "Voer nu uit",
-    "No scheduled tasks": "Geen geplande taken"
+    "No scheduled tasks": "Geen geplande taken",
+    "Close": "Close",
+    "Save": "Save",
+    "Name": "Name",
+    "This field is required": "This field is required",
+    "Add": "Add"
 }
 				);
 			}]);

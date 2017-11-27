@@ -8,7 +8,11 @@ angular.module("GO.Core")
     "GO\\\\Core\\\\Smtp\\\\Model\\\\Account": "GO\\\\Core\\\\Smtp\\\\Model\\\\Account",
     "Hostname": "Hostname",
     "Sender name": "Name Absender",
-    "Port": "Tor"
+    "Port": "Tor",
+    "Close": "Close",
+    "Save": "Save",
+    "Username": "Username",
+    "Password": "Password"
 }
 				);
 			}]);

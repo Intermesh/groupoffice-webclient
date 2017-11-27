@@ -3,7 +3,14 @@ angular.module("GO.Core")
 				TranslateProvider.addTranslations("de", 
 					{
     "GO\\Modules\\GroupOffice\\Dav\\Model\\Account": "CardDAV Kontakte",
-    "URL": "URL"
+    "URL": "URL",
+    "Close": "Close",
+    "Save": "Save",
+    "Name": "Name",
+    "This field is required": "This field is required",
+    "Username": "Username",
+    "Password": "Password",
+    "Share": "Share"
 }
 				);
 			}]);

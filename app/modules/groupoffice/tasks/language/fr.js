@@ -27,7 +27,26 @@ angular.module("GO.Core")
     "All statuses": "All statuses",
     "All assignees": "All assignees",
     "Unassigned": "Unassigned",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "Field": "Field",
+    "Comparator": "Comparator",
+    "Equals": "Equals",
+    "Doesn't equal": "Doesn't equal",
+    "Greather than": "Greather than",
+    "Lower than": "Lower than",
+    "Add": "Add",
+    "Open side navigation": "Open side navigation",
+    "Undo delete": "Undo delete",
+    "at": "at",
+    "Info": "Info",
+    "Comments": "Comments",
+    "Edit": "Edit",
+    "Close": "Close",
+    "Save": "Save",
+    "This field is required": "This field is required",
+    "Notes": "Notes",
+    "Name": "Name",
+    "Share": "Share"
 }
 				);
 			}]);

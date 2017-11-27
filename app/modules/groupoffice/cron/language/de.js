@@ -16,7 +16,12 @@ angular.module("GO.Core")
     "Note: The expression is calculated in UTC time so please consider your timezone": "Bemerkung: die Expression ist in UTC-Zeit berechnet. Ber\u00fccksichtigen Sie Ihre Zeitzone",
     "The class name is invalid. It does not extend IFW\\Data\\Object": "Der Klassenname ist ung\u00fcltig. Er erweitert IFW \\ Daten \\ Objekt nicht",
     "Time zone": "Zeitzone",
-    "Run now": "Jetzt ausf\u00fchren"
+    "Run now": "Jetzt ausf\u00fchren",
+    "Close": "Close",
+    "Save": "Save",
+    "Name": "Name",
+    "This field is required": "This field is required",
+    "Add": "Add"
 }
 				);
 			}]);

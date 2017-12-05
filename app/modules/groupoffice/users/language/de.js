@@ -20,26 +20,8 @@ angular.module("GO.Core")
     "Sorry, this username is already taken.": "Leider ist der Benutzername bereits vergeben.",
     "logout": "Abgemeldet",
     "Change password": "Passwort \u00e4ndern",
-    "Switch to": "Wechseln zu",
-    "Clear": "Clear",
-    "Display name": "Display name",
-    "Close": "Close",
-    "Save": "Save",
-    "Username": "Username",
-    "This field is required": "This field is required",
-    "Password": "Password",
-    "Confirm password": "Confirm password",
-    "E-mail": "E-mail",
-    "Groups": "Groups",
-    "Undo delete": "Undo delete",
-    "Delete": "Delete",
-    "Info": "Info",
-    "Edit": "Edit",
-    "at": "at",
-    "Created at": "Created at",
-    "Last login": "Last login",
-    "More options": "More options",
-    "Add": "Add"
+    "Switch to": "Wechseln zu"
+    
 }
 				);
 			}]);

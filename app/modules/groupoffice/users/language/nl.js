@@ -21,25 +21,12 @@ angular.module("GO.Core")
     "logins": "logins",
     "Login count": "Login telling",
     "Users": "Gebruikers",
-    "Clear": "Clear",
-    "Close": "Close",
-    "Save": "Save",
-    "Username": "Username",
-    "This field is required": "This field is required",
-    "Password": "Password",
-    "Confirm password": "Confirm password",
+    "Clear": "Wissen",
+    "Close": "Close",   
     "E-mail": "E-mail",
-    "Display name": "Display name",
-    "Groups": "Groups",
-    "Undo delete": "Undo delete",
-    "Delete": "Delete",
-    "Info": "Info",
-    "Edit": "Edit",
-    "at": "at",
-    "Created at": "Created at",
-    "Last login": "Last login",
-    "More options": "More options",
-    "Add": "Add"
+    "Display name": "Weergave naam",
+    "Groups": "Groepen",
+    "Last login": "Laatste login"
 }
 				);
 			}]);

@@ -14,20 +14,7 @@ angular.module("GO.Core")
     "E-mail address": "E-mail adres",
     "Sender name": "Naam verzender",
     "Signatures": "Handtekeningen",
-    "Invalid e-mail address": "Ongeldig e-mail adres",
-    "Could not connect to server": "Could not connect to server",
-    "SMTP account": "SMTP account",
-    "Authentication failed": "Authentication failed",
-    "Close": "Close",
-    "Attach file": "Attach file",
-    "Subject": "Subject",
-    "More options": "More options",
-    "Save": "Save",
-    "This field is required": "This field is required",
-    "E-mail": "E-mail",
-    "Password": "Password",
-    "Username": "Username",
-    "Name": "Name"
+    "Invalid e-mail address": "Ongeldig e-mail adres"
 }
 				);
 			}]);

@@ -77,9 +77,9 @@ gulp.task('template-cache', ['clean', 'sass-build'], function () {
 gulp.task('usemin', ['clean', 'template-cache', 'index', 'copy-index', 'sass-build'], function () {
 	return gulp.src('app/index.html')
 					.pipe(usemin({
-						css: [minifyCss(), autoprefixer(), 'concat'],
+						css: [minifyCss(), autoprefixer(), rev()],
 						html: [minifyHtml({empty: true})],
-						js: [uglify().on('error', function(e){console.log(e);}), rev(), 'concat'],
+						js: [uglify().on('error', function(e){console.log(e);}), rev()],
 						//						js: ['concat'],//for debugging
 						inlinejs: [uglify()],
 						inlinecss: [minifyCss(), 'concat']

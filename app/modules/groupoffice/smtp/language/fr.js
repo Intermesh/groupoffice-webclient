@@ -8,11 +8,7 @@ angular.module("GO.Core")
     "Hostname": "Nom du Host",
     "Encryption": "Encodage",
     "None": "Aucun",
-    "Port": "Port",
-    "Close": "Close",
-    "Save": "Save",
-    "Username": "Username",
-    "Password": "Password"
+    "Port": "Port"
 }
 				);
 			}]);

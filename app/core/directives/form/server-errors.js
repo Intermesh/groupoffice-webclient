@@ -48,16 +48,27 @@ angular.module('GO.Core').directive('goServerErrors', ['$mdToast', 'GO.Core.Prov
 //						document.activeElement.blur();
 
 						scope.goSubmit({form: form});
+					} else
+					{
+						onError();
 					}
 
 					
 				});
 				
-				scope.$watch(function() {				
-					return !form.$valid && form.$submitted;
-				}, function(invalid) {
-					if(invalid) {
-						$mdToast.show($mdToast.simple().position('top center').content(Translate.t("The form contains errors. Please check your input.")));
+//				scope.$watch(function() {				
+//					return !form.$valid && form.$submitted;
+//				}, function(invalid) {
+//					if(invalid) {
+//						onError();
+//					}
+//				});
+				
+			}
+			
+			
+			var onError = function () {
+				$mdToast.show($mdToast.simple().position('top center').content(Translate.t("The form contains errors. Please check your input.")));
 						
 						if(elem[0].tagName === 'FORM') {
 								// find the first invalid element
@@ -67,9 +78,6 @@ angular.module('GO.Core').directive('goServerErrors', ['$mdToast', 'GO.Core.Prov
 									firstInvalid.focus();
 							}
 						}
-					}
-				});
-				
 			}
 			
 			scope.$watch('goServerErrors', function (e) {
@@ -81,6 +89,10 @@ angular.module('GO.Core').directive('goServerErrors', ['$mdToast', 'GO.Core.Prov
 					form[key].$setValidity(e[key].code+"", false);			//code must be string for Angular.
 					form[key].$setTouched();
 					serverErrors.push([key, e[key].code+""]);						
+				}
+				
+				if(serverErrors.length) {
+					onError();
 				}
 				
 			});

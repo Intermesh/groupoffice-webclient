@@ -66,7 +66,8 @@ angular.module('GO.Core').directive('inject', function(){
 				iconCls: '@',
 				goModels: '=',
 				goAddModel: '=?',
-				sortableOn: '@'
+				sortableOn: '@',
+				data:"=?"
 			},
 			templateUrl: "core/directives/form/multiple/multiple.html",
 			controller:['$scope', '$element', '$attrs', function(scope, element, attrs) {

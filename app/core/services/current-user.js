@@ -91,12 +91,12 @@ angular.module('GO.Core').service('GO.Core.Services.CurrentUser', [
 		 */
 		CurrentUser.prototype.forcePasswordChangePopupCheck = function(password) {
 			
-			if(!password){
-				this.logout();
-			}
-			
 
 			if(this.forcePasswordChange){
+				if(!password){
+					this.logout();
+				}
+				
 				$mdDialog.show({
 					locals: {currentPassword: password},
 					templateUrl: 'core/components/users/force-password-change.html',
